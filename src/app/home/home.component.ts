@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
     
   }
 
-  title1: string = "ვიზიტორთა\nგამოკვლევის შედეგები";
+  title1: string = "ვიზიტორთა გამოკვლევის შედეგები";
   title2: string = "სასტუმროების" + "\n" +
   "გამოკვლევის შედეგები";
   enter1: string = "გადასვლა";

@@ -1,10 +1,8 @@
 @import "../../assets/styles/colors";
 @import "../../assets/styles/media-queries";
 
-
 .header {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding: 15px 5vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,6 +29,10 @@
     color: $dark;
     display: flex;
     align-items: center;
+    line-height: normal;
+    margin: 0 !important;
+    font-variant: small-caps;
+    font-feature-settings: "case" on, "cpsp" on;
   }
   .lang__btn {
     display: flex;
@@ -62,8 +64,6 @@
     height: auto;
   }
 }
-
-
 
 // body {
 //   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
@@ -161,6 +161,3 @@
 //     z-index: 925;
 //   }
 // }
-
-
-
