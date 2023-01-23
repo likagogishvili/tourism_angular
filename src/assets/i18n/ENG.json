@@ -11,5 +11,11 @@
     "footer": {
         "title1": "Statistics Department Of Georgia",
         "title2": "© All Rights Rescerved"
+    },
+
+    "hotel": {
+        "navbar1": "Key Indicators",
+        "navbar2": "Interactive Map",
+        "navbar3": "Hotels In Georgia"
       }
 }
