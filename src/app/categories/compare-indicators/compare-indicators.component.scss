@@ -131,7 +131,6 @@
 .contForSelectBox {
   width: 100%;
   height: 133px;
-
   background: #f9fbff;
   border: 0.25px solid #2330a4;
   box-shadow: 0px 4px 35px 10px rgba(0, 0, 0, 0.05);
@@ -144,10 +143,8 @@
   font-weight: 500;
   font-size: 24px;
   line-height: 38px;
-
   font-variant: small-caps;
   font-feature-settings: "case" on;
-
   color: #3d3d3e;
 }
 
@@ -205,6 +202,10 @@
 
   color: #ffffff;
 }
+.switchButtons{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
 
 @media only screen and (min-width: 992px) and (max-width: 1265px) {
   .inRegionButton {
@@ -218,5 +219,8 @@
   }
   .descriptionOfChartColumns {
     display: none;
+  }
+  .mTopResponsive{
+    margin-top: 5%;
   }
 }

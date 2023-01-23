@@ -21,3 +21,9 @@
     @content;
   }
 }
+
+@mixin tabletAndUp {
+  @media screen and (min-width: 800px) {
+    @content;
+  }
+}

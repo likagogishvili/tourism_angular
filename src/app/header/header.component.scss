@@ -32,6 +32,10 @@
     color: $dark;
     display: flex;
     align-items: center;
+    line-height: normal;
+    margin: 0 !important;
+    font-variant: small-caps;
+    font-feature-settings: "case" on, "cpsp" on;
   }
   .lang__btn {
     display: flex;
