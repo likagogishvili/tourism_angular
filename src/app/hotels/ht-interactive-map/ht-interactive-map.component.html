@@ -1,0 +1,51 @@
+<div class="container-for-header">
+
+  <div class="col-12 row" style="width: 30%;">
+    <div class="col-2">
+      <img style="padding-top: 10px" src="assets/c-default-indicators/Calendar.png" alt=""/>
+    </div>
+    <div class="col-8 fontForSelectTitle" style="padding-left: 5px; padding-top: 10px">
+      <select style="background: url(assets/c-default-indicators/Down.png) no-repeat right transparent; width: 50%;" (change)="yearChange()" [(ngModel)]="year">
+        <option *ngFor="let data of years" value="{{ data }}">{{ data }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="col-lg-12 contForMapChart">
+    <div class="div" id="mapchart" style="height: 100%; width: 100%"></div>
+  </div>
+  <div class="col-lg-12" style="height: 150px"></div>
+
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="col-lg-12 chartForDynamicChartt" id="chartdiv"></div>
+      <div class="col-lg-12" style="height: 150px"></div>
+      <div class="col-lg-12 chartForDynamicChart" id="chartdiv2"></div>
+      <div class="col-lg-12" style="height: 150px"></div>
+    </div>
+    <div class="col-lg-4">
+      <div class="d" style="overflow: auto; height: 1161px; border-radius: 20px 20px 0px 0px; margin-right: -13px; margin-left: -15px; overflow-x: hidden;">
+        <table class="table w3-striped w3-hoverable">
+          <thead class="inputsParent">
+            <tr class="tableTitle">
+              <th class="centerTitles" scope="col" rowspan="2" style="height: 91px; background: #5c4fc9; box-shadow: 0px 4px 50px 5px rgba(0, 0, 0, 0.06); text-align: center;" (click)="sortCountryes()">ქვეყანა</th>
+              <th class="text-center centerTitles" scope="col" style="height: 91px; background: #323c95; box-shadow: 0px 4px 50px 5px rgba(0, 0, 0, 0.06);" (click)="sortDataByVisits()">ვიზიტები
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up mx-3" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
+                </svg>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="overflow-y: scroll; fontForTableContent">
+            <input class="inputForCountrySearch" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="მოძებნეთ ქვეყანა" autofocus/>
+            <tr *ngFor="let c of chartData | filter: searchText" (click)="getBigChart(c.countryName)">
+              <td style="text-align: left">{{ c.countryName }}</td>
+              <td style="text-align: center">{{ c.value }}</td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

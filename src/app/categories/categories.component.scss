@@ -1,0 +1,38 @@
+
+
+.text {
+    font-size: 16px;
+    white-space: nowrap;
+    font-family: 'FiraGO';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #929497;
+    text-align: center;
+}
+
+.text:hover {
+    color: #000000;
+    border-bottom: 5px solid #32A9FF;
+    text-align: center;
+    padding-bottom: 10px;
+
+}
+
+.act-text {
+    color: #000000;
+    border-bottom: 5px solid #32A9FF;
+    text-align: center;
+    border-spacing: 3px;
+    padding-bottom: 10px;
+}
+
+.but {
+    width: auto;
+}
+
+.color {
+    background-color: #F9FBFF;
+
+}

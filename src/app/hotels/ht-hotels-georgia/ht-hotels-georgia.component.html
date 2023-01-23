@@ -1,0 +1,152 @@
+<div class="backgroundImg bax">
+  <div class="row container-for-header">
+    <div class="col-lg-3">
+      <div class="col-lg-12 contForSelects">
+        <img
+          src="assets/ht-hotels-georgia/HotelType.png"
+          alt=""
+          style="padding-top: 30px; padding-left: 15px"
+        />
+        <div class="fontForCheckboxesTitle" style="margin-top: -17px; margin-left: 54px">სასტუმროს ტიპი</div>
+
+
+        <div class="contForHotes" style="padding-top: 30px; padding-left: 7px;">
+
+
+          <div >
+            <input type="checkbox" id="All" name="All" value=0 (change)="checkUncheckAll($event)"/>
+            <label for="All"> სულ</label><br />
+          </div>
+
+
+          <div *ngFor="let tp of hotelTypes" [(ngModel)]="hType" id="checkDiv">
+            <input type="checkbox" id="{{ tp.name }}" name="{{ tp.name }}" [checked]="tp.name == 'სასტუმრო'" value="{{ tp.value }}" (change)="addRemoveHotel()"/>
+            <label style="padding-left: 5px;" for="{{ tp.name }}">{{ tp.name }}</label>
+            <br />
+          </div>
+
+
+          <!-- <div >
+            <input type="checkbox" id="All" name="All" value=0 [checked]="true" (change)="checkUncheckAll($event)"/>
+            <label for="All"> სულ</label><br />
+          </div>
+  
+          <div *ngFor="let reg of hotelTypes" [(ngModel)]="hType" id="checkDiv">
+            <input type="checkbox" id="{{ reg.name }}" name="{{ reg.name }}" value="{{ reg.value }}" (change)="addRemoveHotel()"/>
+            <label for="{{ reg.name }}">{{ reg.name }}</label>
+            <br />
+          </div> -->
+          
+        </div>
+        
+
+
+
+        <!-- <div style="padding-left: 15px; padding-top: 20px">
+          
+          <input type="checkbox" id="apartHotel" name="apartHotel" value="apartHotel"/>
+          <label class="fontForCheckboxes" style="padding-left: 12px" for="apartHotel">აპარტოტელი</label><br />
+        </div> -->
+       
+
+        <div class="col-lg-12" style="padding-top: 30px">
+          <img src="assets/ht-hotels-georgia/Rooms.png" alt="" style="padding-left: 3px"/>
+          <div class="fontForCheckboxesTitle" style="margin-top: -15px; margin-left: 42px; white-space: nowrap">ნომრების რაოდენობა</div>
+          
+        </div>
+
+
+        
+
+
+
+        <div class="contForHotes" style="height: 40%; padding-top: 30px; padding-left: 20px;">
+
+
+          <div >
+            <input type="checkbox" id="AllRoom" name="AllRoom" value=0 (change)="checkUncheckAllRoom($event)"/>
+            <label for="AllRoom"> სულ</label><br />
+          </div>
+
+
+
+          <div *ngFor="let tp of roomsNuber" [(ngModel)]="room" id="roomkDiv">
+            <input type="checkbox" id="{{ tp.name }}" name="{{ tp.name }}" value="{{ tp.value }}" [checked]="tp.name == '6-10 ნომერი'" (change)="addRemoveRoom()"/>
+            <label style="padding-left: 5px;" for="{{ tp.name }}">{{ tp.name }}</label>
+            <br />
+          </div>
+
+          <!-- <div>
+            <input type="checkbox" id="1" name="1" value="1" [checked]="true"/>
+            <label style="padding-left: 30px" for="1">1-5 ნომერი</label>
+            <br />
+          </div>
+
+          <div>
+            <input type="checkbox" id="2" name="2" value="2" />
+            <label style="padding-left: 30px" for="2">6-10 ნომერი</label>
+            <br />
+          </div>
+
+          <div>
+            <input type="checkbox" id="3" name="3" value="3" />
+            <label style="padding-left: 30px" for="3">11-15 ნომერი</label>
+            <br />
+          </div>
+
+          <div>
+            <input type="checkbox" id="4" name="4" value="4" />
+            <label style="padding-left: 30px" for="4">16-20 ნომერი</label>
+            <br />
+          </div>
+
+          <div>
+            <input type="checkbox" id="5" name="5" value="5" />
+            <label style="padding-left: 30px" for="5">21-30 ნომერი</label>
+            <br />
+          </div>
+
+          <div>
+            <input type="checkbox" id="6" name="6" value="6" />
+            <label style="padding-left: 30px" for="6">31-50 ნომერი</label>
+            <br />
+          </div>
+
+          <div>
+            <input type="checkbox" id="7" name="7" value="7" />
+            <label style="padding-left: 30px" for="7">51-100 ნომერი</label>
+            <br />
+          </div>
+
+          <div>
+            <input type="checkbox" id="8" name="8" value="8" />
+            <label style="padding-left: 30px" for="8">101+ ნომერი</label>
+            <br />
+          </div> -->
+
+
+
+        </div>
+
+        <button type="button" class="btn btn-success" style="margin-top: 20px;" (click)="buttonClick()">მაჩვენე</button>
+
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <!-- <div class="col-lg-12 contForMap">
+        <iframe class="gisMap" style="width: 100%; height: 100%" src="https://www.google.com/maps/@41.7521011,44.8217816,11z" frameborder="0"></iframe>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFaXNvUSNlqQoqlNBgCgppWcSeYxb5kDM"></script>
+        <div class="chart"></div>
+      </div> -->
+
+      <div class="map-container">
+        <div class="map-frame">
+          <div id="map"></div>
+        </div>
+      </div>
+
+      
+    </div>
+    <div class="col-12" style="height: 137px"></div>
+  </div>
+</div>

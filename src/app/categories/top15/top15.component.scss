@@ -1,0 +1,103 @@
+.line{
+    height: 20%;
+}
+
+.ragac1{
+    width: 30%;
+    float: left;
+}
+
+.ragac2{
+    margin: 0 auto;
+    width: 40%;
+    float: right;
+}
+
+.ragac3{       
+    margin: 0 auto;
+    width: 40%; 
+}
+
+.forDropdown{
+    border-radius: 5px;
+}
+
+.ragac4{
+    width: 40%;
+    float: left;
+}
+
+
+.ragac5{
+    width: 60%;
+    float: right;
+}
+
+.lline1{
+    height: 15%;
+}
+
+.line2{
+    height: 10%;
+}
+
+.lline3{
+    height: 25%;
+}
+
+.lline4{
+    height: 25%;
+}
+
+.lline5{
+    height: 25%;
+}
+
+#chartdiv, #legenddiv {
+    width: 100%;
+    height: 80%;
+    margin: auto;
+}
+
+.contForSelectBox {
+
+    background: #f9fbff;
+    border: 0.25px solid #2330a4;
+    box-shadow: 0px 4px 35px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+}
+
+.bigTitle {
+    font-family: "FiraGO";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 38px;
+  
+    font-variant: small-caps;
+    font-feature-settings: "case" on;
+  
+    color: #3d3d3e;
+  }
+
+  .text {
+    font-size: 16px;
+    white-space: nowrap;
+    font-family: 'FiraGO';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #000000;
+    text-align: center;
+}
+
+.t10{
+    background-image: url(../../../assets/background-images/t10.png);
+
+    background-repeat: no-repeat;
+    // background-attachment: fixed;
+    background-size: 700px;
+    // background-position: center;
+    background-position: bottom 0;
+}

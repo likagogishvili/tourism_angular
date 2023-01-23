@@ -1,0 +1,1708 @@
+import { Component, OnInit } from '@angular/core';
+import * as am4core from '@amcharts/amcharts4/core';
+import * as am4charts from '@amcharts/amcharts4/charts';
+import am4themes_animated from '@amcharts/amcharts4/themes/animated';
+import { Location } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { DefIndicatorService } from './services/def-indicator.service';
+import { IDropDown } from '../../common/IDropDown';
+
+@Component({
+  selector: 'app-default-indicator',
+  templateUrl: './default-indicator.component.html',
+  styleUrls: ['./default-indicator.component.scss'],
+})
+export class DefaultIndicatorComponent implements OnInit {
+  
+  readonly APIUrl: string = 'http://tourismapi.geostat.ge/api/DefaultIndicator';
+
+  constructor(private http: HttpClient, private srvc: DefIndicatorService) {
+    this.periods = this.srvc.getPeriods();
+    this.vTypes = this.srvc.getVtypes();
+    this.tTypes = this.srvc.getTtypes();
+    this.indicators = this.srvc.getIndicators();
+    this.isAvarige = false;
+  }
+
+  isAvarige!: boolean;
+
+  avarigeOrNot(flag: boolean){
+    this.isAvarige = flag;
+
+    am4core.options.autoDispose = true;
+
+    if (this.isAvarige){      
+      if (this.period == 3) {
+        this.getAvarigeChart(0, 1, this.numbersForAvarige.visit, true);
+      }
+      else{
+        this.getAvarigeChart(this.numbersForAvarige.indicator, this.numbersForAvarige.period, this.numbersForAvarige.visit, true);
+      }
+    }
+    else{
+      if (this.period == 3) {
+        this.getCostsOnleyChart(0, 1, this.numbersForAvarige.visit, false);
+      }
+      else{
+        this.getCostsOnleyChart(this.numbersForAvarige.indicator, this.numbersForAvarige.period, this.numbersForAvarige.visit, false);
+      }
+    }
+  }
+
+  numbersForAvarige = { indicator: 0, period: 1, visit: 0 };
+
+
+  selIndic: IDropDown = { name: 'ყველა', value: 0, isDisabled: false };
+
+  selVtype: IDropDown =  { name: 'ყველა', value: 0, isDisabled: false };
+  
+  selTtype: IDropDown = { name: 'უცხოელი ვიზიტორები', value: 1, isDisabled: false };
+  
+
+  selPeriod: IDropDown = { name: 'წლიური', value: 1, isDisabled: false };
+
+
+
+  periods!: IDropDown[];
+  period: number = 1;
+
+  vTypes!: IDropDown[];
+  vType: number = 0;
+
+  tTypes!: IDropDown[];
+  tType: number = 1;
+
+  indicators!: IDropDown[];
+  indicator: number = 0;
+
+
+  ngOnInit(): void {
+
+    this.getCostsChart(this.indicator, this.period, this.vType);
+    
+    this.getQuantityChart(this.indicator, this.period, this.vType);
+
+  }
+
+  getDropDownLists() {
+
+    am4core.disposeAllCharts();
+
+    this.isAvarige = false;
+
+    this.tTypes.forEach(mem => mem.isDisabled = false);
+    this.indicators.forEach(mem => mem.isDisabled = false);
+    this.vTypes.forEach(mem => mem.isDisabled = false);
+    this.periods.forEach(mem => mem.isDisabled = false);
+
+    if (Number(this.indicator) == 12) {
+      this.tTypes[0].isDisabled = true;
+      this.tTypes[2].isDisabled = true;
+    }
+
+    if ([11, 12].includes(Number(this.indicator))) {
+      this.tTypes.filter(x => x.value == 3)[0].isDisabled = true;
+    }
+
+
+    if ([1, 4, 5, 9, 10, 11, 12].includes(Number(this.indicator))) {
+      this.periods.filter(x => x.value == 3)[0].isDisabled = true;
+    }
+    
+    if (Number(this.period) == 3) {
+      this.tTypes.filter(x => x.value == 3)[0].isDisabled = true;
+
+      this.indicators.forEach(x => {
+        if ([1, 4, 5, 9, 10, 11, 12].includes(x.value)){
+          x.isDisabled = true;
+        }
+      })
+    }
+    
+    if (Number(this.tType) != 2){
+      this.indicators.filter(x => x.value == 12)[0].isDisabled = true;
+    }
+    
+    if (Number(this.tType) == 3){
+      this.periods.filter(x => x.value == 3)[0].isDisabled = true;
+      this.indicators.filter(x => x.value == 11)[0].isDisabled = true;
+    }
+
+  }
+
+
+  titleForCostsChart: string = "";
+  titleForPerNightsChart: string = "";
+  titleForMainChart: string = "";
+
+
+
+  showDataRangePicker: boolean = false;
+
+
+
+  ClearFilters() {
+
+
+    this.period = 1;
+
+
+    this.vType = 0;
+
+
+    this.indicator = 0;
+
+
+    this.tType = 1;
+
+
+    this.getDropDownLists();
+
+
+
+    this.bigChart.dispose();
+    this.cstChart.dispose();
+    this.nghtChart.dispose();
+    
+    this.getCostsChart(0, 1, 0);
+    
+    this.getQuantityChart(0, 1, 0);
+  }
+
+  selectvTypeChange() {
+    this.isAvarige = false;
+    (document.getElementById("inlineRadio1") as HTMLInputElement).checked = true;
+
+    
+    this.getDropDownLists();
+
+    this.cstChart.dispose();
+    this.nghtChart.dispose();
+
+
+    if (Number(this.period) == 3){
+      this.getCostsChartDef(0, 1, this.vType);
+      this.numbersForAvarige.indicator = 0;
+      this.numbersForAvarige.period = 1;
+      this.numbersForAvarige.visit = this.vType;
+    }
+    else if ([0, 1, 2, 3, 4, 5, 6, 11].includes(Number(this.indicator))) {
+      this.getCostsChart(this.indicator, this.period, this.vType);
+      this.numbersForAvarige.indicator = this.indicator;
+      this.numbersForAvarige.period = this.period;
+      this.numbersForAvarige.visit = this.vType;
+    }
+    else{
+      this.getCostsChartDef(0, 1, this.vType);
+      this.numbersForAvarige.indicator = 0;
+      this.numbersForAvarige.period = 1;
+      this.numbersForAvarige.visit = this.vType;
+    }
+
+
+
+
+
+    // if ([0, 1, 2, 3, 4, 5, 6, 11].includes(Number(this.indicator))){
+    //   if (this.period != 3) {
+    //     this.getCostsChart(this.indicator, this.period, this.vType);
+    //     this.numbersForAvarige.indicator = this.indicator;
+    //     this.numbersForAvarige.period = this.period;
+    //     this.numbersForAvarige.visit = this.vType;
+    //   }
+    //   else {
+    //     this.getCostsChartDef(0, this.period, this.vType);
+    //     this.numbersForAvarige.indicator = 0;
+    //     this.numbersForAvarige.period = this.period;
+    //     this.numbersForAvarige.visit = this.vType;
+    //   }
+    // }
+    // else {
+    //   this.getCostsChartDef(0, this.period, this.vType);
+    //   this.numbersForAvarige.indicator = 0;
+    //   this.numbersForAvarige.period = 1;
+    //   this.numbersForAvarige.visit = this.vType;
+    // }
+
+    this.bigChart.dispose();
+
+    this.getQuantityChart(this.indicator, this.period, this.vType);
+
+  }
+
+  selectPeriodChange() {
+    this.isAvarige = false;
+    (document.getElementById("inlineRadio1") as HTMLInputElement).checked = true;
+    
+    this.getDropDownLists();
+
+    // if (this.period == 3) {
+    //   this.tTypes.filter(x => x.value == 3)[0].isDisabled = true;
+    // }
+
+    //this.indicator = 0;
+
+    this.cstChart.dispose();
+    this.nghtChart.dispose();
+
+    this.bigChart.dispose();
+
+    if (Number(this.period) == 3){
+      this.getCostsChartDef(0, 1, this.vType);
+      this.numbersForAvarige.indicator = 0;
+      this.numbersForAvarige.period = 1;
+      this.numbersForAvarige.visit = this.vType;
+    }
+    else if ([0, 1, 2, 3, 4, 5, 6, 11].includes(Number(this.indicator))) {
+      this.getCostsChart(this.indicator, this.period, this.vType);
+      this.numbersForAvarige.indicator = this.indicator;
+      this.numbersForAvarige.period = this.period;
+      this.numbersForAvarige.visit = this.vType;
+    }
+    else{
+      this.getCostsChartDef(0, 1, this.vType);
+      this.numbersForAvarige.indicator = 0;
+      this.numbersForAvarige.period = 1;
+      this.numbersForAvarige.visit = this.vType;
+    }
+    
+
+    this.getQuantityChart(this.indicator, this.period, this.vType);
+
+  }
+
+
+  selecttTypeChange() {
+    this.isAvarige = false;
+    (document.getElementById("inlineRadio1") as HTMLInputElement).checked = true;
+    
+    this.getDropDownLists();
+    
+
+    this.bigChart.dispose();
+    
+    this.cstChart.dispose();
+    this.nghtChart.dispose();
+
+    if (Number(this.period) == 3){
+      this.getCostsChartDef(0, 1, this.vType);
+      this.numbersForAvarige.indicator = 0;
+      this.numbersForAvarige.period = 1;
+      this.numbersForAvarige.visit = this.vType;
+    }
+    else if ([0, 1, 2, 3, 4, 5, 6, 11].includes(Number(this.indicator))) {
+      this.getCostsChart(this.indicator, this.period, this.vType);
+      this.numbersForAvarige.indicator = this.indicator;
+      this.numbersForAvarige.period = this.period;
+      this.numbersForAvarige.visit = this.vType;
+    }
+    else{
+      this.getCostsChartDef(0, 1, this.vType);
+      this.numbersForAvarige.indicator = 0;
+      this.numbersForAvarige.period = 1;
+      this.numbersForAvarige.visit = this.vType;
+    }
+
+    this.getQuantityChart(this.indicator, this.period, this.vType);
+    
+  }
+
+
+  selectIndicatorChange() {
+    this.isAvarige = false;
+    (document.getElementById("inlineRadio1") as HTMLInputElement).checked = true;
+
+    this.getDropDownLists();
+
+
+    //this.period = 1;
+    
+    // if ([1, 4, 5, 9, 10, 11].includes(this.indicator)) {
+    //   this.periods.filter(x => x.value == 3)[0].isDisabled = true;
+    // }
+    // if (this.indicator == 11){
+    //   this.tTypes.filter(x => x.value == 3)[0].isDisabled = true;
+    // }
+
+    this.bigChart.dispose();
+    this.cstChart.dispose();
+    
+
+    if (Number(this.period) == 3){
+      this.getCostsChartDef(0, 1, this.vType);
+      this.numbersForAvarige.indicator = 0;
+      this.numbersForAvarige.period = 1;
+      this.numbersForAvarige.visit = this.vType;
+    }
+    else if ([0, 1, 2, 3, 4, 5, 6, 11].includes(Number(this.indicator))) {
+      this.getCostsChart(this.indicator, this.period, this.vType);
+      this.numbersForAvarige.indicator = this.indicator;
+      this.numbersForAvarige.period = this.period;
+      this.numbersForAvarige.visit = this.vType;
+    }
+    else{
+      this.getCostsChartDef(0, 1, this.vType);
+      this.numbersForAvarige.indicator = 0;
+      this.numbersForAvarige.period = 1;
+      this.numbersForAvarige.visit = this.vType;
+    }
+
+    // if (this.indicator < 8 || this.indicator == 9 || this.indicator == 10 || this.indicator == 11){
+    //   this.cstChart.dispose();
+    //   this.nghtChart.dispose();
+
+    //   this.getCostsChart(this.indicator, this.period, this.vType);      
+    // }
+    // else{
+    //   this.cstChart.dispose();
+    //   this.nghtChart.dispose();
+    
+    //   this.getCostsChartDef(0, 1, this.vType);
+    // }
+
+    
+    
+    this.getQuantityChart(this.indicator, this.period, this.vType);
+    
+  } 
+ 
+
+  // HTTP Calls
+
+  getCostsChart(indic: number, per: number, type: number){
+    var uRl = this.APIUrl + '/costByForign?prop=' + indic + "&per=" + per + "&tourType=" + type;
+
+    if(this.tType == 2){
+      uRl = this.APIUrl + '/costByExit?prop=' + indic + "&per=" + per + "&tourType=" + type;
+    }
+    else if(this.tType == 3){
+      uRl = this.APIUrl + '/costBy?prop=' + indic + "&per=" + per + "&tourType=" + type;
+    }
+
+    if (Number(this.period) == 1) {
+      this.http
+            .get<any>(
+              uRl 
+            )
+            .subscribe((res) => {
+              this.costsChart(res[0]);
+              this.perNightsChart(res[1]);
+            });
+    }
+    else if (Number(this.period) == 2){
+      this.http
+            .get<any>(
+              uRl 
+            )
+            .subscribe((res) => {
+
+              res.forEach((element: any[]) => {
+                element.forEach(element => {
+                  let st: string = "";
+
+                    st = String(element.year);
+
+                    let stY: string = st.slice(0, 4);
+
+                    let stQ: string = st.slice(5);
+
+                    if(stQ == "1"){
+                      stQ = "I კვ. "
+                    }
+                    else if (stQ == "2"){
+                      stQ = "II კვ. "
+                    }
+                    else if (stQ == "3"){
+                      stQ = "III კვ. "
+                    }
+                    else if (stQ == "4"){
+                      stQ = "IV კვ. "
+                    }
+
+                    let fnSt: string = `${stQ} ${stY}`
+
+
+                    element.year = fnSt;
+                });
+              });
+
+
+
+              this.costsChart(res[0]);
+              this.perNightsChart(res[1]);
+            });
+    }
+  }
+
+
+getCostsChartDef(indic: number, per: number, type: number){
+  var uRl = this.APIUrl + '/costByForign?prop=' + indic + "&per=" + per + "&tourType=" + type;
+
+  if(this.tType == 2){
+    uRl = this.APIUrl + '/costByExit?prop=' + indic + "&per=" + per + "&tourType=" + type;
+  }
+  else if(this.tType == 3){
+    uRl = this.APIUrl + '/costBy?prop=' + indic + "&per=" + per + "&tourType=" + type;
+  }
+
+  
+  if (Number(this.period) == 1 || Number(this.period) == 3) {
+      this.http
+            .get<any>(
+              uRl 
+            )
+            .subscribe((res) => {
+              this.costsChartDef(res[0]);
+              this.perNightsChartDef(res[1]);
+            });
+    }
+    else if (Number(this.period) == 2){
+      this.http
+            .get<any>(
+              uRl 
+            )
+            .subscribe((res) => {
+
+              res.forEach((element: any[]) => {
+                element.forEach(element => {
+                  let st: string = "";
+
+                    st = String(element.year);
+
+                    let stY: string = st.slice(0, 4);
+
+                    let stQ: string = st.slice(5);
+
+                    if(stQ == "1"){
+                      stQ = "I კვ. "
+                    }
+                    else if (stQ == "2"){
+                      stQ = "II კვ. "
+                    }
+                    else if (stQ == "3"){
+                      stQ = "III კვ. "
+                    }
+                    else if (stQ == "4"){
+                      stQ = "IV კვ. "
+                    }
+
+                    let fnSt: string = `${stQ} ${stY}`
+
+
+                    element.year = fnSt;
+                });
+              });
+
+
+
+              this.costsChartDef(res[0]);
+              this.perNightsChart(res[1]);
+            });
+    }
+}
+
+getQuantityChart(indic: number, per: number, type: number){
+  var uRlForBigChart = this.APIUrl + '/quantityByForign?prop=' + indic + "&per=" + per + "&tourType=" + type;
+  
+  if (this.tType == 2) {
+    uRlForBigChart = this.APIUrl + '/quantityByExit?prop=' + indic + "&per=" + per + "&tourType=" + type;
+  }
+  if (this.tType == 3) {
+    uRlForBigChart = this.APIUrl + '/quantityBy?prop=' + indic + "&per=" + per + "&tourType=" + type;
+  }
+  this.http
+    .get<any>(
+      uRlForBigChart 
+    )
+    .subscribe((res) => {
+      this.didiChart(res);
+    });
+}
+
+
+  // /HTTP Calls
+  
+
+  bigChart: any;
+
+  didiChart(res:any) {
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    // Create chart instance
+    this.bigChart = am4core.create('chartdiv', am4charts.XYChart);
+    let categoryAxis = this.bigChart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.dataFields.category = 'year';
+    categoryAxis.renderer.grid.template.location = 0;
+
+    this.bigChart.colors.step = 3;
+
+    let valueAxis = this.bigChart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.numberFormatter = new am4core.NumberFormatter();
+    valueAxis.numberFormatter.numberFormat = "#.0a"; 
+    valueAxis.renderer.grid.template.location = 0;
+
+
+    this.bigChart.scrollbarX = new am4core.Scrollbar();
+
+
+    if (Number(this.period) == 1){
+      this.bigChart.data = res;
+    }
+    else if (Number(this.period) == 2){
+      res.forEach((element: { year: string; }) => {
+        let st: string = "";
+
+        st = String(element.year);
+
+        let stY: string = st.slice(0, 4);
+
+        let stQ: string = st.slice(5);
+
+        if(stQ == "1"){
+          stQ = "I კვ."
+        }
+        else if (stQ == "2"){
+          stQ = "II კვ."
+        }
+        else if (stQ == "3"){
+          stQ = "III კვ."
+        }
+        else if (stQ == "4"){
+          stQ = "IV კვ."
+        }
+
+        let fnSt: string = `${stQ} ${stY}`
+
+
+        element.year = fnSt;
+
+      });
+
+      this.bigChart.data = res;
+    }
+    else if (Number(this.period) == 3){
+
+      res.forEach((element: { year: string; }) => {
+        let st: string = "";
+
+        st = String(element.year);
+
+        let stY: string = st.slice(0, 4);
+
+        let stQ: string = st.slice(5);
+
+        if(stQ == "1"){
+          stQ = "იან, "
+        }
+        else if (stQ == "2"){
+          stQ = "თებ, "
+        }
+        else if (stQ == "3"){
+          stQ = "მარ, "
+        }
+        else if (stQ == "4"){
+          stQ = "აპრ, "
+        }
+        else if (stQ == "5"){
+          stQ = "მაი, "
+        }
+        else if (stQ == "6"){
+          stQ = "ივნ, "
+        }
+        else if (stQ == "7"){
+          stQ = "ივლ, "
+        }
+        else if (stQ == "8"){
+          stQ = "აგვ, "
+        }
+        else if (stQ == "9"){
+          stQ = "სექ, "
+        }
+        else if (stQ == "10"){
+          stQ = "ოქტ, "
+        }
+        else if (stQ == "11"){
+          stQ = "ნოე, "
+        }
+        else if (stQ == "12"){
+          stQ = "დეკ, "
+        }
+
+        let fnSt: string = `${stQ} ${stY}`
+
+
+        element.year = fnSt;
+
+      });
+
+
+      this.bigChart.data = res;
+    }
+    
+
+
+    
+    if (this.indicator==0) {
+      this.createSeries5('Default', 'სულ', this.bigChart);
+      this.titleForMainChart = "ვიზიტების რაოდენობა, სულ";
+    }
+    else if (this.indicator==1) {
+
+      if (this.tType == 1){
+        this.srvc.ActivityNames1.forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+      }
+      else if (this.tType == 2){
+        this.srvc.ActivityNames2.forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+      }
+      else if (this.tType == 3){
+        this.srvc.ActivityNames3.forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+      }
+
+      this.titleForMainChart = "ვიზიტების რაოდენობა ეკონომიკური სტატუსის მიხედვით";
+    }
+    else if (this.indicator==2) {
+      
+      if (this.tType == 1){
+        this.srvc.AgeNames1.forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+      }
+      else if (this.tType == 2){
+        this.srvc.AgeNames1.forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+      }
+      else if (this.tType == 3){
+        this.srvc.AgeNames3.forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+      }
+
+      this.titleForMainChart = "ვიზიტების რაოდენობა ასაკის მიხედვით";
+      
+    }
+    else if (this.indicator==3) {
+
+      this.srvc.GenderNames.forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+
+      this.titleForMainChart = "ვიზიტების რაოდენობა სქესის მიხედვით";
+    }
+    else if (this.indicator==4) {
+      
+      if (this.tType == 1){
+        this.srvc.GoalNames1.forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+      }
+      else if (this.tType == 2){
+        this.srvc.GoalNames2.forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+      }
+      else if (this.tType == 3){
+        this.srvc.GoalNames3.forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+      }
+
+
+      this.titleForMainChart = "ვიზიტების რაოდენობა მიზნის მიხედვით";
+    }
+    else if (this.indicator==5) {
+      
+      this.srvc.RateNames.forEach(element => {
+        this.createSeries5(element, element, this.bigChart);
+      })
+
+
+      this.titleForMainChart = "ვიზიტების რაოდენობა კმაყოფილების დონის მიხედვით";
+    }    
+    else if (this.indicator==6) {
+      
+      this.srvc.TourNames.forEach(element => {
+        this.createSeries5(element, element, this.bigChart);
+      })
+
+
+      this.titleForMainChart = "ვიზიტების რაოდენობა ვიზიტის ტიპის მიხედვით";
+    }
+    else if (this.indicator==9) {
+      
+      if (this.tType == 1){
+        this.srvc.TransportNames1.forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+      }
+      else if (this.tType == 2){
+        this.srvc.TransportNames2.filter(x => x != "საზღვაო ტრანსპორტი").forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+      }
+      else if (this.tType == 3){
+        this.srvc.TransportNames3.forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+      }
+    
+      this.titleForMainChart = "ვიზიტების რაოდენობა ტრანსპორტის ტიპის მიხედვით";
+    }
+    else if (this.indicator==10) {
+
+      if (this.tType == 1){
+        this.srvc.VisitNames1.forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+      }
+      else if (this.tType == 2){
+        this.srvc.VisitNames2.forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+      }
+      else if (this.tType == 3){
+        this.srvc.VisitNames3.forEach(element => {
+          this.createSeries5(element, element, this.bigChart);
+        })
+      }
+
+      this.titleForMainChart = "ვიზიტების რაოდენობა აქტივობის მიხედვით";
+    }    
+    else if (this.indicator==11) {
+      
+      this.srvc.OrderNames.forEach(element => {
+        this.createSeries5(element, element, this.bigChart);
+      })
+
+
+      this.titleForMainChart = "ვიზიტების რაოდენობა რიგითობის მიხედვით";
+    }
+
+    else if (this.indicator==12) {
+
+      this.srvc.CountryNames.forEach(element => {
+        this.createSeries5(element, element, this.bigChart);
+      })
+
+
+      this.titleForMainChart = "ვიზიტების რაოდენობა მონახულებული ქვეყნების მიხედვით";
+    } 
+
+    this.bigChart.legend = new am4charts.Legend();
+
+    this.bigChart.exporting.menu = new am4core.ExportMenu();
+
+    this.bigChart.exporting.menu.align = "left";
+    this.bigChart.exporting.menu.verticalAlign = "top";
+  }
+
+  cstChart: any;
+
+  costsChart(res:any) {
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    // Create chart instance
+    this.cstChart = am4core.create('chartdiv2', am4charts.XYChart);
+    let categoryAxis = this.cstChart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.dataFields.category = 'year';
+    categoryAxis.renderer.grid.template.location = 0;
+
+
+    this.cstChart.colors.step = 3;
+
+    let valueAxis = this.cstChart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.numberFormatter = new am4core.NumberFormatter();
+    valueAxis.numberFormatter.numberFormat = "#.0a"; 
+    valueAxis.renderer.grid.template.location = 0;
+
+    this.cstChart.scrollbarX = new am4core.Scrollbar();
+
+    this.cstChart.data = res;
+    
+    
+    if (this.indicator==0) {
+      this.createSeries2('Default', 'სულ', this.cstChart);
+      this.titleForCostsChart = "ხარჯები, სულ (ათასი ლარი)";
+    }
+    else if (this.indicator==1) {
+      
+      if (this.tType == 1){
+        this.srvc.ActivityNames1.forEach(element => {
+          this.createSeries2(element, element, this.cstChart);
+        })
+      }
+      else if (this.tType == 2){
+        this.srvc.ActivityNames2.forEach(element => {
+          this.createSeries2(element, element, this.cstChart);
+        })
+      }
+      else if (this.tType == 3){
+        this.srvc.ActivityNames3.forEach(element => {
+          this.createSeries2(element, element, this.cstChart);
+        })
+      }
+
+      this.titleForCostsChart = "ხარჯები ეკონომიკური სტატუსის მიხედვით (ათასი ლარი)";
+    }
+    else if (this.indicator==2) {
+      
+      this.srvc.AgeNames3.forEach(element => {
+        this.createSeries2(element, element, this.cstChart);
+      })
+
+
+      this.titleForCostsChart = "ხარჯები ასაკის მიხედვით (ათასი ლარი)";
+    }
+    else if (this.indicator==3) {
+      
+      this.srvc.GenderNames.forEach(element => {
+        this.createSeries2(element, element, this.cstChart);
+      })
+
+      this.titleForCostsChart = "ხარჯები სქესის მიხედვით (ათასი ლარი)";
+    }
+    else if (this.indicator==4) {
+      
+      if (this.tType == 1){
+        this.srvc.GoalNames1.forEach(element => {
+          this.createSeries2(element, element, this.cstChart);
+        })
+      }
+      else if (this.tType == 2){
+        this.srvc.GoalNames2.forEach(element => {
+          this.createSeries2(element, element, this.cstChart);
+        })
+      }
+      else if (this.tType == 3){
+        this.srvc.GoalNames3.forEach(element => {
+          this.createSeries2(element, element, this.cstChart);
+        })
+      }
+
+
+      this.titleForCostsChart = "ხარჯები მიზნის მიხედვით (ათასი ლარი)";
+    }
+    else if (this.indicator==5) {
+       
+      this.srvc.RateNames.forEach(element => {
+        this.createSeries2(element, element, this.cstChart);
+      })
+
+
+      this.titleForCostsChart = "ხარჯები კმაყოფილების დონის მიხედვით";
+    }
+    else if (this.indicator==6) {
+      
+      this.srvc.TourNames.forEach(element => {
+        this.createSeries2(element, element, this.cstChart);
+      })
+      
+      this.titleForCostsChart = "ხარჯები ვიზიტის ტიპის მიხედვით (ათასი ლარი)";
+    }    
+    else if (this.indicator == 11) {
+      
+      this.srvc.OrderNames.forEach(element => {
+        this.createSeries2(element, element, this.cstChart);
+      })
+
+      this.titleForCostsChart = "ხარჯები რიგითობის მიხედვით (ათასი ლარი)";
+    }
+    
+
+    this.cstChart.legend = new am4charts.Legend();
+
+
+    this.cstChart.exporting.menu = new am4core.ExportMenu();
+
+    this.cstChart.exporting.menu.align = "left";
+    this.cstChart.exporting.menu.verticalAlign = "top";
+  }
+
+  costsChartDef(res:any) {
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    // Create chart instance
+    this.cstChart = am4core.create('chartdiv2', am4charts.XYChart);
+    let categoryAxis = this.cstChart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.dataFields.category = 'year';
+    categoryAxis.renderer.grid.template.location = 0;
+
+    this.cstChart.colors.step = 3;
+
+    let valueAxis = this.cstChart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.numberFormatter = new am4core.NumberFormatter();
+    valueAxis.numberFormatter.numberFormat = "#.0a"; 
+    valueAxis.renderer.grid.template.location = 0;
+
+    this.cstChart.data = res;
+    
+    this.cstChart.scrollbarX = new am4core.Scrollbar();
+
+    this.createSeries2('Default', 'სულ', this.cstChart);
+    this.titleForCostsChart = "ხარჯები სულ (ათასი ლარი)";
+
+
+    
+    this.cstChart.legend = new am4charts.Legend();
+
+    this.cstChart.exporting.menu = new am4core.ExportMenu();
+
+    this.cstChart.exporting.menu.align = "left";
+    this.cstChart.exporting.menu.verticalAlign = "top";
+  }
+
+
+  nghtChart: any;
+
+  perNightsChart(res:any) {
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    // Create chart instance
+    this.nghtChart = am4core.create('chartdiv3', am4charts.XYChart);
+    let categoryAxis = this.nghtChart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.dataFields.category = 'year';
+    categoryAxis.renderer.grid.template.location = 0;
+
+    this.nghtChart.colors.step = 3;
+
+    let valueAxis = this.nghtChart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.numberFormatter = new am4core.NumberFormatter();
+    valueAxis.numberFormatter.numberFormat = "#"; 
+    valueAxis.renderer.grid.template.location = 0;
+
+    valueAxis.min = 0;
+    // valueAxis.max = 1500;
+
+    this.nghtChart.scrollbarX = new am4core.Scrollbar();
+
+    this.nghtChart.data = res;
+
+    if (this.indicator==0) {
+      this.createSeries3('Default', 'სულ', this.nghtChart);
+      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა";
+    }
+    else if (this.indicator==1) {
+      
+      if (this.tType == 1){
+        this.srvc.ActivityNames1.forEach(element => {
+          this.createSeries3(element, element, this.nghtChart);
+        })
+      }
+      else if (this.tType == 2){
+        this.srvc.ActivityNames2.forEach(element => {
+          this.createSeries3(element, element, this.nghtChart);
+        })
+      }
+      else if (this.tType == 3){
+        this.srvc.ActivityNames3.forEach(element => {
+          this.createSeries3(element, element, this.nghtChart);
+        })
+      }
+
+
+      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა ეკონომიკური სტატუსის მიხედვით";
+    }
+    else if (this.indicator==2) {
+      
+      this.srvc.AgeNames3.forEach(element => {
+        this.createSeries3(element, element, this.nghtChart);
+      })
+
+
+      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა ასაკის მიხედვით";
+    }
+    else if (this.indicator==3) {
+      
+      this.srvc.GenderNames.forEach(element => {
+        this.createSeries3(element, element, this.nghtChart);
+      })
+
+      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა სქესის მიხედვით";
+    }
+    else if (this.indicator==4) {
+      
+      if (this.tType == 1){
+        this.srvc.GoalNames1.forEach(element => {
+          this.createSeries3(element, element, this.nghtChart);
+        })
+      }
+      else if (this.tType == 2){
+        this.srvc.GoalNames2.forEach(element => {
+          this.createSeries3(element, element, this.nghtChart);
+        })
+      }
+      else if (this.tType == 3){
+        this.srvc.GoalNames3.forEach(element => {
+          this.createSeries3(element, element, this.nghtChart);
+        })
+      }
+
+      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა მიზნის მიხედვით";
+
+    }
+    else if (this.indicator==5) {
+
+      this.srvc.RateNames.forEach(element => {
+          this.createSeries3(element, element, this.nghtChart);
+        })
+      
+
+      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა კმაყოფილების დონის მიხედვით";
+    }
+    else if (this.indicator==6) {
+      
+      this.srvc.TourNames.forEach(element => {
+        this.createSeries3(element, element, this.nghtChart);
+      })
+
+
+      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა ვიზიტის ტიპის მიხედვით";
+    }
+    
+    else if (this.indicator == 11){
+
+      this.srvc.OrderNames.forEach(element => {
+        this.createSeries3(element, element, this.nghtChart);
+      })
+
+
+      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა რიგითობის მიხედვით";
+    }
+    else {
+      this.createSeries3('Default', 'სულ', this.nghtChart);
+      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა სულ";
+    }
+    
+
+    this.nghtChart.legend = new am4charts.Legend();
+
+
+    this.nghtChart.exporting.menu = new am4core.ExportMenu();
+
+    this.nghtChart.exporting.menu.align = "left";
+    this.nghtChart.exporting.menu.verticalAlign = "top";
+  }
+
+
+  perNightsChartDef(res:any) {
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    // Create chart instance
+    this.nghtChart = am4core.create('chartdiv3', am4charts.XYChart);
+    let categoryAxis = this.nghtChart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.dataFields.category = 'year';
+    categoryAxis.renderer.grid.template.location = 0;
+
+    this.nghtChart.colors.step = 3;
+
+    let valueAxis = this.nghtChart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.numberFormatter = new am4core.NumberFormatter();
+    valueAxis.numberFormatter.numberFormat = "#"; 
+    valueAxis.renderer.grid.template.location = 0;
+
+    valueAxis.min = 0;
+
+
+    this.nghtChart.data = res;
+
+    this.nghtChart.scrollbarX = new am4core.Scrollbar();
+
+    this.createSeries3('Default', 'სულ', this.nghtChart);
+    this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა";
+
+    
+
+    this.nghtChart.legend = new am4charts.Legend();
+
+    this.nghtChart.exporting.menu = new am4core.ExportMenu();
+
+    this.nghtChart.exporting.menu.align = "left";
+    this.nghtChart.exporting.menu.verticalAlign = "top";
+  }
+  
+  createSeries2(field: string, name: string, chart: any) {
+    // Set up series
+    let series = chart.series.push(new am4charts.ColumnSeries());
+    series.name = name;
+    series.dataFields.valueY = field;
+    series.dataFields.categoryX = 'year';
+    // series.sequencedInterpolation = true;
+    // series.dataFields.categoryX.width = 0.1;
+    // series.dataFields.categoryX.endLocation = 0.4;
+    chart.language.locale["_thousandSeparator"] = " ";
+    chart.numberFormatter.numberFormat = '#.';
+
+
+    chart.logo.disabled = true;
+
+
+
+    // Make it stacked
+    series.stacked = true;
+
+    // Configure columns
+    series.columns.template.width = am4core.percent(60);
+    
+    if (Number(this.period) == 1 || Number(this.period) == 3) {
+      series.columns.template.tooltipText =
+      '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#.0a")} ₾';
+    }
+    else if (Number(this.period) == 2) {
+      series.columns.template.tooltipText =
+      '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} ₾';
+    }
+    // Add label
+    // let labelBullet = series.bullets.push(new am4charts.LabelBullet());
+    // labelBullet.label.text = '{valueY.formatNumber("#.0a")}';
+    // labelBullet.locationY = 0.5;
+    // labelBullet.label.hideOversized = true;
+
+    return series;
+  }
+
+
+  createSeries3(field: string, name: string, chart: any) {
+    // Set up series
+    let series = chart.series.push(new am4charts.ColumnSeries());
+    series.name = name;
+    series.dataFields.valueY = field;
+    series.dataFields.categoryX = 'year';
+    series.sequencedInterpolation = true;
+
+    chart.language.locale["_thousandSeparator"] = " ";
+    chart.numberFormatter.numberFormat = '#';
+    
+    chart.logo.disabled = true;
+
+
+
+    // Make it stacked
+    series.stacked = true;
+
+    // Configure columns
+    series.columns.template.width = am4core.percent(60);
+    if (Number(this.period == 1) || Number(this.period == 3)) {
+      series.columns.template.tooltipText =
+            '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#")} ღამე';
+    }
+    else if (Number(this.period) == 2) {
+      series.columns.template.tooltipText =
+      '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#")} ღამე';
+    }
+
+    // Add label
+    // let labelBullet = series.bullets.push(new am4charts.LabelBullet());
+    // labelBullet.label.text = '{valueY.formatNumber("#")}';
+    // labelBullet.locationY = 0.5;
+    // labelBullet.label.hideOversized = true;
+
+    return series;
+  }
+
+  createSeries5(field: string, name: string, chart: any) {
+    // Set up series
+    let series = chart.series.push(new am4charts.ColumnSeries());
+    series.name = name;
+    series.dataFields.valueY = field;
+    series.dataFields.categoryX = 'year';
+    series.sequencedInterpolation = true;
+
+    // chart.language.locale["_thousandSeparator"] = " ";
+    chart.numberFormatter.numberFormat = '#';
+
+    chart.logo.disabled = true;
+
+
+
+    // Make it stacked
+    series.stacked = true;
+
+    // Configure columns
+    series.columns.template.width = am4core.percent(60);
+    if (Number(this.period) == 1) {
+      series.columns.template.tooltipText =
+            '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#.0a")} ვიზიტი';
+    }
+    else if (Number(this.period) == 2) {
+      series.columns.template.tooltipText =
+            '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} ვიზიტი';
+    }
+    else if (Number(this.period) == 3) {
+      series.columns.template.tooltipText =
+            '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} ვიზიტი';
+    }
+
+    // Add label
+    // let labelBullet = series.bullets.push(new am4charts.LabelBullet());
+    // labelBullet.label.text = '{valueY.formatNumber("#.0a")}';
+    // labelBullet.label.rotation = 90;
+    // labelBullet.label.truncate = false;
+    // labelBullet.label.hideOversized = true;
+    // labelBullet.dy = -20;
+
+    return series;
+  }
+
+
+  avarigeChart: any;
+
+  avarigeCostsChart(res:any) {
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    // Create chart instance
+    this.avarigeChart = am4core.create('chartdiv2', am4charts.XYChart);
+    
+    var dateAxis = this.avarigeChart.xAxes.push(new am4charts.CategoryAxis());
+    dateAxis.dataFields.category = 'year';
+    dateAxis.numberFormatter.numberFormat = '#';
+    dateAxis.renderer.grid.template.location = 0;
+
+    var valueAxis = this.avarigeChart.yAxes.push(new am4charts.ValueAxis());
+
+    valueAxis.numberFormatter = new am4core.NumberFormatter();
+    valueAxis.numberFormatter.numberFormat = "#"; 
+    valueAxis.renderer.grid.template.location = 0;
+
+    // let categoryAxis = this.nghtChart.xAxes.push(new am4charts.CategoryAxis());
+    // categoryAxis.dataFields.category = 'year';
+    // categoryAxis.renderer.grid.template.location = 0;
+
+    this.avarigeChart.colors.step = 3;
+
+    // let valueAxis = this.nghtChart.yAxes.push(new am4charts.ValueAxis());
+    // valueAxis.numberFormatter = new am4core.NumberFormatter();
+    // valueAxis.numberFormatter.numberFormat = "#.0a"; 
+    // valueAxis.renderer.grid.template.location = 0;
+    
+
+    this.avarigeChart.scrollbarX = new am4core.Scrollbar();
+
+    this.avarigeChart.data = res;
+    
+    this.avarigeChart.legend = new am4charts.Legend();
+
+    this.avarigeChart.logo.disabled = true;
+    
+    if (this.numbersForAvarige.indicator==0) {
+      this.createSeries('Default', 'სულ', this.avarigeChart);
+      this.titleForCostsChart = "საშუალო ხარჯები (ათასი ლარი)";
+    }
+    else if (this.numbersForAvarige.indicator==1) {
+      
+      if (this.tType == 1){
+        this.srvc.ActivityNames1.forEach(element => {
+          this.createSeries(element, element, this.avarigeChart);
+        })
+      }
+      else if (this.tType == 2){
+        this.srvc.ActivityNames2.forEach(element => {
+          this.createSeries(element, element, this.avarigeChart);
+        })
+      }
+      else if (this.tType == 3){
+        this.srvc.ActivityNames3.forEach(element => {
+          this.createSeries(element, element, this.avarigeChart);
+        })
+      }
+
+      this.titleForCostsChart = "საშუალო ხარჯები ეკონომიკური სტატუსის მიხედვით (ათასი ლარი)";
+    }
+    else if (this.numbersForAvarige.indicator==2) {
+      
+      this.srvc.AgeNames3.forEach(element => {
+        this.createSeries(element, element, this.avarigeChart);
+      })
+
+
+      this.titleForCostsChart = "საშუალო ხარჯები ასაკის მიხედვით (ათასი ლარი)";
+    }
+    else if (this.numbersForAvarige.indicator==3) {
+      
+      this.srvc.GenderNames.forEach(element => {
+        this.createSeries(element, element, this.avarigeChart);
+      })
+
+      this.titleForCostsChart = "საშუალო ხარჯები სქესის მიხედვით (ათასი ლარი)";
+    }
+    else if (this.numbersForAvarige.indicator==4) {
+      
+      if (this.tType == 1){
+        this.srvc.GoalNames1.forEach(element => {
+          this.createSeries(element, element, this.avarigeChart);
+        })
+      }
+      else if (this.tType == 2){
+        this.srvc.GoalNames2.forEach(element => {
+          this.createSeries(element, element, this.avarigeChart);
+        })
+      }
+      else if (this.tType == 3){
+        this.srvc.GoalNames3.forEach(element => {
+          this.createSeries(element, element, this.avarigeChart);
+        })
+      }
+
+      this.titleForCostsChart = "საშუალო ხარჯები მიზნის მიხედვით (ათასი ლარი)";
+    }
+    else if (this.numbersForAvarige.indicator==5) {
+       
+      this.srvc.RateNames.forEach(element => {
+        this.createSeries(element, element, this.avarigeChart);
+      })
+
+
+      this.titleForCostsChart = "საშუალო ხარჯები კმაყოფილების დონის მიხედვით";
+    }
+    else if (this.numbersForAvarige.indicator==6) {
+      
+      this.srvc.TourNames.forEach(element => {
+        this.createSeries(element, element, this.avarigeChart);
+      })
+      
+      this.titleForCostsChart = "საშუალო ხარჯები ვიზიტის ტიპის მიხედვით (ათასი ლარი)";
+    }    
+    else if (this.numbersForAvarige.indicator == 11) {
+      
+      this.srvc.OrderNames.forEach(element => {
+        this.createSeries(element, element, this.avarigeChart);
+      })
+
+      this.titleForCostsChart = "საშუალო ხარჯები რიგითობის მიხედვით (ათასი ლარი)";
+    }
+    else{
+      this.createSeries('Default', 'სულ', this.avarigeChart);
+      this.titleForCostsChart = "საშუალო ხარჯები (ათასი ლარი)";
+    }
+
+    this.avarigeChart.exporting.menu = new am4core.ExportMenu();
+
+    this.avarigeChart.exporting.menu.align = "left";
+    this.avarigeChart.exporting.menu.verticalAlign = "top";
+  }
+
+
+  createSeries(field: string, name: string, chart: any) {
+    var series = chart.series.push(new am4charts.LineSeries());
+
+    // series.name = name;
+    // series.dataFields.valueY = field;
+    // series.dataFields.categoryX = 'year';
+
+
+    series.dataFields.valueY = field;
+    series.dataFields.categoryX = "year";
+    series.name = name;
+    series.strokeWidth = 3;
+
+    //series.tooltipText = '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#")} ათასი ₾';
+
+    series.sequencedInterpolation = true;
+    
+    var bullet = series.bullets.push(new am4charts.CircleBullet());
+    bullet.circle.stroke = am4core.color("#fff");
+    bullet.circle.strokeWidth = 2;
+
+    bullet.tooltipText = '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#")} ათასი ₾';
+
+    let shadow = new am4core.DropShadowFilter();
+    shadow.dx = 1;
+    shadow.dy = 1;
+    bullet.filters.push(shadow);
+
+    //chart.cursor = new am4charts.XYCursor();
+
+    //bullet.template.tooltipText = '[bold]{fild}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#.0a")} ₾';
+
+    // series.columns.tooltipText =
+    //   '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#")} ₾';
+
+
+    chart.logo.disabled = true;
+    
+    return series;
+  }
+  
+
+  getAvarigeChart(indic: number, per: number, type: number, isAvarige: boolean){
+    var uRl = this.APIUrl + '/avarageForign?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige;
+
+    if(this.tType == 2){
+      uRl = this.APIUrl + '/avarigeExit?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige;
+    }
+    else if(this.tType == 3){
+      uRl = this.APIUrl + '/avarige?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige;
+    }
+
+    if (Number(this.period) == 1 || Number(this.period) == 3) {
+      this.http
+            .get<any>(
+              uRl 
+            )
+            .subscribe((res) => {
+              this.avarigeCostsChart(res);
+            });
+    }
+    else {
+      this.http
+            .get<any>(
+              uRl 
+            )
+            .subscribe((res) => {
+
+              res.forEach((element: { year: string; }) => {
+                let st: string = "";
+
+                  st = String(element.year);
+
+                  let stY: string = st.slice(0, 4);
+
+                  let stQ: string = st.slice(5);
+
+                  if(stQ == "1"){
+                    stQ = "I კვ."
+                  }
+                  else if (stQ == "2"){
+                    stQ = "II კვ."
+                  }
+                  else if (stQ == "3"){
+                    stQ = "III კვ."
+                  }
+                  else if (stQ == "4"){
+                    stQ = "IV კვ."
+                  }
+
+                  let fnSt: string = `${stQ} ${stY}`
+
+
+                  element.year = fnSt;
+              });
+
+
+
+              this.avarigeCostsChart(res);
+            });
+    }
+  }
+
+
+
+  costsOnley: any;
+
+  costsOnleyChart(res:any) {
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    // Create chart instance
+    this.costsOnley = am4core.create('chartdiv2', am4charts.XYChart);
+    let categoryAxis = this.costsOnley.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.dataFields.category = 'year';
+    categoryAxis.renderer.grid.template.location = 0;
+
+
+    this.costsOnley.colors.step = 3;
+
+    let valueAxis = this.costsOnley.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.numberFormatter = new am4core.NumberFormatter();
+    valueAxis.numberFormatter.numberFormat = "#.0a"; 
+    valueAxis.renderer.grid.template.location = 0;
+
+    this.costsOnley.scrollbarX = new am4core.Scrollbar();
+
+    this.costsOnley.data = res;
+
+    this.costsOnley.exporting.menu = new am4core.ExportMenu();
+
+    this.costsOnley.exporting.menu.align = "left";
+    this.costsOnley.exporting.menu.verticalAlign = "top";
+    
+    
+    if (this.numbersForAvarige.indicator == 0) {
+      this.createSeries2('Default', 'სულ', this.costsOnley);
+      this.titleForCostsChart = "ხარჯები, სულ (ათასი ლარი)";
+    }
+    else if (this.numbersForAvarige.indicator==1) {
+      
+      if (this.tType == 1){
+        this.srvc.ActivityNames1.forEach(element => {
+          this.createSeries2(element, element, this.costsOnley);
+        })
+      }
+      else if (this.tType == 2){
+        this.srvc.ActivityNames2.forEach(element => {
+          this.createSeries2(element, element, this.costsOnley);
+        })
+      }
+      else if (this.tType == 3){
+        this.srvc.ActivityNames3.forEach(element => {
+          this.createSeries2(element, element, this.costsOnley);
+        })
+      }
+
+      this.titleForCostsChart = "ხარჯები ეკონომიკური სტატუსის მიხედვით (ათასი ლარი)";
+    }
+    else if (this.numbersForAvarige.indicator==2) {
+      
+      this.srvc.AgeNames3.forEach(element => {
+        this.createSeries2(element, element, this.costsOnley);
+      })
+
+
+      this.titleForCostsChart = "ხარჯები ასაკის მიხედვით (ათასი ლარი)";
+    }
+    else if (this.numbersForAvarige.indicator==3) {
+      
+      this.srvc.GenderNames.forEach(element => {
+        this.createSeries2(element, element, this.costsOnley);
+      })
+
+      this.titleForCostsChart = "ხარჯები სქესის მიხედვით (ათასი ლარი)";
+    }
+    else if (this.numbersForAvarige.indicator==4) {
+      
+      if (this.tType == 1){
+        this.srvc.GoalNames1.forEach(element => {
+          this.createSeries2(element, element, this.costsOnley);
+        })
+      }
+      else if (this.tType == 2){
+        this.srvc.GoalNames2.forEach(element => {
+          this.createSeries2(element, element, this.costsOnley);
+        })
+      }
+      else if (this.tType == 3){
+        this.srvc.GoalNames3.forEach(element => {
+          this.createSeries2(element, element, this.costsOnley);
+        })
+      }
+
+
+      this.titleForCostsChart = "ხარჯები მიზნის მიხედვით (ათასი ლარი)";
+    }
+    else if (this.numbersForAvarige.indicator==5) {
+       
+      this.srvc.RateNames.forEach(element => {
+        this.createSeries2(element, element, this.costsOnley);
+      })
+
+
+      this.titleForCostsChart = "ხარჯები კმაყოფილების დონის მიხედვით";
+    }
+    else if (this.numbersForAvarige.indicator==6) {
+      
+      this.srvc.TourNames.forEach(element => {
+        this.createSeries2(element, element, this.costsOnley);
+      })
+      
+      this.titleForCostsChart = "ხარჯები ვიზიტის ტიპის მიხედვით (ათასი ლარი)";
+    }    
+    else if (this.numbersForAvarige.indicator == 11) {
+      
+      this.srvc.OrderNames.forEach(element => {
+        this.createSeries2(element, element, this.costsOnley);
+      })
+
+      this.titleForCostsChart = "ხარჯები რიგითობის მიხედვით (ათასი ლარი)";
+    }
+    else{
+      this.createSeries2('Default', 'სულ', this.costsOnley);
+      this.titleForCostsChart = "ხარჯები, სულ (ათასი ლარი)";
+    }
+    
+
+    this.costsOnley.legend = new am4charts.Legend();
+
+    
+  }
+
+
+  getCostsOnleyChart(indic: number, per: number, type: number, isAvarige: boolean){
+    var uRl = this.APIUrl + '/avarageForign?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige;
+
+    if(this.tType == 2){
+      uRl = this.APIUrl + '/avarigeExit?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige;
+    }
+    else if(this.tType == 3){
+      uRl = this.APIUrl + '/avarige?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige;
+    }
+
+    if (Number(this.period) == 1 || Number(this.period) == 3) {
+      this.http
+            .get<any>(
+              uRl 
+            )
+            .subscribe((res) => {
+              this.costsOnleyChart(res);
+            });
+    }
+    else if (Number(this.period) == 2){
+      this.http
+            .get<any>(
+              uRl 
+            )
+            .subscribe((res) => {
+
+              res.forEach((element: { year: string; }) => {
+                let st: string = "";
+
+                  st = String(element.year);
+
+                  let stY: string = st.slice(0, 4);
+
+                  let stQ: string = st.slice(5);
+
+                  if(stQ == "1"){
+                    stQ = "I კვ."
+                  }
+                  else if (stQ == "2"){
+                    stQ = "II კვ."
+                  }
+                  else if (stQ == "3"){
+                    stQ = "III კვ."
+                  }
+                  else if (stQ == "4"){
+                    stQ = "IV კვ."
+                  }
+
+                  let fnSt: string = `${stQ} ${stY}`
+
+
+                  element.year = fnSt;
+              });
+
+
+
+              this.costsOnleyChart(res);
+            });
+    }
+  }
+
+
+
+
+  ngOnDestroy(){
+    am4core.disposeAllCharts();
+  }
+  
+}
+
+export class AppComponent {
+  constructor(private location: Location) {}
+
+  goBack() {
+    am4core.disposeAllCharts();
+
+    this.location.back();
+  }
+}

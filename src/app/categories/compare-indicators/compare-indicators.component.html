@@ -1,0 +1,295 @@
+<!-- <div *ngIf="!hidemain">
+  <div class="row" style="padding: 8px 7% 7%;padding-bottom: 0px; height: 50px!important">
+          <label class="btn btn-primary" style="font-size: larger;font-weight:500;">ვიზიტების განაწილება</label>
+          <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="padding-top: 20px;">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked>
+            <label (click)="showComponents('defaultVar')" class="btn btn-outline-secondary" style="font-size: larger;font-weight:500;" for="btnradio2" >ძირითადი ცვლადით</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label (click)="showComponents('additionalVar')" class="btn btn-outline-secondary" style="font-size: larger;font-weight:500;" for="btnradio3">დამატებითი ცვლადით</label>
+          </div>
+    </div>
+
+
+  <div class="row" style="margin-top:80px;">
+      <div class="col-lg-1 col-md-1 col-sm-12"></div>
+      <div class="col-lg-2 col-md-12 col-sm-12 text-center pt-3">
+        <select class="form-select"  aria-label="Default select example">
+          <option selected>წელი</option>
+        </select>
+      </div>
+      <div class="col-lg-2 col-md-12 col-sm-12 text-center pt-3">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>კვარტალი</option>
+
+        </select>
+      </div>
+      <div class="col-lg-2 col-md-12 col-sm-12 text-center pt-3">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>ვიზიტის ტიპი</option>
+
+        </select>
+      </div>
+      <div class="col-lg-2 col-md-12 col-sm-12 text-center pt-3">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>ძირითადი ცვლადი</option>
+
+        </select>
+      </div>
+      <div class="col-lg-2 col-md-12 col-sm-12 text-center pt-3">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>დამატებითი ცვლადი</option>
+
+        </select>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-12"></div>
+    </div>
+  <div *ngIf="defaultVar">
+  <app-default-var></app-default-var>
+</div>
+<div *ngIf="additionalVar">
+  <app-additional-var></app-additional-var>
+</div>
+</div>
+<app-detailed *ngIf="hidemain"></app-detailed> -->
+
+<div class="color">
+  <div class="container-for-header">
+    <div class="row col-12 switchButtons">
+      <div class="col-lg-2 bigTitle">ვიზიტების განაწილება</div>
+      <div class="col-lg-3">
+        <button  type="button"  class="not-selected-button"  [ngClass]="{ acti: isValue == 1 }" (click)="activeOrNot(1)">ძირითადი ცვლადით</button>
+      </div>
+      
+
+      <div class="col-lg-3">
+        <button class="not-selected-button inRegionButton" type="button" [ngClass]="{ acti: isValue == 2 }" (click)="activeOrNot(2)">დამატებითი ცვლადით</button>
+      </div>
+    </div>
+    <div class="col-lg-12" style="height: 90px"></div>
+
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="col-12 contForSelectBox">
+          <div class="col-12 fontForSelectUpperTitle" style="padding-top: 35px">წელი</div>
+          <div class="col-12 row">
+            <div class="col-2">
+              <img style="padding-top: 25px" src="assets/c-default-indicators/Calendar.png" alt=""/>
+            </div>
+            <div class="col-8 fontForSelectTitle" style="padding-left: 25px; padding-top: 33px">
+              <select style="background: url(assets/c-default-indicators/Down.png) no-repeat right transparent; width: 130%;" (change)="selectYearChange()" [(ngModel)]="year">
+                <option *ngFor="let data of years" value="{{ data }}">{{ data }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="col-12 contForSelectBox">
+          <div class="col-12 fontForSelectUpperTitle" style="padding-top: 35px">კვარტალი</div>
+          <div class="col-12 row">
+            <div class="col-2">
+              <img style="padding-top: 25px" src="assets/c-compare-indicators/Quarter.png" alt=""/>
+            </div>
+            <div class="col-8 fontForSelectTitle" style="padding-left: 25px; padding-top: 33px">
+              <select style=" background: url(assets/c-default-indicators/Down.png) no-repeat right transparent; width: 130%;" (change)="selectQuarterChange()" [(ngModel)]="quarter">
+              <option *ngFor="let data of quarters" value="{{ data.value }}">{{ data.name }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-lg-3">
+        <div class="col-12 contForSelectBox">
+          <div class="col-12 fontForSelectUpperTitle" style="padding-top: 35px">
+            ვიზიტის ტიპი
+          </div>
+          <div class="col-12 row">
+            <div class="col-2">
+              <img
+                style="padding-top: 25px"
+                src="assets/c-default-indicators/VisitType.png"
+                alt=""
+              />
+            </div>
+            <div
+              class="col-8 fontForSelectTitle"
+              style="padding-left: 8px; padding-top: 33px; white-space: nowrap"
+            >
+              <select
+                style="
+                  background: url(assets/c-default-indicators/Down.png)
+                    no-repeat right transparent;
+                  width: 130%;
+                "
+              >
+                <option>ექსკურსიული ვიზიტი</option>
+                <option>dsa</option>
+                <option>dsa</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="col-lg-3">
+        <div class="col-12 contForSelectBox">
+          <div class="col-12 fontForSelectUpperTitle" style="padding-top: 35px">ძირითადი ცვლადი</div>
+          <div class="col-12 row">
+            <div class="col-2">
+              <img style="padding-top: 25px" src="assets/c-compare-indicators/cvladi.png" alt=""/>
+            </div>
+            <div class="col-7 fontForSelectTitle" style="padding-left: 8px; padding-top: 33px; white-space: nowrap">
+              <select style="background: url(assets/c-default-indicators/Down.png) no-repeat right transparent; width: 130%;" (change)="selMainIndicChange()" [(ngModel)]="mIndic">
+              <option *ngFor="let data of indicsMain" value="{{ data.value }}">{{ data.name }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="col-12 contForSelectBox">
+          <div class="col-12 fontForSelectUpperTitle" style="padding-top: 35px; white-space: nowrap" (click)="activeOrNot(3)">დამატებითი ცვლადი</div>
+          <div class="col-12 row">
+            <div class="col-2">
+              <img style="padding-top: 25px" src="assets/c-compare-indicators/Gender.png" alt=""/>
+            </div>
+            <div class="col-8 fontForSelectTitle" style="padding-left: 25px; padding-top: 33px">
+              <select style="background: url(assets/c-default-indicators/Down.png) no-repeat right transparent; width: 130%;" (change)="selhelpIndicChange()" [(ngModel)]="hIndic">
+              <option *ngFor="let data of indicsHelp" value="{{ data.value }}">{{ data.name }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12" style="height: 90px"></div>
+
+    <div>
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="col-12 descriptionOfChartColumns">
+            <div style="padding-left: 13px; padding-top: 25px;">
+              <button class="col-12 blueButtons" style="margin-bottom: 40px;">
+                <div class="titleForBlueButtons">პარამეტრები</div>
+              </button>
+              <div class="row" style="height: 34rem">
+                <div class="row-eq-height text-center" style="text-align: right; margin: auto;" *ngFor="let data of retMainArray()">{{ data }}</div>
+              </div>
+
+            </div>
+            
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="col-12 contForAquaButtons">
+            <div style="padding-left: 13px; padding-top: 25px">
+              <button class="col-12 blueButtons">
+                <div class="titleForBlueButtons">უცხოელი ვიზიტორები</div>
+              </button>
+              <div [hidden]="isValue != 1" style="height: 38rem" id="chartdiv"></div>
+              <div [hidden]="isValue != 2" style="height: 38rem" id="ch2"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="col-12 contForAquaButtons">
+            <div style="padding-left: 13px; padding-top: 25px">
+              <button class="col-12 blueButtons">
+                <div class="titleForBlueButtons">გამყვანი ტურიზმი</div>
+              </button>
+              <div [hidden]="isValue != 1" style="height: 38rem" id="chartdiv2"></div>
+              <div [hidden]="isValue != 2" style="height: 38rem" id="ch1"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="col-12 contForAquaButtons">
+            <div style="padding-left: 13px; padding-top: 25px">
+              <button class="col-12 blueButtons">
+                <div class="titleForBlueButtons">ადგილობრივი ტურიზმი</div>
+              </button>
+              <div [hidden]="isValue != 1" style="height: 38rem" id="chartdiv3"></div>
+              
+              <div [hidden]="isValue != 2" style="height: 38rem" id="ch"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div [hidden]="isValue != 3">
+      <div>
+        <div class="col-12 fontForBlueButtons">შემომყვანი ტურიზმი</div>
+        <div class="col-12 descrisCont">
+          <div class="col-12">
+            <div class="row">
+              <div class="text-center jont">დასვენება, გართობა, რეკრეაცია</div>
+              <div class="text-center jont">
+                მეგობრების/ნათესავების მონახულება
+              </div>
+              <div class="text-center jont">მკურნალობა/გაჯანსაღება</div>
+              <div class="text-center jont">შოპინგი</div>
+              <div class="text-center jont">
+                ტრანზიტი სხვა ქვეყანაში გადასასვლელად
+              </div>
+              <div class="text-center jont">
+                პროფესიული/ეკონომიკური საქმიანობა
+              </div>
+              <div class="text-center jont">უცნობია</div>
+            </div>
+          </div>
+          <div class="col-12" style="height: 84%" id="charti1"></div>
+        </div>
+      </div>
+      <div style="padding-top: 150px">
+        <div class="col-12 fontForBlueButtons">გამყვანი ტურიზმი</div>
+        <div class="col-12 descrisCont">
+          <div class="col-12">
+            <div class="row">
+              <div class="text-center jont">დასვენება, გართობა, რეკრეაცია</div>
+              <div class="text-center jont">
+                მეგობრების/ნათესავების მონახულება
+              </div>
+              <div class="text-center jont">მკურნალობა/გაჯანსაღება</div>
+              <div class="text-center jont">შოპინგი</div>
+              <div class="text-center jont">
+                ტრანზიტი სხვა ქვეყანაში გადასასვლელად
+              </div>
+              <div class="text-center jont">
+                პროფესიული/ეკონომიკური საქმიანობა
+              </div>
+              <div class="text-center jont">უცნობია</div>
+            </div>
+          </div>
+          <div class="col-12" style="height: 84%" id="charti2"></div>
+        </div>
+      </div>
+      <div style="padding-top: 150px">
+        <div class="col-12 fontForBlueButtons">ადგილობრივი ტურიზმი</div>
+        <div class="col-12 descrisCont">
+          <div class="col-12">
+            <div class="row">
+              <div class="text-center jont">დასვენება, გართობა, რეკრეაცია</div>
+              <div class="text-center jont">
+                მეგობრების/ნათესავების მონახულება
+              </div>
+              <div class="text-center jont">მკურნალობა/გაჯანსაღება</div>
+              <div class="text-center jont">შოპინგი</div>
+              <div class="text-center jont">
+                ტრანზიტი სხვა ქვეყანაში გადასასვლელად
+              </div>
+              <div class="text-center jont">
+                პროფესიული/ეკონომიკური საქმიანობა
+              </div>
+              <div class="text-center jont">უცნობია</div>
+            </div>
+          </div>
+          <div class="col-12" style="height: 84%" id="charti3"></div>
+        </div>
+      </div>
+      <div class="col-12" style="height: 90px"></div>
+    </div> -->
+
+    <div class="col-lg-12" style="height: 90px"></div>
+  </div>
+</div>

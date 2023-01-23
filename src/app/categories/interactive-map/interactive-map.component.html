@@ -1,0 +1,437 @@
+<!-- <div class="color">
+  <div class="container-for-header">
+    <div
+      class="row"
+      style="padding: 8px 7% 7%; padding-bottom: 0px; height: 50px !important"
+    >
+      <div
+        class="btn-group"
+        role="group"
+        aria-label="Basic radio toggle button group"
+      >
+        <input
+          type="radio"
+          class="btn-check"
+          (click)="selectTourType(0)"
+          name="btnradio"
+          id="btnradio1"
+          autocomplete="off"
+          (click)="onNot()"
+          checked
+        />
+        <label
+          class="btn btn-outline-secondary"
+          style="font-size: larger; font-weight: 500"
+          for="btnradio1"
+          (click)="show()"
+          >ვიზიტი</label
+        >
+
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="btnradio2"
+          autocomplete="off"
+          (click)="onNotIn()"
+        />
+        <label
+          class="btn btn-outline-secondary"
+          (click)="selectTourType(2)"
+          (click)="noshow()"
+          style="font-size: larger; font-weight: 500"
+          for="btnradio2"
+          >ექსკურსიული ვიზიტი</label
+        >
+
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="btnradio3"
+          autocomplete="off"
+          (click)="onNotIn()"
+        />
+        <label
+          class="btn btn-outline-secondary"
+          (click)="selectTourType(1)"
+          (click)="noshow()"
+          style="font-size: larger; font-weight: 500"
+          for="btnradio3"
+          >ტურისტული ვიზიტი</label
+        >
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 20px">
+      <div class="col-lg-1 col-md-1 col-sm-12"></div>
+      <div class="col-lg-2 col-md-12 col-sm-12 text-center pt-3">
+        <select
+          class="form-select"
+          name="my-select"
+          [(ngModel)]="yearSelect"
+          (change)="selectYearChange()"
+          aria-label="Default select example"
+        >
+          <option value="0" selected>წელი</option>
+          <option
+            [label]="datas.value"
+            *ngFor="let datas of yearsOptions"
+            [value]="datas.value"
+          >
+            {{ datas.value }}
+          </option>
+        </select>
+      </div>
+      <div class="col-lg-2 col-md-12 col-sm-12 text-center pt-3">
+        <select
+          class="form-select"
+          name="my-select"
+          [(ngModel)]="quarterSelect"
+          (change)="selectQuarterChange()"
+          aria-label="Default select example"
+        >
+          <option value="0" selected>კვარტალი</option>
+          <option
+            [label]="datas.quarter"
+            *ngFor="let datas of quarters"
+            [value]="datas.value"
+          >
+            {{ datas.quarter }}
+          </option>
+        </select>
+      </div>
+      <div class="col-lg-2 col-md-12 col-sm-12 text-center pt-3">
+        <select
+          class="form-select"
+          name="my-select"
+          [(ngModel)]="monthSelect"
+          (change)="selectMonthChange()"
+          aria-label="Default select example"
+        >
+          <option value="0" selected>თვე</option>
+          <option
+            [label]="datas.id"
+            *ngFor="let datas of monthsOptions"
+            [value]="datas.id"
+          >
+            {{ datas.id }}
+          </option>
+        </select>
+      </div>
+      <div class="col-lg-2 col-md-12 col-sm-12 text-center pt-3">
+        <select
+          class="form-select"
+          name="my-select-2"
+          [(ngModel)]="genderSelect"
+          (change)="selectGenderChange()"
+          aria-label="Default select example"
+        >
+          <option value="0" selected>სქესი</option>
+          <option
+            [label]="datas.id"
+            *ngFor="let datas of gendersOptions"
+            [value]="datas.value"
+          >
+            {{ datas.value }}
+          </option>
+        </select>
+      </div>
+      <div class="col-lg-2 col-md-12 col-sm-12 text-center pt-3">
+        <select
+          class="form-select"
+          name="my-select"
+          [(ngModel)]="ageSelect"
+          (change)="selectAgeChange()"
+          aria-label="Default select example"
+        >
+          <option value="0" selected>წლოვანება</option>
+          <option
+            [label]="datas.id"
+            *ngFor="let datas of agesOptions"
+            [value]="datas.value"
+          >
+            {{ datas.value }}
+          </option>
+        </select>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-12"></div>
+    </div>
+
+    <div class="row" style="padding: 25px 7% 7%">
+      <div
+        class="col"
+        style="
+          width: 834px;
+          height: 591px;
+
+          background: #f3f4fb;
+          border-radius: 20px;
+        "
+      >
+        <div id="chartdiv" style="height: 500px; width: 100%"></div>
+        <div
+          class="form-group"
+          style="width: 100%; height: 50px; margin-top: 50px"
+        >
+          <mat-slider
+            thumbLabel
+            [min]="sliderLowestVal"
+            [max]="sliderHighestVal"
+            [step]="1"
+            ngDefaultControl
+            [(ngModel)]="sliderValue"
+            (ngModelChange)="OnSliderValueChanged($event)"
+          >
+          </mat-slider>
+        </div>
+        <div
+          *ngIf="!notIn"
+          class="custom-control form-check-inline custom-radio"
+        >
+          <input
+            type="radio"
+            class="custom-control-input"
+            id="defaultChecked"
+            name="defaultExampleRadios"
+            (click)="offPerNight()"
+            (click)="getCountriesList()"
+            checked
+          />
+          <label class="custom-control-label pt-3" for="defaultChecked"
+            >ვიზიტების რაოდენობა</label
+          >
+        </div>
+        <div
+          *ngIf="!notIn"
+          class="custom-control form-check-inline custom-radio"
+        >
+          <input
+            type="radio"
+            class="custom-control-input"
+            id="defaultUnchecked"
+            name="defaultExampleRadios"
+            (click)="onPerNight()"
+            (click)="getCountriesListNights()"
+          />
+          <label class="custom-control-label pt-3" for="defaultUnchecked"
+            >ღამეების საშუალო რაოდენობა</label
+          >
+        </div>
+        <div id="chartdiv2" style="height: 500px; width: 100%"></div>
+      </div>
+
+      <div class="col row" style="height: 500px; overflow: auto">
+        <table class="table table-bordered table-light table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col" rowspan="2">ქვეყანა</th>
+              <th class="text-center" scope="col" colspan="2">რაოდენობა</th>
+            </tr>
+            <tr>
+              <td class="text-center" scope="col">ვიზიტები</td>
+              <td *ngIf="isShown && !perNights" class="text-center" scope="col">
+                ღამეები
+              </td>
+              <td *ngIf="isShown && perNights" class="text-center" scope="col">
+                საშუალო ღამეები
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              (click)="SelectCountryData(rs.countryId, this)"
+              *ngFor="let rs of resulti"
+            >
+              <th [id]="rs.countryId + '1'">{{ rs.countryNameGe }}</th>
+              <td style="text-align: right" [id]="rs.countryId + '2'">
+                {{ formatThousands(rs.value) }}
+              </td>
+              <td
+                *ngIf="isShown && !perNights"
+                style="text-align: right"
+                [id]="rs.countryId + '3'"
+              >
+                {{ formatThousands(rs.nights) }}
+              </td>
+              <td
+                *ngIf="isShown && perNights"
+                style="text-align: right"
+                [id]="rs.countryId + '3'"
+              >
+                {{ rs.nights / rs.value | number: "1.0-1" }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="color">
+  <div class="container-for-header">
+    <div class="col-12 row">
+      <div class="col-lg-3">
+        <div class="col-12 shortSelectCont">
+          <div class="col-12 fontForSelectUpperTitle" style="padding-top: 35px; padding-left: 32px">ვიზიტის ტიპი</div>
+          <div class="col-12 row">
+            <div class="col-2">
+              <img style="padding-left: 19px; padding-top: 30px" src="assets/c-default-indicators/TourismType.png" alt=""/>
+            </div>
+            <div class="col-9 fontForSelectTitle" style="padding-left: 25px; padding-top: 35px; white-space: nowrap">
+              <select class="w13" [(ngModel)]="vTypeSelect" (change)="selectvTypeChange()" style="background: url(assets/c-default-indicators/Down.png) no-repeat right transparent;">
+              <option *ngFor="let datas of vTypes" [label]="datas.vType" [value]="datas.value"></option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="col-12 row contForSelects">
+          <div class="col-lg-2">
+            <div class="col-12 fontForSelectUpperTitle" style="padding-top: 35px">წელი</div>
+            <div class="col-12 row">
+              <div class="col-2">
+                <img style="padding-top: 30px" src="assets/c-default-indicators/Calendar.png" alt=""/>
+              </div>
+              <div class="col-9 fontForSelectTitle" style="padding-left: 25px; padding-top: 35px; white-space: nowrap;">
+                <select name="my-select" [(ngModel)]="yearSelect" (change)="selectYearChange()" aria-label="Default select example" id="select" class="w14" style="background: url(assets/c-default-indicators/Down.png) no-repeat right transparent;">
+                  <option [label]="datas.value" *ngFor="let datas of yearsOptions" [value]="datas.value"></option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3">
+            <div class="col-12 fontForSelectUpperTitle" style="padding-top: 35px">კვარტალი</div>
+            <div class="col-12 row">
+              <div class="col-2">
+                <img style="padding-top: 30px" src="assets/c-compare-indicators/Quarter.png" alt=""/>
+              </div>
+              <div class="col-9 fontForSelectTitle" style="padding-left: 15px; padding-top: 35px; white-space: nowrap;">
+                <select name="my-select" [(ngModel)]="quarterSelect" (change)="selectQuarterChange()" aria-label="Default select example" id="select" class="w10" style=" background: url(assets/c-default-indicators/Down.png) no-repeat right transparent;">
+                  <option value="0" selected>ყველა</option>
+                  <option [label]="datas.quarter" *ngFor="let datas of quarters" [value]="datas.value">{{ datas.quarter }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <div class="col-12 fontForSelectUpperTitle" style="padding-top: 35px">თვე</div>
+            <div class="col-12 row">
+              <div class="col-2">
+                <img style="padding-top: 30px" src="assets/c-interactive-map/Month.png" alt=""/>
+              </div>
+              <div class="col-9 fontForSelectTitle" style="padding-left: 20px; padding-top: 35px; white-space: nowrap;">
+                <select name="my-select" [(ngModel)]="monthSelect" (change)="selectMonthChange()" aria-label="Default select example" id="select" class="w12" style="background: url(assets/c-default-indicators/Down.png) no-repeat right transparent;">
+                  <option value="0" selected>ყველა</option>
+                  <option [label]="datas.id" *ngFor="let datas of monthsOptions" [value]="datas.id">{{ datas.id }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <div class="col-12 fontForSelectUpperTitle" style="padding-top: 35px">სქესი</div>
+            <div class="col-12 row">
+              <div class="col-2">
+                <img style="padding-top: 30px" src="assets/c-seasonal/Gender.png" alt=""/>
+              </div>
+              <div class="col-9 fontForSelectTitle" style="padding-left: 25px; padding-top: 35px; white-space: nowrap;" >
+                <select name="my-select-2" [(ngModel)]="genderSelect" (change)="selectGenderChange()" aria-label="Default select example" id="select" class="w18" style="background: url(assets/c-default-indicators/Down.png) no-repeat right transparent;">
+                  <option value="0" selected>ყველა</option>
+                  <option [label]="datas.gender" *ngFor="let datas of gendersOptions" [value]="datas.value">{{ datas.value }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="col-12 fontForSelectUpperTitle" style="padding-top: 35px">ასაკი</div>
+            <div class="col-12 row">
+              <div class="col-2">
+                <img style="padding-top: 30px" src="assets/c-seasonal/Age.png" alt=""/>
+              </div>
+              <div class="col-9 fontForSelectTitle" style="padding-left: 25px; padding-top: 35px; white-space: nowrap;">
+                <select name="my-select" [(ngModel)]="ageSelect" (change)="selectAgeChange()" aria-label="Default select example" id="select" class="w12" style="background: url(assets/c-default-indicators/Down.png) no-repeat right transparent;">
+                  <option value="0" selected>ყველა</option>
+                  <option [label]="datas.id" *ngFor="let datas of agesOptions" [value]="datas.value">{{ datas.value }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12" style="height: 100px"></div>
+    <div class="col-lg-12 row">
+      <div class="col-lg-8 col-sm-12">
+        <div class="col-12" style="width: 100%; height: 600px; background: #f3f4fb; border-radius: 20px;">
+          <div id="chartdiv" style="height: 74%"></div>
+          <div class="form-group" style="width: 100%; height: 50px; margin-top: 50px">
+          <div class="row">
+            <div class="col-1">
+              <mat-icon (click)="onPlayClick()" class="icon-display" style="display: flex; align-items: center; width: 50px; height:47px; justify-content: center;">play_arrow</mat-icon>
+            </div>
+            <div class="col-11">
+              <mat-slider thumbLabel [min]="sliderLowestVal" [max]="sliderHighestVal" [step]="1" ngDefaultControl [(ngModel)]="sliderValue" (ngModelChange)="OnSliderValueChanged($event)">
+            </mat-slider>
+            </div>
+          </div>
+
+
+          </div>
+          <div>
+            <mat-radio-group>
+              <mat-radio-button (click)="offPerNight()" (click)="getCountriesList()" type="radio" value="visits" checked>ვიზიტების რაოდენობა&nbsp;&nbsp;</mat-radio-button>
+              <mat-radio-button (click)="onPerNight()" (click)="getCountriesListNights()" type="radio" value="nights">ღამეების საშუალო რაოდენობა</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          
+        </div>
+        <div class="col-12" style="height: 100px"></div>
+        <div class="col-12" style="width: 100%;height: 462px; background: #ffffff; box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1); border-radius: 20px;" id="chartdiv2"></div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="col-12">
+          
+          <div style="overflow: auto; height: 1161px; border-radius: 20px 20px 0px 0px; margin-right: -13px; margin-left: -15px; overflow-x: hidden;" class="d">
+            <table class="table w3-striped w3-hoverable">
+              <thead class="inputsParent">
+                <tr class="tableTitle">
+                  <th class="centerTitles" scope="col" rowspan="2" style="height: 91px; background: #5c4fc9; box-shadow: 0px 4px 50px 5px rgba(0, 0, 0, 0.06); text-align: center;" (click)="sortCountryes()">ქვეყანა</th>
+                  <th class="text-center centerTitles" scope="col" style="height: 91px; background: #323c95; box-shadow: 0px 4px 50px 5px rgba(0, 0, 0, 0.06);" (click)="sortDataVisits()">ვიზიტები
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up mx-3" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
+                    </svg>
+                  </th>
+                                    
+                  <th class="text-center centerTitles" scope="col" style="height: 91px; background: #161f6a; box-shadow: 0px 4px 50px 5px rgba(0, 0, 0, 0.06);" (click)="sortDataNights()">საშუალო ღამეები
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
+                    </svg>
+                  </th>
+                </tr>
+                <tr></tr>
+              </thead>
+              <tbody class="overflow-y: scroll;">
+                <input class="inputForCountrySearch" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="მოძებნეთ ქვეყანა" autofocus/>
+
+                <tr (click)="SelectCountryData(rs.countryId)" *ngFor="let rs of dataForTable | filter: searchText">
+                  <th [id]="rs.countryId + '1'">{{ rs.countryNameGe }}</th>
+                  <td style="text-align: right" [id]="rs.countryId + '2'">{{ formatThousands(rs.visits) }}</td>
+                  
+                  <td style="text-align: right" [id]="rs.countryId + '3'">{{ rs.avarNights | number: "1.0-1" }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-12" style="height: 100px">
+      </div>
+    </div>
+  </div>
+</div>

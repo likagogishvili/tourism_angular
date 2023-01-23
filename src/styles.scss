@@ -1,0 +1,151 @@
+@font-face {
+  font-family: "FiraGO";
+  src: local("FiraGO"),
+    url("./assets/font/FiraGO-Regular.woff") format("truetype");
+}
+
+* {
+  font-family: "FiraGO" !important;
+}
+
+
+body {
+  margin: 0;
+  padding: 0px;
+}
+
+
+.container-for-header {
+  max-width: 1355px;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 1%;
+}
+
+
+
+// .container-for-navigation {
+//     max-width: 1355px;
+//     width: 100%;
+//     margin-right: auto;
+//     margin-left: auto;
+// }
+
+.font {
+  font-weight: 500;
+  font-family: firaGO;
+  font-feature-settings: "case" on, "cpsp" on;
+}
+
+.fontForSelectUpperTitle {
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  font-variant: small-caps;
+
+  color: #c4c4c4;
+}
+
+.fontForSelectTitle {
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  font-variant: small-caps;
+
+  color: #6b6b6d;
+}
+
+html,
+input,
+label,
+select,
+option {
+  cursor: url("assets/redcur.cur"), auto !important;
+}
+
+a,
+button,
+path,
+svg,
+rect,
+tspan,
+th {
+  cursor: url("assets/redpoint.cur"), auto !important;
+}
+
+::selection {
+  background: rgb(231, 135, 135);
+}
+
+// SCROLLBAR
+
+body::-webkit-scrollbar {
+  width: 10px; /* width of the entire scrollbar */
+}
+body::-webkit-scrollbar-track {
+  background: transparent; /* color of the tracking area */
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #32a9ff; /* color of the scroll thumb */
+  // border-radius: 10px;       /* roundness of the scroll thumb */
+  // border: 3px;  /* creates padding around scroll thumb */
+}
+
+.d::-webkit-scrollbar {
+  width: 5px;
+}
+
+.d::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.d::-webkit-scrollbar-thumb {
+  background-color: #c4c4c4;
+  border-radius: 20px;
+}
+
+select::-webkit-scrollbar {
+  width: 5px;
+}
+
+select::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+select::-webkit-scrollbar-thumb {
+  background-color: #c4c4c4;
+  border-radius: 20px;
+}
+
+
+select {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+
+
+// /SCROLLBAR
+
+select {
+  background-color: transparent;
+  border: none;
+  outline: 0px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+  color: #6b6b6d;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

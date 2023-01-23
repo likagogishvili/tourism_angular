@@ -1,0 +1,111 @@
+<div class="container" style="height: 30vh; margin-top: 2vh; margin-bottom: 2vh; padding: 0px; display: flex;">
+    <div class="contForSelectBox" style="width: 48%; height: 100%; margin-right: 5%;">
+      <div class="line lline1 text-center text" style="font-family: FiraGO;font-style: normal;font-weight: 500;font-size: 20px;line-height: 38px; padding-top: 2px; color: #2330a4;">
+        დროის შუალედი
+      </div>
+
+      <div class="line lline2">
+        <div class="ragac1 text-center" style="width: 29%;">
+          
+        </div>
+
+        <div class="ragac2 text-center text" style="width: 39%;">
+          თვე
+        </div>
+
+        <div class="ragac3 text-center text" style="width: 39%;">
+          წელი
+        </div>
+      </div>
+
+      <div class="line lline3">
+        <div class="ragac1 text-center text" style="width: 29%;">
+          საწყისი
+        </div>
+
+        <div class="ragac2 text-center text" style="width: 39%;">
+          <select class="form-select" style="width: 70%; margin: auto;" [(ngModel)]="startM.value">
+            <option *ngFor="let data of monthies" value="{{ data.value }}">{{ data.name }}</option>
+          </select>
+        </div>
+
+        <div class="ragac3 text-center text" style="width: 39%;">
+          <select class="form-select" style="width: 70%; margin: auto;" [(ngModel)]="year">
+            <option *ngFor="let data of years" value="{{ data }}">{{ data }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="line lline4 text">
+        <div class="ragac1 text-center" style="width: 29%;">
+          საბოლოო
+        </div>
+
+        <div class="ragac2 text-center text" style="width: 39%;">
+          <select class="form-select" style="width: 70%; margin: auto;" [(ngModel)]="endM.value">
+            <option *ngFor="let data of monthiesEnd" value="{{ data.value }}">{{ data.name }}</option>
+          </select>
+        </div>
+
+        <div class="ragac3 text-center text" style="width: 39%;">
+          <select class="form-select" style="width: 70%; margin: auto;" [(ngModel)]="yearEnd">
+            <option *ngFor="let data of yearsReverced" value="{{ data }}">{{ data }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="line lline5" style="display: flex; justify-content: center;">
+
+        <div style="width: 70%; float: left;">
+
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" [checked]="true" (change)="changeFlag(1)" (click)="getYears(1)" (click)="getYearsReverced(1)"/>
+            <label class="form-check-label" for="inlineRadio1">უცხოელი ვიზიტორები</label>
+          </div>
+          
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" (change)="changeFlag(2)" (click)="getYears(2)" (click)="getYearsReverced(2)"/>
+            <label class="form-check-label" for="inlineRadio2">გამყვანი ტურიზმი</label>
+          </div>
+
+        </div>
+
+        <div class="form-check form-check-inline" style="width: 25%; float: right;">
+          <button type="button" class="btn btn-success" (click)="getChart()">შეადარე</button>
+          <!-- <div id="alert" class="alert alert-warning" role="alert" *ngIf="denger" style="position: absolute; top: 0; left: 0; z-index: 10;">
+            This is a warning alert—check it out!
+          </div> -->
+
+          <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="denger"  style="position: absolute; top: 0; left: 0; z-index: 10;">
+            <strong>გთხოვთ სწორად მიუთითოთ დროის შუალედი</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="changedenger()"></button>
+          </div>
+          
+        </div>
+
+      </div>
+    </div>
+
+    <div class="contForSelectBox text-center sgp" style="width: 48%; height: 100%; font-family: FiraGO;font-style: normal;font-weight: 500;font-size: 20px;line-height: 38px; color: #2330a4">
+      ვიზიტების რაოდენობა სასაზღვრო-გამშვები პუნქტების მიხედვით
+    </div>
+</div>
+
+<div class="container" style="height: 70vh; margin-bottom: 5vh; display: flex;">
+  <div class="contForSelectBox" style="height: 80%; width: 35%; display: flex; flex-direction: column; margin: auto;">
+
+    <div class="text-center contForSelectBox" style="margin-bottom: 5%; background: #c6cbf8; font-family: FiraGO;font-style: normal;font-weight: 500;font-size: 20px;line-height: 38px;font-variant: small-caps;font-feature-settings: 'case' on; color: #2330a4;">
+      სასაზღვრო გამშვები პუნქტები
+    </div>
+
+    <div id="legenddiv" style="overflow: auto; height: 100%;">
+      
+    </div>
+    
+
+  </div>
+
+  <div class="chart contForSelectBox" id="topChart" style="height: 80%; width: 64%; margin: auto; margin-left: 5px;">
+    
+  </div>
+</div>

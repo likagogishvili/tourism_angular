@@ -1,0 +1,254 @@
+<!--
+<div class="row">
+    <div class="col-8">
+        <div id="chart1" style="height: 650px;"></div>
+    </div>
+    <div class="col-4 text-center">
+        <button type="button" class="btn b1 btn-success .btn-block.">რეგიონიდან</button>
+        <button type="button" class="btn b1 btn-success .btn-block.">რეგიონში</button>
+        <div class="btn-group-vertical pt-2" role="group" aria-label="Basic example">
+            <button type="button" class="btn b2 btn-primary">სულ</button>
+            <button type="button" class="btn b2 btn-primary">სქესის მიხედვით</button>
+            <button type="button" class="btn b2 btn-primary">ასაკის მიხედვით</button>
+            <button type="button" class="btn b2 btn-primary">სტატუსის მიხედვით</button>
+            <button type="button" class="btn b2 btn-primary">ძირითადი მიზნის მიხედვით</button>
+            <button type="button" class="btn b2 btn-primary">განხორციელებული აქტივობის მიხედვით</button>
+            <button type="button" class="btn b2 btn-primary">ტრანსპორტის მიხედვით</button>
+            <button type="button" class="btn b2 btn-primary">კმაყოფილების დონის მიხედვით</button>
+            <button type="button" class="btn b2 btn-primary">ღამეების საშუალო რაოდენობა ვიზიტზე</button>
+            <button type="button" class="btn b2 btn-primary">ხარჯები</button>
+        </div>
+    </div>
+</div>
+<div class="row pt-2">
+    <div class="col-6" id="chart3" style="height: 600px;"></div>
+    <div class="col-6" id="chart2" style="height: 600px;"></div>
+</div> -->
+<div class="backgroundImg">
+  <div class="container-for-header">
+    <div class="row col-12">
+
+      <div class="col-lg-3 butPos">
+        <button class="not-selected-button" type="button" [ngClass]="{ acti: isValue == 1 }" (click)="activeOrNot(1)">რეგიონში</button>
+      </div>
+
+
+      <div class="col-lg-3 butPos">
+        <button type="button" class="not-selected-button" [ngClass]="{ acti: isValue == 2 }" (click)="activeOrNot(2)">რეგიონიდან</button>
+      </div>
+
+
+      <div class="col-lg-3">
+        <div class="col-12 row">
+          <div class="col-2">
+            <img style="padding-top: 25px" src="assets/c-default-indicators/Calendar.png" alt=""/>
+          </div>
+          <div class="col-6 fontForSelectTitle" style="padding-left: 25px; padding-top: 33px">
+            <select style="background: url(assets/c-default-indicators/Down.png) no-repeat right transparent; width: 130%;" (change)="changeYear()" [(ngModel)]="year">
+              <option *ngFor="let data of years" value="{{ data }}">{{ data }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6"></div>
+    </div>
+    <div class="col-12" style="height: 70px"></div>
+    <div class="row col-12">
+      <div class="col-lg-3">
+        <div style="box-sizing: border-box; width: 98%; height: auto; background: #ffffff; border: 0.5px solid #5c4fc9; border-radius: 20px;">
+          <img src="assets/c-default-indicators/TourismType.png" alt="location" style="padding-top: 30px; padding-left: 30px"/>
+          <div class="fontForCheckboxesTitle" style="margin-top: -17px; margin-left: 75px">ტურიზმის ტიპი</div>
+
+          <div *ngIf="isValue == 1">
+            <div style="padding-left: 29px; padding-top: 20px">
+              <input type="radio" id="ttype1" name="tType" [checked]="true" (change)="setTourismType(2)"/>
+              <label class="fontForCheckboxes" style="padding-left: 12px" for="ttype1">უცხოელი ვიზიტორები</label>
+              <br/>
+            </div>
+  
+            <div style="padding-left: 29px; padding-top: 11px">
+              <input type="radio" id="ttype2" name="tType" (change)="setTourismType(1)"/>
+              <label class="fontForCheckboxes" style="padding-left: 12px" for="ttype2">ადგილობრივი ტურიზმი</label>
+              <br />
+            </div>
+          </div>
+
+          <div *ngIf="isValue == 2">
+            
+            <div style="padding-left: 29px; padding-top: 25px; padding-bottom: 25px;">
+              <label class="fontForCheckboxes" style="padding-left: 12px" for="ttype2">ადგილობრივი ტურიზმი</label>
+              <br />
+            </div>
+
+          </div>
+          
+          
+
+
+          <img src="assets/ht-default-indicators/Vector.png" alt="location" style="padding-top: 10px; padding-left: 30px"/>
+          <div class="fontForCheckboxesTitle" style="margin-top: -14px; margin-left: 75px">მაჩვენებელი</div>
+
+          <div style="padding-left: 29px; padding-top: 20px">
+            <input type="radio" id="0" name="All" value="0" (change)="selDeselCheckBoxesOnRDBClick($event)" [checked]="true"/>
+            <label class="fontForCheckboxes" style="padding-left: 12px" for="0">სულ</label>
+            <br />
+          </div>
+
+          <div style="padding-left: 29px; padding-top: 11px">
+            <input type="radio" id="1" name="All" value="1" (change)="selDeselCheckBoxesOnRDBClick($event)"/>
+            <label class="fontForCheckboxes" style="padding-left: 12px" for="1">სქესის მიხედვით</label>
+            <img (click)="detailedGender()" src="assets/c-regional-analysis/Plus.png" alt="" style="padding-left: 15px"/>
+            <br />
+            <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+            <div *ngIf="isGenderDetailed" [(ngModel)]="isGenderDetailed">
+              <div style="padding-left: 30px" *ngFor="let gender of genders; let ind = index" >
+                <input id="{{ gender.name }}" type="checkbox" name="{{ gender.name }}" value="1" (change)="checkBoxClic($event)" [(ngModel)]="gender.selected"/>
+                <label class="fontForCheckboxes" style="padding-left: 12px" for="{{ gender.name }}">{{ gender.name }}</label>
+              </div>
+              
+            </div>
+          </div>
+          <div style="padding-left: 29px; padding-top: 11px;" >
+            <input type="radio" id="2" name="All" value="2" (change)="selDeselCheckBoxesOnRDBClick($event)"/>
+            <label class="fontForCheckboxes" style="padding-left: 12px" for="2">ასაკის მიხედვით</label>
+            <img (click)="detailedAge()" src="assets/c-regional-analysis/Plus.png" alt="" style="padding-left: 15px"/>
+            <br />
+            <div *ngIf="isAgeDetailed" [(ngModel)]="isAgeDetailed">
+              <div style="padding-left: 30px" *ngFor="let age of ages; let ind = index">
+                <input id="{{ age.name }}" type="checkbox" name="{{ age.name }}" value="2" (change)="checkBoxClic($event)" [(ngModel)]="age.selected"/>
+                <label class="fontForCheckboxes" style="padding-left: 12px" for="{{ age.name }}">{{ age.name }}</label>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding-left: 29px; padding-top: 11px" >
+            <input type="radio" id="3" name="All" value="3" (change)="selDeselCheckBoxesOnRDBClick($event)"/>
+            <label class="fontForCheckboxes" style="padding-left: 12px" for="3">სტატუსის მიხედვით</label>
+            <img (click)="detailedStatus()" src="assets/c-regional-analysis/Plus.png" alt="" style="padding-left: 15px"/>
+            <br />
+            <div *ngIf="isStatusDetailed" [(ngModel)]="isStatusDetailed">
+              <div style="padding-left: 30px" *ngFor="let activity of activityes; let ind = index">
+                <input id="{{ activity.name }}" type="checkbox" name="{{ activity.name }}" value="3" (change)="checkBoxClic($event)" [(ngModel)]="activity.selected"/>
+                <label class="fontForCheckboxes" style="padding-left: 12px" for="{{ activity.name }}">{{ activity.name }}</label>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="isValue == 2">
+            <div style="padding-left: 29px; padding-top: 11px" >
+              <input type="radio" id="4" name="All" value="4" (change)="selDeselCheckBoxesOnRDBClick($event)"/>
+              <label class="fontForCheckboxes" style="padding-left: 12px" for="4">ძირითადი მიზნის მიხედვით</label>
+              <img (click)="detailedPurpose()" src="assets/c-regional-analysis/Plus.png" alt="" style="padding-left: 15px"/>
+              <br />
+              <div *ngIf="isPurposeDetailed" [(ngModel)]="isPurposeDetailed">
+                <div style="padding-left: 30px" *ngFor="let goal of goals; let ind = index">
+                  <input id="{{ goal.name }}" type="checkbox" name="{{ goal.name }}" value="4" (change)="checkBoxClic($event)"  [(ngModel)]="goal.selected"/>
+                  <label class="fontForCheckboxes" style="padding-left: 12px" for="{{ goal.name }}">{{ goal.name }}</label>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding-left: 29px; padding-top: 11px">
+              <input type="radio" id="5" name="All" value="5" (change)="selDeselCheckBoxesOnRDBClick($event)"/>
+              <label class="fontForCheckboxes" style="padding-left: 12px" for="5"> კმაყოფილების დონის მიხედვით </label>
+              <img (click)="detaledRate()" src="assets/c-regional-analysis/Plus.png" alt="" style="padding-left: 15px"/>
+              <br />
+              <div *ngIf="isRateDetaled" [(ngModel)]="isRateDetaled">
+                <div style="padding-left: 30px" *ngFor="let rate of rates; let ind = index">
+                  <input id="{{ rate.name }}" type="checkbox" name="{{ rate.name }}" value="5" (change)="checkBoxClic($event)" [(ngModel)]="rate.selected"/>
+                  <label class="fontForCheckboxes" style="padding-left: 12px" for="{{ rate.name }}">{{ rate.name }}</label>
+                </div>                
+              </div>
+            </div>
+
+            <div style="padding-left: 29px; padding-top: 11px" >
+              <input type="radio" id="6" name="All" value="5" (change)="selDeselCheckBoxesOnRDBClick($event)"/>
+              <label class="fontForCheckboxes" style="padding-left: 12px" for="6">აქტივობის მიხედვით</label>
+              <img (click)="detailedActivity()" src="assets/c-regional-analysis/Plus.png" alt="" style="padding-left: 15px"/>
+              <br />
+              <div *ngIf="isActivityDetailed" [(ngModel)]="isActivityDetailed">
+                <div style="padding-left: 30px" *ngFor="let visit of visits; let ind = index">
+                  <input id="{{ visit.name }}" type="checkbox" name="{{ visit.name }}" value="6" (change)="checkBoxClic($event)" [(ngModel)]="visit.selected"/>
+                  <label class="fontForCheckboxes" style="padding-left: 12px" for="{{ visit.name }}">{{ visit.name }}</label >
+                </div>
+              </div>
+            </div>
+            
+            <div style="padding-left: 29px; padding-top: 11px" >
+              <input type="radio" id="7" name="All" value="6" (change)="selDeselCheckBoxesOnRDBClick($event)"/>
+              <label class="fontForCheckboxes" style="padding-left: 12px" for="7" > ტრანსპორტის მიხედვით</label>
+              <img (click)="detailedTransport()" src="assets/c-regional-analysis/Plus.png" alt="" style="padding-left: 15px"/>
+              <br />
+              <div *ngIf="isTransportDetailed" [(ngModel)]="isTransportDetailed">
+                <div style="padding-left: 30px" *ngFor="let transport of transports; let ind = index">
+                  <input id="{{ transport.name }}" type="checkbox" name="{{ transport.name }}" [value]="7" (change)="checkBoxClic($event)" [(ngModel)]="transport.selected"/>
+                  <label class="fontForCheckboxes" style="padding-left: 12px" for="{{ transport.name }}">{{ transport.name }}</label>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+
+          <hr style="margin: 0 30px 0 30px; margin-top: 11px; margin-bottom: 11px"/>
+
+          <div style="padding-left: 29px; padding-top: 5px; padding-bottom: 10px;">
+            <input type="radio" id="RdbVisits" name="flagRadio" value="Racha-Lechkhumi-Kvemo-Svaneti" [checked]="true" (change)="changeFlag('visits')"/>
+            <label class="fontForCheckboxes" style="padding-left: 12px" for="RdbVisits">ვიზიტების რაოდენობა</label>
+          </div>
+
+
+          <div style="padding-left: 29px; padding-top: 11px">
+            <input type="radio" id="RdbNights" name="flagRadio" value="Racha-Lechkhumi-Kvemo-Svaneti" (change)="changeFlag('nights')"/>
+            <label class="fontForCheckboxes" style="padding-left: 12px" for="RdbNights">ღამეების საშუალო რაოდენობა</label>
+            <br />
+          </div>
+
+          <!-- <div style="padding-left: 29px; padding-top: 11px; padding-bottom: 35px" *ngIf="this.type == 1">
+            <input type="checkbox" id="Samtskhe-Javakheti" name="Samtskhe-Javakheti" value="Samtskhe-Javakheti"/>
+            <label class="fontForCheckboxes" style="padding-left: 12px" for="Samtskhe-Javakheti">ხარჯების მიხედვით</label>
+            <br />
+          </div> -->
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="firstCont">
+          <div style="display: flex">
+            <div class="text-center font col-11" style="color: #3d3d3e; font-size: 24px; padding-top: 20px; flex: 1; margin-top: 40px;">{{ mapChartTitle }}</div>
+            <div class="">
+              <img style="flex: 1; padding-top: 20px; padding-left: 10px" src="assets/c-default-indicators/Save.png" alt=""/>
+            </div>
+          </div>
+          <div class="meoreRagac" id="chart1" style="width: 90%; height: 90%; padding-left: 66px; flex: 1"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12" style="height: 70px"></div>
+    <div class="row col-12">
+      <div *ngIf="tourismType == 1" class="col-lg-6">
+        <div class="contForBottomTwoChart">
+          <div style="display: flex">
+            <div class="text-center font col-11" style="color: #3d3d3e; font-size: 24px; flex: 1">{{ sanqiName }}</div>
+            <div class="">
+              <img style="flex: 1; padding-top: 20px; padding-left: 10px" src="assets/c-default-indicators/Save.png" alt=""/>
+            </div>
+          </div>
+          <div class="meoreRagac" id="chart22" style="width: 90%; height: 90%; padding-left: 66px"></div>
+        </div>
+      </div>
+      <div *ngIf="tourismType == 1" class="col-lg-6">
+        <div class="contForBottomTwoChart">
+          <div style="display: flex">
+            <div class="text-center font col-11" style="color: #3d3d3e; font-size: 24px; padding-top: 20px; flex: 1; margin-top: 40px;">{{ expenceTitle }}</div>
+            <div class="">
+              <img style="flex: 1; padding-top: 20px; padding-left: 10px" src="assets/c-default-indicators/Save.png" alt=""/>
+            </div>
+          </div>
+
+          <div class="meoreRagac" id="chart2" style="width: 90%; height: 90%; padding-left: 66px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12" style="height: 70px"></div>
+  </div>
+</div>
