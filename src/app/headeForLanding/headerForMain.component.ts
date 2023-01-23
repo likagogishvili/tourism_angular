@@ -8,21 +8,14 @@ import { HotObservable } from 'rxjs/internal/testing/HotObservable';
 })
 export class headerForMain implements OnInit {
   constructor() {
-    this.lang = localStorage.getItem('Language');
   }
 
   ngOnInit(): void {
-
-    if (this.lang == "GEO"){
-      this.title = "ტურიზმის სტატისტიკის პორტალი";
-    }
-    else{
-      this.title = "Tourism Statistics Portal";
-    }
+    this.lang = localStorage.getItem('Language');
   }
 
 
-  title: string = "ტურიზმის სტატისტიკის პორტალი";
+  //title: string = "ტურიზმის სტატისტიკის პორტალი";
   
 
   lang: any;
