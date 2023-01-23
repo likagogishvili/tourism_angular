@@ -9,19 +9,53 @@ export class HotelsService {
 
   readonly APIUrl: string = 'http://tourismapi.geostat.ge/api/Hotels';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.lang = localStorage.getItem('Language');
+  }
 
+  lang: any;
 
-  hotelTypes: IDropDown[] = [
+  hotelTypes: any;
+
+  hotelTypesGE: IDropDown[] = [
     {name: "სასტუმრო", value: 1, isDisabled: true},
-    {name: "კემპინგი", value: 3, isDisabled: false},
-    {name: "კოტეჯი", value: 4, isDisabled: false},
-    {name: "სასტუმრო სახლი", value: 5, isDisabled: false},
-    {name: "კოტეჯი ან სახლი მასპინძლის გარეშე", value: 6, isDisabled: false},
+    {name: "კემპინგი", value: 2, isDisabled: false},
+    {name: "კოტეჯი", value: 3, isDisabled: false},
+    {name: "სასტუმრო სახლი", value: 4, isDisabled: false},
+    {name: "კოტეჯი ან სახლი მასპინძლის გარეშე", value: 5, isDisabled: false},
+  ];
+
+  hotelTypesEN: IDropDown[] = [
+    {name: "Hotel", value: 1, isDisabled: true},
+    {name: "Camping", value: 2, isDisabled: false},
+    {name: "Cottage", value: 3, isDisabled: false},
+    {name: "Guest House", value: 4, isDisabled: false},
+    {name: "A Cottage or House Without a Host", value: 5, isDisabled: false},
   ];
 
 
-  roomsNuber: IDropDown[] = [
+  getHotelTypes(){
+    
+    if (this.lang === 'GEO'){
+      return this.hotelTypesGE;
+    }
+    else{
+      return this.hotelTypesEN;
+    }
+  }
+
+  getRoomNumbers(){
+    
+    if (this.lang === 'GEO'){
+      return this.roomsNuberGE;
+    }
+    else{
+      return this.roomsNuberEN;
+    }
+  }
+
+
+  roomsNuberGE: IDropDown[] = [
     {name: "1-5 ნომერი", value: 1, isDisabled: false},
     {name: "6-10 ნომერი", value: 2, isDisabled: true},
     {name: "11-15 ნომერი", value: 3, isDisabled: false},
@@ -30,6 +64,18 @@ export class HotelsService {
     {name: "31-50 ნომერი", value: 6, isDisabled: false},
     {name: "51-100 ნომერი", value: 7, isDisabled: false},
     {name: "101+ ნომერი", value: 8, isDisabled: false}
+  ];
+
+
+  roomsNuberEN: IDropDown[] = [
+    {name: "1-5 Number", value: 1, isDisabled: false},
+    {name: "6-10 Number", value: 2, isDisabled: true},
+    {name: "11-15 Number", value: 3, isDisabled: false},
+    {name: "16-20 Number", value: 4, isDisabled: false},
+    {name: "21-30 Number", value: 5, isDisabled: false},
+    {name: "31-50 Number", value: 6, isDisabled: false},
+    {name: "51-100 Number", value: 7, isDisabled: false},
+    {name: "101+ Number", value: 8, isDisabled: false}
   ];
 
   getHotels(innType: string, rooms: string){

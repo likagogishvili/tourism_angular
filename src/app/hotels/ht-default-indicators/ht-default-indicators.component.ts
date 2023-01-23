@@ -6,6 +6,7 @@ import { IDropDown } from 'src/app/common/IDropDown';
 import { DefindicatorService } from './service/defindicator.service';
 import { HttpClient } from '@angular/common/http';
 import { DataForMapChart } from './service/dataForMapChart';
+import lang from '@amcharts/amcharts4-geodata/lang/ES';
 
 // import am4geodata_georgia from "@amcharts/amcharts4-geodata/region/world/";
 // import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
@@ -116,8 +117,8 @@ export class HtDefaultIndicatorsComponent implements OnInit {
   
     
 
-  name : string = 'აირჩიეთ რეგიონი';
-  hoverName : string = 'აირჩიეთ რეგიონი';
+  // name : string = 'აირჩიეთ რეგიონი';
+  // hoverName : string = 'აირჩიეთ რეგიონი';
 
   selectedRegion : number = 0;
   // tooltipx: number = 0;

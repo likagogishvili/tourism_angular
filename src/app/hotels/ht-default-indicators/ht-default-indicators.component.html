@@ -188,17 +188,17 @@
       <div class="contForindicators">
         
         <img class="firstImgPositionForInputs" src="assets/ht-default-indicators/Vector.png" alt="statistics"/>
-        <div class="fontForCheckboxesTitle">მაჩვენებელი</div>
+        <div class="fontForCheckboxesTitle">{{ 'keyindic.indic' | translate }}</div>
 
         <div class="positionForFirstIndicatorsInput">
           <input type="radio" id="HotelsAmount" name="radioSelect" value="HotelsAmount" checked (click)="hotel()"/>
-          <label class="fontForCheckboxes pad" for="HotelsAmount">სასტუმროების რაოდენობა</label>
+          <label class="fontForCheckboxes pad" for="HotelsAmount">{{ 'keyindic.hotelCount' | translate }}</label>
           <br />
         </div>
 
         <div class="secondIndicPosition">
           <input type="radio" id="VisitorsAmount" name="radioSelect" value="VisitorsAmount" (click)="guest()"/>
-          <label class="fontForCheckboxes pad" for="VisitorsAmount">სტუმრების რაოდენობა</label>
+          <label class="fontForCheckboxes pad" for="VisitorsAmount">{{ 'keyindic.guestCount' | translate }}</label>
           <br />
         </div>
 
@@ -207,11 +207,11 @@
       <div class="contForRegions">
         <img class="firstImgPositionForInputs" src="assets/ht-default-indicators/ra.png" alt="location"/>
 
-        <div class="fontForCheckboxesTitle pad2">რეგიონები</div>
+        <div class="fontForCheckboxesTitle pad2">{{ 'keyindic.regs' | translate }}</div>
 
         <div class="firstForRegions">
           <input type="checkbox" id="All" name="All" value=0 [checked]="true" (change)="checkUncheckAll($event)"/>
-          <label class="fontForCheckboxes" for="All"> სულ</label><br />
+          <label class="fontForCheckboxes" for="All">{{ 'keyindic.def' | translate }}</label><br />
         </div>
 
         <div class="inputPosition" *ngFor="let reg of regions" [(ngModel)]="region" id="checkDiv">
@@ -269,14 +269,14 @@
     
     <div class="col-lg-9 col-sm-12 mainChart">
       <div class="contForLg9">
-        <div class="text-center font stur" style="margin-bottom: 20px;">{{ sankyChart }}</div>
+        <div class="text-center font stur" style="margin-bottom: 20px;">{{ 'keyindic.mainChartTitle' | translate }}</div>
         <div class="meoreRagac positioning-chart2" id="chartMain"></div>
       </div>
     </div>
 
     <div class="col-lg-12 defHeight"></div>
     <div class="col-lg-4">
-      <div class="font FontForChartTitles">სასტუმროების რაოდენობა</div>
+      <div class="font FontForChartTitles">{{ 'keyindic.hotelsChartTitle' | translate }}</div>
 
       <div class="conts">
         <!-- <div [ngModel]="sizeBool" (click)="chngeBool()" style="background: rgb(238, 23, 23); width: 7%; height: 7%; position: absolute; margin-left: 85%; margin-top: 3%;"></div> -->
@@ -285,30 +285,30 @@
       </div>
     </div>
     <div class="col-lg-4">
-      <div class="font FontForChartTitles" style="white-space: nowrap">ნომრების რაოდენობა</div>
+      <div class="font FontForChartTitles" style="white-space: nowrap">{{ 'keyindic.roomsChartTitle' | translate }}</div>
 
       <div class="conts" id="chartBadRoom"></div>
     </div>
     <div class="col-lg-4">
-      <div class="font FontForChartTitles">სტუმრების რაოდენობა</div>
+      <div class="font FontForChartTitles">{{ 'keyindic.guestsChartTitle' | translate }}</div>
 
       <div class="conts" id="chartGestCount"></div>
     </div>
 
     <div class="col-lg-4">
-      <div class="font FontForChartTitles">შემოსავლების სტრუქტურა</div>
+      <div class="font FontForChartTitles">{{ 'keyindic.incomsChartTitle' | translate }}</div>
 
       <div class="conts">
         <div class="meoreRagac hund" id="chartRevenue"></div>
       </div>
     </div>
     <div class="col-lg-4">
-      <div class="font FontForChartTitles" style="white-space: nowrap">დასაქმებულები სქესის მიხედვით</div>
+      <div class="font FontForChartTitles" style="white-space: nowrap">{{ 'keyindic.emploeeChartTitle' | translate }}</div>
 
       <div class="conts" id="chartGender"></div>
     </div>
     <div class="col-lg-4">
-      <div class="font FontForChartTitles">ხარჯების სტრუქტურა</div>
+      <div class="font FontForChartTitles">{{ 'keyindic.expenceChartTitle' | translate }}</div>
 
       <div class="conts" id="chartCoast"></div>
     </div>
