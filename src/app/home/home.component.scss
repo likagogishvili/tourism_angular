@@ -1,15 +1,11 @@
-
-
 @import "../../assets/styles/colors";
 @import "../../assets/styles/media-queries";
-
 
 .landing__page {
   height: clamp(500px, 42vw, 900px);
   display: flex;
   gap: 0.1875rem;
   overflow-x: hidden;
-  margin-bottom: 1.5%;
 
   @include mobile {
     flex-wrap: wrap;
@@ -18,7 +14,7 @@
   .visitors,
   .hotels {
     padding: 7vw 8vw;
-    width: 50vw;
+    width: 50%;
     background-position: center -12.5rem;
     background-repeat: no-repeat;
     border-radius: 0.3125rem;
@@ -27,7 +23,7 @@
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 
     @include mobile {
-      width: 100vw;
+      width: 100%;
       background-position: center;
     }
 
@@ -77,7 +73,9 @@
 
   .categorie__title {
     font-size: clamp(1.25rem, 2vw, 1.75rem);
+    font-weight: bold;
     color: $light;
+    width: 500px;
     font-variant: small-caps;
     font-feature-settings: "case" on;
     line-height: clamp(25px, 2.6vw, 40px);
@@ -122,7 +120,6 @@
     }
   }
 }
-
 
 // .slide {
 //   width: 80vw;
@@ -291,11 +288,11 @@
 
 // .home1{
 //   background-image: url(../../assets/HomePage/home1.png);
-  
+
 //   background-position: bottom;
 
 //   background-repeat: no-repeat;
-  
+
 //   background-size: 95%;
 
 //   padding-left: 30px;
@@ -313,7 +310,6 @@
 
 //   background-repeat: no-repeat;
 
-
 //   position: absolute;
 //   top: 5px;
 //   left: 85px;
@@ -321,7 +317,7 @@
 //   width: 10%;
 //   height: 60px;
 //   // overflow: hidden;
-//   // background: #fff; 
+//   // background: #fff;
 //   margin:0 auto;
 
 //   // background: #3d3d3e;
@@ -339,7 +335,7 @@
 
 // .home2{
 //   background-image: url(../../assets/HomePage/homerg.png);
-  
+
 //   background-position: bottom;
 
 //   border: 0.25px solid #ffffff;
@@ -351,7 +347,6 @@
 // //   background-image: url(../../assets/background-images/sesonal.png);
 // //   background-position: center;
 // // }
-
 
 // // .engl1{
 
@@ -371,7 +366,6 @@
 //   transform: translate(-50%, -50%);
 // }
 
-
 // .center {
 //   margin: auto;
 //   width: 50%;
@@ -379,13 +373,9 @@
 //   padding: 10px;
 // }
 
-
-
-
 // app-footer {
 //   display: none;
 // }
-
 
 // @media only screen and (min-width: 0px) and (max-width: 991px) {
 //   .color {
