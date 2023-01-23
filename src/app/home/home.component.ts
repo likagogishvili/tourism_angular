@@ -6,27 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor() {
-    this.langValue = String(localStorage.getItem("Language"));
-  }
+  constructor() { }
   ngOnInit(): void {
-    if (this.langValue == "GEO"){
-      this.title1 = 'ვიზიტორთა გამოკვლევის შედეგები';
-      this.title2 = "სასტუმროების" + "\n" +
-                    "გამოკვლევის შედეგები";
-      this.enter1 = "გადასვლა";
-    }
-    else{
-      this.title1 = "Visitor\nSurvey Results";
-      this.title2 = "Survey of Hotels";
-      this.enter1 = "ENTER";
-    }
     
   }
 
-  title1: string = "ვიზიტორთა\nგამოკვლევის შედეგები";
-  title2: string = "სასტუმროების" + "\n" +
-  "გამოკვლევის შედეგები";
+  // title1: string = "ვიზიტორთა\nგამოკვლევის შედეგები";
+  // title2: string = "სასტუმროების" + "\n" +
+  // "გამოკვლევის შედეგები";
   enter1: string = "გადასვლა";
 
   h: number = 1;
@@ -49,5 +36,4 @@ export class HomeComponent implements OnInit {
     this.h = 1;
   }
 
-  langValue: string = "";
 }
