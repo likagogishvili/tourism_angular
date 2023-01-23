@@ -9,6 +9,7 @@
 
 * {
   font-family: "FiraGO" !important;
+  font-weight: bold !important;
 }
 
 body {
@@ -74,6 +75,7 @@ path,
 svg,
 rect,
 tspan,
+.icon-display,
 th {
   cursor: url("assets/redpoint.cur"), auto !important;
 }
@@ -164,14 +166,13 @@ body {
 
 button {
   cursor: pointer;
-
 }
 
 main {
   min-height: 83vh;
 }
 
-.default__padding{
+.default__padding {
   padding-right: 15vw;
   padding-left: 15vw;
   @include laptop {
@@ -186,4 +187,9 @@ main {
 
 a {
   text-decoration: none !important;
+}
+
+.plpr {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
