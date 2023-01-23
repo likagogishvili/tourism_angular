@@ -1,3 +1,6 @@
+@import "./assets/styles/media-queries";
+@import "./assets/styles/colors";
+
 @font-face {
   font-family: "FiraGO";
   src: local("FiraGO"),
@@ -168,8 +171,19 @@ main {
   min-height: 83vh;
 }
 
-header, .main__cnt_V ,.main__cnt_H{
+.default__padding{
   padding-right: 15vw;
   padding-left: 15vw;
+  @include laptop {
+    padding-right: 10vw;
+    padding-left: 10vw;
+  }
+  @include tablet {
+    padding-right: 2vw;
+    padding-left: 2vw;
+  }
 }
 
+a {
+  text-decoration: none !important;
+}
