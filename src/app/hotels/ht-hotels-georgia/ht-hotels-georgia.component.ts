@@ -13,17 +13,12 @@ import { HotelsService } from './service/hotels.service';
 export class HtHotelsGeorgiaComponent implements AfterViewInit {
 
   constructor(private srv: HotelsService) {
-    this.hotelTypes = this.srv.hotelTypes;
-    this.roomsNuber = this.srv.roomsNuber;
+    this.hotelTypes = this.srv.getHotelTypes();
+    this.roomsNuber = this.srv.getRoomNumbers();
   }
 
   ngOnInit() {
     this.initMap();
-
-    (document.getElementById("სასტუმრო") as HTMLInputElement).checked = true;
-
-    (document.getElementById("6-10 ნომერი") as HTMLInputElement).checked = true;
-
   }
 
   ngAfterViewInit(): void {

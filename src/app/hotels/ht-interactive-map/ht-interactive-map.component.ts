@@ -16,16 +16,18 @@ export class HtInteractiveMapComponent implements OnInit {
   readonly APIUrl: string = 'http://tourismapi.geostat.ge/api/hotels';
 
   constructor(private http: HttpClient) {
+    this.lang = localStorage.getItem('Language');
     this.getYears();
    }
 
   ngOnInit(): void {
     //this.createChart1();
-    this.getRaceChart();
-    this.getBigChart();
-    this.getMapData(this.year);
+    this.getRaceChart(this.lang);
+    this.getBigChart("", this.lang);
+    this.getMapData(this.year, this.lang);
   }
 
+  lang: any;
 
   years!: number[];
 
@@ -39,7 +41,7 @@ export class HtInteractiveMapComponent implements OnInit {
   result: any = [];
 
   yearChange(){
-    this.getMapData(this.year);
+    this.getMapData(this.year, this.lang);
   }
 
   getYears(){
@@ -56,8 +58,8 @@ export class HtInteractiveMapComponent implements OnInit {
   }
 
 
-  getMapData(year: number) {
-    var uRl = this.APIUrl + '/getMapChartData?year=' + year;
+  getMapData(year: number, language: string) {
+    var uRl = this.APIUrl + '/getMapChartData?year=' + year + '&lang=' + language;
 
 
     this.http
@@ -145,7 +147,7 @@ export class HtInteractiveMapComponent implements OnInit {
 
       this.countryName = this.country.countryName;
 
-      this.getBigChart(this.countryName);
+      this.getBigChart(this.countryName, this.lang);
     });
 
     polygonTemplate.nonScalingStroke = true;
@@ -175,7 +177,7 @@ export class HtInteractiveMapComponent implements OnInit {
     button.events.on('hit', () => {
       this.countryName = "";
       a.goHome();
-      this.getBigChart(this.countryName);
+      this.getBigChart(this.countryName, this.lang);
     });
     button.icon = new am4core.Sprite();
     button.icon.path =
@@ -244,8 +246,14 @@ export class HtInteractiveMapComponent implements OnInit {
 
     // Configure columns
     series.columns.template.width = am4core.percent(90);
-    series.columns.template.tooltipText =
+    if (this.lang == 'GEO') {
+      series.columns.template.tooltipText =
       '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#.0a")} ვიზიტი';
+    }
+    else{
+      series.columns.template.tooltipText =
+      '[bold]{name}[/]\n[font-size:14px]{categoryX} Year: [bold]{valueY.formatNumber("#.0a")} Visits';
+    }
 
     // Add label
     let labelBullet = series.bullets.push(new am4charts.LabelBullet());
@@ -257,9 +265,9 @@ export class HtInteractiveMapComponent implements OnInit {
   }
   
 
-  getBigChart(country: string = "") {
+  getBigChart(country: string = "", lang: string) {
 
-    var uRlForBigChart = this.APIUrl + '/bigChart?country=' + country;
+    var uRlForBigChart = this.APIUrl + '/bigChart?country=' + country + '&lang' + lang;
 
     this.http
       .get<any>(
@@ -271,8 +279,8 @@ export class HtInteractiveMapComponent implements OnInit {
   }
 
 
-  getRaceChart(){
-    var uRlForBigChart = this.APIUrl + '/race';
+  getRaceChart(lang: string){
+    var uRlForBigChart = this.APIUrl + '/race?lang=' + lang;
 
     this.http
       .get<any>(
