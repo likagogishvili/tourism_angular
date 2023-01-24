@@ -97,35 +97,35 @@ export class DefindicatorService {
   }
 
   getMainChartDataGuests(optList: string, year: number) {
-    var url = this.APIUrl + '/sanqiGuests?optSt=' + optList + '&year=' + year;
+    var url = this.APIUrl + '/sanqiGuests?optSt=' + optList + '&year=' + year + '&lang=' + this.lang;
 
     return this.http.get<any>(url);
   }
 
   getDataForHotelCount(optList: string) {
     
-    var url = this.APIUrl + '/hotelCount?optSt=' + optList;
+    var url = this.APIUrl + '/hotelCount?optSt=' + optList + '&lang=' + this.lang;
 
     return this.http.get<any>(url);
   }
 
   getDataForRoomBad(optList: string) {
     
-    var url = this.APIUrl + '/roomsAndBeds?optSt=' + optList;
+    var url = this.APIUrl + '/roomsAndBeds?optSt=' + optList + '&lang=' + this.lang;
 
     return this.http.get<any>(url);
   }
 
   getDataForGuestCount(optList: string) {
     
-    var url = this.APIUrl + '/guests?optSt=' + optList;
+    var url = this.APIUrl + '/guests?optSt=' + optList + '&lang=' + this.lang;
 
     return this.http.get<any>(url);
   }
 
   getDataForIncoms(optList: string) {
     
-    var url = this.APIUrl + '/revenue?optSt=' + optList;
+    var url = this.APIUrl + '/revenue?optSt=' + optList + '&lang=' + this.lang;
 
     return this.http.get<any>(url);
   }
@@ -133,14 +133,14 @@ export class DefindicatorService {
 
   getDataForGender(optList: string) {
     
-    var url = this.APIUrl + '/employes?optSt=' + optList;
+    var url = this.APIUrl + '/employes?optSt=' + optList + '&lang=' + this.lang;
 
     return this.http.get<any>(url);
   }
 
   getDataForCoasts(optList: string) {
     
-    var url = this.APIUrl + '/coasts?optSt=' + optList;
+    var url = this.APIUrl + '/coasts?optSt=' + optList + '&lang=' + this.lang;
 
     return this.http.get<any>(url);
   }

@@ -24,6 +24,8 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
   constructor(private srvc: DefindicatorService, private http: HttpClient) {
 
+    this.lang = localStorage.getItem('Language');
+
     this.indicators = this.srvc.indicators;
     this.indicator = this.indicators[0].value;
 
@@ -35,6 +37,7 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     this.countryGroups = this.srvc.getCountryGroups();
   }
 
+  lang: any;
   
 
   ngOnInit(): void {
@@ -43,6 +46,12 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
     this.getAllHelpCharts();
 
+    if(this.lang == 'GEO'){
+      this.sankyChart = "სასტუმროების რაოდენობის განაწილება"
+    }
+    else{
+      this.sankyChart = "Distribution of the Hotels"
+    }
     
   }
 
@@ -91,13 +100,23 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     
     this.getMainChart();
 
-    this.sankyChart = "სასტუმროების რაოდენობის განაწილება";
+    if(this.lang == 'GEO'){
+      this.sankyChart = "სასტუმროების რაოდენობის განაწილება";
+    }
+    else{
+      this.sankyChart = "Distribution of the Hotels";
+    }
   }
 
   guest() {
     this.getMainChartGuests();
 
-    this.sankyChart = "სტუმრების რაოდენობის განაწილება";
+    if(this.lang == 'GEO'){
+      this.sankyChart = "სტუმრების რაოდენობის განაწილება";
+    }
+    else{
+      this.sankyChart = "Distribution of the Visitors";
+    }
   }
 
 
@@ -124,7 +143,7 @@ export class HtDefaultIndicatorsComponent implements OnInit {
   // tooltipx: number = 0;
   // tooltipy: number = 0;
 
-  sankyChart: string = "სასტუმროების რაოდენობის განაწილება";
+  sankyChart!: string;
 
 
 
@@ -337,17 +356,33 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
     switch (chartDiv) {
       case "chartHotelCount":
-        this.createSeries("სასტუმრო", "სასტუმრო", chart, "სასტუმრო");
-        this.createSeries("გესტჰაუსი", "გესტჰაუსი", chart, "გესტჰაუსი");
-        this.createSeries("კოტეჯი", "კოტეჯი", chart, "კოტეჯი");
-        this.createSeries("კემპინგი", "კემპინგი", chart, "კემპინგი");
+        if (this.lang =='GEO') {
+	        this.createSeries("სასტუმრო", "სასტუმრო", chart, "სასტუმრო");
+	        this.createSeries("გესტჰაუსი", "გესტჰაუსი", chart, "გესტჰაუსი");
+	        this.createSeries("კოტეჯი", "კოტეჯი", chart, "კოტეჯი");
+	        this.createSeries("კემპინგი", "კემპინგი", chart, "კემპინგი");
+        }
+        else{
+          this.createSeries("Hotel", "Hotel", chart, "Hotel");
+	        this.createSeries("Guesthouse", "Guesthouse", chart, "Guesthouse");
+	        this.createSeries("Cottage", "Cottage", chart, "Cottage");
+	        this.createSeries("Camping", "Camping", chart, "Camping");
+        }
         break;
 
       case "chartBadRoom":
-        this.createSeries("ლუქსი", "ლუქსი", chart, "ლუქსი");
-        this.createSeries("ერთიანი", "ერთიანი", chart, "ერთიანი");
-        this.createSeries("ორიანი", "ორიანი", chart, "ორიანი");
-        this.createSeries("სამიანი", "სამიანი", chart, "სამიანი");
+        if (this.lang =='GEO') {
+	        this.createSeries("ლუქსი", "ლუქსი", chart, "ლუქსი");
+	        this.createSeries("ერთიანი", "ერთიანი", chart, "ერთიანი");
+	        this.createSeries("ორიანი", "ორიანი", chart, "ორიანი");
+	        this.createSeries("სამიანი", "სამიანი", chart, "სამიანი");
+        }
+        else{
+          this.createSeries("Lux", "Lux", chart, "Lux");
+	        this.createSeries("Single", "Single", chart, "Single");
+	        this.createSeries("Double", "Double", chart, "Double");
+	        this.createSeries("ThreeOrMore", "ThreeOrMore", chart, "ThreeOrMore");
+        }
         break;
 
       case "chartGestCount":
@@ -355,20 +390,40 @@ export class HtDefaultIndicatorsComponent implements OnInit {
         break;
 
       case "chartRevenue":
-        this.createSeries("ოთახები", "ოთახები", chart, "ოთახიდან");
-        this.createSeries("სერვისი", "სერვისი", chart, "სერვისიდან");
-        this.createSeries("რესტორანი", "რესტორანი", chart, "რესტორნიდან");
-        this.createSeries("სხვა", "სხვა", chart, "სხვა");
+        if (this.lang =='GEO') {
+	        this.createSeries("ოთახები", "ოთახები", chart, "ოთახიდან");
+	        this.createSeries("სერვისი", "სერვისი", chart, "სერვისიდან");
+	        this.createSeries("რესტორანი", "რესტორანი", chart, "რესტორნიდან");
+	        this.createSeries("სხვა", "სხვა", chart, "სხვა");
+        }
+        else{
+          this.createSeries("Rooms", "Rooms", chart, "From Rooms");
+	        this.createSeries("Service", "Service", chart, "From Service");
+	        this.createSeries("Restrant", "Restrant", chart, "From Restrant");
+	        this.createSeries("Other", "Other", chart, "Other");
+        }
         break;
 
       case "chartGender":
-        this.createSeries("ქალი", "ქალი", chart, "ქალი");
-        this.createSeries("კაცი", "კაცი", chart, "კაცი");
+        if (this.lang == 'GEO') {
+	        this.createSeries("ქალი", "ქალი", chart, "ქალი");
+	        this.createSeries("კაცი", "კაცი", chart, "კაცი");
+        }
+        else{
+          this.createSeries("Woman", "Woman", chart, "Woman");
+	        this.createSeries("Man", "Man", chart, "Man");
+        }
         break;
 
       case "chartCoast":
-        this.createSeries("ხელფასი", "ხელფასი", chart, "ხელფასები");
-        this.createSeries("სხვა", "სხვა", chart, "სხვა ხარჯები");
+        if (this.lang == 'GEO') {
+	        this.createSeries("ხელფასი", "ხელფასი", chart, "ხელფასები");
+	        this.createSeries("სხვა", "სხვა", chart, "სხვა ხარჯები");
+        }
+        else{
+          this.createSeries("Salary", "Salary", chart, "Salary");
+	        this.createSeries("Other", "Other", chart, "Other");
+        }
         break;
     
       default:
@@ -413,8 +468,14 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
     // Configure columns
     series.columns.template.width = am4core.percent(60);
-    series.columns.template.tooltipText =
-      '{categoryX} წელს: [bold]{valueY.formatNumber("#,###.")} ' + ragac;
+    if (this.lang == 'GEO') {
+	      series.columns.template.tooltipText =
+	      '{categoryX} წელს: [bold]{valueY.formatNumber("#,###.")} ' + ragac;
+      }
+      else{
+        series.columns.template.tooltipText =
+	      '{categoryX} Year: [bold]{valueY.formatNumber("#,###.")} ' + ragac;
+      }
 
     // Add label
     let labelBullet = series.bullets.push(new am4charts.LabelBullet());
