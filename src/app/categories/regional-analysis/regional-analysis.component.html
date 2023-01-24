@@ -25,21 +25,21 @@
     <div class="col-6" id="chart2" style="height: 600px;"></div>
 </div> -->
 <div class="backgroundImg">
-  <div class="container-for-header">
-    <div class="row col-12">
+  <div class="container-for-header default__padding pt-4">
+    <div class="row col-12 plpr ">
 
-      <div class="col-lg-3 butPos">
+      <div class="col-lg-3 butPos respMT">
         <button class="not-selected-button" type="button" [ngClass]="{ acti: isValue == 1 }" (click)="activeOrNot(1)">რეგიონში</button>
       </div>
 
 
-      <div class="col-lg-3 butPos">
+      <div class="col-lg-3 butPos respMT">
         <button type="button" class="not-selected-button" [ngClass]="{ acti: isValue == 2 }" (click)="activeOrNot(2)">რეგიონიდან</button>
       </div>
 
 
-      <div class="col-lg-3">
-        <div class="col-12 row">
+      <div class="col-lg-3 respMT ">
+        <div class="col-12 row dateReg">
           <div class="col-2">
             <img style="padding-top: 25px" src="assets/c-default-indicators/Calendar.png" alt=""/>
           </div>
@@ -53,10 +53,9 @@
 
       <div class="col-lg-6"></div>
     </div>
-    <div class="col-12" style="height: 70px"></div>
-    <div class="row col-12">
+    <div class="row col-12 plpr mt-5">
       <div class="col-lg-3">
-        <div style="box-sizing: border-box; width: 98%; height: auto; background: #ffffff; border: 0.5px solid #5c4fc9; border-radius: 20px;">
+        <div style="box-sizing: border-box; height: auto; background: #ffffff; border: 0.5px solid #5c4fc9; border-radius: 20px; padding-bottom: 25px;">
           <img src="assets/c-default-indicators/TourismType.png" alt="location" style="padding-top: 30px; padding-left: 30px"/>
           <div class="fontForCheckboxesTitle" style="margin-top: -17px; margin-left: 75px">ტურიზმის ტიპი</div>
 
@@ -215,7 +214,6 @@
           <div style="display: flex">
             <div class="text-center font col-11" style="color: #3d3d3e; font-size: 24px; padding-top: 20px; flex: 1; margin-top: 40px;">{{ mapChartTitle }}</div>
             <div class="">
-              <img style="flex: 1; padding-top: 20px; padding-left: 10px" src="assets/c-default-indicators/Save.png" alt=""/>
             </div>
           </div>
           <div class="meoreRagac" id="chart1" style="width: 90%; height: 90%; padding-left: 66px; flex: 1"></div>
@@ -224,24 +222,22 @@
     </div>
 
     <div class="col-12" style="height: 70px"></div>
-    <div class="row col-12">
+    <div class="row col-12 plpr">
       <div *ngIf="tourismType == 1" class="col-lg-6">
         <div class="contForBottomTwoChart">
           <div style="display: flex">
-            <div class="text-center font col-11" style="color: #3d3d3e; font-size: 24px; flex: 1">{{ sanqiName }}</div>
+            <div class="text-center font col-11 mt-4" style="color: #3d3d3e; font-size: 24px; flex: 1">{{ sanqiName }}</div>
             <div class="">
-              <img style="flex: 1; padding-top: 20px; padding-left: 10px" src="assets/c-default-indicators/Save.png" alt=""/>
             </div>
           </div>
-          <div class="meoreRagac" id="chart22" style="width: 90%; height: 90%; padding-left: 66px"></div>
+          <div class="meoreRagac mt-3" id="chart22" style="width: 90%; height: 80%; padding-left: 66px"></div>
         </div>
       </div>
       <div *ngIf="tourismType == 1" class="col-lg-6">
         <div class="contForBottomTwoChart">
           <div style="display: flex">
-            <div class="text-center font col-11" style="color: #3d3d3e; font-size: 24px; padding-top: 20px; flex: 1; margin-top: 40px;">{{ expenceTitle }}</div>
+            <div class="text-center font col-11 mt-3" style="color: #3d3d3e; font-size: 24px; padding-top: 20px; flex: 1;">{{ expenceTitle }}</div>
             <div class="">
-              <img style="flex: 1; padding-top: 20px; padding-left: 10px" src="assets/c-default-indicators/Save.png" alt=""/>
             </div>
           </div>
 
