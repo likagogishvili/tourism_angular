@@ -7,7 +7,7 @@
           alt=""
           style="padding-top: 30px; padding-left: 15px"
         />
-        <div class="fontForCheckboxesTitle" style="margin-top: -17px; margin-left: 54px">სასტუმროს ტიპი</div>
+        <div class="fontForCheckboxesTitle" style="margin-top: -17px; margin-left: 54px">{{ 'Hhotelsingeorgia.type' | translate }}</div>
 
 
         <div class="contForHotes" style="padding-top: 30px; padding-left: 7px;">
@@ -15,12 +15,12 @@
 
           <div >
             <input type="checkbox" id="All" name="All" value=0 (change)="checkUncheckAll($event)"/>
-            <label for="All"> სულ</label><br />
+            <label for="All">{{ 'Hhotelsingeorgia.def' | translate }}</label><br />
           </div>
 
 
           <div *ngFor="let tp of hotelTypes" [(ngModel)]="hType" id="checkDiv">
-            <input type="checkbox" id="{{ tp.name }}" name="{{ tp.name }}" [checked]="tp.name == 'სასტუმრო'" value="{{ tp.value }}" (change)="addRemoveHotel()"/>
+            <input type="checkbox" id="{{ tp.name }}" name="{{ tp.name }}" [checked]="tp.value == 1" value="{{ tp.value }}" (change)="addRemoveHotel()"/>
             <label style="padding-left: 5px;" for="{{ tp.name }}">{{ tp.name }}</label>
             <br />
           </div>
@@ -51,7 +51,7 @@
 
         <div class="col-lg-12" style="padding-top: 30px">
           <img src="assets/ht-hotels-georgia/Rooms.png" alt="" style="padding-left: 3px"/>
-          <div class="fontForCheckboxesTitle" style="margin-top: -15px; margin-left: 42px; white-space: nowrap">ნომრების რაოდენობა</div>
+          <div class="fontForCheckboxesTitle" style="margin-top: -15px; margin-left: 42px; white-space: nowrap">{{ 'Hhotelsingeorgia.rooms' | translate }}</div>
           
         </div>
 
@@ -65,13 +65,13 @@
 
           <div >
             <input type="checkbox" id="AllRoom" name="AllRoom" value=0 (change)="checkUncheckAllRoom($event)"/>
-            <label for="AllRoom"> სულ</label><br />
+            <label for="AllRoom">{{ 'Hhotelsingeorgia.def' | translate }}</label><br />
           </div>
 
 
 
           <div *ngFor="let tp of roomsNuber" [(ngModel)]="room" id="roomkDiv">
-            <input type="checkbox" id="{{ tp.name }}" name="{{ tp.name }}" value="{{ tp.value }}" [checked]="tp.name == '6-10 ნომერი'" (change)="addRemoveRoom()"/>
+            <input type="checkbox" id="{{ tp.name }}" name="{{ tp.name }}" value="{{ tp.value }}" [checked]="tp.value == 2" (change)="addRemoveRoom()"/>
             <label style="padding-left: 5px;" for="{{ tp.name }}">{{ tp.name }}</label>
             <br />
           </div>
@@ -128,7 +128,7 @@
 
         </div>
 
-        <button type="button" class="btn btn-success" style="margin-top: 20px;" (click)="buttonClick()">მაჩვენე</button>
+        <button type="button" class="btn btn-success" style="margin-top: 20px;" (click)="buttonClick()">{{ 'Hhotelsingeorgia.button' | translate }}</button>
 
       </div>
     </div>

@@ -17,5 +17,32 @@
         "navbar1": "Key Indicators",
         "navbar2": "Interactive Map",
         "navbar3": "Hotels In Georgia"
-      }
+    },
+
+    "Hhotelsingeorgia": {
+        "def": "All",
+        "type": "Hotel Type",
+        "rooms": "Number of Rooms",
+        "button": "Show",
+        "სასტუმრო": "Hotel",
+        "კემპინგი": "Camping",
+        "კოტეჯი": "Cottage",
+        "სასტუმრო სახლი": "Guest House",
+        "კოტეჯი ან სახლი მასპინძლის გარეშე": "A Cottage or House Without a Host",
+        "საიდენტიფიკაციო კოდი": "Identification Code"
+    },
+
+    "keyindic": {
+      "indic": "Indicator",
+      "hotelCount": "Number of Hotels",
+      "guestCount": "Number of Guests",
+      "regs": "Regions",
+      "def": "All",
+      "hotelsChartTitle": "Number of Hotels",
+      "roomsChartTitle": "Number of Rooms",
+      "guestsChartTitle": "Number of Guests",
+      "incomsChartTitle": "Income Structure",
+      "emploeeChartTitle": "Employees by Gender",
+      "expenceChartTitle": "Cost Structure"
+    }
 }
