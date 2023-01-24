@@ -1050,6 +1050,7 @@ migrationChart(res: any) {
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
     chart.data = res;
+    console.log(res)
 
     this.sanqiName = "ვიზიტების რაოდენობა რეგიონების მიხედვით";
 
