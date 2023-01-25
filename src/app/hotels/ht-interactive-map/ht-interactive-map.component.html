@@ -37,7 +37,7 @@
             </tr>
           </thead>
           <tbody class="overflow-y: scroll; fontForTableContent">
-            <input class="inputForCountrySearch" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="მოძებნეთ ქვეყანა" autofocus/>
+            <input class="inputForCountrySearch" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="{{ 'hotel.placeholder' | translate }}" autofocus/>
             <tr *ngFor="let c of chartData | filter: searchText" (click)="getBigChart(c.countryName, lang)">
               <td style="text-align: left">{{ c.countryName }}</td>
               <td style="text-align: center">{{ c.value }}</td>

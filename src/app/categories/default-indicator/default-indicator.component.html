@@ -4,7 +4,7 @@
       <div class="contForSelects">
         <section class="select__first">
           <div class="indicator__select">
-            <div class="fontForSelectUpperTitle">მაჩვენებელი</div>
+            <div class="fontForSelectUpperTitle">{{ 'defIndicator.indic' | translate }}</div>
 
             <div class="fontForSelectTitle select__el">
               <i
@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="period__select">
-            <div class="fontForSelectUpperTitle">პერიოდულობა</div>
+            <div class="fontForSelectUpperTitle">{{ 'defIndicator.period' | translate }}</div>
             <div class="fontForSelectTitle select__el">
               <i
                 class="select__icon"
@@ -63,7 +63,7 @@
         </section>
         <section class="select__sec">
         <div class="tourtype__select">
-          <div class="fontForSelectUpperTitle">ტურიზმის ტიპი</div>
+          <div class="fontForSelectUpperTitle">{{ 'defIndicator.tourismType' | translate }}</div>
 
           <div class="fontForSelectTitle select__el">
             <i
@@ -90,7 +90,7 @@
           </div>
         </div>
         <div class="visittype__select">
-          <div class="fontForSelectUpperTitle">ვიზიტის ტიპი</div>
+          <div class="fontForSelectUpperTitle">{{ 'defIndicator.tourType' | translate }}</div>
           <div class="fontForSelectTitle select__el">
             <i
               class="select__icon"
@@ -177,7 +177,7 @@
                 (click)="avarigeOrNot(false)"
               />
               <label class="form-check-label" for="inlineRadio1"
-                >მთლიანი ხარჯი</label
+                >{{ 'defIndicator.allExpence' | translate }}</label
               >
             </div>
 
@@ -191,7 +191,7 @@
                 (click)="avarigeOrNot(true)"
               />
               <label class="form-check-label" for="inlineRadio2"
-                >საშუალო ხარჯი</label
+                >{{ 'defIndicator.avarExpence' | translate }}</label
               >
             </div>
           </div>

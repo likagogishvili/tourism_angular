@@ -26,6 +26,8 @@ export class DefaultIndicatorComponent implements OnInit {
 
   isAvarige!: boolean;
 
+  lang: any;
+
   avarigeOrNot(flag: boolean){
     this.isAvarige = flag;
 
@@ -52,14 +54,14 @@ export class DefaultIndicatorComponent implements OnInit {
   numbersForAvarige = { indicator: 0, period: 1, visit: 0 };
 
 
-  selIndic: IDropDown = { name: 'ყველა', value: 0, isDisabled: false };
+  // selIndic: IDropDown = { name: 'ყველა', value: 0, isDisabled: false };
 
-  selVtype: IDropDown =  { name: 'ყველა', value: 0, isDisabled: false };
+  // selVtype: IDropDown =  { name: 'ყველა', value: 0, isDisabled: false };
   
-  selTtype: IDropDown = { name: 'უცხოელი ვიზიტორები', value: 1, isDisabled: false };
+  // selTtype: IDropDown = { name: 'უცხოელი ვიზიტორები', value: 1, isDisabled: false };
   
 
-  selPeriod: IDropDown = { name: 'წლიური', value: 1, isDisabled: false };
+  // selPeriod: IDropDown = { name: 'წლიური', value: 1, isDisabled: false };
 
 
 
@@ -82,6 +84,7 @@ export class DefaultIndicatorComponent implements OnInit {
     
     this.getQuantityChart(this.indicator, this.period, this.vType);
 
+    this.lang = localStorage.getItem('Language');
   }
 
   getDropDownLists() {
@@ -199,31 +202,6 @@ export class DefaultIndicatorComponent implements OnInit {
       this.numbersForAvarige.visit = this.vType;
     }
 
-
-
-
-
-    // if ([0, 1, 2, 3, 4, 5, 6, 11].includes(Number(this.indicator))){
-    //   if (this.period != 3) {
-    //     this.getCostsChart(this.indicator, this.period, this.vType);
-    //     this.numbersForAvarige.indicator = this.indicator;
-    //     this.numbersForAvarige.period = this.period;
-    //     this.numbersForAvarige.visit = this.vType;
-    //   }
-    //   else {
-    //     this.getCostsChartDef(0, this.period, this.vType);
-    //     this.numbersForAvarige.indicator = 0;
-    //     this.numbersForAvarige.period = this.period;
-    //     this.numbersForAvarige.visit = this.vType;
-    //   }
-    // }
-    // else {
-    //   this.getCostsChartDef(0, this.period, this.vType);
-    //   this.numbersForAvarige.indicator = 0;
-    //   this.numbersForAvarige.period = 1;
-    //   this.numbersForAvarige.visit = this.vType;
-    // }
-
     this.bigChart.dispose();
 
     this.getQuantityChart(this.indicator, this.period, this.vType);
@@ -235,12 +213,6 @@ export class DefaultIndicatorComponent implements OnInit {
     (document.getElementById("inlineRadio1") as HTMLInputElement).checked = true;
     
     this.getDropDownLists();
-
-    // if (this.period == 3) {
-    //   this.tTypes.filter(x => x.value == 3)[0].isDisabled = true;
-    // }
-
-    //this.indicator = 0;
 
     this.cstChart.dispose();
     this.nghtChart.dispose();
@@ -370,13 +342,13 @@ export class DefaultIndicatorComponent implements OnInit {
   // HTTP Calls
 
   getCostsChart(indic: number, per: number, type: number){
-    var uRl = this.APIUrl + '/costByForign?prop=' + indic + "&per=" + per + "&tourType=" + type;
+    var uRl = this.APIUrl + '/costByForign?prop=' + indic + "&per=" + per + "&tourType=" + type + "&lang=" + this.lang;
 
     if(this.tType == 2){
-      uRl = this.APIUrl + '/costByExit?prop=' + indic + "&per=" + per + "&tourType=" + type;
+      uRl = this.APIUrl + '/costByExit?prop=' + indic + "&per=" + per + "&tourType=" + type + "&lang=" + this.lang;
     }
     else if(this.tType == 3){
-      uRl = this.APIUrl + '/costBy?prop=' + indic + "&per=" + per + "&tourType=" + type;
+      uRl = this.APIUrl + '/costBy?prop=' + indic + "&per=" + per + "&tourType=" + type + "&lang=" + this.lang;
     }
 
     if (Number(this.period) == 1) {
@@ -407,19 +379,23 @@ export class DefaultIndicatorComponent implements OnInit {
                     let stQ: string = st.slice(5);
 
                     if(stQ == "1"){
-                      stQ = "I კვ. "
+                      stQ = "I კვ. ";
                     }
                     else if (stQ == "2"){
-                      stQ = "II კვ. "
+                      stQ = "II კვ. ";
                     }
                     else if (stQ == "3"){
-                      stQ = "III კვ. "
+                      stQ = "III კვ. ";
                     }
                     else if (stQ == "4"){
-                      stQ = "IV კვ. "
+                      stQ = "IV კვ. ";
                     }
 
-                    let fnSt: string = `${stQ} ${stY}`
+                    let fnSt: string = `${stQ} ${stY}`;
+
+                    if(this.lang != 'GEO'){
+                      fnSt = fnSt.replace(/კვ/g, "Qrt");
+                    }
 
 
                     element.year = fnSt;
@@ -488,6 +464,10 @@ getCostsChartDef(indic: number, per: number, type: number){
 
                     let fnSt: string = `${stQ} ${stY}`
 
+                    if(this.lang != 'GEO'){
+                      fnSt = fnSt.replace(/კვ/g, "Qrt");
+                    }
+
 
                     element.year = fnSt;
                 });
@@ -502,13 +482,13 @@ getCostsChartDef(indic: number, per: number, type: number){
 }
 
 getQuantityChart(indic: number, per: number, type: number){
-  var uRlForBigChart = this.APIUrl + '/quantityByForign?prop=' + indic + "&per=" + per + "&tourType=" + type;
+  var uRlForBigChart = this.APIUrl + '/quantityByForign?prop=' + indic + "&per=" + per + "&tourType=" + type + "&lang=" + this.lang;
   
   if (this.tType == 2) {
-    uRlForBigChart = this.APIUrl + '/quantityByExit?prop=' + indic + "&per=" + per + "&tourType=" + type;
+    uRlForBigChart = this.APIUrl + '/quantityByExit?prop=' + indic + "&per=" + per + "&tourType=" + type + "&lang=" + this.lang;
   }
   if (this.tType == 3) {
-    uRlForBigChart = this.APIUrl + '/quantityBy?prop=' + indic + "&per=" + per + "&tourType=" + type;
+    uRlForBigChart = this.APIUrl + '/quantityBy?prop=' + indic + "&per=" + per + "&tourType=" + type + "&lang=" + this.lang;
   }
   this.http
     .get<any>(
@@ -574,6 +554,10 @@ getQuantityChart(indic: number, per: number, type: number){
 
         let fnSt: string = `${stQ} ${stY}`
 
+        if(this.lang != 'GEO'){
+          fnSt = fnSt.replace(/კვ/g, "Qrt");
+        }
+
 
         element.year = fnSt;
 
@@ -594,39 +578,75 @@ getQuantityChart(indic: number, per: number, type: number){
 
         if(stQ == "1"){
           stQ = "იან, "
+          if(this.lang != 'GEO'){
+            stQ = "Jan, "
+          }
         }
         else if (stQ == "2"){
           stQ = "თებ, "
+          if(this.lang != 'GEO'){
+            stQ = "Fab, "
+          }
         }
         else if (stQ == "3"){
           stQ = "მარ, "
+          if(this.lang != 'GEO'){
+            stQ = "Mar, "
+          }
         }
         else if (stQ == "4"){
           stQ = "აპრ, "
+          if(this.lang != 'GEO'){
+            stQ = "Apr, "
+          }
         }
         else if (stQ == "5"){
           stQ = "მაი, "
+          if(this.lang != 'GEO'){
+            stQ = "May, "
+          }
         }
         else if (stQ == "6"){
           stQ = "ივნ, "
+          if(this.lang != 'GEO'){
+            stQ = "Jun, "
+          }
         }
         else if (stQ == "7"){
           stQ = "ივლ, "
+          if(this.lang != 'GEO'){
+            stQ = "Jul, "
+          }
         }
         else if (stQ == "8"){
           stQ = "აგვ, "
+          if(this.lang != 'GEO'){
+            stQ = "Aug, "
+          }
         }
         else if (stQ == "9"){
           stQ = "სექ, "
+          if(this.lang != 'GEO'){
+            stQ = "Sep, "
+          }
         }
         else if (stQ == "10"){
           stQ = "ოქტ, "
+          if(this.lang != 'GEO'){
+            stQ = "Oct, "
+          }
         }
         else if (stQ == "11"){
           stQ = "ნოე, "
+          if(this.lang != 'GEO'){
+            stQ = "Nov, "
+          }
         }
         else if (stQ == "12"){
           stQ = "დეკ, "
+          if(this.lang != 'GEO'){
+            stQ = "Dec, "
+          }
         }
 
         let fnSt: string = `${stQ} ${stY}`
@@ -644,155 +664,212 @@ getQuantityChart(indic: number, per: number, type: number){
 
     
     if (this.indicator==0) {
-      this.createSeries5('Default', 'სულ', this.bigChart);
-      this.titleForMainChart = "ვიზიტების რაოდენობა, სულ";
+      
+      if (this.lang == 'GEO') {
+        this.titleForMainChart = "ვიზიტების რაოდენობა, სულ";
+        this.createSeries5('Default', 'სულ', this.bigChart);
+      }
+      else{
+        this.titleForMainChart = "Number of visits, total";
+        this.createSeries5('Default', 'All', this.bigChart);
+      }
     }
     else if (this.indicator==1) {
 
       if (this.tType == 1){
-        this.srvc.ActivityNames1.forEach(element => {
+        this.srvc.ActivityNames1().forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
       }
       else if (this.tType == 2){
-        this.srvc.ActivityNames2.forEach(element => {
+        this.srvc.ActivityNames2().forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
       }
       else if (this.tType == 3){
-        this.srvc.ActivityNames3.forEach(element => {
+        this.srvc.ActivityNames3().forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
       }
 
-      this.titleForMainChart = "ვიზიტების რაოდენობა ეკონომიკური სტატუსის მიხედვით";
+      if (this.lang =='GEO') {
+        this.titleForMainChart = "ვიზიტების რაოდენობა ეკონომიკური სტატუსის მიხედვით";
+      }
+      else{
+        this.titleForMainChart = "Number of visits by economic status";
+      }
     }
     else if (this.indicator==2) {
       
       if (this.tType == 1){
-        this.srvc.AgeNames1.forEach(element => {
+        this.srvc.AgeNames1().forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
       }
       else if (this.tType == 2){
-        this.srvc.AgeNames1.forEach(element => {
+        this.srvc.AgeNames1().forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
       }
       else if (this.tType == 3){
-        this.srvc.AgeNames3.forEach(element => {
+        this.srvc.AgeNames3().forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
       }
 
-      this.titleForMainChart = "ვიზიტების რაოდენობა ასაკის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForMainChart = "ვიზიტების რაოდენობა ასაკის მიხედვით";
+      }
+      else{
+        this.titleForMainChart = "Number of visits by age";
+      }
       
     }
     else if (this.indicator==3) {
 
-      this.srvc.GenderNames.forEach(element => {
+      this.srvc.GenderNames().forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
 
-      this.titleForMainChart = "ვიზიტების რაოდენობა სქესის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForMainChart = "ვიზიტების რაოდენობა სქესის მიხედვით";
+      }
+      else{
+        this.titleForMainChart = "Number of visits by gender";
+      }
     }
     else if (this.indicator==4) {
       
       if (this.tType == 1){
-        this.srvc.GoalNames1.forEach(element => {
+        this.srvc.GoalNames1().forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
       }
       else if (this.tType == 2){
-        this.srvc.GoalNames2.forEach(element => {
+        this.srvc.GoalNames2().forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
       }
       else if (this.tType == 3){
-        this.srvc.GoalNames3.forEach(element => {
+        this.srvc.GoalNames3().forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
       }
 
 
-      this.titleForMainChart = "ვიზიტების რაოდენობა მიზნის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForMainChart = "ვიზიტების რაოდენობა მიზნის მიხედვით";
+      }
+      else{
+        this.titleForMainChart = "Number of visits by objective";
+      }
     }
     else if (this.indicator==5) {
       
-      this.srvc.RateNames.forEach(element => {
+      this.srvc.RateNames().forEach(element => {
         this.createSeries5(element, element, this.bigChart);
       })
 
 
-      this.titleForMainChart = "ვიზიტების რაოდენობა კმაყოფილების დონის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForMainChart = "ვიზიტების რაოდენობა კმაყოფილების დონის მიხედვით";
+      }
+      else{
+        this.titleForMainChart = "Number of visits by level of satisfaction";
+      }
     }    
     else if (this.indicator==6) {
       
-      this.srvc.TourNames.forEach(element => {
+      this.srvc.TourNames().forEach(element => {
         this.createSeries5(element, element, this.bigChart);
       })
 
 
-      this.titleForMainChart = "ვიზიტების რაოდენობა ვიზიტის ტიპის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForMainChart = "ვიზიტების რაოდენობა ვიზიტის ტიპის მიხედვით";
+      }
+      else{
+        this.titleForMainChart = "Number of visits by type of visit";
+      }
     }
     else if (this.indicator==9) {
       
       if (this.tType == 1){
-        this.srvc.TransportNames1.forEach(element => {
+        this.srvc.TransportNames1().forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
       }
       else if (this.tType == 2){
-        this.srvc.TransportNames2.filter(x => x != "საზღვაო ტრანსპორტი").forEach(element => {
+        this.srvc.TransportNames2().filter(x => x != "საზღვაო ტრანსპორტი").forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
       }
       else if (this.tType == 3){
-        this.srvc.TransportNames3.forEach(element => {
+        this.srvc.TransportNames3().forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
       }
     
-      this.titleForMainChart = "ვიზიტების რაოდენობა ტრანსპორტის ტიპის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForMainChart = "ვიზიტების რაოდენობა ტრანსპორტის ტიპის მიხედვით";
+      }
+      else{
+        this.titleForMainChart = "Number of visits by type of transport";
+      }
     }
     else if (this.indicator==10) {
 
       if (this.tType == 1){
-        this.srvc.VisitNames1.forEach(element => {
+        this.srvc.VisitNames1().forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
       }
       else if (this.tType == 2){
-        this.srvc.VisitNames2.forEach(element => {
+        this.srvc.VisitNames2().forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
       }
       else if (this.tType == 3){
-        this.srvc.VisitNames3.forEach(element => {
+        this.srvc.VisitNames3().forEach(element => {
           this.createSeries5(element, element, this.bigChart);
         })
       }
 
-      this.titleForMainChart = "ვიზიტების რაოდენობა აქტივობის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForMainChart = "Number of visits by activity";
+      }
+      else{
+
+      }
     }    
     else if (this.indicator==11) {
       
-      this.srvc.OrderNames.forEach(element => {
+      this.srvc.OrderNames().forEach(element => {
         this.createSeries5(element, element, this.bigChart);
       })
 
 
-      this.titleForMainChart = "ვიზიტების რაოდენობა რიგითობის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForMainChart = "ვიზიტების რაოდენობა რიგითობის მიხედვით";
+      }
+      else{
+        this.titleForMainChart = "Number of visits by order";
+      }
     }
 
     else if (this.indicator==12) {
 
-      this.srvc.CountryNames.forEach(element => {
+      this.srvc.CountryNames().forEach(element => {
         this.createSeries5(element, element, this.bigChart);
       })
 
 
-      this.titleForMainChart = "ვიზიტების რაოდენობა მონახულებული ქვეყნების მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForMainChart = "ვიზიტების რაოდენობა მონახულებული ქვეყნების მიხედვით";
+      }
+      else{
+        this.titleForMainChart = "Number of visits by countries visited";
+      }
     } 
 
     this.bigChart.legend = new am4charts.Legend();
@@ -829,91 +906,132 @@ getQuantityChart(indic: number, per: number, type: number){
     
     
     if (this.indicator==0) {
-      this.createSeries2('Default', 'სულ', this.cstChart);
-      this.titleForCostsChart = "ხარჯები, სულ (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+	      this.createSeries2('Default', 'სულ', this.cstChart);
+	      this.titleForCostsChart = "ხარჯები, სულ (ათასი ლარი)";
+      }
+      else{
+        this.createSeries2('Default', 'All', this.cstChart);
+	      this.titleForCostsChart = "Expenses, Total (Thousand GEL)";
+      }
     }
     else if (this.indicator==1) {
       
       if (this.tType == 1){
-        this.srvc.ActivityNames1.forEach(element => {
+        this.srvc.ActivityNames1().forEach(element => {
           this.createSeries2(element, element, this.cstChart);
         })
       }
       else if (this.tType == 2){
-        this.srvc.ActivityNames2.forEach(element => {
+        this.srvc.ActivityNames2().forEach(element => {
           this.createSeries2(element, element, this.cstChart);
         })
       }
       else if (this.tType == 3){
-        this.srvc.ActivityNames3.forEach(element => {
+        this.srvc.ActivityNames3().forEach(element => {
           this.createSeries2(element, element, this.cstChart);
         })
       }
 
-      this.titleForCostsChart = "ხარჯები ეკონომიკური სტატუსის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "ხარჯები ეკონომიკური სტატუსის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Expenses According To Economic Status (Thousand GEL)";
+      }
     }
     else if (this.indicator==2) {
       
-      this.srvc.AgeNames3.forEach(element => {
+      this.srvc.AgeNames3().forEach(element => {
         this.createSeries2(element, element, this.cstChart);
       })
 
 
-      this.titleForCostsChart = "ხარჯები ასაკის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "ხარჯები ასაკის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Costs According To Age (Thousand GEL)";
+      }
     }
     else if (this.indicator==3) {
       
-      this.srvc.GenderNames.forEach(element => {
+      this.srvc.GenderNames().forEach(element => {
         this.createSeries2(element, element, this.cstChart);
       })
 
-      this.titleForCostsChart = "ხარჯები სქესის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "ხარჯები სქესის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Costs By Gender (Thousand GEL)";
+      }
     }
     else if (this.indicator==4) {
       
       if (this.tType == 1){
-        this.srvc.GoalNames1.forEach(element => {
+        this.srvc.GoalNames1().forEach(element => {
           this.createSeries2(element, element, this.cstChart);
         })
       }
       else if (this.tType == 2){
-        this.srvc.GoalNames2.forEach(element => {
+        this.srvc.GoalNames2().forEach(element => {
           this.createSeries2(element, element, this.cstChart);
         })
       }
       else if (this.tType == 3){
-        this.srvc.GoalNames3.forEach(element => {
+        this.srvc.GoalNames3().forEach(element => {
           this.createSeries2(element, element, this.cstChart);
         })
       }
 
 
-      this.titleForCostsChart = "ხარჯები მიზნის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "ხარჯები მიზნის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Expenses According To The Goal (Thousand GEL)";
+      }
     }
     else if (this.indicator==5) {
        
-      this.srvc.RateNames.forEach(element => {
+      this.srvc.RateNames().forEach(element => {
         this.createSeries2(element, element, this.cstChart);
       })
 
 
-      this.titleForCostsChart = "ხარჯები კმაყოფილების დონის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "ხარჯები კმაყოფილების დონის მიხედვით";
+      }
+      else{
+        this.titleForCostsChart = "Costs by satisfaction level";
+      }
     }
     else if (this.indicator==6) {
       
-      this.srvc.TourNames.forEach(element => {
+      this.srvc.TourNames().forEach(element => {
         this.createSeries2(element, element, this.cstChart);
       })
       
-      this.titleForCostsChart = "ხარჯები ვიზიტის ტიპის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "ხარჯები ვიზიტის ტიპის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Costs According To The Type Of Visit (Thousand GEL)";
+      }
     }    
     else if (this.indicator == 11) {
       
-      this.srvc.OrderNames.forEach(element => {
+      this.srvc.OrderNames().forEach(element => {
         this.createSeries2(element, element, this.cstChart);
       })
 
-      this.titleForCostsChart = "ხარჯები რიგითობის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "ხარჯები რიგითობის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Costs According To Order (Thousand GEL)";
+      }
     }
     
 
@@ -947,8 +1065,14 @@ getQuantityChart(indic: number, per: number, type: number){
     
     this.cstChart.scrollbarX = new am4core.Scrollbar();
 
-    this.createSeries2('Default', 'სულ', this.cstChart);
-    this.titleForCostsChart = "ხარჯები სულ (ათასი ლარი)";
+    if (this.lang == 'GEO') {
+      this.createSeries2('Default', 'სულ', this.cstChart);
+	    this.titleForCostsChart = "ხარჯები სულ (ათასი ლარი)";
+    }
+    else{
+      this.createSeries2('Default', 'All', this.cstChart);
+	    this.titleForCostsChart = "Total Expenses (Thousand GEL)";
+    }
 
 
     
@@ -988,99 +1112,146 @@ getQuantityChart(indic: number, per: number, type: number){
     this.nghtChart.data = res;
 
     if (this.indicator==0) {
-      this.createSeries3('Default', 'სულ', this.nghtChart);
-      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა";
+      if (this.lang == 'GEO') {
+	      this.createSeries3('Default', 'სულ', this.nghtChart);
+	      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა";
+      }
+      else{
+        this.createSeries3('Default', 'All', this.nghtChart);
+	      this.titleForPerNightsChart = "Average Number Of Nights";
+      }
     }
     else if (this.indicator==1) {
       
       if (this.tType == 1){
-        this.srvc.ActivityNames1.forEach(element => {
+        this.srvc.ActivityNames1().forEach(element => {
           this.createSeries3(element, element, this.nghtChart);
         })
       }
       else if (this.tType == 2){
-        this.srvc.ActivityNames2.forEach(element => {
+        this.srvc.ActivityNames2().forEach(element => {
           this.createSeries3(element, element, this.nghtChart);
         })
       }
       else if (this.tType == 3){
-        this.srvc.ActivityNames3.forEach(element => {
+        this.srvc.ActivityNames3().forEach(element => {
           this.createSeries3(element, element, this.nghtChart);
         })
       }
 
 
-      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა ეკონომიკური სტატუსის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა ეკონომიკური სტატუსის მიხედვით";
+      }
+      else{
+        this.titleForPerNightsChart = "Average Number Of Nights By Economic Status";
+      }
     }
     else if (this.indicator==2) {
       
-      this.srvc.AgeNames3.forEach(element => {
+      this.srvc.AgeNames3().forEach(element => {
         this.createSeries3(element, element, this.nghtChart);
       })
 
 
-      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა ასაკის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა ასაკის მიხედვით";
+      }
+      else{
+        this.titleForPerNightsChart = "Average Number Of Nights By Age";
+      }
     }
     else if (this.indicator==3) {
       
-      this.srvc.GenderNames.forEach(element => {
+      this.srvc.GenderNames().forEach(element => {
         this.createSeries3(element, element, this.nghtChart);
       })
 
-      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა სქესის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა სქესის მიხედვით";
+      }
+      else{
+        this.titleForPerNightsChart = "Average Number Of Nights By Gender";
+      }
     }
     else if (this.indicator==4) {
       
       if (this.tType == 1){
-        this.srvc.GoalNames1.forEach(element => {
+        this.srvc.GoalNames1().forEach(element => {
           this.createSeries3(element, element, this.nghtChart);
         })
       }
       else if (this.tType == 2){
-        this.srvc.GoalNames2.forEach(element => {
+        this.srvc.GoalNames2().forEach(element => {
           this.createSeries3(element, element, this.nghtChart);
         })
       }
       else if (this.tType == 3){
-        this.srvc.GoalNames3.forEach(element => {
+        this.srvc.GoalNames3().forEach(element => {
           this.createSeries3(element, element, this.nghtChart);
         })
       }
 
-      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა მიზნის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა მიზნის მიხედვით";
+      }
+      else{
+        this.titleForPerNightsChart = "Average Number Of Nights By Goal";
+      }
 
     }
     else if (this.indicator==5) {
 
-      this.srvc.RateNames.forEach(element => {
+      this.srvc.RateNames().forEach(element => {
           this.createSeries3(element, element, this.nghtChart);
         })
       
 
-      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა კმაყოფილების დონის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა კმაყოფილების დონის მიხედვით";
+      }
+      else{
+        this.titleForPerNightsChart = "Average Number Of Nights By Satisfaction Level";
+      }
     }
     else if (this.indicator==6) {
       
-      this.srvc.TourNames.forEach(element => {
+      this.srvc.TourNames().forEach(element => {
         this.createSeries3(element, element, this.nghtChart);
       })
 
 
-      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა ვიზიტის ტიპის მიხედვით";
+      if (this.lang) {
+        this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა ვიზიტის ტიპის მიხედვით";
+      }
+      else{
+        this.titleForPerNightsChart = "Average Number Of Nights By Type Of Visit";
+      }
     }
     
     else if (this.indicator == 11){
 
-      this.srvc.OrderNames.forEach(element => {
+      this.srvc.OrderNames().forEach(element => {
         this.createSeries3(element, element, this.nghtChart);
       })
 
 
-      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა რიგითობის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა რიგითობის მიხედვით";
+      }
+      else{
+        this.titleForPerNightsChart = "Average Number Of Nights By Order";
+      }
     }
     else {
-      this.createSeries3('Default', 'სულ', this.nghtChart);
-      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა სულ";
+      if (this.lang == 'GEO') {
+	      this.createSeries3('Default', 'სულ', this.nghtChart);
+	      this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა სულ";
+      }
+      else{
+        this.createSeries3('Default', 'All', this.nghtChart);
+	      this.titleForPerNightsChart = "Average Number Of Nights Total";
+      }
     }
     
 
@@ -1118,8 +1289,14 @@ getQuantityChart(indic: number, per: number, type: number){
 
     this.nghtChart.scrollbarX = new am4core.Scrollbar();
 
-    this.createSeries3('Default', 'სულ', this.nghtChart);
-    this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა";
+    if (this.lang == 'GEO') {
+	    this.createSeries3('Default', 'სულ', this.nghtChart);
+	    this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა";
+    }
+    else{
+      this.createSeries3('Default', 'All', this.nghtChart);
+	    this.titleForPerNightsChart = "Average Number Of Nights";
+    }
 
     
 
@@ -1155,8 +1332,14 @@ getQuantityChart(indic: number, per: number, type: number){
     series.columns.template.width = am4core.percent(60);
     
     if (Number(this.period) == 1 || Number(this.period) == 3) {
-      series.columns.template.tooltipText =
-      '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#.0a")} ₾';
+      if (this.lang == 'GEO') {
+	      series.columns.template.tooltipText =
+	      '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#.0a")} ₾';
+      }
+      else{
+        series.columns.template.tooltipText =
+	      '[bold]{name}[/]\n[font-size:14px]{categoryX} Year: [bold]{valueY.formatNumber("#.0a")} ₾';
+      }
     }
     else if (Number(this.period) == 2) {
       series.columns.template.tooltipText =
@@ -1193,12 +1376,24 @@ getQuantityChart(indic: number, per: number, type: number){
     // Configure columns
     series.columns.template.width = am4core.percent(60);
     if (Number(this.period == 1) || Number(this.period == 3)) {
-      series.columns.template.tooltipText =
-            '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#")} ღამე';
+      if (this.lang == 'GEO') {
+	      series.columns.template.tooltipText =
+          '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#")} ღამე';
+      }
+      else{
+        series.columns.template.tooltipText =
+          '[bold]{name}[/]\n[font-size:14px]{categoryX} Year: [bold]{valueY.formatNumber("#")} Night';
+      }
     }
     else if (Number(this.period) == 2) {
-      series.columns.template.tooltipText =
-      '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#")} ღამე';
+      if (this.lang == 'GEO') {
+	      series.columns.template.tooltipText =
+	        '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#")} ღამე';
+      }
+      else{
+        series.columns.template.tooltipText =
+	        '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#")} Night';
+      }
     }
 
     // Add label
@@ -1231,16 +1426,34 @@ getQuantityChart(indic: number, per: number, type: number){
     // Configure columns
     series.columns.template.width = am4core.percent(60);
     if (Number(this.period) == 1) {
-      series.columns.template.tooltipText =
-            '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#.0a")} ვიზიტი';
+      if (this.lang == 'GEO') {
+	      series.columns.template.tooltipText =
+	        '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#.0a")} ვიზიტი';
+      }
+      else{
+        series.columns.template.tooltipText =
+	        '[bold]{name}[/]\n[font-size:14px]{categoryX} Year: [bold]{valueY.formatNumber("#.0a")} Visits';
+      }
     }
     else if (Number(this.period) == 2) {
-      series.columns.template.tooltipText =
-            '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} ვიზიტი';
+      if (this.lang == 'GEO') {
+	      series.columns.template.tooltipText =
+	        '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} ვიზიტი';
+      }
+      else{
+        series.columns.template.tooltipText =
+	        '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} Visits';
+      }
     }
     else if (Number(this.period) == 3) {
-      series.columns.template.tooltipText =
-            '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} ვიზიტი';
+      if (this.lang == 'GEO') {
+	      series.columns.template.tooltipText =
+	        '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} ვიზიტი';
+      }
+      else{
+        series.columns.template.tooltipText =
+	        '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} Visits';
+      }
     }
 
     // Add label
@@ -1296,94 +1509,141 @@ getQuantityChart(indic: number, per: number, type: number){
     this.avarigeChart.logo.disabled = true;
     
     if (this.numbersForAvarige.indicator==0) {
-      this.createSeries('Default', 'სულ', this.avarigeChart);
-      this.titleForCostsChart = "საშუალო ხარჯები (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+	      this.createSeries('Default', 'სულ', this.avarigeChart);
+	      this.titleForCostsChart = "საშუალო ხარჯები (ათასი ლარი)";
+      }
+      else{
+        this.createSeries('Default', 'All', this.avarigeChart);
+	      this.titleForCostsChart = "Average Costs (Thousand GEL)";
+      }
     }
     else if (this.numbersForAvarige.indicator==1) {
       
       if (this.tType == 1){
-        this.srvc.ActivityNames1.forEach(element => {
+        this.srvc.ActivityNames1().forEach(element => {
           this.createSeries(element, element, this.avarigeChart);
         })
       }
       else if (this.tType == 2){
-        this.srvc.ActivityNames2.forEach(element => {
+        this.srvc.ActivityNames2().forEach(element => {
           this.createSeries(element, element, this.avarigeChart);
         })
       }
       else if (this.tType == 3){
-        this.srvc.ActivityNames3.forEach(element => {
+        this.srvc.ActivityNames3().forEach(element => {
           this.createSeries(element, element, this.avarigeChart);
         })
       }
 
-      this.titleForCostsChart = "საშუალო ხარჯები ეკონომიკური სტატუსის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "საშუალო ხარჯები ეკონომიკური სტატუსის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Average Expenses According To Economic Status (Thousand GEL)";
+      }
     }
     else if (this.numbersForAvarige.indicator==2) {
       
-      this.srvc.AgeNames3.forEach(element => {
+      this.srvc.AgeNames3().forEach(element => {
         this.createSeries(element, element, this.avarigeChart);
       })
 
 
-      this.titleForCostsChart = "საშუალო ხარჯები ასაკის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "საშუალო ხარჯები ასაკის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Average Expenses According To Age (Thousand GEL)";
+      }
     }
     else if (this.numbersForAvarige.indicator==3) {
       
-      this.srvc.GenderNames.forEach(element => {
+      this.srvc.GenderNames().forEach(element => {
         this.createSeries(element, element, this.avarigeChart);
       })
 
-      this.titleForCostsChart = "საშუალო ხარჯები სქესის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "საშუალო ხარჯები სქესის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Average Expenses By Gender (Thousand GEL)";
+      }
     }
     else if (this.numbersForAvarige.indicator==4) {
       
       if (this.tType == 1){
-        this.srvc.GoalNames1.forEach(element => {
+        this.srvc.GoalNames1().forEach(element => {
           this.createSeries(element, element, this.avarigeChart);
         })
       }
       else if (this.tType == 2){
-        this.srvc.GoalNames2.forEach(element => {
+        this.srvc.GoalNames2().forEach(element => {
           this.createSeries(element, element, this.avarigeChart);
         })
       }
       else if (this.tType == 3){
-        this.srvc.GoalNames3.forEach(element => {
+        this.srvc.GoalNames3().forEach(element => {
           this.createSeries(element, element, this.avarigeChart);
         })
       }
 
-      this.titleForCostsChart = "საშუალო ხარჯები მიზნის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "საშუალო ხარჯები მიზნის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Average Expenses According To The Goal (Thousand GEL)";
+      }
     }
     else if (this.numbersForAvarige.indicator==5) {
        
-      this.srvc.RateNames.forEach(element => {
+      this.srvc.RateNames().forEach(element => {
         this.createSeries(element, element, this.avarigeChart);
       })
 
 
-      this.titleForCostsChart = "საშუალო ხარჯები კმაყოფილების დონის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "საშუალო ხარჯები კმაყოფილების დონის მიხედვით";
+      }
+      else{
+        this.titleForCostsChart = "Average Costs By Level Of Satisfaction";
+      }
     }
     else if (this.numbersForAvarige.indicator==6) {
       
-      this.srvc.TourNames.forEach(element => {
+      this.srvc.TourNames().forEach(element => {
         this.createSeries(element, element, this.avarigeChart);
       })
       
-      this.titleForCostsChart = "საშუალო ხარჯები ვიზიტის ტიპის მიხედვით (ათასი ლარი)";
+      if (this.lang) {
+        this.titleForCostsChart = "საშუალო ხარჯები ვიზიტის ტიპის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Average Expenses By Type Of Visit (thousand GEL)";
+      }
     }    
     else if (this.numbersForAvarige.indicator == 11) {
       
-      this.srvc.OrderNames.forEach(element => {
+      this.srvc.OrderNames().forEach(element => {
         this.createSeries(element, element, this.avarigeChart);
       })
 
-      this.titleForCostsChart = "საშუალო ხარჯები რიგითობის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "საშუალო ხარჯები რიგითობის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Average Costs According To Order (Thousand GEL)";
+      }
     }
     else{
-      this.createSeries('Default', 'სულ', this.avarigeChart);
-      this.titleForCostsChart = "საშუალო ხარჯები (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+	      this.createSeries('Default', 'სულ', this.avarigeChart);
+	      this.titleForCostsChart = "საშუალო ხარჯები (ათასი ლარი)";
+      }
+      else{
+        this.createSeries('Default', 'All', this.avarigeChart);
+      this.titleForCostsChart = "Average Costs (Thousand GEL)";
+      }
     }
 
     this.avarigeChart.exporting.menu = new am4core.ExportMenu();
@@ -1414,7 +1674,12 @@ getQuantityChart(indic: number, per: number, type: number){
     bullet.circle.stroke = am4core.color("#fff");
     bullet.circle.strokeWidth = 2;
 
-    bullet.tooltipText = '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#")} ათასი ₾';
+    if (this.lang == 'GEO') {
+      bullet.tooltipText = '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#")} ათასი ₾';
+    }
+    else{
+      bullet.tooltipText = '[bold]{name}[/]\n[font-size:14px]{categoryX} Year: [bold]{valueY.formatNumber("#")} Thousand ₾';
+    }
 
     let shadow = new am4core.DropShadowFilter();
     shadow.dx = 1;
@@ -1436,13 +1701,13 @@ getQuantityChart(indic: number, per: number, type: number){
   
 
   getAvarigeChart(indic: number, per: number, type: number, isAvarige: boolean){
-    var uRl = this.APIUrl + '/avarageForign?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige;
+    var uRl = this.APIUrl + '/avarageForign?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige + "&lang=" + this.lang;
 
     if(this.tType == 2){
-      uRl = this.APIUrl + '/avarigeExit?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige;
+      uRl = this.APIUrl + '/avarigeExit?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige + "&lang=" + this.lang;
     }
     else if(this.tType == 3){
-      uRl = this.APIUrl + '/avarige?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige;
+      uRl = this.APIUrl + '/avarige?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige + "&lang=" + this.lang;
     }
 
     if (Number(this.period) == 1 || Number(this.period) == 3) {
@@ -1483,8 +1748,11 @@ getQuantityChart(indic: number, per: number, type: number){
                     stQ = "IV კვ."
                   }
 
-                  let fnSt: string = `${stQ} ${stY}`
+                  let fnSt: string = `${stQ} ${stY}`;
 
+                  if(this.lang != 'GEO'){
+                    fnSt = fnSt.replace(/კვ/g, "Qrt");
+                  }
 
                   element.year = fnSt;
               });
@@ -1529,95 +1797,142 @@ getQuantityChart(indic: number, per: number, type: number){
     
     
     if (this.numbersForAvarige.indicator == 0) {
-      this.createSeries2('Default', 'სულ', this.costsOnley);
-      this.titleForCostsChart = "ხარჯები, სულ (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+	      this.createSeries2('Default', 'სულ', this.costsOnley);
+	      this.titleForCostsChart = "ხარჯები, სულ (ათასი ლარი)";
+      }
+      else{
+        this.createSeries2('Default', 'All', this.costsOnley);
+	      this.titleForCostsChart = "Expenses, Total (Thousand GEL)";
+      }
     }
     else if (this.numbersForAvarige.indicator==1) {
       
       if (this.tType == 1){
-        this.srvc.ActivityNames1.forEach(element => {
+        this.srvc.ActivityNames1().forEach(element => {
           this.createSeries2(element, element, this.costsOnley);
         })
       }
       else if (this.tType == 2){
-        this.srvc.ActivityNames2.forEach(element => {
+        this.srvc.ActivityNames2().forEach(element => {
           this.createSeries2(element, element, this.costsOnley);
         })
       }
       else if (this.tType == 3){
-        this.srvc.ActivityNames3.forEach(element => {
+        this.srvc.ActivityNames3().forEach(element => {
           this.createSeries2(element, element, this.costsOnley);
         })
       }
 
-      this.titleForCostsChart = "ხარჯები ეკონომიკური სტატუსის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "ხარჯები ეკონომიკური სტატუსის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Expenses According To Economic Status (Thousand GEL)";
+      }
     }
     else if (this.numbersForAvarige.indicator==2) {
       
-      this.srvc.AgeNames3.forEach(element => {
+      this.srvc.AgeNames3().forEach(element => {
         this.createSeries2(element, element, this.costsOnley);
       })
 
 
-      this.titleForCostsChart = "ხარჯები ასაკის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "ხარჯები ასაკის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Costs According To Age (Thousand GEL)";
+      }
     }
     else if (this.numbersForAvarige.indicator==3) {
       
-      this.srvc.GenderNames.forEach(element => {
+      this.srvc.GenderNames().forEach(element => {
         this.createSeries2(element, element, this.costsOnley);
       })
 
-      this.titleForCostsChart = "ხარჯები სქესის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "ხარჯები სქესის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Costs By Gender (Thousand GEL)";
+      }
     }
     else if (this.numbersForAvarige.indicator==4) {
       
       if (this.tType == 1){
-        this.srvc.GoalNames1.forEach(element => {
+        this.srvc.GoalNames1().forEach(element => {
           this.createSeries2(element, element, this.costsOnley);
         })
       }
       else if (this.tType == 2){
-        this.srvc.GoalNames2.forEach(element => {
+        this.srvc.GoalNames2().forEach(element => {
           this.createSeries2(element, element, this.costsOnley);
         })
       }
       else if (this.tType == 3){
-        this.srvc.GoalNames3.forEach(element => {
+        this.srvc.GoalNames3().forEach(element => {
           this.createSeries2(element, element, this.costsOnley);
         })
       }
 
 
-      this.titleForCostsChart = "ხარჯები მიზნის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "ხარჯები მიზნის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Expenses According To The Goal (Thousand GEL)";
+      }
     }
     else if (this.numbersForAvarige.indicator==5) {
        
-      this.srvc.RateNames.forEach(element => {
+      this.srvc.RateNames().forEach(element => {
         this.createSeries2(element, element, this.costsOnley);
       })
 
 
-      this.titleForCostsChart = "ხარჯები კმაყოფილების დონის მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "ხარჯები კმაყოფილების დონის მიხედვით";
+      }
+      else{
+        this.titleForCostsChart = "Costs By Satisfaction Level";
+      }
     }
     else if (this.numbersForAvarige.indicator==6) {
       
-      this.srvc.TourNames.forEach(element => {
+      this.srvc.TourNames().forEach(element => {
         this.createSeries2(element, element, this.costsOnley);
       })
       
-      this.titleForCostsChart = "ხარჯები ვიზიტის ტიპის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "ხარჯები ვიზიტის ტიპის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Costs According To The Type Of Visit (Thousand GEL)";
+      }
     }    
     else if (this.numbersForAvarige.indicator == 11) {
       
-      this.srvc.OrderNames.forEach(element => {
+      this.srvc.OrderNames().forEach(element => {
         this.createSeries2(element, element, this.costsOnley);
       })
 
-      this.titleForCostsChart = "ხარჯები რიგითობის მიხედვით (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+        this.titleForCostsChart = "ხარჯები რიგითობის მიხედვით (ათასი ლარი)";
+      }
+      else{
+        this.titleForCostsChart = "Costs According To Order (Thousand GEL)";
+      }
     }
     else{
-      this.createSeries2('Default', 'სულ', this.costsOnley);
-      this.titleForCostsChart = "ხარჯები, სულ (ათასი ლარი)";
+      if (this.lang == 'GEO') {
+	      this.createSeries2('Default', 'სულ', this.costsOnley);
+	      this.titleForCostsChart = "ხარჯები, სულ (ათასი ლარი)";
+      }
+      else{
+        this.createSeries2('Default', 'All', this.costsOnley);
+        this.titleForCostsChart = "Expenses, Total (Thousand GEL)";
+      }
     }
     
 
@@ -1628,13 +1943,13 @@ getQuantityChart(indic: number, per: number, type: number){
 
 
   getCostsOnleyChart(indic: number, per: number, type: number, isAvarige: boolean){
-    var uRl = this.APIUrl + '/avarageForign?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige;
+    var uRl = this.APIUrl + '/avarageForign?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige + "&lang=" + this.lang;
 
     if(this.tType == 2){
-      uRl = this.APIUrl + '/avarigeExit?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige;
+      uRl = this.APIUrl + '/avarigeExit?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige + "&lang=" + this.lang;
     }
     else if(this.tType == 3){
-      uRl = this.APIUrl + '/avarige?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige;
+      uRl = this.APIUrl + '/avarige?prop=' + indic + "&per=" + per + "&tourType=" + type + "&isAvarige=" + isAvarige + "&lang=" + this.lang;
     }
 
     if (Number(this.period) == 1 || Number(this.period) == 3) {
@@ -1677,6 +1992,9 @@ getQuantityChart(indic: number, per: number, type: number){
 
                   let fnSt: string = `${stQ} ${stY}`
 
+                  if(this.lang != 'GEO'){
+                    fnSt = fnSt.replace(/კვ/g, "Qrt");
+                  }
 
                   element.year = fnSt;
               });

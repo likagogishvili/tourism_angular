@@ -9,14 +9,15 @@
     },
 
     "footer": {
-        "title1": "Statistics Department Of Georgia",
+        "title1": " National Statistics Office Of Georgia",
         "title2": "© All Rights Rescerved"
     },
 
     "hotel": {
         "navbar1": "Key Indicators",
         "navbar2": "Interactive Map",
-        "navbar3": "Hotels In Georgia"
+        "navbar3": "Hotels In Georgia",
+        "placeholder": "Search For a Country"
     },
 
     "Hhotelsingeorgia": {
@@ -44,5 +45,23 @@
       "incomsChartTitle": "Income Structure",
       "emploeeChartTitle": "Employees by Gender",
       "expenceChartTitle": "Cost Structure"
+    },
+
+    "categories": {
+      "Indicators": "Key Indicators",
+      "comparision": "Comparison of indicators",
+      "regAnalyse": "Regional analysis",
+      "sesonal": "seasonality",
+      "interMap": "Interactive map",
+      "visits": "International visits"
+    },
+
+    "defIndicator": {
+      "indic": "indicator",
+      "period": "periodicity",
+      "tourismType": "type of tourism",
+      "tourType": "Type of visit",
+      "allExpence": "total cost",
+      "avarExpence": "Average cost"
     }
 }

@@ -16,7 +16,8 @@
   "hotel": {
     "navbar1": "ძირითადი მაჩვენებლები",
     "navbar2": "ინტერაქტიული რუკა",
-    "navbar3": "სასტუმროები საქართველოში"
+    "navbar3": "სასტუმროები საქართველოში",
+    "placeholder": "მოძებნეთ ქვეყანა"
   },
 
   "Hhotelsingeorgia": {
@@ -44,5 +45,23 @@
     "incomsChartTitle": "შემოსავლების სტრუქტურა",
     "emploeeChartTitle": "დასაქმებულები სქესის მიხედვით",
     "expenceChartTitle": "ხარჯების სტრუქტურა"
+  },
+
+  "categories": {
+    "Indicators": "ძირითადი მაჩვენებლები",
+    "comparision": "მაჩვენებლების შედარება",
+    "regAnalyse": "რეგიონული ანალიზი",
+    "sesonal": "სეზონურობა",
+    "interMap": "ინტერაქტიული რუკა",
+    "visits": "საერთაშორისო ვიზიტები"
+  },
+
+  "defIndicator": {
+    "indic": "მაჩვენებელი",
+    "period": "პერიოდულობა",
+    "tourismType": "ტურიზმის ტიპი",
+    "tourType": "ვიზიტის ტიპი",
+    "allExpence": "მთლიანი ხარჯი",
+    "avarExpence": "საშუალო ხარჯი"
   }
 }
