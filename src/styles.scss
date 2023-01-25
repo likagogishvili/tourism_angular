@@ -10,6 +10,7 @@
 * {
   font-family: "FiraGO" !important;
   font-weight: bold !important;
+  box-sizing: border-box;
 }
 
 body {
@@ -192,4 +193,18 @@ a {
 .plpr {
   padding-left: 0px !important;
   padding-right: 0px !important;
+}
+
+.flex__row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+}
+
+.amcharts-amexport-menu {
+  position: absolute !important;
+  top: -35px !important;
+  li {
+    background-color: #fff !important;
+  }
 }
