@@ -1,50 +1,19 @@
-.pirveliRagac {
-  height: 400px;
-  padding-top: 50px;
-  margin-left: 10px;
-}
-.meoreRagac {
-  height: 400px;
-  //padding-top: 50px;
-  margin-right: 10px;
-}
+@import "../../../assets/styles/_media-queries.scss";
+// title {
+//   color: red;
+//   background-color: blue;
+// }
 
-.mapdiv {
-  height: 1200px;
-  width: 2000px;
-}
-
-.mapdiv path {
-  fill: rgb(0, 137, 201);
-  stroke: #d6d7ff;
-  transition: fill 0.5s;
-}
-
-.mapdiv path:hover {
-  fill: rgb(76, 0, 255);
-}
-
-#AbkhaziaOccupiedByRussia {
-  cursor: not-allowed;
-}
-
-title {
-  color: red;
-  background-color: blue;
-}
-
-.label {
-  font-size: 16px;
-  font-weight: bold;
-  fill: red;
-  z-index: 120;
-}
+// .label {
+//   font-size: 16px;
+//   font-weight: bold;
+//   fill: red;
+//   z-index: 120;
+// }
 
 .FontForChartTitles {
   font-size: 18px;
-  line-height: 24px;
   color: #3d3d3e;
-  padding-bottom: 30px;
   text-align: left;
 }
 
@@ -53,11 +22,8 @@ title {
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
-  line-height: 17px;
   font-variant: small-caps;
   color: #929497;
-  margin-top: -14px;
-  margin-left: 75px;
 }
 
 .fontForCheckboxes {
@@ -65,101 +31,195 @@ title {
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
-  line-height: 14px;
   font-variant: small-caps;
-  padding-left: 12px;
   color: #3d3d3e;
-}
-
-.contForLg9 {
-  width: 99%;
-  height: 104%;
-  background: #ffffff;
-  box-shadow: 0px 4px 50px 5px rgba(0, 0, 0, 0.06);
-  border-radius: 20px;
 }
 
 .stur {
   color: #3d3d3e;
   font-size: 24px;
-  padding-top: 20px;
 }
 
 .positioning-chart2 {
   width: 90%;
   height: 90%;
-  padding-left: 66px;
 }
 
-.conts {
+.cnt__other__charts {
   height: 326px;
   background: #ffffff;
-
   box-shadow: 0px 4px 50px 5px rgba(0, 0, 0, 0.05);
   border-radius: 15px;
 }
 
-.inputPosition {
-  padding-left: 29px;
-  padding-top: 11px;
-}
-
 .contForRegions {
   box-sizing: border-box;
-  width: 83%;
-  height: 70%;
+  // width: 83%;
+  // height: 70%;
   background: #ffffff;
   border: 1px solid #5c4fc9;
   border-radius: 20px;
 }
 
-.contForindicators {
-  margin-bottom: 32px;
-  box-sizing: border-box;
-  width: 83%;
-  height: 21%;
-  background: #ffffff;
-  border: 1px solid #5c4fc9;
-  border-radius: 20px;
+.indicators__and__mainChart {
+  height: 700px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5vw;
+  @include tablet {
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+  }
 }
 
-.firstImgPositionForInputs {
-  padding-top: 30px;
-  padding-left: 30px;
-}
-
-.firstForRegions {
-  padding-left: 29px;
-  padding-top: 25px;
-}
-
-.positionForFirstIndicatorsInput {
-  padding-left: 29px;
-  padding-top: 15px;
-}
-
-.secondIndicPosition {
-  padding-left: 29px;
-  padding-top: 0px;
-}
-
-.pad {
-  padding-left: 12px;
-}
-
-.pad2 {
-  margin-top: -20px;
-  margin-left: 75px;
-}
-
-.hund {
+.wrapper__indicators {
+  width: 20%;
   height: 100%;
-  width: 100%;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  @include tablet {
+    width: 100%;
+    gap: 20px;
+  }
 }
 
-.defHeight {
-  height: 150px;
+.title__indicator {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
 }
+
+.cont__indicators {
+  background: #ffffff;
+  border: 1px solid #5c4fc9;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5vw;
+  gap: 20px;
+
+  img {
+    width: 20px;
+    height: 20px;
+    padding: 0 !important;
+  }
+}
+
+.indicators {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .indicator {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    label {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    input[type="radio"] {
+      accent-color: #5c4fc9;
+    }
+    input[type="checkbox"] {
+      accent-color: #5c4fc9;
+    }
+  }
+}
+
+.fontForCheckboxesTitle p {
+  margin: 0 !important;
+}
+
+.cnt__main__chart {
+  width: 80%;
+  height: 100%;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  box-shadow: 0px 4px 50px 5px rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  padding: 2vw;
+  @include tablet {
+    width: 100%;
+    height: 500px;
+  }
+
+  
+
+  .chart__title {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  .main__chart {
+    width: 90%;
+    height: 90%;
+    @include tablet {
+      width: 120%;
+      padding-left: 50px;
+    }
+  }
+}
+
+.other__charts {
+  margin-top: 30px;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  @include laptop {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include tablet {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .cnt__other__charts {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 20px 5px 20px;
+
+    .other__chart {
+      height: 90%;
+      width: 100%;
+    }
+  }
+}
+
+.amcharts-amexport-menu {
+  position: absolute !important;
+  top: -35px !important;
+}
+
+
+// .pad {
+//   padding-left: 12px;
+// }
+
+// .pad2 {
+//   margin-top: -20px;
+//   margin-left: 75px;
+// }
+
+// .hund {
+//   height: 100%;
+//   width: 100%;
+// }
+
+// .defHeight {
+//   height: 150px;
+// }
 
 .backgroundImg {
   background-image: url("../../../assets/ht-default-indicators/Backk.png");
@@ -168,25 +228,24 @@ title {
 }
 
 @media only screen and (max-width: 990px) {
-  .mainChart {
-    margin-top: 200px;
-    height: 700px;
-  }
+  // .mainChart {
+  //   margin-top: 200px;
+  //   height: 700px;
+  // }
 
-  .contForLg9 {
-    margin: auto;
-  }
+  // .contForLg9 {
+  //   margin: auto;
+  // }
 
-  .contForindicators {
-    margin: auto;
-    width: 90%;
-  }
+  // .contForindicators {
+  //   margin: auto;
+  //   width: 90%;
+  // }
 
-  .contForRegions {
-    margin: auto;
-    height: auto;
-    width: 90%;
-    margin-top: 5px;
-  }
-  
+  // .contForRegions {
+  //   margin: auto;
+  //   height: auto;
+  //   width: 90%;
+  //   margin-top: 5px;
+  // }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import { IDropDown } from 'src/app/common/IDropDown';
 import { DefindicatorService } from './service/defindicator.service';
 import { HttpClient } from '@angular/common/http';
@@ -65,7 +64,7 @@ export class HtDefaultIndicatorsComponent implements OnInit {
   indicators!: IDropDown[];
 
   years!: number[];
-  year: number = 2020;
+  year: number = 2021;
 
   optList: string = "38,11,26,47,15,41,44,32,23,29";
 
@@ -130,7 +129,6 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
     this.addRemoveRegion();
   }
-  
 
   helpChartName: any;
   
@@ -203,7 +201,6 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
 
   mainChart(data: DataForMapChart[]) {
-    am4core.useTheme(am4themes_animated);
     let chart = am4core.create("chartMain", am4charts.SankeyDiagram);
     chart.hiddenState.properties.opacity = 0;
     
@@ -336,7 +333,6 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
 
   helpChart(res:any, chart: any, chartDiv: string) {
-    am4core.useTheme(am4themes_animated);
     // Themes end
 
     // Create chart instance
@@ -432,19 +428,20 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
     chart.legend = new am4charts.Legend();
 
-    chart.legend.maxHeight = 50;
+    chart.legend.maxHeight = 80;
+    chart.legend.maxWidth = 80;
     chart.legend.scrollable = true;
 
     chart.legend.useDefaultMarker = true;
     let marker = chart.legend.markers.template.children.getIndex(0);
     marker.cornerRadius(12, 12, 12, 12);
-    marker.strokeWidth = 2;
+    marker.strokeWidth = 1;
     marker.strokeOpacity = 1;
     marker.stroke = am4core.color("#ccc");
     
     chart.exporting.menu = new am4core.ExportMenu();
-
-    chart.exporting.menu.align = "left";
+    chart.exporting.menu.items[0].icon = "../../../assets/HomePage/download_icon.svg";
+    chart.exporting.menu.align = "right";
     chart.exporting.menu.verticalAlign = "top";
   }
 
