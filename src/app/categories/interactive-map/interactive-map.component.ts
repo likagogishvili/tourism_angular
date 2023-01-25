@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import {forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { SharedService } from 'src/app/shared.service';
 
 import * as am4core from '@amcharts/amcharts4/core';
@@ -10,18 +10,16 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import am4geodata_worldLow from '@amcharts/amcharts4-geodata/worldLow';
 import { create } from 'lodash';
 
-
 @Component({
   selector: 'app-interactive-map',
   templateUrl: './interactive-map.component.html',
   styleUrls: ['./interactive-map.component.scss'],
 })
 export class InteractiveMapComponent implements OnInit {
-  
   searchText: any;
 
   readonly APIUrl: string = 'http://tourismapi.geostat.ge/api/visitors';
-  
+
   yearSelect = 2021;
   quarterSelect = 0;
   monthSelect = 0;
@@ -63,7 +61,6 @@ export class InteractiveMapComponent implements OnInit {
       this.getCountriesListNights();
     }
 
-
     forkJoin({
       countriesList: this.getQueryCountriesList(),
       nights: this.getQueryNights(),
@@ -79,7 +76,6 @@ export class InteractiveMapComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-
     this.SelectCountryData1();
 
     this.mapchart = am4core.create('chartdiv', am4maps.MapChart);
@@ -100,7 +96,6 @@ export class InteractiveMapComponent implements OnInit {
       return this.resulti;
     });
     //this.getDataForTable();
-
 
     if (!this.perNights) {
       this.getCountriesList();
@@ -144,10 +139,14 @@ export class InteractiveMapComponent implements OnInit {
   sortDataVisits() {
     this.checkVisits = !this.checkVisits;
     if (this.checkVisits) {
-      let newar = this.dataForTable.sort((a: any, b: any) => a.visits - b.visits);
+      let newar = this.dataForTable.sort(
+        (a: any, b: any) => a.visits - b.visits
+      );
       this.result = newar;
     } else {
-      let newar = this.dataForTable.sort((a: any, b: any) => b.visits - a.visits);
+      let newar = this.dataForTable.sort(
+        (a: any, b: any) => b.visits - a.visits
+      );
       this.result = newar;
     }
   }
@@ -156,31 +155,33 @@ export class InteractiveMapComponent implements OnInit {
   sortDataNights() {
     this.checkNights = !this.checkNights;
     if (this.checkNights) {
-      let newar = this.dataForTable.sort((a: any, b: any) => a.avarNights - b.avarNights);
+      let newar = this.dataForTable.sort(
+        (a: any, b: any) => a.avarNights - b.avarNights
+      );
       this.result = newar;
     } else {
-      let newar = this.dataForTable.sort((a: any, b: any) => b.avarNights - a.avarNights);
+      let newar = this.dataForTable.sort(
+        (a: any, b: any) => b.avarNights - a.avarNights
+      );
       this.result = newar;
     }
   }
-
 
   checkCountryes = false;
   sortCountryes() {
     this.checkCountryes = !this.checkCountryes;
     if (this.checkCountryes) {
       let newar = this.dataForTable.sort((a: any, b: any) => {
-        return a.countryNameGe.localeCompare(b.countryNameGe)
-      })
+        return a.countryNameGe.localeCompare(b.countryNameGe);
+      });
       this.result = newar;
     } else {
       let newar = this.dataForTable.sort((a: any, b: any) => {
-        return b.countryNameGe.localeCompare(a.countryNameGe)
-      })
+        return b.countryNameGe.localeCompare(a.countryNameGe);
+      });
       this.result = newar;
     }
   }
-
 
   myarr(myarr: any): any {
     throw new Error('Method not implemented.');
@@ -367,12 +368,10 @@ export class InteractiveMapComponent implements OnInit {
   }
 
   SelectCountryData1() {
-    
     this.getCountriesForChart(0).subscribe((arg) => {
       this.renderChartObject(arg);
     });
   }
-
 
   selectTourType(type: number) {
     this.tourType = type;
@@ -394,7 +393,6 @@ export class InteractiveMapComponent implements OnInit {
       return this.resulti;
     });
     this.getDataForTable();
-
   }
   selectYearChange() {
     this.selectedYear = this.commonService.getDropDownText(
@@ -420,23 +418,19 @@ export class InteractiveMapComponent implements OnInit {
       return this.resulti;
     });
     this.getDataForTable();
-
   }
 
   selectMonthChange() {
     this.selectedQuarter = 0;
     this.quarterSelect = 0;
 
-    
-
-    if (this.monthSelect == 0){
+    if (this.monthSelect == 0) {
       this.selectedMonth = 0;
-    }
-    else {
+    } else {
       this.selectedMonth = this.commonService.getDropDownText(
-            this.monthSelect,
-            this.monthsOptions
-          )[0].value;
+        this.monthSelect,
+        this.monthsOptions
+      )[0].value;
     }
 
     if (!this.perNights) {
@@ -444,7 +438,6 @@ export class InteractiveMapComponent implements OnInit {
     } else {
       this.getCountriesListNights();
     }
-
 
     forkJoin({
       countriesList: this.getQueryCountriesList(),
@@ -457,7 +450,6 @@ export class InteractiveMapComponent implements OnInit {
       return this.resulti;
     });
     this.getDataForTable();
-
   }
 
   selectQuarterChange() {
@@ -482,7 +474,6 @@ export class InteractiveMapComponent implements OnInit {
       return this.resulti;
     });
     this.getDataForTable();
-
   }
 
   selectGenderChange() {
@@ -505,7 +496,6 @@ export class InteractiveMapComponent implements OnInit {
       return this.resulti;
     });
     this.getDataForTable();
-
   }
 
   async selectAgeChange() {
@@ -655,27 +645,29 @@ export class InteractiveMapComponent implements OnInit {
         this.selectedQuarter
     );
   }
-  
-  dataForTable: any = []
+
+  dataForTable: any = [];
   getDataForTable() {
-    return this.http.get<any>(
-      // "https://localhost:5001/api/visitors"
-      this.APIUrl +
-        '/AvarageNights?tour=' +
-        this.selectedVType +
-        '&year=' +
-        this.selectedYear +
-        '&month=' +
-        this.selectedMonth +
-        '&gender=' +
-        this.selectedGender +
-        '&age=' +
-        this.selectedAge +
-        '&quarter=' +
-        this.selectedQuarter
-    ).subscribe((res) => {
-      this.dataForTable = res;
-    });
+    return this.http
+      .get<any>(
+        // "https://localhost:5001/api/visitors"
+        this.APIUrl +
+          '/AvarageNights?tour=' +
+          this.selectedVType +
+          '&year=' +
+          this.selectedYear +
+          '&month=' +
+          this.selectedMonth +
+          '&gender=' +
+          this.selectedGender +
+          '&age=' +
+          this.selectedAge +
+          '&quarter=' +
+          this.selectedQuarter
+      )
+      .subscribe((res) => {
+        this.dataForTable = res;
+      });
   }
 
   getCodes() {
@@ -696,14 +688,12 @@ export class InteractiveMapComponent implements OnInit {
 
     this.mapchart.colors.step = 3;
 
-
     let polygonTemplate = this.worldSeries.mapPolygons.template;
     polygonTemplate.tooltipText = '{countryName} - {value}';
     // polygonTemplate.tooltipText = toolltip
     polygonTemplate.fill = this.mapchart.colors.getIndex(0);
     polygonTemplate.nonScalingStroke = true;
     this.worldSeries.data = mapData;
-
 
     this.worldSeries.heatRules.push({
       property: 'fill',
@@ -724,10 +714,13 @@ export class InteractiveMapComponent implements OnInit {
       a.goHome();
     });
 
-    button.events.on('hit', () => { this.SelectCountryData1() });
+    button.events.on('hit', () => {
+      this.SelectCountryData1();
+    });
 
-    button.events.on('hit', () => { this.selectedCountryDataId = -1 });
-
+    button.events.on('hit', () => {
+      this.selectedCountryDataId = -1;
+    });
 
     button.icon = new am4core.Sprite();
     button.icon.path =
@@ -883,20 +876,18 @@ export class InteractiveMapComponent implements OnInit {
   //       })
   //   }
   // }
-  
+
   renderChartObject(args: any[]) {
     args.map((item: any) => {
-              item.yearNo = item.yearNo.toString()
-              return item;
-            });
+      item.yearNo = item.yearNo.toString();
+      return item;
+    });
     am4core.useTheme(am4themes_animated);
     // Themes end
-
     let chart = am4core.create('chartdiv2', am4charts.XYChart);
     chart.paddingRight = 20;
-
     chart.colors.step = 3;
-    
+
     chart.data = args;
 
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
@@ -904,30 +895,30 @@ export class InteractiveMapComponent implements OnInit {
     dateAxis.renderer.axisFills.template.disabled = true;
     dateAxis.renderer.ticks.template.disabled = true;
 
-    // let valueAxis: any = chart.yAxes.push(new am4charts.ValueAxis());
-    // valueAxis.tooltip.disabled = true;
-    // valueAxis.renderer.minWidth = 35;
-    // valueAxis.renderer.axisFills.template.disabled = true;
-    // valueAxis.renderer.ticks.template.disabled = true;
-    // valueAxis.numberFormatter.numberFormat = "#.0a";
-
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.numberFormatter = new am4core.NumberFormatter();
-    valueAxis.numberFormatter.numberFormat = "#.0a"; 
+    valueAxis.numberFormatter.numberFormat = '#.0a';
     valueAxis.renderer.grid.template.location = 0;
 
     let series = chart.series.push(new am4charts.LineSeries());
     series.dataFields.dateX = 'yearNo';
     series.dataFields.valueY = 'value';
     series.name = args[0].countryNameGe;
+    series.bullets.push(new am4charts.CircleBullet());
+    series.strokeWidth = 4;
+    series.tensionX = 0.8;
 
-    series.strokeWidth = 2;
+    let bullet = series.bullets.push(new am4charts.CircleBullet());
+    bullet.circle.radius = 6;
+    bullet.circle.fill = am4core.color('#fff');
+    bullet.circle.strokeWidth = 3;
+    series.fill = am4core.color('#67B7DC');
+    series.stroke = am4core.color('#67B7DC');
 
     if (this.selectedCountryDataId == -1) {
       series.tooltipText = '{yearNo} წელს, {value}';
-    }
-    else{
-      series.tooltipText = '{yearNo} წელს, {value} ვიზიტი {countryNameGe}დან';
+    } else {
+      series.tooltipText = '{yearNo} წელს, {value} ვიზიტი {name}დან';
     }
 
     // set stroke property field
@@ -944,16 +935,14 @@ export class InteractiveMapComponent implements OnInit {
 
     chart.exporting.menu = new am4core.ExportMenu();
 
-    chart.exporting.menu.align = "left";
-    chart.exporting.menu.verticalAlign = "top";
+    chart.exporting.menu.align = 'left';
+    chart.exporting.menu.verticalAlign = 'top';
 
     chart.legend = new am4charts.Legend();
 
-    chart.legend.position = "top";
+    chart.legend.position = 'top';
     chart.legend.fontSize = 20;
-    chart.legend.fontWeight = "bold";
-
-
+    chart.legend.fontWeight = 'bold';
   }
 }
 
