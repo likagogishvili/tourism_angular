@@ -670,8 +670,8 @@ getQuantityChart(indic: number, per: number, type: number){
         this.createSeries5('Default', 'სულ', this.bigChart);
       }
       else{
-        this.titleForMainChart = "Number of visits, total";
-        this.createSeries5('Default', 'All', this.bigChart);
+        this.titleForMainChart = "Total number of visits";
+        this.createSeries5('Default', 'Total', this.bigChart);
       }
     }
     else if (this.indicator==1) {
@@ -696,7 +696,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForMainChart = "ვიზიტების რაოდენობა ეკონომიკური სტატუსის მიხედვით";
       }
       else{
-        this.titleForMainChart = "Number of visits by economic status";
+        this.titleForMainChart = "Number of visits by Economic status";
       }
     }
     else if (this.indicator==2) {
@@ -761,7 +761,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForMainChart = "ვიზიტების რაოდენობა მიზნის მიხედვით";
       }
       else{
-        this.titleForMainChart = "Number of visits by objective";
+        this.titleForMainChart = "Number of visits by purpose";
       }
     }
     else if (this.indicator==5) {
@@ -775,7 +775,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForMainChart = "ვიზიტების რაოდენობა კმაყოფილების დონის მიხედვით";
       }
       else{
-        this.titleForMainChart = "Number of visits by level of satisfaction";
+        this.titleForMainChart = "Number of visits by satisfaction level";
       }
     }    
     else if (this.indicator==6) {
@@ -868,7 +868,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForMainChart = "ვიზიტების რაოდენობა მონახულებული ქვეყნების მიხედვით";
       }
       else{
-        this.titleForMainChart = "Number of visits by countries visited";
+        this.titleForMainChart = "Number of visits by visited countries";
       }
     } 
 
@@ -912,7 +912,7 @@ getQuantityChart(indic: number, per: number, type: number){
       }
       else{
         this.createSeries2('Default', 'All', this.cstChart);
-	      this.titleForCostsChart = "Expenses, Total (Thousand GEL)";
+	      this.titleForCostsChart = "Total expenditure (thousand GEL)";
       }
     }
     else if (this.indicator==1) {
@@ -937,7 +937,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "ხარჯები ეკონომიკური სტატუსის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Expenses According To Economic Status (Thousand GEL)";
+        this.titleForCostsChart = "Expenditure by the Economic status (thousand GEL)";
       }
     }
     else if (this.indicator==2) {
@@ -951,7 +951,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "ხარჯები ასაკის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Costs According To Age (Thousand GEL)";
+        this.titleForCostsChart = "Expenditure by age (thousand GEL)";
       }
     }
     else if (this.indicator==3) {
@@ -964,7 +964,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "ხარჯები სქესის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Costs By Gender (Thousand GEL)";
+        this.titleForCostsChart = "Expenditure by gender (thousand GEL)";
       }
     }
     else if (this.indicator==4) {
@@ -990,7 +990,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "ხარჯები მიზნის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Expenses According To The Goal (Thousand GEL)";
+        this.titleForCostsChart = "Expenditure by purpose (thousand GEL)";
       }
     }
     else if (this.indicator==5) {
@@ -1004,7 +1004,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "ხარჯები კმაყოფილების დონის მიხედვით";
       }
       else{
-        this.titleForCostsChart = "Costs by satisfaction level";
+        this.titleForCostsChart = "Expenditure by satisfaction level (thousand GEL)";
       }
     }
     else if (this.indicator==6) {
@@ -1017,7 +1017,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "ხარჯები ვიზიტის ტიპის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Costs According To The Type Of Visit (Thousand GEL)";
+        this.titleForCostsChart = "Expenditure by the type of visit (thousand GEL)";
       }
     }    
     else if (this.indicator == 11) {
@@ -1030,7 +1030,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "ხარჯები რიგითობის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Costs According To Order (Thousand GEL)";
+        this.titleForCostsChart = "Expenditure by the order of visit (thousand GEL)";
       }
     }
     
@@ -1070,8 +1070,8 @@ getQuantityChart(indic: number, per: number, type: number){
 	    this.titleForCostsChart = "ხარჯები სულ (ათასი ლარი)";
     }
     else{
-      this.createSeries2('Default', 'All', this.cstChart);
-	    this.titleForCostsChart = "Total Expenses (Thousand GEL)";
+      this.createSeries2('Default', 'Total', this.cstChart);
+	    this.titleForCostsChart = "Total expenditure (Thousand GEL)";
     }
 
 
@@ -1196,7 +1196,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა მიზნის მიხედვით";
       }
       else{
-        this.titleForPerNightsChart = "Average Number Of Nights By Goal";
+        this.titleForPerNightsChart = "Average Number Of Nights By Purpose";
       }
 
     }
@@ -1240,7 +1240,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForPerNightsChart = "ღამეების საშუალო რაოდენობა რიგითობის მიხედვით";
       }
       else{
-        this.titleForPerNightsChart = "Average Number Of Nights By Order";
+        this.titleForPerNightsChart = "Average Number Of Nights By Order Of Visits";
       }
     }
     else {
@@ -1514,8 +1514,8 @@ getQuantityChart(indic: number, per: number, type: number){
 	      this.titleForCostsChart = "საშუალო ხარჯები (ათასი ლარი)";
       }
       else{
-        this.createSeries('Default', 'All', this.avarigeChart);
-	      this.titleForCostsChart = "Average Costs (Thousand GEL)";
+        this.createSeries('Default', 'Total', this.avarigeChart);
+	      this.titleForCostsChart = "Average expenditure (Thousand GEL)";
       }
     }
     else if (this.numbersForAvarige.indicator==1) {
@@ -1540,7 +1540,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "საშუალო ხარჯები ეკონომიკური სტატუსის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Average Expenses According To Economic Status (Thousand GEL)";
+        this.titleForCostsChart = "Average Expenditure By Economic Status (Thousand GEL)";
       }
     }
     else if (this.numbersForAvarige.indicator==2) {
@@ -1554,7 +1554,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "საშუალო ხარჯები ასაკის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Average Expenses According To Age (Thousand GEL)";
+        this.titleForCostsChart = "Average Expenditure By Age (Thousand GEL)";
       }
     }
     else if (this.numbersForAvarige.indicator==3) {
@@ -1567,7 +1567,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "საშუალო ხარჯები სქესის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Average Expenses By Gender (Thousand GEL)";
+        this.titleForCostsChart = "Average Expenditure By Gender (Thousand GEL)";
       }
     }
     else if (this.numbersForAvarige.indicator==4) {
@@ -1592,7 +1592,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "საშუალო ხარჯები მიზნის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Average Expenses According To The Goal (Thousand GEL)";
+        this.titleForCostsChart = "Average Expenditure By Purpose (Thousand GEL)";
       }
     }
     else if (this.numbersForAvarige.indicator==5) {
@@ -1606,7 +1606,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "საშუალო ხარჯები კმაყოფილების დონის მიხედვით";
       }
       else{
-        this.titleForCostsChart = "Average Costs By Level Of Satisfaction";
+        this.titleForCostsChart = "Average Expenditure By Level Of Satisfaction";
       }
     }
     else if (this.numbersForAvarige.indicator==6) {
@@ -1619,7 +1619,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "საშუალო ხარჯები ვიზიტის ტიპის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Average Expenses By Type Of Visit (thousand GEL)";
+        this.titleForCostsChart = "Average Expenditure By Type Of Visit (thousand GEL)";
       }
     }    
     else if (this.numbersForAvarige.indicator == 11) {
@@ -1632,7 +1632,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "საშუალო ხარჯები რიგითობის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Average Costs According To Order (Thousand GEL)";
+        this.titleForCostsChart = "Average Expenditure By Order (Thousand GEL)";
       }
     }
     else{
@@ -1641,8 +1641,8 @@ getQuantityChart(indic: number, per: number, type: number){
 	      this.titleForCostsChart = "საშუალო ხარჯები (ათასი ლარი)";
       }
       else{
-        this.createSeries('Default', 'All', this.avarigeChart);
-      this.titleForCostsChart = "Average Costs (Thousand GEL)";
+        this.createSeries('Default', 'Total', this.avarigeChart);
+      this.titleForCostsChart = "Average Expenditure (Thousand GEL)";
       }
     }
 
@@ -1802,8 +1802,8 @@ getQuantityChart(indic: number, per: number, type: number){
 	      this.titleForCostsChart = "ხარჯები, სულ (ათასი ლარი)";
       }
       else{
-        this.createSeries2('Default', 'All', this.costsOnley);
-	      this.titleForCostsChart = "Expenses, Total (Thousand GEL)";
+        this.createSeries2('Default', 'Total', this.costsOnley);
+	      this.titleForCostsChart = "Total Expenditure (Thousand GEL)";
       }
     }
     else if (this.numbersForAvarige.indicator==1) {
@@ -1828,7 +1828,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "ხარჯები ეკონომიკური სტატუსის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Expenses According To Economic Status (Thousand GEL)";
+        this.titleForCostsChart = "Expenditure By Economic Status (Thousand GEL)";
       }
     }
     else if (this.numbersForAvarige.indicator==2) {
@@ -1842,7 +1842,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "ხარჯები ასაკის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Costs According To Age (Thousand GEL)";
+        this.titleForCostsChart = "Expenditure By Age (Thousand GEL)";
       }
     }
     else if (this.numbersForAvarige.indicator==3) {
@@ -1855,7 +1855,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "ხარჯები სქესის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Costs By Gender (Thousand GEL)";
+        this.titleForCostsChart = "Expenditure By Gender (Thousand GEL)";
       }
     }
     else if (this.numbersForAvarige.indicator==4) {
@@ -1881,7 +1881,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "ხარჯები მიზნის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Expenses According To The Goal (Thousand GEL)";
+        this.titleForCostsChart = "Expenditure By Purpose (Thousand GEL)";
       }
     }
     else if (this.numbersForAvarige.indicator==5) {
@@ -1895,7 +1895,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "ხარჯები კმაყოფილების დონის მიხედვით";
       }
       else{
-        this.titleForCostsChart = "Costs By Satisfaction Level";
+        this.titleForCostsChart = "Expenditure By Satisfaction Level";
       }
     }
     else if (this.numbersForAvarige.indicator==6) {
@@ -1908,7 +1908,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "ხარჯები ვიზიტის ტიპის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Costs According To The Type Of Visit (Thousand GEL)";
+        this.titleForCostsChart = "Expenditure By Type Of Visit (Thousand GEL)";
       }
     }    
     else if (this.numbersForAvarige.indicator == 11) {
@@ -1921,7 +1921,7 @@ getQuantityChart(indic: number, per: number, type: number){
         this.titleForCostsChart = "ხარჯები რიგითობის მიხედვით (ათასი ლარი)";
       }
       else{
-        this.titleForCostsChart = "Costs According To Order (Thousand GEL)";
+        this.titleForCostsChart = "Expenditure By Order (Thousand GEL)";
       }
     }
     else{
@@ -1930,8 +1930,8 @@ getQuantityChart(indic: number, per: number, type: number){
 	      this.titleForCostsChart = "ხარჯები, სულ (ათასი ლარი)";
       }
       else{
-        this.createSeries2('Default', 'All', this.costsOnley);
-        this.titleForCostsChart = "Expenses, Total (Thousand GEL)";
+        this.createSeries2('Default', 'Total', this.costsOnley);
+        this.titleForCostsChart = "Total Expenditure (Thousand GEL)";
       }
     }
     

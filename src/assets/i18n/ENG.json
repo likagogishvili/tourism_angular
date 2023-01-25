@@ -61,7 +61,21 @@
       "period": "periodicity",
       "tourismType": "type of tourism",
       "tourType": "Type of visit",
-      "allExpence": "total cost",
-      "avarExpence": "Average cost"
+      "allExpence": "Total expenditure",
+      "avarExpence": "Average expenditure"
+    },
+
+    "comparision": {
+      "visits": "Distribution Of Visits",
+      "byMain": "By Main Variable",
+      "byHelp": "By Additional Variable",
+      "year": "Year",
+      "quarter": "Quarter",
+      "mainVar": "Main Variable",
+      "helpVar": "Additional Variable",
+      "params": "parameters",
+      "forign": "Foreign Foreign visitorsisitors",
+      "exit": "Leading Tourism",
+      "local": "Local Tourism"
     }
 }

@@ -18,7 +18,7 @@ export class DefIndicatorService {
   ];
 
   periodsEN: IDropDown[] = [
-    { name: 'Annual', value: 1, isDisabled: false },
+    { name: 'Yearly', value: 1, isDisabled: false },
     { name: 'Quarterly', value: 2, isDisabled: false },
     { name: 'Monthly', value: 3, isDisabled: false }
   ];
@@ -36,14 +36,14 @@ export class DefIndicatorService {
 
   vTypes: IDropDown[] = [
     { name: 'ყველა', value: 0, isDisabled: false },
-    { name: 'ექსკურსიული', value: 1, isDisabled: false },
-    { name: 'ტურისტული', value: 2, isDisabled: false }
+    { name: 'ექსკურსიული ვიზიტი', value: 1, isDisabled: false },
+    { name: 'ტურისტული ვიზიტი', value: 2, isDisabled: false }
   ];
 
   vTypesEN: IDropDown[] = [
     { name: 'All', value: 0, isDisabled: false },
-    { name: 'Excursion', value: 1, isDisabled: false },
-    { name: 'Touristic', value: 2, isDisabled: false }
+    { name: 'Same-day visit', value: 1, isDisabled: false },
+    { name: 'Tourist visit', value: 2, isDisabled: false }
   ];
   
   getVtypes() {
@@ -64,9 +64,9 @@ export class DefIndicatorService {
   ];
 
   tTypesEN: IDropDown[] = [
-    { name: 'Foreign Visitors', value: 1, isDisabled: false },
-    { name: 'Leading Tourism', value: 2, isDisabled: false },
-    { name: 'Local Tourism', value: 3, isDisabled: false }
+    { name: 'Inbound Tourism', value: 1, isDisabled: false },
+    { name: 'Outbound Tourism', value: 2, isDisabled: false },
+    { name: 'Domestic Tourism', value: 3, isDisabled: false }
   ];
 
   getTtypes() {
@@ -99,7 +99,7 @@ export class DefIndicatorService {
   ];
 
   indicatorsEN: IDropDown[] = [
-    { name: 'All', value: 0, isDisabled: false },
+    { name: 'Total', value: 0, isDisabled: false },
     { name: 'Economic Status', value: 1, isDisabled: false },
     { name: 'Age', value: 2, isDisabled: false },
     { name: 'Gender', value: 3, isDisabled: false },
@@ -113,7 +113,7 @@ export class DefIndicatorService {
     { name: 'Transport', value: 9, isDisabled: false },
     { name: 'Activity', value: 10, isDisabled: false },
     { name: 'Order Of Visit', value: 11, isDisabled: false },
-    { name: 'Countries Visited', value: 12, isDisabled: true }
+    { name: 'Visited countries', value: 12, isDisabled: true }
   ];
   
   getIndicators() {
@@ -359,8 +359,8 @@ export class DefIndicatorService {
   ];
 
   TourNamesEN: string[] = [
-    "Tourist visit",
-    "Same-day visit"
+    "Tourist",
+    "Excursionist"
   ];
 
   TourNames(){
@@ -404,7 +404,6 @@ export class DefIndicatorService {
   TransportNamesEN2: string[] = [
     "Air transport",
     "Land transport",
-    "საზღვაო ტრანსპორტი",
     "Other transport"
   ];
 
