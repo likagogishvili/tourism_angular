@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
 
 
   changeLang() {
-    console.log('here')
+    // console.log('here')
     this.lang = this.lang == 'GEO' ? 'ENG' : 'GEO';
     localStorage.setItem('Language', this.lang);
     window.location.reload();

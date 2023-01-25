@@ -7,7 +7,16 @@ import { AppComponent } from '../app.component';
   styleUrls: ['./hotels.component.scss'],
 })
 export class HotelsComponent implements OnInit {
+  
   constructor(private el: AppComponent) {}
-
+  
   ngOnInit(): void {}
+  
+  isMenuOpen = false;
+
+  toggleMenu():void {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 }
+
+
