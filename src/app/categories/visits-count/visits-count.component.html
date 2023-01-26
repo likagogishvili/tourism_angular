@@ -1,106 +1,248 @@
-<div class="container" style="height: 25vh; margin-top: 2vh; margin-bottom: 2vh; display: flex;">
-    <div class="contForSelectBox" style="width: 40%; height: 100%; margin-right: 5%;">
-      <div class="line lline1 text-center text" style="font-family: FiraGO;font-style: normal;font-weight: 500;font-size: 20px;line-height: 38px; padding-top: 3px; color: #2330a4;">
-        დროის შუალედი
-      </div>
-
-      <div class="line line2">
-        <div class="ragac1 text-center text" style="width: 29%;">
-          
+<div
+  class="default__padding bgImage"
+  style="background-color: #f9fbff; padding-bottom: 100px"
+>
+  <h3 class="top10Heading">
+    ვიზიტების რაოდენობა ქვეყნების <br />
+    მიხედვით
+  </h3>
+  <div class="chartAndSelevt col" style="height: 650px">
+    <div class="row">
+      <div
+        class="col-sm-12 col-lg-3 pt-4 selectCont mt-2"
+        style="min-height: 90%"
+      >
+        <div
+          class="timePer"
+          [style.background-image]="
+            'url(../../../assets/c-default-indicators/Calendar.png'
+          "
+        >
+          დროის შუალედი
         </div>
+        <p class="top10Texts mt-4">საწყისი</p>
 
-        <div class="ragac2 text-center text" style="width: 39%;">
-          თვე
-        </div>
+        <select class="form-select mt-3 sel" [(ngModel)]="year">
+          <option *ngFor="let data of years" value="{{ data }}">
+            {{ data }}
+          </option>
+        </select>
 
-        <div class="ragac3 text-center text" style="width: 39%;">
-          წელი
-        </div>
-      </div>
+        <select class="form-select mt-3 sel" [(ngModel)]="startM.value">
+          <option *ngFor="let data of monthies" value="{{ data.value }}">
+            {{ data.name }}
+          </option>
+        </select>
 
-      <div class="line lline3">
-        <div class="ragac1 text-center text" style="width: 29%;">
-          საწყისი
-        </div>
+        <hr style="color: #5c4fc9" />
+        <p class="top10Texts mt-4">საბოლოო</p>
 
-        <div class="ragac2 text-center text" style="width: 39%;">
-          <select class="form-select" style="width: 70%; margin: auto;" [(ngModel)]="startM.value">
-            <option *ngFor="let data of monthies" value="{{ data.value }}">{{ data.name }}</option>
-          </select>
-        </div>
+        <select class="form-select mt-3 sel" [(ngModel)]="yearEnd">
+          <option *ngFor="let data of yearsReverced" value="{{ data }}">
+            {{ data }}
+          </option>
+        </select>
 
-        <div class="ragac3 text-center text" style="width: 39%;">
-          <select class="form-select" style="width: 70%; margin: auto;" [(ngModel)]="year">
-            <option *ngFor="let data of years" value="{{ data }}">{{ data }}</option>
-          </select>
-        </div>
-      </div>
+        <select class="form-select mt-3 sel" [(ngModel)]="endM.value">
+          <option *ngFor="let data of monthiesEnd" value="{{ data.value }}">
+            {{ data.name }}
+          </option>
+        </select>
+        <hr style="color: #5c4fc9" />
 
-      <div class="line lline4">
-        <div class="ragac1 text-center text" style="width: 29%;">
-          საბოლოო
-        </div>
-
-        <div class="ragac2 text-center text" style="width: 39%;">
-          <select class="form-select" style="width: 70%; margin: auto;" [(ngModel)]="endM.value">
-            <option *ngFor="let data of monthiesEnd" value="{{ data.value }}">{{ data.name }}</option>
-          </select>
-        </div>
-
-        <div class="ragac3 text-center text" style="width: 39%;">
-          <select class="form-select" style="width: 70%; margin: auto;" [(ngModel)]="yearEnd">
-            <option *ngFor="let data of yearsReverced" value="{{ data }}">{{ data }}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="line lline5">
-
-        <div class="ragac4 text-center text">
+        <div
+          class="timePer"
+          [style.background-image]="
+            'url(../../../assets/c-default-indicators/country.png'
+          "
+        >
           ქვეყანა
         </div>
 
-        <div class="ragac5 text-center text">
-          <div>
-            
-            <select class="form-select" style="width: 70%; margin: auto;" [(ngModel)]="country">
-              <option *ngFor="let data of countryes" value="{{ data }}">{{ data }}</option>
-            </select>
-            
-          </div>
-        </div>
+        <select class="form-select mt-3 sel" [(ngModel)]="country">
+          <option *ngFor="let data of countryes" value="{{ data }}">
+            {{ data }}
+          </option>
+        </select>
 
-        <div class="form-check form-check-inline text-center getVisits">
-          <button type="button" class="btn btn-success" (click)="getVisitChart()">ჩვენება</button>
-          <!-- <div id="alert" class="alert alert-warning" role="alert" *ngIf="denger" style="position: absolute; top: 0; left: 0; z-index: 10;">
-            This is a warning alert—check it out!
-          </div> -->
-  
-          <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="denger" style="position: absolute; top: 0; left: 0; z-index: 10;">
-            <strong>გთხოვთ სწორად მიუთითოთ დროის შუალედი</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="changedenger()"></button>
-          </div>
-          
-        </div>
-
+        <button type="button" class="compareBTN" (click)="getVisitChart()">
+          ჩვენება
+        </button>
       </div>
 
-      
-      
+      <div
+        class="alert alert-warning alert-dismissible fade show"
+        role="alert"
+        *ngIf="denger"
+        style="position: absolute; bottom: 100px; left: 0; z-index: 10"
+      >
+        <strong>გთხოვთ სწორად მიუთითოთ დროის შუალედი</strong>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+          (click)="changedenger()"
+        ></button>
+      </div>
+
+      <div class="col-sm-12 col-lg-8 ml-5 mt-2 chartDiv">
+        <div class="chart" id="visitsChart" style="min-height: 100%"></div>
+      </div>
     </div>
-
-    <div class="contForSelectBox vc" style="width: 65%; height: 100%; font-family: FiraGO;font-style: normal;font-weight: 500;font-size: 20px;line-height: 38px; text-align: right; color: #2330a4">
-      ვიზიტების რაოდენობა ქვეყნების მიხედვით
-    </div>
-</div>
-
-<div class="container" style="height: 70vh; margin-bottom: 5vh; display: flex;">
-  <!-- <div class="countryes" style="height: 80%; width: 20%; display: flex; flex-direction: column; background: cornsilk; border: 2px dotted rgb(143, 51, 51); margin: auto;">
-
-    
-  </div> -->
-
-  <div class="chart" id="visitsChart" style="height: 90%; width: 90%; margin: auto;">
-    
   </div>
 </div>
+
+<!-- 
+<div
+  class="container"
+  style="height: 25vh; margin-top: 2vh; margin-bottom: 2vh; display: flex"
+>
+  <div
+    class="contForSelectBox"
+    style="width: 40%; height: 100%; margin-right: 5%"
+  >
+    <div
+      class="line lline1 text-center text"
+      style="
+        font-family: FiraGO;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 38px;
+        padding-top: 3px;
+        color: #2330a4;
+      "
+    >
+      დროის შუალედი
+    </div>
+
+    <div class="line line2">
+      <div class="ragac1 text-center text" style="width: 29%"></div>
+
+      <div class="ragac2 text-center text" style="width: 39%">თვე</div>
+
+      <div class="ragac3 text-center text" style="width: 39%">წელი</div>
+    </div>
+
+    <div class="line lline3">
+      <div class="ragac1 text-center text" style="width: 29%">საწყისი</div>
+
+      <div class="ragac2 text-center text" style="width: 39%">
+        <select
+          class="form-select"
+          style="width: 70%; margin: auto"
+          [(ngModel)]="startM.value"
+        >
+          <option *ngFor="let data of monthies" value="{{ data.value }}">
+            {{ data.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="ragac3 text-center text" style="width: 39%">
+        <select
+          class="form-select"
+          style="width: 70%; margin: auto"
+          [(ngModel)]="year"
+        >
+          <option *ngFor="let data of years" value="{{ data }}">
+            {{ data }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="line lline4">
+      <div class="ragac1 text-center text" style="width: 29%">საბოლოო</div>
+
+      <div class="ragac2 text-center text" style="width: 39%">
+        <select
+          class="form-select"
+          style="width: 70%; margin: auto"
+          [(ngModel)]="endM.value"
+        >
+          <option *ngFor="let data of monthiesEnd" value="{{ data.value }}">
+            {{ data.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="ragac3 text-center text" style="width: 39%">
+        <select
+          class="form-select"
+          style="width: 70%; margin: auto"
+          [(ngModel)]="yearEnd"
+        >
+          <option *ngFor="let data of yearsReverced" value="{{ data }}">
+            {{ data }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="line lline5">
+      <div class="ragac4 text-center text">ქვეყანა</div>
+
+      <div class="ragac5 text-center text">
+        <div>
+          <select
+            class="form-select"
+            style="width: 70%; margin: auto"
+            [(ngModel)]="country"
+          >
+            <option *ngFor="let data of countryes" value="{{ data }}">
+              {{ data }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-check form-check-inline text-center getVisits">
+        <button type="button" class="btn btn-success" (click)="getVisitChart()">
+          ჩვენება
+        </button>
+
+        <div
+          class="alert alert-warning alert-dismissible fade show"
+          role="alert"
+          *ngIf="denger"
+          style="position: absolute; top: 0; left: 0; z-index: 10"
+        >
+          <strong>გთხოვთ სწორად მიუთითოთ დროის შუალედი</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+            (click)="changedenger()"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="contForSelectBox vc"
+    style="
+      width: 65%;
+      height: 100%;
+      font-family: FiraGO;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 38px;
+      text-align: right;
+      color: #2330a4;
+    "
+  >
+    ვიზიტების რაოდენობა ქვეყნების მიხედვით
+  </div>
+</div>
+<div class="container" style="height: 70vh; margin-bottom: 5vh; display: flex">
+
+  <div
+    class="chart"
+    id="visitsChart"
+    style="height: 90%; width: 90%; margin: auto"
+  ></div>
+</div> -->

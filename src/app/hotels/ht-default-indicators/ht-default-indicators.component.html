@@ -168,60 +168,118 @@
   </div>
 </div> -->
 <div class="backgroundImg">
-  <div class="container-for-header row">
-
-    <div class="col-lg-3 col-sm-12 selectBox">
-      
-      <div class="contForindicators" style="background: #ffffff; border: 1px solid #5c4fc9; border-radius: 20px; margin-bottom: 5px; width: 83%; height: 12%; display: flex;">
-        
-        <div class="col-3" style="vertical-align: middle; padding-top: 30px; padding-left: 10%;">
-          <img  src="assets/c-default-indicators/Calendar.png" alt="statistics"/>
+  <div class="default__padding">
+    <section class="indicators__and__mainChart">
+      <div class="wrapper__indicators">
+        <div class="cont__indicators">
+          <div class="title__indicator">
+            <img
+              src="assets/c-default-indicators/Calendar.png"
+              alt="statistics"
+            />
+            <select
+              style="
+                background: url(assets/c-default-indicators/Down.png) no-repeat
+                  right transparent;
+                width: 60px;
+                background-size: 15px;
+              "
+              (change)="yearChange()"
+              [(ngModel)]="year"
+            >
+              <option *ngFor="let data of years" value="{{ data }}">
+                {{ data }}
+              </option>
+            </select>
+          </div>
         </div>
-        <div class="col-4 fontForSelectTitle" style="padding-top: 30px; margin-left: 10%;">
-          <select style="background: url(assets/c-default-indicators/Down.png) no-repeat right transparent; width: 130%;" (change)="yearChange()" [(ngModel)]="year">
-            <option *ngFor="let data of years" value="{{ data }}">{{ data }}</option>
-          </select>
+        <div class="cont__indicators">
+          <div class="title__indicator fontForCheckboxesTitle">
+            <img
+              class="firstImgPositionForInputs"
+              src="assets/ht-default-indicators/Vector.png"
+              alt="statistics"
+            />
+            <p>{{ "keyindic.indic" | translate }}</p>
+          </div>
+
+          <div class="indicators">
+            <div class="indicator">
+              <input
+                type="radio"
+                id="HotelsAmount"
+                name="radioSelect"
+                value="HotelsAmount"
+                checked
+                (click)="hotel()"
+              />
+              <label class="fontForCheckboxes" for="HotelsAmount">{{
+                "keyindic.hotelCount" | translate
+              }}</label>
+            </div>
+            <div class="indicator">
+              <input
+                type="radio"
+                id="VisitorsAmount"
+                name="radioSelect"
+                value="VisitorsAmount"
+                (click)="guest()"
+              />
+              <label class="fontForCheckboxes" for="VisitorsAmount">{{
+                "keyindic.guestCount" | translate
+              }}</label>
+            </div>
+          </div>
         </div>
 
-      </div>
+        <div class="cont__indicators">
+          <div class="title__indicator">
+            <img
+              class="firstImgPositionForInputs"
+              src="assets/ht-default-indicators/ra.png"
+              alt="location"
+            />
+            <div class="fontForCheckboxesTitle">
+              {{ "keyindic.regs" | translate }}
+            </div>
+          </div>
+          <div class="indicators">
+            <div class="indicator">
+              <input
+                type="checkbox"
+                id="All"
+                name="All"
+                value="0"
+                [checked]="true"
+                (change)="checkUncheckAll($event)"
+              />
+              <label class="fontForCheckboxes" for="All">{{
+                "keyindic.def" | translate
+              }}</label
+              ><br />
+            </div>
 
-      <div class="contForindicators">
-        
-        <img class="firstImgPositionForInputs" src="assets/ht-default-indicators/Vector.png" alt="statistics"/>
-        <div class="fontForCheckboxesTitle">{{ 'keyindic.indic' | translate }}</div>
+            <div
+              class="indicator"
+              *ngFor="let reg of regions"
+              [(ngModel)]="region"
+              id="checkDiv"
+            >
+              <input
+                type="checkbox"
+                id="{{ reg.name }}"
+                name="{{ reg.name }}"
+                value="{{ reg.value }}"
+                (change)="addRemoveRegion()"
+              />
+              <label class="fontForCheckboxes" for="{{ reg.name }}">{{
+                reg.name.split("_").join(" ")
+              }}</label>
+              <br />
+            </div>
+          </div>
 
-        <div class="positionForFirstIndicatorsInput">
-          <input type="radio" id="HotelsAmount" name="radioSelect" value="HotelsAmount" checked (click)="hotel()"/>
-          <label class="fontForCheckboxes pad" for="HotelsAmount">{{ 'keyindic.hotelCount' | translate }}</label>
-          <br />
-        </div>
-
-        <div class="secondIndicPosition">
-          <input type="radio" id="VisitorsAmount" name="radioSelect" value="VisitorsAmount" (click)="guest()"/>
-          <label class="fontForCheckboxes pad" for="VisitorsAmount">{{ 'keyindic.guestCount' | translate }}</label>
-          <br />
-        </div>
-
-      </div>
-
-      <div class="contForRegions">
-        <img class="firstImgPositionForInputs" src="assets/ht-default-indicators/ra.png" alt="location"/>
-
-        <div class="fontForCheckboxesTitle pad2">{{ 'keyindic.regs' | translate }}</div>
-
-        <div class="firstForRegions">
-          <input type="checkbox" id="All" name="All" value=0 [checked]="true" (change)="checkUncheckAll($event)"/>
-          <label class="fontForCheckboxes" for="All">{{ 'keyindic.def' | translate }}</label><br />
-        </div>
-
-        <div class="inputPosition" *ngFor="let reg of regions" [(ngModel)]="region" id="checkDiv">
-          <input type="checkbox" id="{{ reg.name }}" name="{{ reg.name }}" value="{{ reg.value }}" (change)="addRemoveRegion()"/>
-          <label class="fontForCheckboxes" for="{{ reg.name }}">{{ reg.name }}</label>
-          <br />
-        </div>
-
-
-        <!-- <div class="inputPosition">
+          <!-- <div class="inputPosition">
           <input type="checkbox" id="Imereti" name="Imereti" value="Imereti" />
           <label class="fontForCheckboxes" for="Imereti"> იმერეთი</label><br />
         </div>
@@ -262,56 +320,55 @@
           <input type="checkbox" id="Kakheti" name="Kakheti" value="Kakheti" />
           <label class="fontForCheckboxes" for="Kakheti"> კახეთი</label><br />
         </div> -->
+        </div>
       </div>
-    </div>
 
-
-    
-    <div class="col-lg-9 col-sm-12 mainChart">
-      <div class="contForLg9">
-        <div class="text-center font stur" style="margin-bottom: 20px;">{{ sankyChart }}</div>
-        <div class="meoreRagac positioning-chart2" id="chartMain"></div>
+      <div class="cnt__main__chart">
+        <div class="chart__title">{{ sankyChart }}</div>
+        <div class="main__chart" id="chartMain"></div>
       </div>
-    </div>
-
-    <div class="col-lg-12 defHeight"></div>
-    <div class="col-lg-4">
-      <div class="font FontForChartTitles">{{ 'keyindic.hotelsChartTitle' | translate }}</div>
-
-      <div class="conts">
-        <!-- <div [ngModel]="sizeBool" (click)="chngeBool()" style="background: rgb(238, 23, 23); width: 7%; height: 7%; position: absolute; margin-left: 85%; margin-top: 3%;"></div> -->
-
-        <div class="meoreRagac hund" id="chartHotelCount"></div>
+    </section>
+    <section class="other__charts">
+      <div class="cnt__other__charts">
+        <p class="FontForChartTitles">
+          {{ "keyindic.hotelsChartTitle" | translate }}
+        </p>
+        <div class="other__chart" id="chartHotelCount"></div>
       </div>
-    </div>
-    <div class="col-lg-4">
-      <div class="font FontForChartTitles" style="white-space: nowrap">{{ 'keyindic.roomsChartTitle' | translate }}</div>
-
-      <div class="conts" id="chartBadRoom"></div>
-    </div>
-    <div class="col-lg-4">
-      <div class="font FontForChartTitles">{{ 'keyindic.guestsChartTitle' | translate }}</div>
-
-      <div class="conts" id="chartGestCount"></div>
-    </div>
-
-    <div class="col-lg-4">
-      <div class="font FontForChartTitles">{{ 'keyindic.incomsChartTitle' | translate }}</div>
-
-      <div class="conts">
-        <div class="meoreRagac hund" id="chartRevenue"></div>
+      <div class="cnt__other__charts">
+        <p class="FontForChartTitles">
+          {{ "keyindic.roomsChartTitle" | translate }}
+        </p>
+        <div class="other__chart" id="chartBadRoom"></div>
       </div>
-    </div>
-    <div class="col-lg-4">
-      <div class="font FontForChartTitles" style="white-space: nowrap">{{ 'keyindic.emploeeChartTitle' | translate }}</div>
+      <div class="cnt__other__charts">
+        <p class="FontForChartTitles">
+          {{ "keyindic.guestsChartTitle" | translate }}
+        </p>
 
-      <div class="conts" id="chartGender"></div>
-    </div>
-    <div class="col-lg-4">
-      <div class="font FontForChartTitles">{{ 'keyindic.expenceChartTitle' | translate }}</div>
+        <div class="other__chart" id="chartGestCount"></div>
+      </div>
 
-      <div class="conts" id="chartCoast"></div>
-    </div>
-    <div class="col-12 defHeight"></div>
+      <div class="cnt__other__charts">
+        <p class="FontForChartTitles">
+          {{ "keyindic.incomsChartTitle" | translate }}
+        </p>
+        <div class="other__chart" id="chartRevenue"></div>
+      </div>
+      <div class="cnt__other__charts">
+        <p class="FontForChartTitles">
+          {{ "keyindic.emploeeChartTitle" | translate }}
+        </p>
+
+        <div class="other__chart" id="chartGender"></div>
+      </div>
+      <div class="cnt__other__charts">
+        <p class="FontForChartTitles">
+          {{ "keyindic.expenceChartTitle" | translate }}
+        </p>
+
+        <div class="other__chart" id="chartCoast"></div>
+      </div>
+    </section>
   </div>
 </div>

@@ -5,7 +5,10 @@
   padding-bottom: 30px;
   text-align: left;
 }
-
+.container-for-header{
+  display: flex;
+  justify-content: space-between !important;
+}
 .fontForCheckboxesTitle {
   font-family: "FiraGO";
   font-style: normal;
@@ -41,10 +44,10 @@
 
 .contForSelects {
   width: 100%;
-  height: 730px;
+  height: 100%;
   border: 1px solid #5c4fc9;
   border-radius: 20px;
-  margin-bottom: 20px;
+  padding: 20px;
 }
 
 .contForMap {
@@ -62,8 +65,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  margin: 30px;
 }
+
+@import '../../categories/top15/top15.component.scss';
 
 .map-frame {
   border: 2px solid black;
@@ -76,13 +80,13 @@
 
 .contForHotes {
   box-sizing: border-box;
-  width: 95%;
-  height: 30%;
   background: #ffffff;
   border: 1px solid #5c4fc9;
   border-radius: 20px;
   margin: auto;
-  margin-top: 20px;
+  padding: 7px;
+  font-size: 0.8rem;
+  margin-top: 15px;
 }
 
 
