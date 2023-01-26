@@ -17,7 +17,9 @@
         "navbar1": "Key Indicators",
         "navbar2": "Interactive Map",
         "navbar3": "Hotels In Georgia",
-        "placeholder": "Search For a Country"
+        "placeholder": "Search For a Country",
+        "country": "Country",
+        "visits": "Visits"
     },
 
     "Hhotelsingeorgia": {
@@ -122,5 +124,25 @@
       "all": "Total",
       "searchcountry": "Search for a country",
       "visits": "Number of visits"
+    },
+    
+    "interVisit": {
+      "top10": "Top 10 Countryes",
+      "visits": "Visists",
+      "borderType": "Border Type",
+      "border": "Border"
+    },
+
+    "top10": {
+      "topCountries1": "Top 10 Countries By",
+      "topCountries2": "Number of Visits",
+      "period": "Time Interval",
+      "start": "Start Date",
+      "end": "End Date",
+      "startPer": "By the Initial Period",
+      "endPer": "By the Final Period",
+      "compare": "Compare",
+      "message": "Please Specify the Time Interval Correctly",
+      "top": "Top 10 Countryes"
     }
 }
