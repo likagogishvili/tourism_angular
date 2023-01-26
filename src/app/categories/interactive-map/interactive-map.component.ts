@@ -9,6 +9,7 @@ import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4geodata_worldLow from '@amcharts/amcharts4-geodata/worldLow';
 import { create } from 'lodash';
+import { Month } from 'src/app/common/Month';
 
 @Component({
   selector: 'app-interactive-map',
@@ -16,10 +17,20 @@ import { create } from 'lodash';
   styleUrls: ['./interactive-map.component.scss'],
 })
 export class InteractiveMapComponent implements OnInit {
+
+  constructor(
+    private http: HttpClient,
+    private commonService: SharedService,
+    private renderer: Renderer2
+  ) {
+    this.lang = localStorage.getItem('Language');
+  }
+
+  lang: any;
+  
   searchText: any;
 
   readonly APIUrl: string = 'http://tourismapi.geostat.ge/api/visitors';
-
   yearSelect = 2022;
   quarterSelect = 0;
   monthSelect = 0;
@@ -40,11 +51,26 @@ export class InteractiveMapComponent implements OnInit {
 
   selectedVType: number = 0;
 
-  vTypes: any = [
+  vTypesGE: any = [
     { vType: 'ყველა', value: 0 },
     { vType: 'ტურისტული ვიზიტი', value: 1 },
     { vType: 'ექსკურსიული ვიზიტი', value: 2 },
   ];
+
+  vTypesEN: any = [
+    { vType: 'Total', value: 0 },
+    { vType: 'Tourist visit', value: 1 },
+    { vType: 'Same-day visit', value: 2 },
+  ];
+
+  vTypes(){
+    if(this.lang == 'GEO'){
+      return this.vTypesGE;
+    }
+    else{
+      return this.vTypesEN;
+    }
+  }
 
   // /VisitTypeOptions etc.
 
@@ -77,6 +103,8 @@ export class InteractiveMapComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.SelectCountryData1();
+
+    this.getDataForTable();
 
     this.mapchart = am4core.create('chartdiv', am4maps.MapChart);
     this.worldSeries = this.mapchart.series.push(
@@ -122,11 +150,25 @@ export class InteractiveMapComponent implements OnInit {
           a.value < b.value ? -1 : 1
         ))
     );
+
+    // if(this.lang == 'GEO'){
+    //   Object.keys(Month).forEach(element => {
+    //     this.monthsOptions.push(element);
+    //   });
+    // }
+    // else{
+    //   Object.keys(Month).forEach(element => {
+    //     this.monthsOptions.push(element);
+    //   });
+    // }
+    
+
     // this.getGenders().subscribe((arg) => {
     //   this.gendersOptions = arg.sort((a: any, b: any) =>
     //     a.value.localeCompare(b.value)
     //   );
     // });
+
     this.getAgeGroups().subscribe(
       (args) =>
         (this.agesOptions = args.sort((a: any, b: any) =>
@@ -201,10 +243,28 @@ export class InteractiveMapComponent implements OnInit {
   selectedCountryDataId: number = -1;
   tempData: any;
   yearsOptions: any = [];
-  gendersOptions: any = [
+
+
+  gendersOptionsGE: any = [
     { gender: 'ქალი', value: 1 },
     { gender: 'კაცი', value: 2 },
   ];
+
+  gendersOptionsEN: any = [
+    { gender: 'Female', value: 1 },
+    { gender: 'Male', value: 2 },
+  ];
+
+  gendersOptions(){
+    if(this.lang == 'GEO'){
+      return this.gendersOptionsGE;
+    }
+    else{
+      return this.gendersOptionsEN;
+    }
+  }
+
+
   monthsOptions: any = [];
   quartersOptions: any = [
     { month: 1, quarter: 1 },
@@ -238,13 +298,7 @@ export class InteractiveMapComponent implements OnInit {
 
   sh: boolean = false;
 
-  constructor(
-    private http: HttpClient,
-    private commonService: SharedService,
-    private renderer: Renderer2
-  ) {
-    this.getDataForTable();
-  }
+  
   zoomToCountry(cid: string) {
     let country = this.worldSeries.getPolygonById(cid);
     this.mapchart.zoomToMapObject(country);
@@ -543,7 +597,7 @@ export class InteractiveMapComponent implements OnInit {
     return this.http.get<any>(this.APIUrl + '/AgeGroups');
   }
   getMonths() {
-    return this.http.get<any>(this.APIUrl + '/months');
+    return this.http.get<any>(this.APIUrl + '/months' + '?lang=' + this.lang);
   }
   getYears() {
     return this.http.get<any>(this.APIUrl + '/years');
@@ -564,7 +618,7 @@ export class InteractiveMapComponent implements OnInit {
 
   getCountriesForChart(id: number) {
     return this.http.get<any>(
-      this.APIUrl + '/visitorsByYearForChart?countryId=' + id
+      this.APIUrl + '/visitorsByYearForChart?countryId=' + id + '&lang=' + this.lang
     );
   }
 
@@ -583,7 +637,9 @@ export class InteractiveMapComponent implements OnInit {
           '&age=' +
           this.selectedAge +
           '&quarter=' +
-          this.selectedQuarter
+          this.selectedQuarter +
+          '&lang=' +
+          this.lang
       )
       .subscribe((res) => {
         this.renderMapObject(res);
@@ -603,7 +659,9 @@ export class InteractiveMapComponent implements OnInit {
           '&age=' +
           this.selectedAge +
           '&quarter=' +
-          this.selectedQuarter
+          this.selectedQuarter +
+          '&lang=' +
+          this.lang
       )
       .subscribe((res) => {
         this.renderMapObject(res);
@@ -624,7 +682,9 @@ export class InteractiveMapComponent implements OnInit {
         '&age=' +
         this.selectedAge +
         '&quarter=' +
-        this.selectedQuarter
+        this.selectedQuarter +
+        '&lang=' +
+        this.lang
     );
   }
 
@@ -642,32 +702,34 @@ export class InteractiveMapComponent implements OnInit {
         '&age=' +
         this.selectedAge +
         '&quarter=' +
-        this.selectedQuarter
+        this.selectedQuarter +
+        '&lang=' +
+        this.lang
     );
   }
 
   dataForTable: any = [];
   getDataForTable() {
-    return this.http
-      .get<any>(
-        // "https://localhost:5001/api/visitors"
-        this.APIUrl +
-          '/AvarageNights?tour=' +
-          this.selectedVType +
-          '&year=' +
-          this.selectedYear +
-          '&month=' +
-          this.selectedMonth +
-          '&gender=' +
-          this.selectedGender +
-          '&age=' +
-          this.selectedAge +
-          '&quarter=' +
-          this.selectedQuarter
-      )
-      .subscribe((res) => {
-        this.dataForTable = res;
-      });
+    return this.http.get<any>(
+      // "https://localhost:5001/api/visitors"
+      this.APIUrl +
+        '/AvarageNights?tour=' +
+        this.selectedVType +
+        '&year=' +
+        this.selectedYear +
+        '&month=' +
+        this.selectedMonth +
+        '&gender=' +
+        this.selectedGender +
+        '&age=' +
+        this.selectedAge +
+        '&quarter=' +
+        this.selectedQuarter +
+        '&lang=' +
+        this.lang
+    ).subscribe((res) => {
+      this.dataForTable = res;
+    });
   }
 
   getCodes() {
@@ -726,157 +788,6 @@ export class InteractiveMapComponent implements OnInit {
     button.icon.path =
       'M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8';
   }
-
-  // renderChartObject(args: any[]) {
-  //   am4core.useTheme(am4themes_animated);
-  //   // Themes end
-  //   // Create chart instance
-  //   let chart = am4core.create('chartdiv2', am4charts.XYChart);
-  //   chart.logo.disabled = true;
-  //   chart.paddingRight = 20;
-  //   chart.language.locale["_thousandSeparator"] = " ";
-
-  //   // Add data
-  //   chart.data = args;
-
-  //   // Create axes
-  //   let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-  //   categoryAxis.dataFields.category = 'yearNo';
-  //   categoryAxis.renderer.minGridDistance = 50;
-  //   categoryAxis.renderer.grid.template.location = 0.5;
-  //   categoryAxis.startLocation = 0.5;
-  //   categoryAxis.endLocation = 0.5;
-  //   chart.numberFormatter.numberFormat = '#.';
-
-  //   // Create value axis
-  //   let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-  //   valueAxis.baseValue = 0;
-
-  //   // Create series
-  //   let series = chart.series.push(new am4charts.LineSeries());
-  //   series.dataFields.valueY = 'value';
-  //   series.dataFields.categoryX = 'yearNo';
-  //   series.strokeWidth = 2;
-  //   series.tensionX = 0.77;
-
-  //   // bullet is added because we add tooltip to a bullet for it to change color
-  //   let bullet = series.bullets.push(new am4charts.Bullet());
-  //   bullet.tooltipText = "{valueY.formatNumber('#,###.')}";
-
-  //   let range = valueAxis.createSeriesRange(series);
-  //   range.value = 0;
-  //   range.endValue = -1000;
-  //   range.contents.stroke = am4core.color('#FF0000');
-  //   range.contents.fill = range.contents.stroke;
-
-  //   // Add scrollbar
-  //   let scrollbarX = new am4charts.XYChartScrollbar();
-  //   scrollbarX.series.push(series);
-  //   chart.scrollbarX = scrollbarX;
-
-  //   chart.cursor = new am4charts.XYCursor();
-  // }
-
-  // if(chart.logo) {
-  //   chart.logo.disabled = true;
-  // }
-
-  // renderChartObject(args: any[]) {
-  //   am4core.useTheme(am4themes_animated);
-  //   // Themes end
-
-  //   // Create chart
-  //   let chart = am4core.create('chartdiv2', am4charts.XYChart);
-  //   if (chart.logo) {
-  //     chart.logo.disabled = true;
-  //   }
-  //   chart.paddingRight = 20;
-
-  //   args.map((item: any) => {
-  //     item.yearNo = item.yearNo.toString()
-  //     return item;
-  //   });
-
-  //   let data = args;
-
-  //   chart.data = data;
-  //   chart.dateFormatter.inputDateFormat = 'yyyy';
-
-  //   let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-  //   dateAxis.renderer.minGridDistance = 50;
-  //   dateAxis.baseInterval = { timeUnit: 'year', count: 1 };
-
-  //   let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-
-  //   let series = chart.series.push(new am4charts.StepLineSeries());
-  //   series.dataFields.dateX = 'yearNo';
-  //   series.dataFields.valueY = 'value';
-  //   series.tooltipText = '{yearNo.value}';
-  //   series.strokeWidth = 3;
-
-  //   chart.cursor = new am4charts.XYCursor();
-  //   chart.cursor.xAxis = dateAxis;
-  //   chart.cursor.fullWidthLineX = true;
-  //   chart.cursor.lineX.strokeWidth = 0;
-  //   chart.cursor.lineX.fill = chart.colors.getIndex(2);
-  //   chart.cursor.lineX.fillOpacity = 0.1;
-
-  //   chart.scrollbarX = new am4core.Scrollbar();
-  // }
-
-  // renderChartObject(args: any[]) {
-  //   am4core.useTheme(am4themes_animated);
-  //   // Themes end
-  //   args.map((item: any) => {
-  //         item.yearNo = item.yearNo.toString()
-  //         return item;
-  //       });
-  //   let chart = am4core.create("chartdiv2", am4charts.XYChart);
-
-  //   // Add data
-  //   chart.data = args;
-  //   chart.dateFormatter.inputDateFormat = 'yyyy';
-
-  //   // Create axes
-  //   let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-  //   // let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-  //   dateAxis.renderer.minGridDistance = 50;
-  //   dateAxis.baseInterval = { timeUnit: 'year', count: 1 };
-
-  //   // Create value axis
-  //   let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-
-  //   // Create series
-  //   let lineSeries = chart.series.push(new am4charts.LineSeries());
-  //   lineSeries.dataFields.valueY = "value";
-  //   lineSeries.dataFields.dateX = "yearNo";
-  //   lineSeries.name = "value";
-  //   lineSeries.strokeWidth = 3;
-  //   lineSeries.strokeDasharray = "5,4";
-
-  //   lineSeries.tooltipText = "{yearNo}: {value}";
-
-  //   // Add simple bullet
-  //   let bullet = lineSeries.bullets.push(new am4charts.CircleBullet());
-  //   bullet.disabled = true;
-  //   bullet.propertyFields.disabled = "disabled";
-
-  //   let secondCircle = bullet.createChild(am4core.Circle);
-  //   secondCircle.radius = 6;
-  //   secondCircle.fill = chart.colors.getIndex(8);
-
-  //   bullet.events.on("inited", function(event){
-  //     animateBullet(event.target.circle);
-  //   })
-
-  //   function animateBullet(bullet:any) {
-  //       let animation = bullet.animate([{ property: "scale", from: 1, to: 5 }, { property: "opacity", from: 1, to: 0 }], 1000, am4core.ease.circleOut);
-  //       animation.events.on("animationended", function(event:any){
-  //         animateBullet(event.target.object);
-  //       })
-  //   }
-  // }
-
   renderChartObject(args: any[]) {
     args.map((item: any) => {
       item.yearNo = item.yearNo.toString();
@@ -916,9 +827,20 @@ export class InteractiveMapComponent implements OnInit {
     series.stroke = am4core.color('#67B7DC');
 
     if (this.selectedCountryDataId == -1) {
-      series.tooltipText = '{yearNo} წელს, {value}';
-    } else {
-      series.tooltipText = '{yearNo} წელს, {value} ვიზიტი {name}დან';
+      if (this.lang == 'GEO') {
+        series.tooltipText = '{yearNo} წელს, {value}';
+      }
+      else{
+        series.tooltipText = '{yearNo} Year, {value}';
+      }
+    }
+    else{
+      if (this.lang == 'GEO') {
+        series.tooltipText = '{yearNo} წელს, {value} ვიზიტი {countryNameGe}დან';
+      }
+      else{
+        series.tooltipText = '{yearNo} Year, {value} Visits from {countryNameGe}';
+      }
     }
 
     // set stroke property field
