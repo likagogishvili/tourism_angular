@@ -23,3 +23,4 @@ describe('HtInteractiveMapComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

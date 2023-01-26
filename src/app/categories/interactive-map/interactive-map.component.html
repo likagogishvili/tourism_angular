@@ -1,273 +1,3 @@
-<!-- <div class="color">
-  <div class="container-for-header">
-    <div
-      class="row"
-      style="padding: 8px 7% 7%; padding-bottom: 0px; height: 50px !important"
-    >
-      <div
-        class="btn-group"
-        role="group"
-        aria-label="Basic radio toggle button group"
-      >
-        <input
-          type="radio"
-          class="btn-check"
-          (click)="selectTourType(0)"
-          name="btnradio"
-          id="btnradio1"
-          autocomplete="off"
-          (click)="onNot()"
-          checked
-        />
-        <label
-          class="btn btn-outline-secondary"
-          style="font-size: larger; font-weight: 500"
-          for="btnradio1"
-          (click)="show()"
-          >ვიზიტი</label
-        >
-
-        <input
-          type="radio"
-          class="btn-check"
-          name="btnradio"
-          id="btnradio2"
-          autocomplete="off"
-          (click)="onNotIn()"
-        />
-        <label
-          class="btn btn-outline-secondary"
-          (click)="selectTourType(2)"
-          (click)="noshow()"
-          style="font-size: larger; font-weight: 500"
-          for="btnradio2"
-          >ექსკურსიული ვიზიტი</label
-        >
-
-        <input
-          type="radio"
-          class="btn-check"
-          name="btnradio"
-          id="btnradio3"
-          autocomplete="off"
-          (click)="onNotIn()"
-        />
-        <label
-          class="btn btn-outline-secondary"
-          (click)="selectTourType(1)"
-          (click)="noshow()"
-          style="font-size: larger; font-weight: 500"
-          for="btnradio3"
-          >ტურისტული ვიზიტი</label
-        >
-      </div>
-    </div>
-
-    <div class="row" style="margin-top: 20px">
-      <div class="col-lg-1 col-md-1 col-sm-12"></div>
-      <div class="col-lg-2 col-md-12 col-sm-12 text-center pt-3">
-        <select
-          class="form-select"
-          name="my-select"
-          [(ngModel)]="yearSelect"
-          (change)="selectYearChange()"
-          aria-label="Default select example"
-        >
-          <option value="0" selected>წელი</option>
-          <option
-            [label]="datas.value"
-            *ngFor="let datas of yearsOptions"
-            [value]="datas.value"
-          >
-            {{ datas.value }}
-          </option>
-        </select>
-      </div>
-      <div class="col-lg-2 col-md-12 col-sm-12 text-center pt-3">
-        <select
-          class="form-select"
-          name="my-select"
-          [(ngModel)]="quarterSelect"
-          (change)="selectQuarterChange()"
-          aria-label="Default select example"
-        >
-          <option value="0" selected>კვარტალი</option>
-          <option
-            [label]="datas.quarter"
-            *ngFor="let datas of quarters"
-            [value]="datas.value"
-          >
-            {{ datas.quarter }}
-          </option>
-        </select>
-      </div>
-      <div class="col-lg-2 col-md-12 col-sm-12 text-center pt-3">
-        <select
-          class="form-select"
-          name="my-select"
-          [(ngModel)]="monthSelect"
-          (change)="selectMonthChange()"
-          aria-label="Default select example"
-        >
-          <option value="0" selected>თვე</option>
-          <option
-            [label]="datas.id"
-            *ngFor="let datas of monthsOptions"
-            [value]="datas.id"
-          >
-            {{ datas.id }}
-          </option>
-        </select>
-      </div>
-      <div class="col-lg-2 col-md-12 col-sm-12 text-center pt-3">
-        <select
-          class="form-select"
-          name="my-select-2"
-          [(ngModel)]="genderSelect"
-          (change)="selectGenderChange()"
-          aria-label="Default select example"
-        >
-          <option value="0" selected>სქესი</option>
-          <option
-            [label]="datas.id"
-            *ngFor="let datas of gendersOptions"
-            [value]="datas.value"
-          >
-            {{ datas.value }}
-          </option>
-        </select>
-      </div>
-      <div class="col-lg-2 col-md-12 col-sm-12 text-center pt-3">
-        <select
-          class="form-select"
-          name="my-select"
-          [(ngModel)]="ageSelect"
-          (change)="selectAgeChange()"
-          aria-label="Default select example"
-        >
-          <option value="0" selected>წლოვანება</option>
-          <option
-            [label]="datas.id"
-            *ngFor="let datas of agesOptions"
-            [value]="datas.value"
-          >
-            {{ datas.value }}
-          </option>
-        </select>
-      </div>
-      <div class="col-lg-1 col-md-1 col-sm-12"></div>
-    </div>
-
-    <div class="row" style="padding: 25px 7% 7%">
-      <div
-        class="col"
-        style="
-          width: 834px;
-          height: 591px;
-
-          background: #f3f4fb;
-          border-radius: 20px;
-        "
-      >
-        <div id="chartdiv" style="height: 500px; width: 100%"></div>
-        <div
-          class="form-group"
-          style="width: 100%; height: 50px; margin-top: 50px"
-        >
-          <mat-slider
-            thumbLabel
-            [min]="sliderLowestVal"
-            [max]="sliderHighestVal"
-            [step]="1"
-            ngDefaultControl
-            [(ngModel)]="sliderValue"
-            (ngModelChange)="OnSliderValueChanged($event)"
-          >
-          </mat-slider>
-        </div>
-        <div
-          *ngIf="!notIn"
-          class="custom-control form-check-inline custom-radio"
-        >
-          <input
-            type="radio"
-            class="custom-control-input"
-            id="defaultChecked"
-            name="defaultExampleRadios"
-            (click)="offPerNight()"
-            (click)="getCountriesList()"
-            checked
-          />
-          <label class="custom-control-label pt-3" for="defaultChecked"
-            >ვიზიტების რაოდენობა</label
-          >
-        </div>
-        <div
-          *ngIf="!notIn"
-          class="custom-control form-check-inline custom-radio"
-        >
-          <input
-            type="radio"
-            class="custom-control-input"
-            id="defaultUnchecked"
-            name="defaultExampleRadios"
-            (click)="onPerNight()"
-            (click)="getCountriesListNights()"
-          />
-          <label class="custom-control-label pt-3" for="defaultUnchecked"
-            >ღამეების საშუალო რაოდენობა</label
-          >
-        </div>
-        <div id="chartdiv2" style="height: 500px; width: 100%"></div>
-      </div>
-
-      <div class="col row" style="height: 500px; overflow: auto">
-        <table class="table table-bordered table-light table-bordered">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col" rowspan="2">ქვეყანა</th>
-              <th class="text-center" scope="col" colspan="2">რაოდენობა</th>
-            </tr>
-            <tr>
-              <td class="text-center" scope="col">ვიზიტები</td>
-              <td *ngIf="isShown && !perNights" class="text-center" scope="col">
-                ღამეები
-              </td>
-              <td *ngIf="isShown && perNights" class="text-center" scope="col">
-                საშუალო ღამეები
-              </td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              (click)="SelectCountryData(rs.countryId, this)"
-              *ngFor="let rs of resulti"
-            >
-              <th [id]="rs.countryId + '1'">{{ rs.countryNameGe }}</th>
-              <td style="text-align: right" [id]="rs.countryId + '2'">
-                {{ formatThousands(rs.value) }}
-              </td>
-              <td
-                *ngIf="isShown && !perNights"
-                style="text-align: right"
-                [id]="rs.countryId + '3'"
-              >
-                {{ formatThousands(rs.nights) }}
-              </td>
-              <td
-                *ngIf="isShown && perNights"
-                style="text-align: right"
-                [id]="rs.countryId + '3'"
-              >
-                {{ rs.nights / rs.value | number: "1.0-1" }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div> -->
 
 <div class="color">
   <div class="container-for-header default__padding pt-4">
@@ -278,7 +8,7 @@
             class="col-12 fontForSelectUpperTitle"
             style="padding-top: 35px; padding-left: 32px"
           >
-            ვიზიტის ტიპი
+            {{ 'interactive.vType' | translate }}
           </div>
           <div class="col-12 row">
             <div class="col-2">
@@ -302,7 +32,7 @@
                 "
               >
                 <option
-                  *ngFor="let datas of vTypes"
+                  *ngFor="let datas of vTypes()"
                   [label]="datas.vType"
                   [value]="datas.value"
                 ></option>
@@ -318,7 +48,7 @@
               class="col-12 fontForSelectUpperTitle"
               style="padding-top: 35px"
             >
-              წელი
+            {{ 'interactive.year' | translate }}
             </div>
             <div class="col-12 row">
               <div class="col-2">
@@ -363,7 +93,7 @@
               class="col-12 fontForSelectUpperTitle"
               style="padding-top: 35px"
             >
-              კვარტალი
+            {{ 'interactive.quarter' | translate }}
             </div>
             <div class="col-12 row">
               <div class="col-2">
@@ -393,7 +123,7 @@
                       no-repeat right transparent;
                   "
                 >
-                  <option value="0" selected>ყველა</option>
+                  <option value="0" selected>{{ 'interactive.all' | translate }}</option>
                   <option
                     [label]="datas.quarter"
                     *ngFor="let datas of quarters"
@@ -410,7 +140,7 @@
               class="col-12 fontForSelectUpperTitle"
               style="padding-top: 35px"
             >
-              თვე
+            {{ 'interactive.month' | translate }}
             </div>
             <div class="col-12 row">
               <div class="col-2">
@@ -440,7 +170,7 @@
                       no-repeat right transparent;
                   "
                 >
-                  <option value="0" selected>ყველა</option>
+                  <option value="0" selected>{{ 'interactive.all' | translate }}</option>
                   <option
                     [label]="datas.id"
                     *ngFor="let datas of monthsOptions"
@@ -457,7 +187,7 @@
               class="col-12 fontForSelectUpperTitle"
               style="padding-top: 35px"
             >
-              სქესი
+            {{ 'interactive.gender' | translate }}
             </div>
             <div class="col-12 row">
               <div class="col-2">
@@ -487,10 +217,10 @@
                       no-repeat right transparent;
                   "
                 >
-                  <option value="0" selected>ყველა</option>
+                  <option value="0" selected>{{ 'interactive.all' | translate }}</option>
                   <option
                     [label]="datas.gender"
-                    *ngFor="let datas of gendersOptions"
+                    *ngFor="let datas of gendersOptions()"
                     [value]="datas.value"
                   >
                     {{ datas.value }}
@@ -504,7 +234,7 @@
               class="col-12 fontForSelectUpperTitle"
               style="padding-top: 35px"
             >
-              ასაკი
+            {{ 'interactive.age' | translate }}
             </div>
             <div class="col-12 row">
               <div class="col-2">
@@ -534,7 +264,7 @@
                       no-repeat right transparent;
                   "
                 >
-                  <option value="0" selected>ყველა</option>
+                  <option value="0" selected>{{ 'interactive.all' | translate }}</option>
                   <option
                     [label]="datas.id"
                     *ngFor="let datas of agesOptions"
@@ -602,41 +332,29 @@
                 type="radio"
                 value="visits"
                 checked
-                >ვიზიტების რაოდენობა&nbsp;&nbsp;</mat-radio-button
+                >{{ 'interactive.vCount' | translate }}&nbsp;&nbsp;</mat-radio-button
               >
               <mat-radio-button
                 (click)="onPerNight()"
                 (click)="getCountriesListNights()"
                 type="radio"
                 value="nights"
-                >ღამეების საშუალო რაოდენობა</mat-radio-button
+                >{{ 'interactive.avarigeNights' | translate }}</mat-radio-button
               >
             </mat-radio-group>
           </div>
         </div>
-        <div class="col-12"
-        style="
-        width: 100%;
-        background: #ffffff;
-        box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
-        border-radius: 20px;
-      "
-        >
-        <!-- <p style="position: absolute; top: 4.5%; right: 35%;">sadsasda</p> -->
-
-          <div
+        <div
+          class="col-12 mt-5"
           style="
-          width: 100%;
-          height: 462px;
-        "
+            width: 100%;
+            height: 462px;
+            background: #ffffff;
+            box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+          "
           id="chartdiv2"
-        >
-
-        </div>
-     
-      
-      
-      </div>
+        ></div>
       </div>
 
       <div class="col-lg-4">
@@ -667,7 +385,7 @@
                     "
                     (click)="sortCountryes()"
                   >
-                    ქვეყანა
+                  {{ 'interactive.country' | translate }}
                     <br />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -693,7 +411,7 @@
                     "
                     (click)="sortDataVisits()"
                   >
-                    ვიზიტები
+                  {{ 'interactive.visits' | translate }}
                     <br />
 
                     <svg
@@ -721,7 +439,7 @@
                     "
                     (click)="sortDataNights()"
                   >
-                    საშუალო ღამეები
+                  {{ 'interactive.country' | translate }}
                     <br />
 
                     <svg
@@ -748,7 +466,7 @@
                   name="search"
                   [(ngModel)]="searchText"
                   autocomplete="off"
-                  placeholder="მოძებნეთ ქვეყანა"
+                  placeholder="{{ 'interactive.searchcountry' | translate }}"
                   autofocus
                 />
 
