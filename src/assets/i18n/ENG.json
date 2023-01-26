@@ -96,5 +96,16 @@
       "byTransport": "By Transport",
       "quantity": "By The Number Of Visits",
       "avarigeNights": "Bu The Number Of Nights"  
+    },
+
+    "sesonal": {
+      "tType": "Tourism type",
+      "vType": "Visit type",
+      "gender": "Gender",
+      "age": "Age",
+      "nationaliti": "Citizenship",
+      "all": "All",
+      "distribution": "Total distribution",
+      "percentage": "% Percentage distribution by years"
     }
 }
