@@ -77,5 +77,24 @@
       "forign": "Foreign Foreign visitorsisitors",
       "exit": "Leading Tourism",
       "local": "Local Tourism"
+    },
+
+    "regional": {
+      "inRegion": "In Region",
+      "fromRegion": "From Region",
+      "tType": "Tourism Type",
+      "forigners": "Inbound Tourism",
+      "locals": "Domestic Tourism",
+      "indicator": "Indicator",
+      "all": "Total",
+      "byGender": "By Gender",
+      "byAge": "By Age",
+      "byStatus": "By Status",
+      "byGoal": "By The Main Purpose",
+      "byRate": "By Satisfaction Level",
+      "byActivity": "By Activity",
+      "byTransport": "By Transport",
+      "quantity": "By The Number Of Visits",
+      "avarigeNights": "Bu The Number Of Nights"  
     }
 }

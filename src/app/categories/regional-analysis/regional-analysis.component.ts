@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { RegionID } from '../../common/RegionID'
 import am4geodata_lang_ES from "@amcharts/amcharts4-geodata/lang/ES"; 
 import { Title } from '@angular/platform-browser';
+import { RegionIDEN } from 'src/app/common/RegionIDEN';
 
 
 
@@ -27,12 +28,12 @@ export class RegionalAnalysisComponent implements OnInit {
     this.tourismType = 2;
     this.all = [];
     this.ages = this.region.ages;
-    this.genders = this.region.genders;
-    this.activityes = this.region.activityes;
-    this.goals = this.region.goals;
-    this.visits = this.region.visits;
-    this.transports = this.region.transports;
-    this.rates = this.region.rates;
+    this.genders = this.region.genders();
+    this.activityes = this.region.activityes();
+    this.goals = this.region.goals();
+    this.visits = this.region.visits();
+    this.transports = this.region.transports();
+    this.rates = this.region.rates();
     this.optArray = "";
     this.flag = "visits";
     this.selectedProperty = "All";
@@ -45,7 +46,10 @@ export class RegionalAnalysisComponent implements OnInit {
     this.region.getYears(2).subscribe(years => {
       this.years = years;
     });
+    this.lang = localStorage.getItem('Language');
   }
+
+  lang: any;
 
   ngOnInit(): void {
     this.getMapChart(this.tourismType, this.year, this.optArray, this.isValue, this.selectedProperty, this.flag);
@@ -263,342 +267,6 @@ export class RegionalAnalysisComponent implements OnInit {
   }
 
 
-  // onAgeChange(): number[] {    
-  //   let radioBtn = document.querySelector("input[id='ageChecked']") as HTMLInputElement;
-
-  //   if (radioBtn.checked == true) {
-  //     this.selDeselCheckBoxesOnRDBClick(2);
-  //   }
-
-  //   let list: number[] = [];
-  //   this.ages.forEach(element => {
-  //     element.selected = true;
-  //     list.push(element.id);
-  //   });
-  //   this.optArray = list;
-
-  //   return this.optArray;
-  // }
-
-  // ageChange(event: any): number[] {    
-  //   let radioBtn = document.querySelector("input[id='ageChecked']") as HTMLInputElement;
-
-  //   radioBtn.checked = true;
-
-  //   this.selDeselCheckBoxesOnRDBClick(2);
-
-  //   event.target.selected = true;
-
-  //   let list: number[] = [];
-  //   this.ages.forEach(element => {
-  //     if(element.selected == true){
-  //       list.push(element.id)
-  //     }
-  //   });
-  //   this.optArray = list;
-
-  //   return this.optArray;
-  // }
-
-
-  // onGenderChange(): number[] {  
-  //   let radioBtn = document.querySelector("input[id='genderChecked']") as HTMLInputElement;
-
-  //   radioBtn.checked = true;
-
-  //   this.selDeselCheckBoxesOnRDBClick(1);  
-  //   let list: number[] = [];
-  //   this.genders.forEach(element => {
-  //     element.selected = true;
-  //     list.push(element.id);
-  //   });
-  //   this.optArray = list;
-
-  //   return this.optArray;
-  // }
-
-  // genderChange(event: any): number[] {  
-  //   let radioBtn = document.querySelector("input[id='genderChecked']") as HTMLInputElement;
-
-  //   radioBtn.checked = true;
-
-  //   this.selDeselCheckBoxesOnRDBClick(1);
-    
-  //   event.target.selected = true;
-
-  //   let list: number[] = [];
-  //   this.genders.forEach(element => {
-  //     if(element.selected == true){
-  //       list.push(element.id)
-  //     }
-  //   });
-  //   this.optArray = list;
-
-  //   return this.optArray;
-  // }
-
-
-  // onActivityChange(): number[] {    
-  //   let radioBtn = document.querySelector("input[id='activityChecked']") as HTMLInputElement;
-
-  //   radioBtn.checked = true;
-
-  //   this.selDeselCheckBoxesOnRDBClick(3);
-
-  //   let list: number[] = [];
-  //   this.activityes.forEach(element => {
-  //     element.selected = true;
-  //     list.push(element.id);
-  //   });
-  //   this.optArray = list;
-
-
-  //   return this.optArray;
-  // }
-
-  // activityChange(event: any): number[] {    
-  //   let radioBtn = document.querySelector("input[id='activityChecked']") as HTMLInputElement;
-
-  //   radioBtn.checked = true;
-
-  //   this.selDeselCheckBoxesOnRDBClick(3);
-
-  //   event.target.selected = true;
-
-  //   let list: number[] = [];
-
-  //   this.activityes.forEach(element => {
-  //     if(element.selected == true){
-  //       list.push(element.id)
-  //     }
-  //   });
-  //   this.optArray = list;
-
-
-  //   return this.optArray;
-  // }
-
-
-
-  // onGoalChange(): number[] {    
-  //   let radioBtn = document.querySelector("input[id='goalChecked']") as HTMLInputElement;
-
-  //   radioBtn.checked = true;
-
-  //   this.selDeselCheckBoxesOnRDBClick(4);
-
-  //   let list: number[] = [];
-
-  //   this.goals.forEach(element => {
-  //     element.selected = true;
-  //     list.push(element.id);
-  //   });
-  //   this.optArray = list;
-
-  //   console.log(this.optArray);
-
-  //   return this.optArray;
-  // }
-
-  // goalChange(event: any): number[] {    
-  //   let radioBtn = document.querySelector("input[id='goalChecked']") as HTMLInputElement;
-
-  //   radioBtn.checked = true;
-
-  //   this.selDeselCheckBoxesOnRDBClick(4);
-
-  //   let list: number[] = [];
-
-  //   event.target.selected = true;
-
-  //   this.goals.forEach(element => {
-  //     if(element.selected == true){
-  //       list.push(element.id)
-  //     }
-  //   });
-  //   this.optArray = list;
-
-  //   console.log(this.optArray);
-
-  //   return this.optArray;
-  // }
-  
-  // onVisitChange(): number[] {  
-  //   let radioBtn = document.querySelector("input[id='visitChecked']") as HTMLInputElement;
-
-  //   radioBtn.checked = true;
-
-  //   this.selDeselCheckBoxesOnRDBClick(5);
-
-  //   let list: number[] = [];
-  //   this.visits.forEach(element => {
-  //     element.selected = true;
-  //     list.push(element.id);
-  //   });
-  //   this.optArray = list;
-
-  //   return this.optArray;
-  // }
-
-  // visitChange(event: any): number[] {  
-  //   let radioBtn = document.querySelector("input[id='visitChecked']") as HTMLInputElement;
-
-  //   radioBtn.checked = true;
-
-  //   this.selDeselCheckBoxesOnRDBClick(5);
-
-  //   event.target.selected = true;
-
-  //   let list: number[] = [];
-
-  //   this.visits.forEach(element => {
-  //     if(element.selected == true){
-  //       list.push(element.id)
-  //     }
-  //   });
-  //   this.optArray = list;
-
-  //   return this.optArray;
-  // }
-
-
-
-  // onTransportChange(): number[] {   
-  //   let radioBtn = document.querySelector("input[id='transportChecked']") as HTMLInputElement;
-
-  //   radioBtn.checked = true;
-
-  //   this.selDeselCheckBoxesOnRDBClick(6);
-
-  //   let list: number[] = [];
-  //   this.transports.forEach(element => {
-  //     element.selected = true;
-  //     list.push(element.id);
-  //   });
-  //   this.optArray = list;
-
-  //   return this.optArray;
-  // }
-
-  // transportChange(event: any): number[] {   
-  //   let radioBtn = document.querySelector("input[id='transportChecked']") as HTMLInputElement;
-
-  //   radioBtn.checked = true;
-
-  //   this.selDeselCheckBoxesOnRDBClick(6);
-
-  //   event.target.selected = true;
-
-  //   let list: number[] = [];
-
-  //   this.transports.forEach(element => {
-  //     if(element.selected == true){
-  //       list.push(element.id)
-  //     }
-  //   });
-  //   this.optArray = list;
-
-  //   return this.optArray;
-  // }
-
-
-
-  // onRateChange(): number[] {  
-  //   let radioBtn = document.querySelector("input[id='rateChecked']") as HTMLInputElement;
-
-  //   radioBtn.checked = true;
-
-  //   this.selDeselCheckBoxesOnRDBClick(7);
-
-  //   let list: number[] = [];
-  //   this.rates.forEach(element => {
-  //     element.selected = true;
-  //     list.push(element.id);
-  //   });
-  //   this.optArray = list;
-
-  //   return this.optArray;
-  // }
-
-  // rateChange(event: any): number[] {  
-  //   let radioBtn = document.querySelector("input[id='rateChecked']") as HTMLInputElement;
-
-  //   radioBtn.checked = true;
-
-  //   this.selDeselCheckBoxesOnRDBClick(event, );
-
-  //   event.target.selected = true;
-
-  //   let list: number[] = [];
-  //   this.rates.forEach(element => {
-  //     if(element.selected == true){
-  //       list.push(element.id)
-  //     }
-  //   });
-  //   this.optArray = list;
-
-  //   return this.optArray;
-  // }
-
-
-
-
-  // checkBoxesArray!: any[];
-  // isDetaled!: any[];
-
-  // // radioButtons = document.querySelectorAll('input[name="All"]');
-
-  // // deselectCheckboxes(event: any){
-
-  // //   let elementId: string = (event.target as Element).id;
-
-  // //   //let checkBoxies = document.getElementById(elementId);
-
-  // //   let callerID = Number(elementId);
-
-  // //   this.checkBoxesArray[callerID].forEach((element: { selected: boolean; }) => {
-  // //     element.selected = false;
-  // //   });
-
-    
-  // //   // let indx = 0;
-
-  // //   // for (let i = 0; i < radioButtons.length; i++){
-  // //   //   if(radioButtons[i].checked){
-  // //   //     indx = i;
-  // //   //   }
-  // //   // }
-
-  // //   // this.checkBoxesArray[callerID].forEach((element: { selected: boolean; }) => element.selected = true);
-    
-  // //   // for(let k = 0; k < this.checkBoxesArray.length; k++) {
-      
-  // //   //   if (k != Number(callerID)) {
-
-  // //   //     for(let j = 0; j < this.checkBoxesArray[k].length; j++){
-  // //   //       this.checkBoxesArray[k][j].selected = false;
-  // //   //     }
-  // //   //   }
-  // //   // }
-  // // }
-
-  // fillOptListOnRDBClic(event: any) {
-  //   let elementId: string = (event.target as Element).id;
-
-  //   let indx = Number(elementId);
-
-  //   this.checkBoxesArray[indx].forEach((element: { selected: boolean; }) => element.selected = true);
-
-  //   let list: number[] = [];
-
-  //   this.checkBoxesArray[indx].forEach((element: { id: number; }) => { list.push(element.id) });
-
-  //   this.optArray = list;
-
-  //   return this.optArray;
-  // }
-
-
   
   checkBoxClic(event: any) {
     //let elementId: string = (event.target as Element).id;
@@ -693,49 +361,9 @@ export class RegionalAnalysisComponent implements OnInit {
     return this.optArray;
   }
 
-  // checkBoxChange(event: any) {
-  //   //let elementId: string = (event.target as Element).id;
-  //   let elementValue: string = (event.target as HTMLInputElement).value;
-
-  //   //let indx = Number(elementId);
-  //   let val = Number(elementValue);
-
-  //   if (val != this.radioBtnID){
-  //     this.checkBoxesArray[this.radioBtnID].forEach((element: { selected: boolean; }) => element.selected = false);
-
-  //     this.radioBtnID = val;
-  //   }
-  //   else{
-  //     let radioBtn = document.getElementById(elementValue) as HTMLInputElement;
-
-  //     if (radioBtn.checked != true) {
-  //       radioBtn.checked = true;
-  //     }
-  //   }
-
-
-    
-  //   let list: number[] = [];
-  //   this.checkBoxesArray.forEach(element => {
-  //     if(element.selected == true){
-  //       list.push(element.id)
-  //     }
-  //   });
-  //   this.optArray = list;
-
-  //   return this.optArray;
-  // }
 
   selDeselCheckBoxesOnRDBClick(event: any){
-    // let radioButtons = document.querySelectorAll("input[name='All']") as NodeListOf<HTMLInputElement>;
 
-    // let indx = 0;
-
-    // for (let i = 0; i < radioButtons.length; i++){
-    //   if(radioButtons[i].checked){
-    //     indx = i;
-    //   }
-    // }
 
     (document.getElementById("RdbNights") as HTMLInputElement).disabled = false;
     
@@ -828,15 +456,23 @@ export class RegionalAnalysisComponent implements OnInit {
   }
 
   getMapChart(tType: number, yr: number, opt: string, inOut: number, byProp: string, fl: string){
-    // let uRl = this.APIUrl + '/mapChart?type=' + tType + '&year=' + yr + '&flag=' + fl;
+    let title: string = "";
+    let title1: string = "";
 
-    // this.http.get<any>(uRl).subscribe(res => { this.createMapChart('cincxali', res); })
+    if (this.lang == 'GEO') {
+      title = "ვიზიტების რაოდენობა (ათასი)";
+      title1 = "ღამეების საშუალო რაოდენობა";
+    }
+    else{
+      title = "Number of Visits (Thousands)";
+      title1 = "Average Number of Nights";
+    }
 
     if (this.flag == "visits"){
-      this.region.getDataForMapChart(tType, yr, opt, inOut, byProp, fl).subscribe(res => { this.createMapChart('ვიზიტების რაოდენობა (ათასი)', res); })
+      this.region.getDataForMapChart(tType, yr, opt, inOut, byProp, fl).subscribe(res => { this.createMapChart(title, res); })
     }
     else {
-      this.region.getDataForMapChart(tType, yr, opt, inOut, byProp, fl).subscribe(res => { this.createMapChart('ღამეების საშუალო რაოდენობა', res); })
+      this.region.getDataForMapChart(tType, yr, opt, inOut, byProp, fl).subscribe(res => { this.createMapChart(title1, res); })
     }
   }
 
@@ -854,24 +490,6 @@ export class RegionalAnalysisComponent implements OnInit {
     chart.geodataSource.url = "https://www.amcharts.com/lib/4/geodata/json/georgiaSouthOssetiaHigh.json";
 
     chart.geodataSource.events.on("parseended", function() {
-      // let data: any[] = [];
-      // res.forEach(element => {
-      //   data.push({
-      //     id: element.id,
-      //     name: element.Name,
-      //     value: Math.round(element.value )
-      //   })
-      // });
-
-      // for(var i = 0; i < ev.target.data.features.length; i++) {
-      //   data.push({
-      //     id: ev.target.data.features[i].id,
-      //     value: Math.round( Math.random() * 100 )
-      //   })
-      // }
-
-      // res.push({Name: "ცხინვალის რეგიონი", id: "GE-SO", value: 0});
-      // res.push({Name: "აფხაზეთის ა.რ.", id: "GE-AB", value: 0});
 
       polygonSeries.data = res;
     })
@@ -925,7 +543,12 @@ export class RegionalAnalysisComponent implements OnInit {
 
     chart.colors.step = 3;
 
-    this.expenceTitle = "ხარჯები საცხოვრებელი რეგიონების მიხედვით";
+    if (this.lang == 'GEO') {
+      this.expenceTitle = "ხარჯები საცხოვრებელი რეგიონების მიხედვით";
+    }
+    else{
+      this.expenceTitle = "Expenditures By Residential Regions";
+    }
 
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
@@ -937,9 +560,16 @@ export class RegionalAnalysisComponent implements OnInit {
     valueAxis.min = 0;
     chart.data = res;
 
-    Object.keys(RegionID).filter((v) => isNaN(Number(v))).forEach(element => {
-      this.createSeries2(element, element, chart)
-    });
+    if (this.lang == 'GEO') {
+	      Object.keys(RegionID).filter((v) => isNaN(Number(v))).forEach(element => {
+	      this.createSeries2(element, element, chart)
+	    });
+    }
+    else{
+      Object.keys(RegionIDEN).filter((v) => isNaN(Number(v))).forEach(element => {
+	      this.createSeries2(element, element, chart)
+	    });
+    }
 
     // chart.legend = new am4charts.Legend();
 
@@ -1051,7 +681,12 @@ migrationChart(res: any) {
 
     chart.data = res;
 
-    this.sanqiName = "ვიზიტების რაოდენობა რეგიონების მიხედვით";
+    if (this.lang == 'GEO') {
+      this.sanqiName = "ვიზიტების რაოდენობა რეგიონების მიხედვით";
+    }
+    else{
+      this.sanqiName = "Number of Visits By Region";
+    }
 
     let hoverState = chart.links.template.states.create("hover");
     hoverState.properties.fillOpacity = 0.6;
