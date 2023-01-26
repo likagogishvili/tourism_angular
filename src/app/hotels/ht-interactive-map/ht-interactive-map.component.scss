@@ -84,7 +84,9 @@
   }
   .chart__title {
     font-size: 1.5rem;
-    text-align: center;
+    display: flex;
+    justify-content: center !important;
+    gap: 20px;
   }
 }
 
