@@ -20,22 +20,20 @@ export class HtInteractiveMapComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.createChart1();
     this.getRaceChart(this.lang);
     this.getBigChart('', this.lang);
     this.getMapData(this.year, this.lang);
   }
 
   lang: any;
-
   years!: number[];
-
   year: number = 2021;
   mapData: any;
-
   chartData!: any;
-
   searchText: string = '';
+  countryId: string = '';
+  chosenCountryName: string = '';
+
 
   result: any = [];
   filteredChartData: any = [];
@@ -68,7 +66,6 @@ export class HtInteractiveMapComponent implements OnInit {
   checkCountryes: boolean = false;
   sortCountryes() {
     this.checkCountryes = !this.checkCountryes;
-    console.log(this.checkCountryes);
     if (this.checkCountryes) {
       this.filteredChartData.sort((a: any, b: any) =>
         b.countryName.localeCompare(a.countryName)
@@ -86,6 +83,26 @@ export class HtInteractiveMapComponent implements OnInit {
   zoomToCountry(cid: string) {
     let country = this.polygonSeries.getPolygonById(cid);
     this.map.zoomToMapObject(country);
+  }
+
+  getFlag(country: string) {
+    console.log(country)
+    var ulrForFlags = `http://213.131.33.218:8088/api/fdi/SingleCountrydata?year=2021`;
+
+    this.http.get<any>(ulrForFlags).subscribe((res) => {
+      if (country) {
+        let dataForCountryId = res.filter((i: any) => {
+          return i.name_ka === country || i.name_en === country;
+        });
+
+        this.countryId =
+          'assets/flags/' + dataForCountryId[0].country + '.png';
+        this.chosenCountryName = country
+      }else{
+        this.countryId =
+        'assets/header/word.png';
+      }
+    });
   }
 
   visits: boolean = false;
@@ -245,6 +262,7 @@ export class HtInteractiveMapComponent implements OnInit {
   }
 
   getBigChart(country: string = '', lang: string) {
+    this.getFlag(country);
     var uRlForBigChart =
       this.APIUrl + '/bigChart?country=' + country + '&lang' + lang;
 
@@ -260,8 +278,6 @@ export class HtInteractiveMapComponent implements OnInit {
       this.createRaceChart(res);
     });
   }
-
-  
 
   createRaceChart(res: any) {
     /**

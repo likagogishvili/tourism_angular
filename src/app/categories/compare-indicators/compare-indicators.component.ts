@@ -27,7 +27,10 @@ export class CompareIndicatorsComponent implements OnInit {
     this.quarters = this.srvc.getQuarters();
     this.indicsMain = this.srvc.getIndicMain();
     this.indicsHelp = this.srvc.getIndicHelp();
+    this.lang = localStorage.getItem('Language');
   }
+
+  lang: any;
 
   hidemain = false;
   defaultVar = true;
@@ -100,27 +103,27 @@ export class CompareIndicatorsComponent implements OnInit {
     let forMain: string[] = [];
 
     if (this.mIndic == "Visit"){
-      forMain = this.srvc.Visits;
+      forMain = this.srvc.Visits();
       //forMain = forMain.reverse();
     }
     else if (this.mIndic == "Goal"){
-      forMain = this.srvc.Goals;
+      forMain = this.srvc.Goals();
       //forMain = forMain.reverse();
     }
     else if (this.mIndic == "Rate"){
-      forMain = this.srvc.Rates;
+      forMain = this.srvc.Rates();
       //forMain = forMain.reverse();
     }
     else if (this.mIndic == "Transport"){
-      forMain = this.srvc.Transports;
+      forMain = this.srvc.Transports();
       //forMain = forMain.reverse();
     }
     else if (this.mIndic == "Sequence"){
-      forMain = this.srvc.Sequences;
+      forMain = this.srvc.Sequences();
       //forMain = forMain.reverse();
     }
     else if (this.mIndic == "Expence"){
-      forMain = ["დანახარჯი"];
+      forMain = this.srvc.Expenditure();
     }
 
     return forMain;
@@ -184,7 +187,7 @@ export class CompareIndicatorsComponent implements OnInit {
   }
 
   getMainChartForign(year: number, quarter: number, mainVariable: string, helpVariable: string){
-    var uRl = this.APIUrl + '/comp?year=' + year + "&quarter=" + quarter + "&mainVariable=" + mainVariable + "&helpVariable=" + helpVariable + "&flag=" + "byMain";
+    var uRl = this.APIUrl + '/comp?year=' + year + "&quarter=" + quarter + "&mainVariable=" + mainVariable + "&helpVariable=" + helpVariable + "&flag=byMain" + "&lang=" + this.lang;
 
     
     this.http
@@ -199,7 +202,7 @@ export class CompareIndicatorsComponent implements OnInit {
   }
 
   getMainChartExit(year: number, quarter: number, mainVariable: string, helpVariable: string){
-    var uRl = this.APIUrl + '/comp?year=' + year + "&quarter=" + quarter + "&mainVariable=" + mainVariable + "&helpVariable=" + helpVariable + "&flag=" + "byMain";
+    var uRl = this.APIUrl + '/comp?year=' + year + "&quarter=" + quarter + "&mainVariable=" + mainVariable + "&helpVariable=" + helpVariable + "&flag=byMain" + "&lang=" + this.lang;
 
     
     this.http
@@ -214,7 +217,7 @@ export class CompareIndicatorsComponent implements OnInit {
   }
 
   getMainChartLocale(year: number, quarter: number, mainVariable: string, helpVariable: string){
-    var uRl = this.APIUrl + '/comp?year=' + year + "&quarter=" + quarter + "&mainVariable=" + mainVariable + "&helpVariable=" + helpVariable + "&flag=" + "byMain";
+    var uRl = this.APIUrl + '/comp?year=' + year + "&quarter=" + quarter + "&mainVariable=" + mainVariable + "&helpVariable=" + helpVariable + "&flag=byMain" + "&lang=" + this.lang;
 
     
     this.http
@@ -230,7 +233,7 @@ export class CompareIndicatorsComponent implements OnInit {
 
 
   getHelpChartForign(year: number, quarter: number, mainVariable: string, helpVariable: string){
-    var uRl = this.APIUrl + '/comp?year=' + year + "&quarter=" + quarter + "&mainVariable=" + mainVariable + "&helpVariable=" + helpVariable + "&flag=" + "byHelp";
+    var uRl = this.APIUrl + '/comp?year=' + year + "&quarter=" + quarter + "&mainVariable=" + mainVariable + "&helpVariable=" + helpVariable + "&flag=byHelp" + "&lang=" + this.lang;
 
     
     this.http
@@ -245,7 +248,7 @@ export class CompareIndicatorsComponent implements OnInit {
   }
 
   getHelpChartExit(year: number, quarter: number, mainVariable: string, helpVariable: string){
-    var uRl = this.APIUrl + '/comp?year=' + year + "&quarter=" + quarter + "&mainVariable=" + mainVariable + "&helpVariable=" + helpVariable + "&flag=" + "byHelp";
+    var uRl = this.APIUrl + '/comp?year=' + year + "&quarter=" + quarter + "&mainVariable=" + mainVariable + "&helpVariable=" + helpVariable + "&flag=byHelp" + "&lang=" + this.lang;
 
     
     this.http
@@ -260,7 +263,7 @@ export class CompareIndicatorsComponent implements OnInit {
   }
 
   getHelpChartLocale(year: number, quarter: number, mainVariable: string, helpVariable: string){
-    var uRl = this.APIUrl + '/comp?year=' + year + "&quarter=" + quarter + "&mainVariable=" + mainVariable + "&helpVariable=" + helpVariable + "&flag=" + "byHelp";
+    var uRl = this.APIUrl + '/comp?year=' + year + "&quarter=" + quarter + "&mainVariable=" + mainVariable + "&helpVariable=" + helpVariable + "&flag=byHelp" + "&lang=" + this.lang;
 
     
     this.http
@@ -358,17 +361,22 @@ export class CompareIndicatorsComponent implements OnInit {
 
     switch (this.hIndic) {
       case "All":
-        createSeries(this.mIndic, "სულ", this.anyChart, this.mIndic, this.isValue);
+        if (this.lang == 'GEO') {
+          createSeries(this.mIndic, "სულ", this.anyChart, this.mIndic, this.isValue);
+        }
+        else{
+          createSeries(this.mIndic, "All", this.anyChart, this.mIndic, this.isValue);
+        }
         break;
 
         case "TourType":
-        this.srvc.TourTypes.forEach(value => {
+        this.srvc.TourTypes().forEach(value => {
           createSeries(this.mIndic, value, this.anyChart, this.mIndic, this.isValue);
         })
         break;
 
         case "Gender":
-        this.srvc.Genders.forEach(value => {
+        this.srvc.Genders().forEach(value => {
           createSeries(this.mIndic, value, this.anyChart, this.mIndic, this.isValue);
         })
         break;
@@ -380,7 +388,7 @@ export class CompareIndicatorsComponent implements OnInit {
         break;
 
         case "Activity":
-        this.srvc.Activityes.forEach(value => {
+        this.srvc.Activityes().forEach(value => {
           createSeries(this.mIndic, value, this.anyChart, this.mIndic, this.isValue);
         })
         break;

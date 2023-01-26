@@ -11,7 +11,12 @@ export class ComparisionService {
 
   readonly APIUrl: string = 'http://tourismapi.geostat.ge/api/Comperision';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) 
+  {
+    this.lang = localStorage.getItem('Language');
+  }
+
+  lang: any;
 
   getYears() {
     var uRl = this.APIUrl + '/compYears';
@@ -21,14 +26,27 @@ export class ComparisionService {
 
   quarters: IDropDown[] = [
     { name: 'ყველა', value: 0, isDisabled: false },
-    { name: 'I', value: 1, isDisabled: false },
-    { name: 'II', value: 2, isDisabled: false },
-    { name: 'III', value: 3, isDisabled: false },
-    { name: 'IV', value: 4, isDisabled: false },
+    { name: 'I კვარტალი', value: 1, isDisabled: false },
+    { name: 'II კვარტალი', value: 2, isDisabled: false },
+    { name: 'III კვარტალი', value: 3, isDisabled: false },
+    { name: 'IV კვარტალი', value: 4, isDisabled: false },
+  ];
+
+  quartersEN: IDropDown[] = [
+    { name: 'All', value: 0, isDisabled: false },
+    { name: 'I Quarter', value: 1, isDisabled: false },
+    { name: 'II Quarter', value: 2, isDisabled: false },
+    { name: 'III Quarter', value: 3, isDisabled: false },
+    { name: 'IV Quarter', value: 4, isDisabled: false },
   ];
 
   getQuarters() {
-    return this.quarters;
+    if (this.lang == 'GEO') {
+      return this.quarters;
+    }
+    else{
+      return this.quartersEN;
+    }
   }
 
   indicMain: IDropDownSt[] = [
@@ -40,8 +58,22 @@ export class ComparisionService {
     { name: 'დანახარჯი', value: 'Expence', isDisabled: false },
   ];
 
+  indicMainEN: IDropDownSt[] = [
+    { name: 'Purpose', value: 'Goal', isDisabled: false },
+    { name: 'Activity', value: 'Visit', isDisabled: false },
+    { name: 'Satisfaction Level', value: 'Rate', isDisabled: false },
+    { name: 'Transport', value: 'Transport', isDisabled: false },
+    { name: 'Order of visit', value: 'Sequence', isDisabled: false },
+    { name: 'Expenditure', value: 'Expence', isDisabled: false },
+  ];
+
   getIndicMain() {
-    return this.indicMain;
+    if (this.lang == 'GEO') {
+      return this.indicMain;
+    }
+    else{
+      return this.indicMainEN;
+    }
   }
 
   indicHelp: IDropDownSt[] = [
@@ -52,8 +84,21 @@ export class ComparisionService {
     { name: 'ეკონომიური სტატუსი', value: 'Activity', isDisabled: false},
   ];
 
+  indicHelpEN: IDropDownSt[] = [
+    { name: 'Total', value: 'All', isDisabled: false },
+    { name: 'Type of visit', value: 'TourType', isDisabled: false },
+    { name: 'Gender', value: 'Gender', isDisabled: false },
+    { name: 'Age', value: 'Age', isDisabled: false},
+    { name: 'Economic status', value: 'Activity', isDisabled: false},
+  ];
+
   getIndicHelp() {
-    return this.indicHelp;
+    if (this.lang == 'GEO') {
+      return this.indicHelp;
+    }
+    else{
+      return this.indicHelpEN;
+    }
   }
 
   Ages: string[] = [
@@ -62,12 +107,26 @@ export class ComparisionService {
     "51+"
   ];
 
-  Genders: string[] = [
+  GendersGE: string[] = [
     "ქალი",
     "კაცი"
   ];
 
-  Activityes: string[] = [
+  GendersEN: string[] = [
+    "Male",
+    "Female"
+  ];
+
+  Genders(){
+    if (this.lang == 'GEO') {
+      return this.GendersGE;
+    }
+    else{
+      return this.GendersEN;
+    }
+  }
+
+  ActivityesGE: string[] = [
     "დაქირავებული მუშაკი",
     "თვითდასაქმებული",                                                   
     "სტუდენტი",
@@ -77,7 +136,26 @@ export class ComparisionService {
     "სხვა სტატუსი"
   ];
 
-  Visits: string[] = [
+  ActivityesEN: string[] = [
+    "Hired employee",
+    "Self-employed",                                                   
+    "Student",
+    "Pensioner/Retired",
+    "Housewife",
+    "Unemployed",
+    "Other status"
+  ];
+
+  Activityes(){
+    if (this.lang == 'GEO') {
+      return this.ActivityesGE;
+    }
+    else{
+      return this.ActivityesEN;
+    }
+  }
+
+  VisitsGE: string[] = [
     "ღირსშესანიშნაობების/კულტურული და ისტორიული მემკვიდრეობის ძეგლების/მუზეუმების მონახულება",
     "ზღვაზე/ტბაზე/მდინარეზე ცურვა /სანაპიროზე გასვლა",
     "ბუნების/ლანდშაფტის/ნაკრძალების მონახულება, უცნობი და ეგზოტიკური ადგილების აღმოჩენა",
@@ -89,7 +167,29 @@ export class ComparisionService {
     "სხვა აქტივობა"
   ];
 
-  Goals: string[] = [
+  VisitsEN: string[] = [
+    "Sightseeing/Visiting cultural and historical heritage/Museums",
+    "Going to the beach/Swimming in the sea/lake/river",
+    "Visiting national parks/Nature/Landscape, exploring remote and exotic places",
+    "Tasting local cuisine and wine",
+    "Getting known with local art, culture, language, history",
+    "Pilgrimage",
+    "Shopping",
+    "Visiting friends/relatives",
+    "Other activity"
+  ];
+
+
+  Visits(){
+    if (this.lang == 'GEO') {
+      return this.VisitsGE;
+    }
+    else{
+      return this.VisitsEN;
+    }
+  }
+
+  GoalsGE: string[] = [
     "დასვენება, გართობა, რეკრეაცია",
     "მეგობრების/ნათესავების მონახულება",
     "მკურნალობა, გაჯანსაღება",
@@ -99,17 +199,53 @@ export class ComparisionService {
     "სხვა მიზანი"
   ];
 
-  Rates: string[] = [
-    "არ ვიცი/მიჭირს პასუხის გაცემა",
+  GoalsEN: string[] = [
+    "Holiday, Leisure, Recreation",
+    "Visiting friends/relatives",
+    "Health and Medical Care",
+    "Shopping",
+    "Transit on the way to another country",
+    "Business or Professional",
+    "Other purpose"
+  ];
+
+  Goals(){
+    if (this.lang == 'GEO') {
+      return this.GoalsGE;
+    }
+    else{
+      return this.GoalsEN;
+    }
+  }
+
+  RatesGE: string[] = [
     "ძალიან უკმაყოფილო",
     "უკმაყოფილო",
     "არც კმაყოფილი, არც უკმაყოფილო",
     "კმაყოფილი",
-    "ძალიან კმაყოფილი"
+    "ძალიან კმაყოფილი",
+    "არ ვიცი/მიჭირს პასუხის გაცემა"
   ];
 
+  RatesEN: string[] = [
+    "Very Dissatisfied",
+    "Dissatisfied",
+    "Neither satisfied, nor dissatisfied",
+    "Satisfied",
+    "Very satisfied",
+    "I don't know/hard to answer"
+  ];
 
-  Transports: string[] = [
+  Rates(){
+    if (this.lang == 'GEO') {
+      return this.RatesGE;
+    }
+    else{
+      return this.RatesEN;
+    }
+  }
+
+  TransportsGE: string[] = [
     "საჰაერო ტრანსპორტი",
     "ავტობუსი/მიკროავტობუსი",
     "სახმელეთო ტრანსპორტი",
@@ -117,13 +253,75 @@ export class ComparisionService {
     "სხვა ტრანსპორტი"
   ];
 
-  Sequences: string[] = [
+  TransportsEN: string[] = [
+    "Air transport",
+    "Bus/Minibus",
+    "Land transport",
+    "Own/relatives car",
+    "Other transport"
+  ];
+
+  Transports(){
+    if (this.lang == 'GEO') {
+      return this.TransportsGE;
+    }
+    else{
+      return this.TransportsEN;
+    }
+  }
+
+  SequencesGE: string[] = [
     "პირველი ვიზიტი",
     "განმეორებითი ვიზიტი"
   ];
 
-  TourTypes: string[] = [
+  SequencesEN: string[] = [
+    "First visit",
+    "Repeating visit"
+  ];
+
+  Sequences(){
+    if (this.lang == 'GEO') {
+      return this.SequencesGE;
+    }
+    else{
+      return this.SequencesEN;
+    }
+  }
+
+  TourTypesGE: string[] = [
     "ექსკურსანტი",
     "ტურისიტი"
   ];
+
+  TourTypesEN: string[] = [
+    "Same-day visit",
+    "Tourist visit"
+  ];
+
+  TourTypes(){
+    if (this.lang == 'GEO') {
+      return this.TourTypesGE;
+    }
+    else{
+      return this.TourTypesEN;
+    }
+  }
+
+  ExpenditureGE: string[] = [
+    "დანახარჯი"
+  ];
+
+  ExpenditureEN: string[] = [
+    "Expenditure"
+  ];
+
+  Expenditure(){
+    if (this.lang == 'GEO') {
+      return this.ExpenditureGE;
+    }
+    else{
+      return this.ExpenditureEN;
+    }
+  }
 }

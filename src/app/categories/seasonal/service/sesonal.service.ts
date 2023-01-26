@@ -15,7 +15,11 @@ export class SesonalService {
 
   readonly APIUrl: string = 'http://tourismapi.geostat.ge/api/Visitors';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.lang = localStorage.getItem('Language');
+  }
+
+  lang: any;
 
   // tTypes: string[] = [
   //   "ადგილობრივი ტურიზმი",
@@ -29,22 +33,42 @@ export class SesonalService {
     { name: "გამყვანი ტურიზმი", value: 3, isDisabled: false }
   ];
 
+  tTypesEN: IDropDown[] = [
+    { name: "Inbound Tourism", value: 2, isDisabled: false },
+    { name: "Domestic Tourism", value: 1, isDisabled: false },    
+    { name: "Outbound Tourism", value: 3, isDisabled: false }
+  ];
 
 
   getTourismTypes(): IDropDown[] {
     
-    return this.tTypes;
+    if (this.lang == 'GEO') {
+      return this.tTypes;
+    }
+    else{
+      return this.tTypesEN;
+    }
   }
 
   getVisitTypes(): IDropDown[]{
     let vTypes: IDropDown[] = [];
 
-    let keys = object.keys(TourType).filter(x => isNaN(Number(x)));
+    let keys;
 
-    keys.forEach(element => {
-      
-      vTypes.push({ name: element, value: TourType[element], isDisabled: false })
-    });
+    if(this.lang == 'GEO'){
+      keys = object.keys(TourType).filter(x => isNaN(Number(x)));
+
+      keys.forEach(element => {      
+        vTypes.push({ name: element, value: TourType[element], isDisabled: false })
+      });
+    }
+    else{
+      vTypes.push({ name: "Total", value: 0, isDisabled: false });
+      vTypes.push({ name: "Same-day Visit", value: 1, isDisabled: false });
+      vTypes.push({ name: "Tourist Visit", value: 2, isDisabled: false });
+    }
+
+    
 
     return vTypes;
   }
@@ -52,12 +76,17 @@ export class SesonalService {
   getGenders(): IDropDown[]{
     let gender: IDropDown[] = [];
 
-    let keys = object.keys(Gender1).filter(x => isNaN(Number(x)));
-
-    keys.forEach(element => {
-      
-      gender.push({ name: element, value: Gender1[element], isDisabled: false })
-    });
+    if (this.lang == 'GEO') {
+      let keys = object.keys(Gender1).filter(x => isNaN(Number(x)));      
+        keys.forEach(element => {          
+          gender.push({ name: element, value: Gender1[element], isDisabled: false })
+        });
+    }
+    else{
+      gender.push({ name: "All", value: 0, isDisabled: false });
+      gender.push({ name: "Female", value: 1, isDisabled: false });
+      gender.push({ name: "Male", value: 2, isDisabled: false });
+    }
 
     return gender;
   }
@@ -70,11 +99,26 @@ export class SesonalService {
     "70+"
   ];
 
+  agesEN: string[] = [
+    "All",
+    "15-30",
+    "31-50",
+    "51-70",
+    "70+"
+  ];
+
   getAges(): IDropDown[]{
     let age: IDropDown[] = [];
 
-    for (let index = 0; index < this.ages.length; index++) {
-      age.push({ name: this.ages[index], value: index, isDisabled: false })
+    if (this.lang == 'GEO') {
+	    for (let index = 0; index < this.ages.length; index++) {
+	      age.push({ name: this.ages[index], value: index, isDisabled: false })
+	    }
+    }
+    else{
+      for (let index = 0; index < this.agesEN.length; index++) {
+	      age.push({ name: this.agesEN[index], value: index, isDisabled: false })
+	    }
     }
 
     return age;
