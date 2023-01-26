@@ -107,5 +107,20 @@
       "all": "All",
       "distribution": "Total distribution",
       "percentage": "% Percentage distribution by years"
+    },
+
+    "interactive": {
+      "vType": "Visit type",
+      "gender": "Gender",
+      "age": "Age",
+      "month": "Month",
+      "year": "Year",
+      "quarter": "Quarter",
+      "vCount": "Number of visits",
+      "avarigeNights": "Average Nights",
+      "country": "Country",
+      "all": "Total",
+      "searchcountry": "Search for a country",
+      "visits": "Number of visits"
     }
 }
