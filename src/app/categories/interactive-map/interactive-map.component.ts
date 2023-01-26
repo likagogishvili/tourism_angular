@@ -20,7 +20,7 @@ export class InteractiveMapComponent implements OnInit {
 
   readonly APIUrl: string = 'http://tourismapi.geostat.ge/api/visitors';
 
-  yearSelect = 2021;
+  yearSelect = 2022;
   quarterSelect = 0;
   monthSelect = 0;
   genderSelect = 0;

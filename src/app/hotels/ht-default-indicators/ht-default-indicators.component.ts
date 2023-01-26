@@ -303,8 +303,8 @@ export class HtDefaultIndicatorsComponent implements OnInit {
           this.createSeries('ქალი', 'ქალი', chart, 'ქალი');
           this.createSeries('კაცი', 'კაცი', chart, 'კაცი');
         } else {
-          this.createSeries('Woman', 'Woman', chart, 'Woman');
-          this.createSeries('Man', 'Man', chart, 'Man');
+          this.createSeries('Female', 'Female', chart, 'Female');
+          this.createSeries('Male', 'Male', chart, 'Male');
         }
         break;
 
