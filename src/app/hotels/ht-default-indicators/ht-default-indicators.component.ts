@@ -300,11 +300,12 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
       case 'chartGender':
         if (this.lang == 'GEO') {
-          this.createSeries('ქალი', 'ქალი', chart, 'ქალი');
-          this.createSeries('კაცი', 'კაცი', chart, 'კაცი');
-        } else {
-          this.createSeries('Female', 'Female', chart, 'Female');
-          this.createSeries('Male', 'Male', chart, 'Male');
+	        this.createSeries("ქალი", "ქალი", chart, "ქალი");
+	        this.createSeries("კაცი", "კაცი", chart, "კაცი");
+        }
+        else{
+          this.createSeries("Female", "Female", chart, "Female");
+	        this.createSeries("Male", "Male", chart, "Male");
         }
         break;
 

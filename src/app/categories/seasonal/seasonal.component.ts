@@ -31,15 +31,16 @@ export class SeasonalComponent implements OnInit {
 
     this.country = "";
 
-    this.getCountryes();
-
+    this.lang = localStorage.getItem('Language');
   }
+
+  lang: any;
 
   ngOnInit(): void {
     //this.getCountries();
     // this.getSeasonal();
     this.getSeasonalPerc();
-
+    this.getCountryes();
   }
 
   // ----------------------------------------------SELECTS-------------------------------------------------------------
@@ -131,7 +132,7 @@ export class SeasonalComponent implements OnInit {
   // ----------------------------------------------HTTP Calls-------------------------------------------------------------
 
   getCountryes(): any {
-    let uRl = this.APIUrl + '/countryes';
+    let uRl = this.APIUrl + '/countryes' + '?lang=' + this.lang;
 
     return this.http.get<any>(uRl).subscribe(res => { this.countryes = res});
   }
@@ -149,7 +150,9 @@ export class SeasonalComponent implements OnInit {
             '&gender=' +
             this.gender +
             '&age=' +
-            this.age
+            this.age +
+            '&lang=' +
+            this.lang
         )
         .subscribe((res) => {
           this.createChart(res);
@@ -166,7 +169,9 @@ export class SeasonalComponent implements OnInit {
             '&age=' +
             this.age +
             '&country=' +
-            this.country
+            this.country +
+            '&lang=' +
+            this.lang
         )
         .subscribe((res) => {
           this.createChart(res);
@@ -183,7 +188,9 @@ export class SeasonalComponent implements OnInit {
             '&age=' +
             this.age +
             '&country=' +
-            this.country
+            this.country +
+            '&lang=' +
+            this.lang
         )
         .subscribe((res) => {
           this.createChart(res);
@@ -199,17 +206,25 @@ export class SeasonalComponent implements OnInit {
     // Themes end
 
     let chart = am4core.create('chart', am4charts.XYChart);
-    if (chart.logo) {
-      chart.logo.disabled = true;
-    }
+    chart.logo.disabled = true;
 
     chart.colors.step = 3;
 
     if(this.percenetOrNot == 1){
-      this.titleForChart = "ვიზიტების რაოდენობა";
+      if (this.lang == 'GEO') {
+        this.titleForChart = "ვიზიტების რაოდენობა";
+      }
+      else{
+        this.titleForChart = "Number of Visitsა";
+      }
     }
     else{
-      this.titleForChart = "ვიზიტების პროცენტული განაწილება წლების მიხედვით";
+      if (this.lang == 'GEO') {
+        this.titleForChart = "ვიზიტების პროცენტული განაწილება წლების მიხედვით";
+      }
+      else{
+        this.titleForChart = "Percentage Distribution of Visits by Year";
+      }
     }
 
     chart.maskBullets = false;
@@ -231,6 +246,7 @@ export class SeasonalComponent implements OnInit {
     yAxis.renderer.grid.template.disabled = true;
     yAxis.renderer.inversed = true;
     yAxis.renderer.minGridDistance = 30;
+
     let series = chart.series.push(new am4charts.ColumnSeries());
 
     series.dataFields.categoryX = 'monthName';
@@ -258,12 +274,24 @@ export class SeasonalComponent implements OnInit {
     columnTemplate.strokeOpacity = 1;
     columnTemplate.stroke = bgColor;
     if (this.percenetOrNot === 2) {
-      columnTemplate.tooltipText =
-      "{visits.formatNumber('#.0a')} ვიზიტი, წლიური რაოდენობის {perc.formatNumber('#,###.0')}% ";
+      if (this.lang == 'GEO') {
+	      columnTemplate.tooltipText =
+	      "{visits.formatNumber('#.0a')} ვიზიტი, წლიური რაოდენობის {perc.formatNumber('#,###.0')}% ";
+      }
+      else{
+        columnTemplate.tooltipText =
+	      "{visits.formatNumber('#.0a')} Visits, {perc.formatNumber('#,###.0')}% from annual amount ";
+      }
     }
     if (this.percenetOrNot === 1) {
-      columnTemplate.tooltipText =
-      "{value.workingValue.formatNumber('#.0a')} ვიზიტი ";
+      if (this.lang == 'GEO') {
+	      columnTemplate.tooltipText =
+	      "{value.workingValue.formatNumber('#.0a')} ვიზიტი ";
+      }
+      else{
+        columnTemplate.tooltipText =
+	      "{value.workingValue.formatNumber('#.0a')} visits ";
+      }
     }
 
     columnTemplate.width = am4core.percent(100);
