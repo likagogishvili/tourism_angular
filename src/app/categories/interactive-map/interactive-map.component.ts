@@ -769,7 +769,6 @@ export class InteractiveMapComponent implements OnInit {
       'M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8';
   }
   getFlag() {
-    console.log(this.countriesData)
       if (this.chartName) {
         let dataForCountryId = this.countriesData.filter((i: any) => {
           return i.countryName === this.chartName;
@@ -781,8 +780,6 @@ export class InteractiveMapComponent implements OnInit {
             this.countryImg = 'assets/header/word.png';
           }
       }
-      console.log(this.countryImg)
-    
   }
 
   renderChartObject(args: any[]) {
