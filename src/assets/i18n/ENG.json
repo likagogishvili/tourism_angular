@@ -162,5 +162,18 @@
     "compare": "Compare",
     "period": "Time Interval",
     "type": "Border Types"
+  },
+
+  "border": {
+    "top1": "Number of visits By",
+    "top2": "Borders",
+    "start": "Start Date",
+    "end": "End Date",
+    "forign": "Inbound Tourism",
+    "exit": "Outbound Tourism",
+    "compare": "Compare",
+    "period": "Time Interval",
+    "type": "Borders",
+    "message": "Please Specify the Time Interval Correctly"
   }
 }
