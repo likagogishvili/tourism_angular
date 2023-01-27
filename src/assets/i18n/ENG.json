@@ -63,6 +63,7 @@
     "period": "periodicity",
     "tourismType": "type of tourism",
     "tourType": "Type of visit",
+    "clearTooltip": "Clear filter",
     "allExpence": "Total expenditure",
     "avarExpence": "Average expenditure"
   },
@@ -175,5 +176,12 @@
     "period": "Time Interval",
     "type": "Borders",
     "message": "Please Specify the Time Interval Correctly"
+  },
+
+  "note": {
+    "mainIndicators": "Note: Some data are not available due to the spread of the new coronavirus (COVID-19) in Georgia.",
+    "regional": "Note: Imereti region includes the data of Racha-Lechkhumi and Kvemo Svaneti regions.",
+    "regional2": "Note: Data for visits where visited regions were not specified is not available."
+    
   }
 }
