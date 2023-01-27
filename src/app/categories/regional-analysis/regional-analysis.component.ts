@@ -52,6 +52,8 @@ export class RegionalAnalysisComponent implements OnInit {
   lang: any;
 
   ngOnInit(): void {
+
+    this.year = 2022;
     this.getMapChart(this.tourismType, this.year, this.optArray, this.isValue, this.selectedProperty, this.flag);
 
     //console.log(this.tourismType + ' ' + this.year + ' ' + this.optArray + ' ' + this.selectedProperty + ' ' + this.flag)
@@ -70,7 +72,7 @@ export class RegionalAnalysisComponent implements OnInit {
 
   years!: number[];
 
-  year: number = 2022;
+  year: number = 0;
 
   radioBtnID!: number;
 
@@ -114,13 +116,11 @@ export class RegionalAnalysisComponent implements OnInit {
       this.region.getYears(2).subscribe(years => {
         this.years = years;
       });
-      this.year = 2022;
     }
     else if (num == 1){
       this.region.getYears(1).subscribe(years => {
         this.years = years;
       });
-      this.year = 2022;
     }
 
     this.createCharts();
@@ -154,7 +154,6 @@ export class RegionalAnalysisComponent implements OnInit {
       this.region.getYears(2).subscribe(years => {
         this.years = years;
       });
-      this.year = 2019;
 
       this.getMapChart(this.tourismType, this.year, this.optArray, this.isValue, this.selectedProperty, this.flag);
     }
@@ -164,7 +163,6 @@ export class RegionalAnalysisComponent implements OnInit {
       this.region.getYears(1).subscribe(years => {
         this.years = years;
       });
-      this.year = 2020;
 
       this.getMapChart(this.tourismType, this.year, this.optArray, this.isValue, this.selectedProperty, this.flag);
       this.getExpenceChart(this.optArray, this.selectedProperty);
@@ -193,21 +191,6 @@ export class RegionalAnalysisComponent implements OnInit {
       this.getMapChart(this.tourismType, this.year, this.optArray, this.isValue, this.selectedProperty, this.flag);
     }
   }
-
-  // dropdown dropdowns
-
-  // allDeselected(ind: number): boolean {
-  //   let yesOrNot: boolean = true;
-
-  //   this.checkBoxesArray[ind].forEach((x: { selected: any; }) => {
-  //     if(x.selected){
-  //       yesOrNot = false;
-  //       break;
-  //     }
-  //   })
-
-  //   return yesOrNot;
-  // }
 
 
   isGenderDetailed: boolean = false;
@@ -491,29 +474,70 @@ export class RegionalAnalysisComponent implements OnInit {
 
     chart.geodataSource.events.on("parseended", function() {
 
-      polygonSeries.data = res;
+      polygonSeries.data = [res[0], res[1], res[2], res[3], res[4], res[5], res[6], res[7], res[8], res[9], res[10]];
+      polygonSeries1.data = [res[11], res[12]];
+      polygonSeries2.data = [res[8]];
     })
 
     chart.projection = new am4maps.projections.Mercator();
 
     let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+    polygonSeries.useGeodata = true;
+    polygonSeries.include = ["GE-SZ", "GE-TB", "GE-IM", "GE-SK", "GE-AJ", "GE-SJ", "GE-KK", "GE-MM", "GE-GU", "GE-KA"];
+
+    let polygonTemplate = polygonSeries.mapPolygons.template;
+    
+    polygonTemplate.tooltipText = "{name}: {value}";
 
     polygonSeries.heatRules.push({
       property: "fill",
       target: polygonSeries.mapPolygons.template,
       min: chart.colors.getIndex(1).brighten(1),
       max: chart.colors.getIndex(1).brighten(-0.3),
-      minValue: 100,
-      maxValue: 1000
+      // minValue: 5,
+      // maxValue: 500
 
     });
 
-    polygonSeries.useGeodata = true;
 
-  
-    let polygonTemplate = polygonSeries.mapPolygons.template;
+
+    let polygonSeries1 = chart.series.push(new am4maps.MapPolygonSeries());
+    polygonSeries1.useGeodata = true;
+    polygonSeries1.include = ["GE-SO", "GE-AB"];
+
+    let polygonTemplate1 = polygonSeries1.mapPolygons.template;
     
-    polygonTemplate.tooltipText = "{name}: {value}";
+    polygonTemplate1.tooltipText = '{name}';
+
+    // if (this.lang == 'GEO') {
+    //   polygonTemplate1.tooltipText = "ოკუპირებული რეგიონი";
+    // }
+    // else{
+    //   polygonTemplate1.tooltipText = "Occupied Region";
+    // }
+
+    polygonTemplate1.fill = am4core.color("#898a8a");
+
+
+
+    let polygonSeries2 = chart.series.push(new am4maps.MapPolygonSeries());
+    polygonSeries2.useGeodata = true;
+    polygonSeries2.include = ["GE-RL"];
+
+    let polygonTemplate2 = polygonSeries2.mapPolygons.template;
+    
+    if (this.lang == 'GEO') {
+      polygonTemplate2.tooltipText = "{name} - რეგიონის მონაცემები გაერთიანებულია იმერეთის რეგიონის მონაცემებთან";
+    }
+    else{
+      polygonTemplate2.tooltipText = "{name} - The data of the region is combined with the data of the Imereti region";
+    }
+
+    
+
+    polygonTemplate2.fill = am4core.color("#A38D5D");
+
+    
     
     polygonTemplate.nonScalingStroke = true;
     polygonTemplate.strokeWidth = 1;
