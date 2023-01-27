@@ -52,10 +52,10 @@ export class ComparisionService {
   indicMain: IDropDownSt[] = [
     { name: 'მიზანი', value: 'Goal', isDisabled: false },
     { name: 'აქტივობა', value: 'Visit', isDisabled: false },
-    { name: 'შეფასება', value: 'Rate', isDisabled: false },
+    { name: 'კმაყოფილება', value: 'Rate', isDisabled: false },
     { name: 'ტრანსპორტი', value: 'Transport', isDisabled: false },
     { name: 'რიგითობა', value: 'Sequence', isDisabled: false },
-    { name: 'დანახარჯი', value: 'Expence', isDisabled: false },
+    // { name: 'დანახარჯი', value: 'Expence', isDisabled: false },
   ];
 
   indicMainEN: IDropDownSt[] = [
@@ -64,7 +64,7 @@ export class ComparisionService {
     { name: 'Satisfaction Level', value: 'Rate', isDisabled: false },
     { name: 'Transport', value: 'Transport', isDisabled: false },
     { name: 'Order of visit', value: 'Sequence', isDisabled: false },
-    { name: 'Expenditure', value: 'Expence', isDisabled: false },
+    // { name: 'Expenditure', value: 'Expence', isDisabled: false },
   ];
 
   getIndicMain() {
@@ -81,7 +81,7 @@ export class ComparisionService {
     { name: 'ვიზიტის ტიპი', value: 'TourType', isDisabled: false },
     { name: 'სქესი', value: 'Gender', isDisabled: false },
     { name: 'ასაკი', value: 'Age', isDisabled: false},
-    { name: 'ეკონომიური სტატუსი', value: 'Activity', isDisabled: false},
+    // { name: 'ეკონომიური სტატუსი', value: 'Activity', isDisabled: false},
   ];
 
   indicHelpEN: IDropDownSt[] = [
@@ -89,7 +89,7 @@ export class ComparisionService {
     { name: 'Type of visit', value: 'TourType', isDisabled: false },
     { name: 'Gender', value: 'Gender', isDisabled: false },
     { name: 'Age', value: 'Age', isDisabled: false},
-    { name: 'Economic status', value: 'Activity', isDisabled: false},
+    // { name: 'Economic status', value: 'Activity', isDisabled: false},
   ];
 
   getIndicHelp() {

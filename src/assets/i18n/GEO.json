@@ -41,12 +41,12 @@
     "guestCount": "სტუმრების რაოდენობა",
     "regs": "რეგიონები",
     "def": "სულ",
-    "hotelsChartTitle": "სასტუმროების რაოდენობა",
-    "roomsChartTitle": "ნომრების რაოდენობა",
-    "guestsChartTitle": "სტუმრების რაოდენობა",
-    "incomsChartTitle": "შემოსავლების სტრუქტურა",
-    "emploeeChartTitle": "დასაქმებულები სქესის მიხედვით",
-    "expenceChartTitle": "ხარჯების სტრუქტურა"
+    "hotelsChartTitle": "სასტუმროების რაოდენობა (ერთეული)",
+    "roomsChartTitle": "ნომრების რაოდენობა (ერთეული)",
+    "guestsChartTitle": "სტუმრების რაოდენობა (ერთეული)",
+    "incomsChartTitle": "შემოსავლების მოცულობა (ლარი)",
+    "emploeeChartTitle": "დასაქმებულების რაოდენობა (კაცი)",
+    "expenceChartTitle": "ხარჯების მოცულობა (ლარი)"
   },
 
   "categories": {
