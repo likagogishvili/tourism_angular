@@ -40,6 +40,7 @@ export class InteractiveMapComponent implements OnInit {
   similarDatas: any;
   chartName: string = '';
   countryImg: string = '';
+  countriesData: any = []
 
   perNights = false;
   notIn = false;
@@ -72,11 +73,6 @@ export class InteractiveMapComponent implements OnInit {
     }
   }
 
-  // /VisitTypeOptions etc.
-
-  // runMapYears() {
-  //   console.log('დამეჭირა');
-  // }
 
   selectvTypeChange() {
     this.selectedVType = this.vTypeSelect;
@@ -95,7 +91,6 @@ export class InteractiveMapComponent implements OnInit {
         ...obj,
         ...nights.find((o: any) => o.countryId === obj.countryId),
       }));
-      //console.log("88888888888888888888",this.resulti)
       return this.resulti;
     });
     this.getDataForTable();
@@ -149,23 +144,6 @@ export class InteractiveMapComponent implements OnInit {
           a.value < b.value ? -1 : 1
         ))
     );
-
-    // if(this.lang == 'GEO'){
-    //   Object.keys(Month).forEach(element => {
-    //     this.monthsOptions.push(element);
-    //   });
-    // }
-    // else{
-    //   Object.keys(Month).forEach(element => {
-    //     this.monthsOptions.push(element);
-    //   });
-    // }
-
-    // this.getGenders().subscribe((arg) => {
-    //   this.gendersOptions = arg.sort((a: any, b: any) =>
-    //     a.value.localeCompare(b.value)
-    //   );
-    // });
 
     this.getAgeGroups().subscribe(
       (args) =>
@@ -641,6 +619,8 @@ export class InteractiveMapComponent implements OnInit {
       )
       .subscribe((res) => {
         this.renderMapObject(res);
+        this.countriesData = res
+        
       });
   }
 
@@ -788,24 +768,18 @@ export class InteractiveMapComponent implements OnInit {
     button.icon.path =
       'M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8';
   }
-  getFlag(args: any) {
-    var ulrForFlags = `http://213.131.33.218:8088/api/fdi/SingleCountrydata?year=2021`;
-    this.http.get<any>(ulrForFlags).subscribe((res) => {
-      console.log(this.chartName);
+  getFlag() {
       if (this.chartName) {
-        let dataForCountryId = res.filter((i: any) => {
-          return i.name_ka === this.chartName || i.name_en === this.chartName;
+        let dataForCountryId = this.countriesData.filter((i: any) => {
+          return i.countryName === this.chartName;
         });
-        setTimeout(() => {
           if (dataForCountryId.length) {
             this.countryImg =
-              'assets/flags/' + dataForCountryId[0].country + '.png';
+              'assets/flags/' + dataForCountryId[0].id.toLowerCase() + '.svg';
           } else {
             this.countryImg = 'assets/header/word.png';
           }
-        }, 0);
       }
-    });
   }
 
   renderChartObject(args: any[]) {
@@ -819,7 +793,7 @@ export class InteractiveMapComponent implements OnInit {
     chart.paddingRight = 20;
     chart.colors.step = 3;
     this.chartName = args[0].countryNameGe;
-    this.getFlag(args);
+    this.getFlag();
 
     chart.data = args;
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());

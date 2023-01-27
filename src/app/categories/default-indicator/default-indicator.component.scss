@@ -7,7 +7,8 @@
   background-position: 99% 64%, 3% 11%;
 }
 
-.select__first, .select__sec {
+.select__first,
+.select__sec {
   @include tabletAndUp {
     display: flex;
     justify-content: center;
@@ -20,7 +21,7 @@
   width: 30px;
   aspect-ratio: 1;
   background-position: center !important;
-  background-repeat: no-repeat !important; 
+  background-repeat: no-repeat !important;
 }
 
 .select__el {
@@ -32,10 +33,7 @@
   @include tablet {
     margin-bottom: 10px;
   }
-  
 }
-
-
 
 .clear__btn {
   background-color: #32a9ff !important;
@@ -46,6 +44,29 @@
   display: block;
   height: 94px;
   width: 78px;
+  position: relative;
+
+  .clear__tooltip {
+    font-size: 0.9rem;
+    font-family: FiraGO;
+    font-style: normal;
+    font-variant: small-caps;
+    color: #fff;
+    visibility: hidden;
+    background-color: #6b6b6d;
+    border: 1px solid #e5e5e5;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 10;
+    bottom: -60px;
+    left: -13px;
+  }
+
+  &:hover .clear__tooltip {
+    visibility: visible;
+  }
 }
 
 .select2 {
@@ -70,13 +91,31 @@
 }
 
 .contForFirstChart {
-  height: 773px;
+  height: 753px;
   width: 100%;
   background: #ffffff;
   box-shadow: 0px 4px 50px 5px rgba(0, 0, 0, 0.05);
   border-radius: 15px;
-}
+  padding: 30px 10px 0 10px;
 
+  h2 {
+    font-size: 1.5rem;
+    font-family: FiraGO;
+    font-style: normal;
+    font-weight: 500;
+    font-variant: small-caps;
+    font-feature-settings: "case" on;
+    color: #6b6b6d;
+    margin: 0 !important;
+  }
+
+  .note {
+    color: #6b6b6d;
+    font-size: 0.7rem;
+    font-feature-settings: "case" off;
+    font-style: italic;
+  }
+}
 
 .contForBackCharts {
   height: 700px;
@@ -99,8 +138,7 @@
   padding-top: 20px;
 }
 
-.downCharts{
+.downCharts {
   padding-right: 0px !important;
-  padding-left:  0px !important;
+  padding-left: 0px !important;
 }
-
