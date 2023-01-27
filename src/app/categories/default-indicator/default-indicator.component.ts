@@ -513,7 +513,15 @@ export class DefaultIndicatorComponent implements OnInit {
     categoryAxis.dataFields.category = 'year';
     categoryAxis.renderer.grid.template.location = 0;
 
-    this.bigChart.colors.step = 3;
+    // this.bigChart.colors.step = 3;
+    this.bigChart.colors.list = [
+      am4core.color('#2330A4'),
+      am4core.color('#FA8D70'),
+      am4core.color('#FF7EAE'),
+      am4core.color('#FF9671'),
+      am4core.color('#FFC75F'),
+      am4core.color('#F9F871'),
+    ];
 
     let valueAxis = this.bigChart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.numberFormatter = new am4core.NumberFormatter();
@@ -821,7 +829,16 @@ export class DefaultIndicatorComponent implements OnInit {
     categoryAxis.dataFields.category = 'year';
     categoryAxis.renderer.grid.template.location = 0;
 
-    this.cstChart.colors.step = 3;
+    // this.cstChart.colors.step = 3;
+    this.cstChart.colors.list = [
+      am4core.color('#2330A4'),
+      am4core.color('#FA8D70'),
+      am4core.color('#FF7EAE'),
+      am4core.color('#FF9671'),
+      am4core.color('#FFC75F'),
+      am4core.color('#F9F871'),
+    ];
+
 
     let valueAxis = this.cstChart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.numberFormatter = new am4core.NumberFormatter();
@@ -957,7 +974,16 @@ export class DefaultIndicatorComponent implements OnInit {
     categoryAxis.dataFields.category = 'year';
     categoryAxis.renderer.grid.template.location = 0;
 
-    this.cstChart.colors.step = 3;
+    // this.cstChart.colors.step = 3;
+    this.cstChart.colors.list = [
+      am4core.color('#2330A4'),
+      am4core.color('#FA8D70'),
+      am4core.color('#FF7EAE'),
+      am4core.color('#FF9671'),
+      am4core.color('#FFC75F'),
+      am4core.color('#F9F871'),
+    ];
+
 
     let valueAxis = this.cstChart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.numberFormatter = new am4core.NumberFormatter();
@@ -997,7 +1023,16 @@ export class DefaultIndicatorComponent implements OnInit {
     categoryAxis.dataFields.category = 'year';
     categoryAxis.renderer.grid.template.location = 0;
 
-    this.nghtChart.colors.step = 3;
+    // this.nghtChart.colors.step = 3;
+    this.nghtChart.colors.list = [
+      am4core.color('#2330A4'),
+      am4core.color('#FA8D70'),
+      am4core.color('#FF7EAE'),
+      am4core.color('#FF9671'),
+      am4core.color('#FFC75F'),
+      am4core.color('#F9F871'),
+    ];
+
 
     let valueAxis = this.nghtChart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.numberFormatter = new am4core.NumberFormatter();
@@ -1149,7 +1184,17 @@ export class DefaultIndicatorComponent implements OnInit {
     categoryAxis.dataFields.category = 'year';
     categoryAxis.renderer.grid.template.location = 0;
 
-    this.nghtChart.colors.step = 3;
+    // this.nghtChart.colors.step = 3;
+    this.nghtChart.colors.list = [
+      am4core.color('#2330A4'),
+      am4core.color('#FA8D70'),
+      am4core.color('#FF7EAE'),
+      am4core.color('#FF9671'),
+      am4core.color('#FFC75F'),
+      am4core.color('#F9F871'),
+    ];
+
+    
 
     let valueAxis = this.nghtChart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.numberFormatter = new am4core.NumberFormatter();
@@ -1344,7 +1389,16 @@ export class DefaultIndicatorComponent implements OnInit {
     // categoryAxis.dataFields.category = 'year';
     // categoryAxis.renderer.grid.template.location = 0;
 
-    this.avarigeChart.colors.step = 3;
+    // this.avarigeChart.colors.step = 3;
+    this.nghtChart.colors.list = [
+      am4core.color('#2330A4'),
+      am4core.color('#FA8D70'),
+      am4core.color('#FF7EAE'),
+      am4core.color('#FF9671'),
+      am4core.color('#FFC75F'),
+      am4core.color('#F9F871'),
+    ];
+
 
     // let valueAxis = this.nghtChart.yAxes.push(new am4charts.ValueAxis());
     // valueAxis.numberFormatter = new am4core.NumberFormatter();
@@ -1628,7 +1682,16 @@ export class DefaultIndicatorComponent implements OnInit {
     categoryAxis.dataFields.category = 'year';
     categoryAxis.renderer.grid.template.location = 0;
 
-    this.costsOnley.colors.step = 3;
+    // this.costsOnley.colors.step = 3;
+    this.costsOnley.colors.list = [
+      am4core.color('#2330A4'),
+      am4core.color('#FA8D70'),
+      am4core.color('#FF7EAE'),
+      am4core.color('#FF9671'),
+      am4core.color('#FFC75F'),
+      am4core.color('#F9F871'),
+    ];
+
 
     let valueAxis = this.costsOnley.yAxes.push(new am4charts.ValueAxis());
     valueAxis.numberFormatter = new am4core.NumberFormatter();
