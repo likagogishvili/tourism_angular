@@ -41,12 +41,12 @@
     "guestCount": "Number of Guests",
     "regs": "Regions",
     "def": "All",
-    "hotelsChartTitle": "Number of Hotels",
-    "roomsChartTitle": "Number of Rooms",
-    "guestsChartTitle": "Number of Guests",
-    "incomsChartTitle": "Income Structure",
-    "emploeeChartTitle": "Employees by Gender",
-    "expenceChartTitle": "Cost Structure"
+    "hotelsChartTitle": "Number of Hotels (Unit)",
+    "roomsChartTitle": "Number of Rooms (Unit)",
+    "guestsChartTitle": "Number of Guests (Unit)",
+    "incomsChartTitle": "Income (GEL)",
+    "emploeeChartTitle": "Employees (Person)",
+    "expenceChartTitle": "Expenditures (GEL)"
   },
 
   "categories": {

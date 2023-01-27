@@ -101,7 +101,7 @@ export class RegionService {
     { name: "მეგობრები", selected: false, id: 2 },
     { name: "მკურნალობა", selected: false, id: 4 },
     { name: "შოპინგი", selected: false, id: 6 },
-    { name: "ტრანზიტი", selected: false, id: 8 },
+    // { name: "ტრანზიტი", selected: false, id: 8 },
     { name: "საქმიანობა", selected: false, id: 9 },
     { name: "სხვა", selected: false, id: 66 }
   ];
@@ -111,7 +111,7 @@ export class RegionService {
     { name: "Visiting friends/relatives", selected: false, id: 2 },
     { name: "Health and Medical Care", selected: false, id: 4 },
     { name: "Shopping", selected: false, id: 6 },
-    { name: "Transit on the way to another country", selected: false, id: 8 },
+    // { name: "Transit on the way to another country", selected: false, id: 8 },
     { name: "Business or Professional", selected: false, id: 9 },
     { name: "Other purpose", selected: false, id: 66 }
   ];
@@ -126,9 +126,9 @@ export class RegionService {
   }
 
   visitsGE = [
-    { name: "კულტურული", selected: false, id: 1 },
-    { name: "ზღვა", selected: false, id: 2 },
-    { name: "ბუნება", selected: false, id: 4 },
+    // { name: "კულტურული", selected: false, id: 1 },
+    // { name: "ზღვა", selected: false, id: 2 },
+    // { name: "ბუნება", selected: false, id: 4 },
     { name: "ჭამა_სმა", selected: false, id: 13 },
     { name: "შოპინგი", selected: false, id: 20 },
     { name: "მეგობრები", selected: false, id: 21 },
@@ -136,9 +136,9 @@ export class RegionService {
   ];
 
   visitsEN = [
-    { name: "Sightseeing/Visiting cultural and historical heritage/Museums", selected: false, id: 1 },
-    { name: "Going to the beach/Swimming in the sea/lake/river", selected: false, id: 2 },
-    { name: "Visiting national parks/Nature/Landscape, exploring remote and exotic places", selected: false, id: 4 },
+    // { name: "Sightseeing/Visiting cultural and historical heritage/Museums", selected: false, id: 1 },
+    // { name: "Going to the beach/Swimming in the sea/lake/river", selected: false, id: 2 },
+    // { name: "Visiting national parks/Nature/Landscape, exploring remote and exotic places", selected: false, id: 4 },
     { name: "Tasting local cuisine and wine", selected: false, id: 13 },
     { name: "Shopping", selected: false, id: 20 },
     { name: "Visiting friends/relatives", selected: false, id: 21 },
