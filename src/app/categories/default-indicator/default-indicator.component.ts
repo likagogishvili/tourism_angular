@@ -1286,18 +1286,18 @@ export class DefaultIndicatorComponent implements OnInit {
     if (Number(this.period == 1) || Number(this.period == 3)) {
       if (this.lang == 'GEO') {
         series.columns.template.tooltipText =
-          '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#")} ღამე';
+          '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#.0a")} ღამე';
       } else {
         series.columns.template.tooltipText =
-          '[bold]{name}[/]\n[font-size:14px]{categoryX} Year: [bold]{valueY.formatNumber("#")} Night';
+          '[bold]{name}[/]\n[font-size:14px]{categoryX} Year: [bold]{valueY.formatNumber("#.0a")} Night';
       }
     } else if (Number(this.period) == 2) {
       if (this.lang == 'GEO') {
         series.columns.template.tooltipText =
-          '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#")} ღამე';
+          '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} ღამე';
       } else {
         series.columns.template.tooltipText =
-          '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#")} Night';
+          '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} Night';
       }
     }
 

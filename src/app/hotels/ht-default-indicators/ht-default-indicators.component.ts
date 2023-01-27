@@ -267,9 +267,9 @@ export class HtDefaultIndicatorsComponent implements OnInit {
       case 'chartBadRoom':
         if (this.lang == 'GEO') {
           this.createSeries('ლუქსი', 'ლუქსი', chart, 'ლუქსი');
-          this.createSeries('ერთიანი', 'ერთიანი', chart, 'ერთიანი');
-          this.createSeries('ორიანი', 'ორიანი', chart, 'ორიანი');
-          this.createSeries('სამიანი', 'სამიანი', chart, 'სამიანი');
+          this.createSeries('ერთიანი', 'ერთადგილიანი', chart, 'ერთიანი');
+          this.createSeries('ორიანი', 'ორადგილიანი', chart, 'ორიანი');
+          this.createSeries('სამიანი', 'სამადგილიანი', chart, 'სამიანი');
         } else {
           this.createSeries('Lux', 'Lux', chart, 'Lux');
           this.createSeries('Single', 'Single', chart, 'Single');
@@ -286,12 +286,12 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
       case 'chartRevenue':
         if (this.lang == 'GEO') {
-          this.createSeries('ოთახები', 'ოთახები', chart, 'ოთახიდან');
+          this.createSeries('ოთახები', 'ნომრების გაქირავება', chart, 'ნომრების გაქირავებიდან');
           this.createSeries('სერვისი', 'სერვისი', chart, 'სერვისიდან');
           this.createSeries('რესტორანი', 'რესტორანი', chart, 'რესტორნიდან');
           this.createSeries('სხვა', 'სხვა', chart, 'სხვა');
         } else {
-          this.createSeries('Rooms', 'Rooms', chart, 'From Rooms');
+          this.createSeries('Rooms', 'Renting ', chart, 'From Renting');
           this.createSeries('Service', 'Service', chart, 'From Service');
           this.createSeries('Restrant', 'Restrant', chart, 'From Restrant');
           this.createSeries('Other', 'Other', chart, 'Other');
