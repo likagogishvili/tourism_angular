@@ -6,6 +6,7 @@ import { Month } from 'src/app/common/Month';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
+import { MonthEN } from 'src/app/common/MonthEN';
 
 @Component({
   selector: 'app-border-type',
@@ -18,27 +19,61 @@ export class BorderTypeComponent implements OnInit {
   constructor(private http: HttpClient) {
     this.getYears(1);
     this.getYearsReverced(1);
-
-    this.startM = { name: 'აირჩიეთ თვე', value: 0, isDisabled: false };
-    this.endM = { name: 'აირჩიეთ თვე', value: 0, isDisabled: false };
+    this.lang = localStorage.getItem('Language');
   }
 
-  ngOnInit(): void {
-    Object.keys(Month)
-      .filter((v) => isNaN(Number(v)))
-      .forEach((element: string) => {
-        this.monthies.push({
-          name: element,
-          value: Object.values(Month).indexOf(element) + 1,
-          isDisabled: false,
-        }),
-          this.monthiesEnd.push({
-            name: element,
-            value: Object.values(Month).indexOf(element) + 1,
-            isDisabled: false,
-          });
-      });
+  lang: any;
 
+  ngOnInit(): void {
+    
+    if (this.lang == 'GEO') {
+
+      this.borderTypes = ['საჰაერო', 'სახმელეთო', 'სარკინიგზო', 'საზღვაო'];
+
+      this.monthies.push({ name: 'აირჩიეთ თვე', value: 0, isDisabled: false });
+      this.monthiesEnd.push({ name: 'აირჩიეთ თვე', value: 0, isDisabled: false });
+
+	    Object.keys(Month)
+	      .filter((v) => isNaN(Number(v)))
+	      .forEach((element: string) => {
+	        this.monthies.push({
+	          name: element,
+	          value: Object.values(Month).indexOf(element) + 1,
+	          isDisabled: false,
+	        }),
+	          this.monthiesEnd.push({
+	            name: element,
+	            value: Object.values(Month).indexOf(element) + 1,
+	            isDisabled: false,
+	          });
+	      });	
+    }
+    else{
+
+      this.borderTypes = ['Aerial', 'Terrestrial', 'Railway', 'Marine'];
+
+      this.monthies.push({ name: 'Select a Month', value: 0, isDisabled: false });
+      this.monthiesEnd.push({ name: 'Select a Month', value: 0, isDisabled: false });
+
+      this.startM = { name: 'Select a Month', value: 0, isDisabled: false };
+      this.endM = { name: 'Select a Month', value: 0, isDisabled: false };
+
+
+      Object.keys(MonthEN)
+	      .filter((v) => isNaN(Number(v)))
+	      .forEach((element: string) => {
+	        this.monthies.push({
+	          name: element,
+	          value: Object.values(MonthEN).indexOf(element) + 1,
+	          isDisabled: false,
+	        }),
+	          this.monthiesEnd.push({
+	            name: element,
+	            value: Object.values(MonthEN).indexOf(element) + 1,
+	            isDisabled: false,
+	          });
+	      });	
+    }
     this.getVisitsChart(
       this.year,
       this.yearEnd,
@@ -53,15 +88,11 @@ export class BorderTypeComponent implements OnInit {
   yearsReverced!: number[];
   yearEnd: number = 2022;
 
-  monthies: IDropDown[] = [
-    { name: 'აირჩიეთ თვე', value: 0, isDisabled: false },
-  ];
-  startM!: IDropDown;
+  monthies: IDropDown[] = [];
+  startM: IDropDown = { name: 'აირჩიეთ თვე', value: 0, isDisabled: false };
 
-  monthiesEnd: IDropDown[] = [
-    { name: 'აირჩიეთ თვე', value: 0, isDisabled: false },
-  ];
-  endM!: IDropDown;
+  monthiesEnd: IDropDown[] = [];
+  endM: IDropDown = { name: 'აირჩიეთ თვე', value: 0, isDisabled: false };
 
   denger: boolean = false;
 
@@ -102,19 +133,6 @@ export class BorderTypeComponent implements OnInit {
     }
   }
 
-  // tTypeChange(fl: number){
-  //   this.getYears(fl){
-  //     this.http.get<number[]>(this.APIUrl + '/borderYears?tType=' + fl).subscribe(years => {
-  //       this.years = years;
-  //     })
-  //   }
-
-  //   this.getYearsReverced(fl){
-  //     this.http.get<number[]>(this.APIUrl + '/borderYearsReverced?tType=' + fl).subscribe(years => {
-  //       this.yearsReverced = years;
-  //     })
-  //   }
-  // }
 
   getVisitsChart(st: number, en: number, stM: number, enM: number) {
     if (this.tType == 1) {
@@ -128,7 +146,9 @@ export class BorderTypeComponent implements OnInit {
             '&startM=' +
             stM +
             '&endM=' +
-            enM
+            enM +
+            '&lang=' +
+            this.lang
         )
         .subscribe((data) => {
           this.helpChart(data, '', 'topChart');
@@ -144,7 +164,9 @@ export class BorderTypeComponent implements OnInit {
             '&startM=' +
             stM +
             '&endM=' +
-            enM
+            enM +
+            '&lang=' +
+            this.lang
         )
         .subscribe((data) => {
           this.helpChart(data, '', 'topChart');
@@ -152,7 +174,7 @@ export class BorderTypeComponent implements OnInit {
     }
   }
 
-  borderTypes: string[] = ['საჰაერო', 'სახმელეთო', 'სარკინიგზო', 'საზღვაო'];
+  borderTypes!: string[];
 
   getChart() {
     if (
@@ -191,7 +213,12 @@ export class BorderTypeComponent implements OnInit {
     valueAxis.numberFormatter = new am4core.NumberFormatter();
     valueAxis.numberFormatter.numberFormat = '#.%';
     valueAxis.renderer.grid.template.location = 0;
-    valueAxis.title.text = 'ვიზიტები';
+    if (this.lang) {
+      valueAxis.title.text = 'ვიზიტები';
+    }
+    else{
+      valueAxis.title.text = 'Visits';
+    }
 
     if (Number(this.startM.value) != 0 || Number(this.endM.value != 0)) {
       res.forEach((element: { year: string }) => {
@@ -204,29 +231,98 @@ export class BorderTypeComponent implements OnInit {
         let stQ: string = st.slice(5);
 
         if (stQ == '1') {
-          stQ = 'იან, ';
+          if (this.lang == 'GEO') {
+            stQ = 'იან, ';
+          }
+          else{
+            stQ = 'Jan, ';
+          }
         } else if (stQ == '2') {
-          stQ = 'თებ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'თებ, ';
+          }
+          else{
+            stQ = 'Feb, ';
+          }          
         } else if (stQ == '3') {
-          stQ = 'მარ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'მარ, ';
+          }
+          else{
+            stQ = 'Mar, ';
+          }          
         } else if (stQ == '4') {
-          stQ = 'აპრ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'აპრ, ';
+          }
+          else{
+            stQ = 'Apr, ';
+          }
+          
         } else if (stQ == '5') {
-          stQ = 'მაი, ';
+          if (this.lang == 'GEO') {
+            stQ = 'მაი, ';
+          }
+          else{
+            stQ = 'May, ';
+          }
+          
         } else if (stQ == '6') {
-          stQ = 'ივნ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'ივნ, ';
+          }
+          else{
+            stQ = 'Jun, ';
+          }
+          
         } else if (stQ == '7') {
-          stQ = 'ივლ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'ივლ, ';
+          }
+          else{
+            stQ = 'Jul, ';
+          }
+          
         } else if (stQ == '8') {
-          stQ = 'აგვ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'აგვ, ';
+          }
+          else{
+            stQ = 'Aug, ';
+          }
+          
         } else if (stQ == '9') {
-          stQ = 'სექ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'სექ, ';
+          }
+          else{
+            stQ = 'Sep, ';
+          }
+          
         } else if (stQ == '10') {
-          stQ = 'ოქტ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'ოქტ, ';
+          }
+          else{
+            stQ = 'Oct, ';
+          }
+          
         } else if (stQ == '11') {
-          stQ = 'ნოე, ';
+          if (this.lang == 'GEO') {
+            stQ = 'ნოე, ';
+          }
+          else{
+            stQ = 'Nov, ';
+          }
+          
         } else if (stQ == '12') {
-          stQ = 'დეკ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'დეკ, ';
+          }
+          else{
+            stQ = 'Dec, ';
+          }
+          
         }
 
         let fnSt: string = `${stQ} ${stY}`;
@@ -295,12 +391,23 @@ export class BorderTypeComponent implements OnInit {
     bullet.circle.stroke = am4core.color('#fff');
     bullet.circle.strokeWidth = 2;
 
-    if (this.tType == 1) {
-      bullet.tooltipText =
-        '[bold]{name}[/]ით შემომსვლელ ვიზიტორტა რაოდენობა, საწყის პერიოდთან შედარებით,\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
-    } else {
-      bullet.tooltipText =
-        '[bold]{name}[/]ით გამსვლელ ვიზიტორტა რაოდენობა, საწყის პერიოდთან შედარებით,\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
+    if (this.lang == 'GEO') {
+	    if (this.tType == 1) {
+	      bullet.tooltipText =
+	        '[bold]{name}[/]ით შემომსვლელ ვიზიტორტა რაოდენობა, საწყის პერიოდთან შედარებით,\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
+	    } else {
+	      bullet.tooltipText =
+	        '[bold]{name}[/]ით გამსვლელ ვიზიტორტა რაოდენობა, საწყის პერიოდთან შედარებით,\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
+	    }
+    }
+    else{
+      if (this.tType == 1) {
+	      bullet.tooltipText =
+	        'From [bold]{name}[/] number of incoming visitors, compared to the initial period,\nin {year} year has changed by [bold]{valueY.formatNumber("#.%")}';
+	    } else {
+	      bullet.tooltipText =
+	        'From [bold]{name}[/] number of outgoing visitors, compared to the initial period,\nin {year} year has changed by [bold]{valueY.formatNumber("#.%")}';
+	    }
     }
 
     let shadow = new am4core.DropShadowFilter();

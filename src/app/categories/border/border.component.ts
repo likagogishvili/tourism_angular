@@ -6,6 +6,7 @@ import { Month } from 'src/app/common/Month';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
+import { MonthEN } from 'src/app/common/MonthEN';
 
 @Component({
   selector: 'app-border',
@@ -20,27 +21,60 @@ export class BorderComponent implements OnInit {
     this.getYearsReverced(this.tType);
 
     this.year = 2015;
-    this.yearEnd = 2021;
+    this.yearEnd = 2022;
 
-    this.startM = { name: 'აირჩიეთ თვე', value: 0, isDisabled: false };
-    this.endM = { name: 'აირჩიეთ თვე', value: 0, isDisabled: false };
+    this.lang = localStorage.getItem('Language');
   }
 
+  lang: any;
+
   ngOnInit(): void {
-    Object.keys(Month)
-      .filter((v) => isNaN(Number(v)))
-      .forEach((element: string) => {
-        this.monthies.push({
-          name: element,
-          value: Object.values(Month).indexOf(element) + 1,
-          isDisabled: false,
-        }),
-          this.monthiesEnd.push({
-            name: element,
-            value: Object.values(Month).indexOf(element) + 1,
-            isDisabled: false,
-          });
-      });
+    
+    
+    if (this.lang == 'GEO') {
+
+      this.monthies.push({ name: 'აირჩიეთ თვე', value: 0, isDisabled: false });
+      this.monthiesEnd.push({ name: 'აირჩიეთ თვე', value: 0, isDisabled: false });
+
+	    Object.keys(Month)
+	      .filter((v) => isNaN(Number(v)))
+	      .forEach((element: string) => {
+	        this.monthies.push({
+	          name: element,
+	          value: Object.values(Month).indexOf(element) + 1,
+	          isDisabled: false,
+	        }),
+	          this.monthiesEnd.push({
+	            name: element,
+	            value: Object.values(Month).indexOf(element) + 1,
+	            isDisabled: false,
+	          });
+	      });	
+    }
+    else{
+      
+      this.monthies.push({ name: 'Select a Month', value: 0, isDisabled: false });
+      this.monthiesEnd.push({ name: 'Select a Month', value: 0, isDisabled: false });
+
+      this.startM = { name: 'Select a Month', value: 0, isDisabled: false };
+      this.endM = { name: 'Select a Month', value: 0, isDisabled: false };
+
+
+      Object.keys(MonthEN)
+	      .filter((v) => isNaN(Number(v)))
+	      .forEach((element: string) => {
+	        this.monthies.push({
+	          name: element,
+	          value: Object.values(MonthEN).indexOf(element) + 1,
+	          isDisabled: false,
+	        }),
+	          this.monthiesEnd.push({
+	            name: element,
+	            value: Object.values(MonthEN).indexOf(element) + 1,
+	            isDisabled: false,
+	          });
+	      });	
+    }
 
     this.getVisitsChart(
       this.year,
@@ -56,15 +90,11 @@ export class BorderComponent implements OnInit {
   yearsReverced!: number[];
   yearEnd!: number;
 
-  monthies: IDropDown[] = [
-    { name: 'აირჩიეთ თვე', value: 0, isDisabled: false },
-  ];
-  startM!: IDropDown;
+  monthies: IDropDown[] = [];
+  startM: IDropDown = { name: 'აირჩიეთ თვე', value: 0, isDisabled: false };
 
-  monthiesEnd: IDropDown[] = [
-    { name: 'აირჩიეთ თვე', value: 0, isDisabled: false },
-  ];
-  endM!: IDropDown;
+  monthiesEnd: IDropDown[] = [];
+  endM: IDropDown = { name: 'აირჩიეთ თვე', value: 0, isDisabled: false };
 
   denger: boolean = false;
 
@@ -135,7 +165,9 @@ export class BorderComponent implements OnInit {
             '&startM=' +
             stM +
             '&endM=' +
-            enM
+            enM +
+            '&lang=' +
+            this.lang
         )
         .subscribe((data) => {
           this.helpChart(data, '', 'topChart');
@@ -151,7 +183,9 @@ export class BorderComponent implements OnInit {
             '&startM=' +
             stM +
             '&endM=' +
-            enM
+            enM +
+            '&lang=' +
+            this.lang
         )
         .subscribe((data) => {
           this.helpChart(data, '', 'topChart');
@@ -178,7 +212,12 @@ export class BorderComponent implements OnInit {
     valueAxis.numberFormatter = new am4core.NumberFormatter();
     valueAxis.numberFormatter.numberFormat = '#.%';
     valueAxis.renderer.grid.template.location = 0;
-    valueAxis.title.text = 'პროცენტი';
+    if (this.lang == 'GEO') {
+      valueAxis.title.text = 'პროცენტი';
+    }
+    else{
+      valueAxis.title.text = 'Percent';
+    }
 
     if (Number(this.startM.value) != 0 || Number(this.endM.value != 0)) {
       res.forEach((element: { year: string }) => {
@@ -191,29 +230,98 @@ export class BorderComponent implements OnInit {
         let stQ: string = st.slice(5);
 
         if (stQ == '1') {
-          stQ = 'იან, ';
+          if (this.lang == 'GEO') {
+            stQ = 'იან, ';
+          }
+          else{
+            stQ = 'Jan, ';
+          }
         } else if (stQ == '2') {
-          stQ = 'თებ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'თებ, ';
+          }
+          else{
+            stQ = 'Feb, ';
+          }          
         } else if (stQ == '3') {
-          stQ = 'მარ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'მარ, ';
+          }
+          else{
+            stQ = 'Mar, ';
+          }          
         } else if (stQ == '4') {
-          stQ = 'აპრ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'აპრ, ';
+          }
+          else{
+            stQ = 'Apr, ';
+          }
+          
         } else if (stQ == '5') {
-          stQ = 'მაი, ';
+          if (this.lang == 'GEO') {
+            stQ = 'მაი, ';
+          }
+          else{
+            stQ = 'May, ';
+          }
+          
         } else if (stQ == '6') {
-          stQ = 'ივნ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'ივნ, ';
+          }
+          else{
+            stQ = 'Jun, ';
+          }
+          
         } else if (stQ == '7') {
-          stQ = 'ივლ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'ივლ, ';
+          }
+          else{
+            stQ = 'Jul, ';
+          }
+          
         } else if (stQ == '8') {
-          stQ = 'აგვ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'აგვ, ';
+          }
+          else{
+            stQ = 'Aug, ';
+          }
+          
         } else if (stQ == '9') {
-          stQ = 'სექ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'სექ, ';
+          }
+          else{
+            stQ = 'Sep, ';
+          }
+          
         } else if (stQ == '10') {
-          stQ = 'ოქტ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'ოქტ, ';
+          }
+          else{
+            stQ = 'Oct, ';
+          }
+          
         } else if (stQ == '11') {
-          stQ = 'ნოე, ';
+          if (this.lang == 'GEO') {
+            stQ = 'ნოე, ';
+          }
+          else{
+            stQ = 'Nov, ';
+          }
+          
         } else if (stQ == '12') {
-          stQ = 'დეკ, ';
+          if (this.lang == 'GEO') {
+            stQ = 'დეკ, ';
+          }
+          else{
+            stQ = 'Dec, ';
+          }
+          
         }
 
         let fnSt: string = `${stQ} ${stY}`;
@@ -286,12 +394,23 @@ export class BorderComponent implements OnInit {
     bullet.circle.stroke = am4core.color('#fff');
     bullet.circle.strokeWidth = 2;
 
-    if (this.tType == 1) {
-      bullet.tooltipText =
-        '[bold]{name}[/]ში შემომსვლელ ვიზიტორტა რაოდენობა, საწყის პერიოდთან შედარებით,\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
-    } else {
-      bullet.tooltipText =
-        '[bold]{name}[/]ში გამსვლელ ვიზიტორტა რაოდენობა, საწყის პერიოდთან შედარებით,\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
+    if (this.lang == 'GEO') {
+	    if (this.tType == 1) {
+	      bullet.tooltipText =
+	        '[bold]{name}[/]ში შემომსვლელ ვიზიტორტა რაოდენობა, საწყის პერიოდთან შედარებით,\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
+	    } else {
+	      bullet.tooltipText =
+	        '[bold]{name}[/]ში გამსვლელ ვიზიტორტა რაოდენობა, საწყის პერიოდთან შედარებით,\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
+	    }
+    }
+    else{
+      if (this.tType == 1) {
+	      bullet.tooltipText =
+        'From [bold]{name}[/] number of incoming visitors, compared to the initial period,\nin {year} year has changed by [bold]{valueY.formatNumber("#.%")}';
+	    } else {
+	      bullet.tooltipText =
+	      'From [bold]{name}[/] number of outgoing visitors, compared to the initial period,\nin {year} year has changed by [bold]{valueY.formatNumber("#.%")}';
+	    }
     }
 
     let shadow = new am4core.DropShadowFilter();
