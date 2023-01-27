@@ -398,9 +398,10 @@ export class CompareIndicatorsComponent implements OnInit {
     }
 
     this.anyChart.exporting.menu = new am4core.ExportMenu();
-
-    this.anyChart.exporting.menu.align = "left";
-    this.anyChart.exporting.menu.verticalAlign = "top";
+    this.anyChart.exporting.menu.items[0].icon =
+    '../../../assets/HomePage/download_icon.svg';
+  this.anyChart.exporting.menu.align = 'left';
+  this.anyChart.exporting.menu.verticalAlign = 'top';
     
   }
 

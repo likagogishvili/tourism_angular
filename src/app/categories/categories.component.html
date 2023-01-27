@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="color">
+<!-- <div class="color">
 <div class="container-for-header default__padding mt-4">
   <div class="row ">
     <div class="col-lg-2 col-md-12 col-sm-12 text-center but">
@@ -52,6 +52,43 @@
     </div>
   </div>
 </div>
+</div> -->
 
+<div class="default__padding navbar__background">
+  <i class="burger__icon" [class.burger__icon__open] ="isMenuOpen" (click)="toggleMenu()"></i>
+  <nav class="cnt__navbar" [class.is__open] ="isMenuOpen">
+    <a routerLink="CDefaultIndicators">
+      <p routerLinkActive="act-text" class="text__navbar">
+        {{ 'categories.Indicators' | translate }}
+      </p>
+    </a>
+    <a routerLink="CCompareIndicators">
+      <p routerLinkActive="act-text" class="text__navbar">
+        {{ 'categories.comparision' | translate }}
+      </p>
+    </a>
+    <a routerLink="CRegionalAnalysis">
+      <p routerLinkActive="act-text" class="text__navbar">
+        {{ 'categories.regAnalyse' | translate }}
+      </p>
+    </a>
+    <a routerLink="CSeasonal">
+      <p routerLinkActive="act-text" class="text__navbar">
+        {{ 'categories.sesonal' | translate }}
+      </p>
+    </a>
+    <a routerLink="CInteractiveMap">
+      <p routerLinkActive="act-text" class="text__navbar">
+        {{ 'categories.interMap' | translate }}
+      </p>
+    </a>
+    <a routerLink="CInfoForUser">
+      <p routerLinkActive="act-text" class="text__navbar">
+        {{ 'categories.visits' | translate }}
+      </p>
+    </a>
+  </nav>
 </div>
-<div><router-outlet></router-outlet></div>
+<section class="outlet">
+  <div><router-outlet></router-outlet></div>
+</section>

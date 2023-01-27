@@ -17,7 +17,6 @@ import { Month } from 'src/app/common/Month';
   styleUrls: ['./interactive-map.component.scss'],
 })
 export class InteractiveMapComponent implements OnInit {
-
   constructor(
     private http: HttpClient,
     private commonService: SharedService,
@@ -27,7 +26,7 @@ export class InteractiveMapComponent implements OnInit {
   }
 
   lang: any;
-  
+
   searchText: any;
 
   readonly APIUrl: string = 'http://tourismapi.geostat.ge/api/visitors';
@@ -39,6 +38,8 @@ export class InteractiveMapComponent implements OnInit {
   mapchart!: am4maps.MapChart;
   worldSeries!: am4maps.MapPolygonSeries;
   similarDatas: any;
+  chartName: string = '';
+  countryImg: string = '';
 
   perNights = false;
   notIn = false;
@@ -63,11 +64,10 @@ export class InteractiveMapComponent implements OnInit {
     { vType: 'Same-day visit', value: 2 },
   ];
 
-  vTypes(){
-    if(this.lang == 'GEO'){
+  vTypes() {
+    if (this.lang == 'GEO') {
       return this.vTypesGE;
-    }
-    else{
+    } else {
       return this.vTypesEN;
     }
   }
@@ -103,7 +103,6 @@ export class InteractiveMapComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.SelectCountryData1();
-
     this.getDataForTable();
 
     this.mapchart = am4core.create('chartdiv', am4maps.MapChart);
@@ -161,7 +160,6 @@ export class InteractiveMapComponent implements OnInit {
     //     this.monthsOptions.push(element);
     //   });
     // }
-    
 
     // this.getGenders().subscribe((arg) => {
     //   this.gendersOptions = arg.sort((a: any, b: any) =>
@@ -244,7 +242,6 @@ export class InteractiveMapComponent implements OnInit {
   tempData: any;
   yearsOptions: any = [];
 
-
   gendersOptionsGE: any = [
     { gender: 'ქალი', value: 1 },
     { gender: 'კაცი', value: 2 },
@@ -255,15 +252,13 @@ export class InteractiveMapComponent implements OnInit {
     { gender: 'Male', value: 2 },
   ];
 
-  gendersOptions(){
-    if(this.lang == 'GEO'){
+  gendersOptions() {
+    if (this.lang == 'GEO') {
       return this.gendersOptionsGE;
-    }
-    else{
+    } else {
       return this.gendersOptionsEN;
     }
   }
-
 
   monthsOptions: any = [];
   quartersOptions: any = [
@@ -298,7 +293,6 @@ export class InteractiveMapComponent implements OnInit {
 
   sh: boolean = false;
 
-  
   zoomToCountry(cid: string) {
     let country = this.worldSeries.getPolygonById(cid);
     this.mapchart.zoomToMapObject(country);
@@ -618,7 +612,11 @@ export class InteractiveMapComponent implements OnInit {
 
   getCountriesForChart(id: number) {
     return this.http.get<any>(
-      this.APIUrl + '/visitorsByYearForChart?countryId=' + id + '&lang=' + this.lang
+      this.APIUrl +
+        '/visitorsByYearForChart?countryId=' +
+        id +
+        '&lang=' +
+        this.lang
     );
   }
 
@@ -710,26 +708,28 @@ export class InteractiveMapComponent implements OnInit {
 
   dataForTable: any = [];
   getDataForTable() {
-    return this.http.get<any>(
-      // "https://localhost:5001/api/visitors"
-      this.APIUrl +
-        '/AvarageNights?tour=' +
-        this.selectedVType +
-        '&year=' +
-        this.selectedYear +
-        '&month=' +
-        this.selectedMonth +
-        '&gender=' +
-        this.selectedGender +
-        '&age=' +
-        this.selectedAge +
-        '&quarter=' +
-        this.selectedQuarter +
-        '&lang=' +
-        this.lang
-    ).subscribe((res) => {
-      this.dataForTable = res;
-    });
+    return this.http
+      .get<any>(
+        // "https://localhost:5001/api/visitors"
+        this.APIUrl +
+          '/AvarageNights?tour=' +
+          this.selectedVType +
+          '&year=' +
+          this.selectedYear +
+          '&month=' +
+          this.selectedMonth +
+          '&gender=' +
+          this.selectedGender +
+          '&age=' +
+          this.selectedAge +
+          '&quarter=' +
+          this.selectedQuarter +
+          '&lang=' +
+          this.lang
+      )
+      .subscribe((res) => {
+        this.dataForTable = res;
+      });
   }
 
   getCodes() {
@@ -788,6 +788,26 @@ export class InteractiveMapComponent implements OnInit {
     button.icon.path =
       'M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8';
   }
+  getFlag(args: any) {
+    var ulrForFlags = `http://213.131.33.218:8088/api/fdi/SingleCountrydata?year=2021`;
+    this.http.get<any>(ulrForFlags).subscribe((res) => {
+      console.log(this.chartName);
+      if (this.chartName) {
+        let dataForCountryId = res.filter((i: any) => {
+          return i.name_ka === this.chartName || i.name_en === this.chartName;
+        });
+        setTimeout(() => {
+          if (dataForCountryId.length) {
+            this.countryImg =
+              'assets/flags/' + dataForCountryId[0].country + '.png';
+          } else {
+            this.countryImg = 'assets/header/word.png';
+          }
+        }, 0);
+      }
+    });
+  }
+
   renderChartObject(args: any[]) {
     args.map((item: any) => {
       item.yearNo = item.yearNo.toString();
@@ -798,9 +818,10 @@ export class InteractiveMapComponent implements OnInit {
     let chart = am4core.create('chartdiv2', am4charts.XYChart);
     chart.paddingRight = 20;
     chart.colors.step = 3;
+    this.chartName = args[0].countryNameGe;
+    this.getFlag(args);
 
     chart.data = args;
-
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.location = 0;
     dateAxis.renderer.axisFills.template.disabled = true;
@@ -814,8 +835,8 @@ export class InteractiveMapComponent implements OnInit {
     let series = chart.series.push(new am4charts.LineSeries());
     series.dataFields.dateX = 'yearNo';
     series.dataFields.valueY = 'value';
-    series.name = args[0].countryNameGe;
-    series.bullets.push(new am4charts.CircleBullet());
+    // series.name = args[0].countryNameGe;
+    // series.bullets.push(new am4charts.CircleBullet());
     series.strokeWidth = 4;
     series.tensionX = 0.8;
 
@@ -829,17 +850,15 @@ export class InteractiveMapComponent implements OnInit {
     if (this.selectedCountryDataId == -1) {
       if (this.lang == 'GEO') {
         series.tooltipText = '{yearNo} წელს, {value}';
-      }
-      else{
+      } else {
         series.tooltipText = '{yearNo} Year, {value}';
       }
-    }
-    else{
+    } else {
       if (this.lang == 'GEO') {
         series.tooltipText = '{yearNo} წელს, {value} ვიზიტი {countryNameGe}დან';
-      }
-      else{
-        series.tooltipText = '{yearNo} Year, {value} Visits from {countryNameGe}';
+      } else {
+        series.tooltipText =
+          '{yearNo} Year, {value} Visits from {countryNameGe}';
       }
     }
 

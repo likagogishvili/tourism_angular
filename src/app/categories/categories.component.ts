@@ -15,4 +15,9 @@ export class CategoriesComponent implements OnInit {
   ngOnInit(): void {
     // this.el.hideButtons();
   }
+  isMenuOpen = false;
+
+  toggleMenu():void {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 }
