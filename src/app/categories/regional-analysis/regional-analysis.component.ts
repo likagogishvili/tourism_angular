@@ -526,7 +526,12 @@ export class RegionalAnalysisComponent implements OnInit {
 
     let polygonTemplate2 = polygonSeries2.mapPolygons.template;
     
-    polygonTemplate2.tooltipText = "{name}";
+    if (this.lang == 'GEO') {
+      polygonTemplate2.tooltipText = "{name} - რეგიონის მონაცემები გაერთიანებულია იმერეთის რეგიონის მონაცემებთან";
+    }
+    else{
+      polygonTemplate2.tooltipText = "{name} - The data of the region is combined with the data of the Imereti region";
+    }
 
     
 
