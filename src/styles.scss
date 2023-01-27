@@ -204,7 +204,15 @@ a {
 .amcharts-amexport-menu {
   position: absolute !important;
   top: -35px !important;
+  right: 20px !important;
   li {
     background-color: #fff !important;
   }
+}
+
+
+// default radio and checkbox buttons
+
+input[type='radio'],input[type='checkbox'] {
+  accent-color : #51459f;
 }
