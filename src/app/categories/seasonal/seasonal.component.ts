@@ -215,7 +215,7 @@ export class SeasonalComponent implements OnInit {
         this.titleForChart = "ვიზიტების რაოდენობა";
       }
       else{
-        this.titleForChart = "Number of Visitsა";
+        this.titleForChart = "Number of Visits";
       }
     }
     else{
