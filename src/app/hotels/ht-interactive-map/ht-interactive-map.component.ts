@@ -34,7 +34,6 @@ export class HtInteractiveMapComponent implements OnInit {
   countryId: string = '';
   chosenCountryName: string = '';
 
-
   result: any = [];
   filteredChartData: any = [];
 
@@ -86,23 +85,16 @@ export class HtInteractiveMapComponent implements OnInit {
   }
 
   getFlag(country: string) {
-    console.log(country)
-    var ulrForFlags = `http://213.131.33.218:8088/api/fdi/SingleCountrydata?year=2021`;
-
-    this.http.get<any>(ulrForFlags).subscribe((res) => {
-      if (country) {
-        let dataForCountryId = res.filter((i: any) => {
-          return i.name_ka === country || i.name_en === country;
-        });
-
-        this.countryId =
-          'assets/flags/' + dataForCountryId[0].country + '.png';
-        this.chosenCountryName = country
-      }else{
-        this.countryId =
-        'assets/header/word.png';
-      }
-    });
+    if (country) {
+      let dataForCountryId = this.chartData.filter((i: any) => {
+        return i.countryName === country;
+      });
+      this.countryId =
+        'assets/flags/' + dataForCountryId[0].id.toLowerCase() + '.svg';
+      this.chosenCountryName = country;
+    } else {
+      this.countryId = 'assets/header/word.png';
+    }
   }
 
   visits: boolean = false;
