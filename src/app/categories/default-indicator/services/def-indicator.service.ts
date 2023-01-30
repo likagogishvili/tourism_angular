@@ -359,8 +359,8 @@ export class DefIndicatorService {
   ];
 
   TourNamesEN: string[] = [
-    "Tourist",
-    "Excursionist"
+    "Tourist visit",
+    "Same-day visit"
   ];
 
   TourNames(){
