@@ -181,30 +181,15 @@
       </div>
     </section>
 
-    <div class="col-12" style="height: 70px"></div>
-    <div class="row col-12 plpr">
-      <div *ngIf="tourismType == 1" class="col-lg-6">
-        <div class="contForBottomTwoChart">
-          <div style="display: flex">
-            <div class="text-center font col-11 mt-4" style="color: #3d3d3e; font-size: 24px; flex: 1">{{ sanqiName }}
-            </div>
-            <div class="">
-            </div>
-          </div>
-          <div class="meoreRagac mt-3" id="chart22" style="width: 90%; height: 80%; padding-left: 66px"></div>
-        </div>
+    <div class="other__charts__cnt  regional__analysis">
+      <div *ngIf="tourismType == 1" class="sub__chart__cnt">
+            <h3 class="chart__title">{{ sanqiName }}
+            </h3>
+          <div class="sub__chart" id="chart22"></div>
       </div>
-      <div *ngIf="tourismType == 1" class="col-lg-6">
-        <div class="contForBottomTwoChart">
-          <div style="display: flex">
-            <div class="text-center font col-11 mt-3"
-              style="color: #3d3d3e; font-size: 24px; padding-top: 20px; flex: 1;">{{ expenceTitle }}</div>
-            <div class="">
-            </div>
-          </div>
-
-          <div class="meoreRagac" id="chart2" style="width: 90%; height: 90%; padding-left: 66px"></div>
-        </div>
+      <div *ngIf="tourismType == 1" class="sub__chart__cnt">
+          <h3 class="chart__title">{{ expenceTitle }}</h3>
+          <div class="sub__chart" id="chart2"></div>
       </div>
     </div>
     <div class="col-12" style="height: 70px"></div>

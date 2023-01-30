@@ -204,7 +204,7 @@ a {
 .amcharts-amexport-menu {
   position: absolute !important;
   top: -35px !important;
-  right: 20px !important;
+  // right: 20px !important;
   li {
     background-color: #fff !important;
   }
@@ -228,6 +228,13 @@ a {
 //   }
 // }
 
+.regional__analysis {
+  .amcharts-amexport-menu {
+    position: absolute !important;
+    top: -15px !important;
+    right: 0 !important;
+  }
+}
 
 
 // default radio and checkbox buttons
@@ -242,4 +249,8 @@ input[type='radio'],input[type='checkbox'] {
   font-feature-settings: "case" off;
   font-style: italic;
   margin: 0 !important;
+}
+
+.main__logo {
+  width: 70px;
 }
