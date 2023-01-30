@@ -12,24 +12,22 @@ import { SesonalService } from './service/sesonal.service';
   styleUrls: ['./seasonal.component.scss'],
 })
 export class SeasonalComponent implements OnInit {
-
   readonly APIUrl: string = 'http://tourismapi.geostat.ge/api/Visitors';
 
   constructor(private http: HttpClient, private srvc: SesonalService) {
-
     this.tTypes = this.srvc.getTourismTypes();
     this.tType = 2;
 
     this.vTypes = this.srvc.getVisitTypes();
     this.vType = 0;
-    
+
     this.genders = this.srvc.getGenders();
     this.gender = 0;
 
     this.ages = this.srvc.getAges();
     this.age = 0;
 
-    this.country = "";
+    this.country = '';
 
     this.lang = localStorage.getItem('Language');
   }
@@ -47,36 +45,25 @@ export class SeasonalComponent implements OnInit {
 
   // TourismTypeOptions etc.
 
-
   selectedTType: number = 1;
 
   tType!: number;
   tTypes!: IDropDown[];
 
-
   selectedVType: number = 0;
 
   vType!: number;
   vTypes!: IDropDown[];
-  
-
 
   selectedGender: number = 0;
 
-
   gender!: number;
   genders!: IDropDown[];
-  
-
-
 
   selectedAge: number = 0;
 
   age!: number;
   ages!: IDropDown[];
-  
-
-
 
   selectedCountries: string = '';
 
@@ -85,8 +72,7 @@ export class SeasonalComponent implements OnInit {
 
   // /PeriodOptions etc.
 
-  titleForChart: string = "";
-
+  titleForChart: string = '';
 
   quarter: number = 0;
   quarters!: IDropDown[];
@@ -96,27 +82,27 @@ export class SeasonalComponent implements OnInit {
 
   selectvTypeChange() {
     am4core.disposeAllCharts();
-    this.getSeasonalPerc()
+    this.getSeasonalPerc();
   }
 
   selecttTypeChange() {
     am4core.disposeAllCharts();
-    this.getSeasonalPerc()
+    this.getSeasonalPerc();
   }
 
   selectGenderChange() {
     am4core.disposeAllCharts();
-    this.getSeasonalPerc()
+    this.getSeasonalPerc();
   }
 
   selectAgeChange() {
     am4core.disposeAllCharts();
-    this.getSeasonalPerc()
+    this.getSeasonalPerc();
   }
 
   selectCountriesChange() {
     am4core.disposeAllCharts();
-    this.getSeasonalPerc()
+    this.getSeasonalPerc();
   }
 
   // ----------------------------------------------/ChangeOptions-------------------------------------------------------------
@@ -134,10 +120,10 @@ export class SeasonalComponent implements OnInit {
   getCountryes(): any {
     let uRl = this.APIUrl + '/countryes' + '?lang=' + this.lang;
 
-    return this.http.get<any>(uRl).subscribe(res => { this.countryes = res});
+    return this.http.get<any>(uRl).subscribe((res) => {
+      this.countryes = res;
+    });
   }
-
-
 
   getSeasonalPerc() {
     if (this.tType == 1) {
@@ -157,8 +143,7 @@ export class SeasonalComponent implements OnInit {
         .subscribe((res) => {
           this.createChart(res);
         });
-    }
-    else if (this.tType == 2) {
+    } else if (this.tType == 2) {
       this.http
         .get<any>(
           'http://tourismapi.geostat.ge/api/Visitors/VisitorFilterIN' +
@@ -176,8 +161,7 @@ export class SeasonalComponent implements OnInit {
         .subscribe((res) => {
           this.createChart(res);
         });
-    }
-    else if (this.tType == 3) {
+    } else if (this.tType == 3) {
       this.http
         .get<any>(
           'http://tourismapi.geostat.ge/api/Visitors/VisitorFilterOUT' +
@@ -196,7 +180,6 @@ export class SeasonalComponent implements OnInit {
           this.createChart(res);
         });
     }
-    
   }
 
   // ----------------------------------------------/HTTP Calls-------------------------------------------------------------
@@ -210,20 +193,17 @@ export class SeasonalComponent implements OnInit {
 
     chart.colors.step = 3;
 
-    if(this.percenetOrNot == 1){
+    if (this.percenetOrNot == 1) {
       if (this.lang == 'GEO') {
-        this.titleForChart = "ვიზიტების რაოდენობა";
+        this.titleForChart = 'ვიზიტების რაოდენობა';
+      } else {
+        this.titleForChart = 'Number of Visits';
       }
-      else{
-        this.titleForChart = "Number of Visits";
-      }
-    }
-    else{
+    } else {
       if (this.lang == 'GEO') {
-        this.titleForChart = "ვიზიტების პროცენტული განაწილება წლების მიხედვით";
-      }
-      else{
-        this.titleForChart = "Percentage Distribution of Visits by Year";
+        this.titleForChart = 'ვიზიტების პროცენტული განაწილება წლების მიხედვით';
+      } else {
+        this.titleForChart = 'Percentage Distribution of Visits by Year';
       }
     }
 
@@ -234,7 +214,7 @@ export class SeasonalComponent implements OnInit {
     xAxis.renderer.opposite = true;
 
     xAxis.dataFields.category = 'monthName';
-    if (this.tType == 1){
+    if (this.tType == 1) {
       xAxis.dataFields.category = 'quarterName';
     }
     yAxis.dataFields.category = 'yearNo';
@@ -242,7 +222,7 @@ export class SeasonalComponent implements OnInit {
     xAxis.renderer.grid.template.disabled = true;
     xAxis.renderer.minGridDistance = 40;
 
-    chart.language.locale["_thousandSeparator"] = " ";
+    chart.language.locale['_thousandSeparator'] = ' ';
     yAxis.renderer.grid.template.disabled = true;
     yAxis.renderer.inversed = true;
     yAxis.renderer.minGridDistance = 30;
@@ -251,16 +231,15 @@ export class SeasonalComponent implements OnInit {
 
     series.dataFields.categoryX = 'monthName';
 
-    if (this.tType == 1){
+    if (this.tType == 1) {
       series.dataFields.categoryX = 'quarterName';
     }
     series.dataFields.categoryY = 'yearNo';
 
-    let field = 'visits'
-    
+    let field = 'visits';
+
     if (this.percenetOrNot === 2) {
-      field =
-      "perc";
+      field = 'perc';
     }
 
     series.dataFields.value = field;
@@ -275,28 +254,25 @@ export class SeasonalComponent implements OnInit {
     columnTemplate.stroke = bgColor;
     if (this.percenetOrNot === 2) {
       if (this.lang == 'GEO') {
-	      columnTemplate.tooltipText =
-	      "{visits.formatNumber('#.0a')} ვიზიტი, წლიური რაოდენობის {perc.formatNumber('#,###.0')}% ";
-      }
-      else{
         columnTemplate.tooltipText =
-	      "{visits.formatNumber('#.0a')} Visits, {perc.formatNumber('#,###.0')}% from annual amount ";
+          "{visits.formatNumber('#.0a')} ვიზიტი, წლიური რაოდენობის {perc.formatNumber('#,###.0')}% ";
+      } else {
+        columnTemplate.tooltipText =
+          "{visits.formatNumber('#.0a')} Visits, {perc.formatNumber('#,###.0')}% from annual amount ";
       }
     }
     if (this.percenetOrNot === 1) {
       if (this.lang == 'GEO') {
-	      columnTemplate.tooltipText =
-	      "{value.workingValue.formatNumber('#.0a')} ვიზიტი ";
-      }
-      else{
         columnTemplate.tooltipText =
-	      "{value.workingValue.formatNumber('#.0a')} visits ";
+          "{value.workingValue.formatNumber('#.0a')} ვიზიტი ";
+      } else {
+        columnTemplate.tooltipText =
+          "{value.workingValue.formatNumber('#.0a')} visits ";
       }
     }
 
     columnTemplate.width = am4core.percent(100);
     columnTemplate.height = am4core.percent(100);
-
 
     series.heatRules.push({
       target: columnTemplate,
@@ -339,10 +315,9 @@ export class SeasonalComponent implements OnInit {
     // chart.legend.hide;
 
     chart.exporting.menu = new am4core.ExportMenu();
-
-    chart.exporting.menu.align = "left";
-    chart.exporting.menu.verticalAlign = "top";
+    chart.exporting.menu.items[0].icon =
+      '../../../assets/HomePage/download_icon.svg';
+    chart.exporting.menu.align = 'right';
+    chart.exporting.menu.verticalAlign = 'top';
   }
-
- 
 }

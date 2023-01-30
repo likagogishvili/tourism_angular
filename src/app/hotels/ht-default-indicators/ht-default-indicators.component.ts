@@ -204,7 +204,10 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     var newData = data.filter(function (el) {
       return el.value != 0;
     });
-
+    newData.map((i: any) => {
+      i.from = i.from.split('_').join(' ');
+      i.to = i.to.split('_').join(' ');
+    });
     let chart = am4core.create('chartMain', am4charts.SankeyDiagram);
     chart.hiddenState.properties.opacity = 0;
     chart.data = newData;
@@ -217,12 +220,12 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     chart.dataFields.value = 'value';
 
     chart.paddingRight = 120;
-
     let nodeTemplate = chart.nodes.template;
     nodeTemplate.inert = true;
     nodeTemplate.readerTitle = 'Drag me!';
     nodeTemplate.showSystemTooltip = true;
     nodeTemplate.width = 20;
+
 
     let nodeTemplate2 = chart.nodes.template;
     nodeTemplate2.readerTitle = 'Click to show/hide or drag to rearrange';
@@ -280,13 +283,23 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
       case 'chartGestCount':
         this.countryGroups.forEach((reg) => {
-          this.createSeries(reg.name, reg.name, chart, reg.name);
+          this.createSeries(
+            reg.name.split('_').join(' '),
+            reg.name.split('_').join(' '),
+            chart,
+            reg.name.split('_').join(' ')
+          );
         });
         break;
 
       case 'chartRevenue':
         if (this.lang == 'GEO') {
-          this.createSeries('ოთახები', 'ნომრების გაქირავება', chart, 'ნომრების გაქირავებიდან');
+          this.createSeries(
+            'ოთახები',
+            'ნომრების გაქირავება',
+            chart,
+            'ნომრების გაქირავებიდან'
+          );
           this.createSeries('სერვისი', 'სერვისი', chart, 'სერვისიდან');
           this.createSeries('რესტორანი', 'რესტორანი', chart, 'რესტორნიდან');
           this.createSeries('სხვა', 'სხვა', chart, 'სხვა');
@@ -300,12 +313,11 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
       case 'chartGender':
         if (this.lang == 'GEO') {
-	        this.createSeries("ქალი", "ქალი", chart, "ქალი");
-	        this.createSeries("კაცი", "კაცი", chart, "კაცი");
-        }
-        else{
-          this.createSeries("Female", "Female", chart, "Female");
-	        this.createSeries("Male", "Male", chart, "Male");
+          this.createSeries('ქალი', 'ქალი', chart, 'ქალი');
+          this.createSeries('კაცი', 'კაცი', chart, 'კაცი');
+        } else {
+          this.createSeries('Female', 'Female', chart, 'Female');
+          this.createSeries('Male', 'Male', chart, 'Male');
         }
         break;
 

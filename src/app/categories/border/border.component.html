@@ -3,12 +3,14 @@
   style="background-color: #f9fbff; padding-bottom: 100px"
 >
   <h3 class="top10Heading">
-    {{ 'border.top1' | translate }} <br />
-    {{ 'border.top2' | translate }}
+    {{ "border.top1" | translate }} <br />
+    {{ "border.top2" | translate }}
   </h3>
 
   <div class="chartAndSelevt col" style="height: 650px">
-    <div class="row">
+    <div
+      class="row d-flex; justify-content-betweend-flex; justify-content-between"
+    >
       <div
         class="col-sm-12 col-lg-3 pt-4 selectCont mt-2"
         style="min-height: 90%"
@@ -19,9 +21,9 @@
             'url(../../../assets/c-default-indicators/Calendar.png'
           "
         >
-        {{ 'border.period' | translate }}
+          {{ "border.period" | translate }}
         </div>
-        <p class="top10Texts mt-4">{{ 'border.start' | translate }}</p>
+        <p class="top10Texts mt-4">{{ "border.start" | translate }}</p>
 
         <select class="form-select mt-3 sel" [(ngModel)]="year">
           <option *ngFor="let data of years" value="{{ data }}">
@@ -36,7 +38,7 @@
         </select>
 
         <hr style="color: #5c4fc9" />
-        <p class="top10Texts mt-4">{{ 'border.end' | translate }}</p>
+        <p class="top10Texts mt-4">{{ "border.end" | translate }}</p>
         <select class="form-select mt-3 sel" [(ngModel)]="yearEnd">
           <option *ngFor="let data of yearsReverced" value="{{ data }}">
             {{ data }}
@@ -61,9 +63,9 @@
             (click)="getYears(1)"
             (click)="getYearsReverced(1)"
           />
-          <label class="form-check-label" for="inlineRadio1"
-            >{{ 'border.forign' | translate }}</label
-          >
+          <label class="form-check-label" for="inlineRadio1">{{
+            "border.forign" | translate
+          }}</label>
         </div>
 
         <div class="form-check form-check-inline mt-1">
@@ -77,12 +79,12 @@
             (click)="getYears(2)"
             (click)="getYearsReverced(2)"
           />
-          <label class="form-check-label" for="inlineRadio2"
-            >{{ 'border.exit' | translate }}</label
-          >
+          <label class="form-check-label" for="inlineRadio2">{{
+            "border.exit" | translate
+          }}</label>
         </div>
         <button type="button" class="compareBTN" (click)="getChart()">
-          {{ 'border.compare' | translate }}
+          {{ "border.compare" | translate }}
         </button>
 
         <div
@@ -91,7 +93,7 @@
           *ngIf="denger"
           style="position: absolute; bottom: 100px; left: 0; z-index: 10"
         >
-          <strong>{{ 'border.message' | translate }}</strong>
+          <strong>{{ "border.message" | translate }}</strong>
           <button
             type="button"
             class="btn-close"
@@ -107,8 +109,8 @@
       </div>
 
       <div class="col-sm-0 col-lg-2 top10 mt-2 mb-2">
-        <p class="text-center">{{ 'border.type' | translate }}</p>
-        <div id="legenddiv" style="min-height: 500px"></div>
+        <p class="text-center">{{ "border.type" | translate }}</p>
+        <div id="legenddiv" style="height: 500px"></div>
       </div>
     </div>
   </div>

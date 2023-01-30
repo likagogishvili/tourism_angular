@@ -25,50 +25,57 @@ export class Top15Component implements OnInit {
   lang: any;
 
   ngOnInit(): void {
-    
     if (this.lang == 'GEO') {
-
       this.monthies.push({ name: 'აირჩიეთ თვე', value: 0, isDisabled: false });
-      this.monthiesEnd.push({ name: 'აირჩიეთ თვე', value: 0, isDisabled: false });
+      this.monthiesEnd.push({
+        name: 'აირჩიეთ თვე',
+        value: 0,
+        isDisabled: false,
+      });
 
-	    Object.keys(Month)
-	      .filter((v) => isNaN(Number(v)))
-	      .forEach((element: string) => {
-	        this.monthies.push({
-	          name: element,
-	          value: Object.values(Month).indexOf(element) + 1,
-	          isDisabled: false,
-	        }),
-	          this.monthiesEnd.push({
-	            name: element,
-	            value: Object.values(Month).indexOf(element) + 1,
-	            isDisabled: false,
-	          });
-	      });	
-    }
-    else{
-
-      this.monthies.push({ name: 'Select a Month', value: 0, isDisabled: false });
-      this.monthiesEnd.push({ name: 'Select a Month', value: 0, isDisabled: false });
+      Object.keys(Month)
+        .filter((v) => isNaN(Number(v)))
+        .forEach((element: string) => {
+          this.monthies.push({
+            name: element,
+            value: Object.values(Month).indexOf(element) + 1,
+            isDisabled: false,
+          }),
+            this.monthiesEnd.push({
+              name: element,
+              value: Object.values(Month).indexOf(element) + 1,
+              isDisabled: false,
+            });
+        });
+    } else {
+      this.monthies.push({
+        name: 'Select a Month',
+        value: 0,
+        isDisabled: false,
+      });
+      this.monthiesEnd.push({
+        name: 'Select a Month',
+        value: 0,
+        isDisabled: false,
+      });
 
       this.startM = { name: 'Select a Month', value: 0, isDisabled: false };
       this.endM = { name: 'Select a Month', value: 0, isDisabled: false };
 
-
       Object.keys(MonthEN)
-	      .filter((v) => isNaN(Number(v)))
-	      .forEach((element: string) => {
-	        this.monthies.push({
-	          name: element,
-	          value: Object.values(Month).indexOf(element) + 1,
-	          isDisabled: false,
-	        }),
-	          this.monthiesEnd.push({
-	            name: element,
-	            value: Object.values(Month).indexOf(element) + 1,
-	            isDisabled: false,
-	          });
-	      });	
+        .filter((v) => isNaN(Number(v)))
+        .forEach((element: string) => {
+          this.monthies.push({
+            name: element,
+            value: Object.values(Month).indexOf(element) + 1,
+            isDisabled: false,
+          }),
+            this.monthiesEnd.push({
+              name: element,
+              value: Object.values(Month).indexOf(element) + 1,
+              isDisabled: false,
+            });
+        });
     }
 
     this.getTopChart(
@@ -85,7 +92,6 @@ export class Top15Component implements OnInit {
 
   yearsReverced!: number[];
   yearEnd: number = 2022;
-
 
   monthies: IDropDown[] = [];
   startM: IDropDown = { name: 'აირჩიეთ თვე', value: 0, isDisabled: false };
@@ -211,8 +217,7 @@ export class Top15Component implements OnInit {
     valueAxis.renderer.grid.template.location = 0;
     if (this.lang == 'GEO') {
       valueAxis.title.text = 'ვიზიტები';
-    }
-    else{
+    } else {
       valueAxis.title.text = 'Visits';
     }
 
@@ -229,96 +234,75 @@ export class Top15Component implements OnInit {
         if (stQ == '1') {
           if (this.lang == 'GEO') {
             stQ = 'იან, ';
-          }
-          else{
+          } else {
             stQ = 'Jan, ';
           }
         } else if (stQ == '2') {
           if (this.lang == 'GEO') {
             stQ = 'თებ, ';
-          }
-          else{
+          } else {
             stQ = 'Feb, ';
-          }          
+          }
         } else if (stQ == '3') {
           if (this.lang == 'GEO') {
             stQ = 'მარ, ';
-          }
-          else{
+          } else {
             stQ = 'Mar, ';
-          }          
+          }
         } else if (stQ == '4') {
           if (this.lang == 'GEO') {
             stQ = 'აპრ, ';
-          }
-          else{
+          } else {
             stQ = 'Apr, ';
           }
-          
         } else if (stQ == '5') {
           if (this.lang == 'GEO') {
             stQ = 'მაი, ';
-          }
-          else{
+          } else {
             stQ = 'May, ';
           }
-          
         } else if (stQ == '6') {
           if (this.lang == 'GEO') {
             stQ = 'ივნ, ';
-          }
-          else{
+          } else {
             stQ = 'Jun, ';
           }
-          
         } else if (stQ == '7') {
           if (this.lang == 'GEO') {
             stQ = 'ივლ, ';
-          }
-          else{
+          } else {
             stQ = 'Jul, ';
           }
-          
         } else if (stQ == '8') {
           if (this.lang == 'GEO') {
             stQ = 'აგვ, ';
-          }
-          else{
+          } else {
             stQ = 'Aug, ';
           }
-          
         } else if (stQ == '9') {
           if (this.lang == 'GEO') {
             stQ = 'სექ, ';
-          }
-          else{
+          } else {
             stQ = 'Sep, ';
           }
-          
         } else if (stQ == '10') {
           if (this.lang == 'GEO') {
             stQ = 'ოქტ, ';
-          }
-          else{
+          } else {
             stQ = 'Oct, ';
           }
-          
         } else if (stQ == '11') {
           if (this.lang == 'GEO') {
             stQ = 'ნოე, ';
-          }
-          else{
+          } else {
             stQ = 'Nov, ';
           }
-          
         } else if (stQ == '12') {
           if (this.lang == 'GEO') {
             stQ = 'დეკ, ';
-          }
-          else{
+          } else {
             stQ = 'Dec, ';
           }
-          
         }
 
         let fnSt: string = `${stQ} ${stY}`;
@@ -339,7 +323,7 @@ export class Top15Component implements OnInit {
     let legendContainer = am4core.create('legenddiv', am4core.Container);
     legendContainer.width = am4core.percent(100);
     legendContainer.height = am4core.percent(100);
-
+    legendContainer.logo.disabled = true;
     chart.legend.parent = legendContainer;
 
     // chart.legend.maxHeight = 50;
@@ -359,7 +343,9 @@ export class Top15Component implements OnInit {
 
     chart.logo.disabled = true;
     chart.exporting.menu = new am4core.ExportMenu();
-    chart.exporting.menu.align = 'left';
+    chart.exporting.menu.items[0].icon =
+      '../../../assets/HomePage/download_icon.svg';
+    chart.exporting.menu.align = 'right';
     chart.exporting.menu.verticalAlign = 'top';
   }
 
@@ -389,12 +375,11 @@ export class Top15Component implements OnInit {
     bullet.circle.strokeWidth = 2;
 
     if (this.lang == 'GEO') {
-	    bullet.tooltipText =
-	      '[bold]{name}[/]დან ვიზიტორტა რაოდენობა, საწყის პერიოდთან შედარებით,\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
-    }
-    else{
       bullet.tooltipText =
-	      'From [bold]{name}[/] Amount of Visitors, Compared to\n{year} Year, Has Changed By [bold]{valueY.formatNumber("#.%")}';
+        '[bold]{name}[/]დან ვიზიტორტა რაოდენობა, საწყის პერიოდთან შედარებით,\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
+    } else {
+      bullet.tooltipText =
+        'From [bold]{name}[/] Amount of Visitors, Compared to\n{year} Year, Has Changed By [bold]{valueY.formatNumber("#.%")}';
     }
 
     let shadow = new am4core.DropShadowFilter();
