@@ -235,3 +235,11 @@ a {
 input[type='radio'],input[type='checkbox'] {
   accent-color : #51459f;
 }
+
+.note {
+  color: #6b6b6d;
+  font-size: 0.7rem;
+  font-feature-settings: "case" off;
+  font-style: italic;
+  margin: 0 !important;
+}
