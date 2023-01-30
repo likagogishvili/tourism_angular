@@ -252,6 +252,18 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     valueAxis.renderer.grid.template.location = 0;
     valueAxis.min = 0;
     chart.data = res;
+    chart.colors.list = [
+      am4core.color('#2330A4'),
+      am4core.color('#FDA241'),
+      am4core.color('#FF7EAE'),
+      am4core.color('#CBBAED'),
+      am4core.color('#F5F3BB'),
+      am4core.color('#86BA90'),
+      am4core.color('#2A92A4'),
+      am4core.color('#6A1AA4'),
+      am4core.color('#33A450'),
+      am4core.color('#A42030'),
+    ];
 
     switch (chartDiv) {
       case 'chartHotelCount':
@@ -347,7 +359,8 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     marker.cornerRadius(12, 12, 12, 12);
     marker.strokeWidth = 1;
     marker.strokeOpacity = 1;
-    marker.stroke = am4core.color('#ccc');
+    // marker.stroke = am4core.color('#ccc');
+
 
     chart.exporting.menu = new am4core.ExportMenu();
     chart.exporting.menu.items[0].icon =
