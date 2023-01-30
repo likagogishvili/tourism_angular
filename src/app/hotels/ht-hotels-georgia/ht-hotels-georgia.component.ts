@@ -71,8 +71,8 @@ export class HtHotelsGeorgiaComponent implements AfterViewInit {
 
   getHotelInfo(taxId: number, marker: any){
     this.srv.getHotelInfo(taxId).subscribe(res => {
-      marker.bindPopup('საიდენტიფიკაციო კოდი: ' + res.taxId + "<br/>" +
-                        'ragac:' + res.OwnershipType)
+      marker.bindPopup('საიდენტიფიკაციო კოდი: ' + taxId + "<br/>" +
+                        'ინფო: ' + '<a href="http://www.google.com">res.ownership_Type</a>"')
     })
   }
   
@@ -85,10 +85,11 @@ export class HtHotelsGeorgiaComponent implements AfterViewInit {
         // shadowUrl: 'leaf-shadow.png',
       });
     
-      let marker = L.marker([element.lat, element.lng], {icon: greenIcon});
+      let marker = L.marker([element.lat, element.lng], {title: element.taxId, icon: greenIcon});
       this.markerList.push(marker);
       marker.addTo(this.map);
       // this.getHotelInfo(Number(element.taxId), marker);
+      marker.bindPopup('საიდენტიფიკაციო კოდი: ' + element.taxId + "<br/>" +'<a href="https://www.geostat.ge/ka">ინფო</a>');
     });
   }
   
