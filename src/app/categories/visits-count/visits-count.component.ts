@@ -311,9 +311,10 @@ export class VisitsCountComponent implements OnInit {
     chart.logo.disabled = true;
 
     chart.exporting.menu = new am4core.ExportMenu();
-
-    chart.exporting.menu.align = "left";
-    chart.exporting.menu.verticalAlign = "top";
+    chart.exporting.menu.items[0].icon =
+      '../../../assets/HomePage/download_icon.svg';
+    chart.exporting.menu.align = 'right';
+    chart.exporting.menu.verticalAlign = 'top'
     
   }
 
