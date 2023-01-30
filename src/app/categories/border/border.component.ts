@@ -315,6 +315,15 @@ export class BorderComponent implements OnInit {
     }
     chart.data = res;
 
+    let ser: am4charts.LineSeries;
+
+    if (this.lang == 'GEO') {
+      ser = this.createSeries("void", "სულ", chart, "სულ");
+    }
+    else{
+      ser = this.createSeries("void", "All", chart, "All");
+    }
+
     Object.keys(res[0])
       .filter((x) => x != 'year')
       .forEach((element: string) => {
@@ -324,6 +333,22 @@ export class BorderComponent implements OnInit {
     // this.borderTypes.forEach(element => {
     //   this.createSeries(element, element, chart, element);
     // });
+
+
+    //let allSer = chart.series
+
+
+    ser.events.on("hidden", function() {
+      chart.series.values.forEach(function(series: { name: any; show: () => void; hide: () => void; }) {
+        series.hide();
+      })
+    });
+    
+    ser.events.on("shown", function() {
+      chart.series.values.forEach(function(series: { name: any; show: () => void; hide: () => void; }) {
+        series.show();
+      })
+    });
 
     chart.legend = new am4charts.Legend();
 

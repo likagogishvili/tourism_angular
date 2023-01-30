@@ -15,7 +15,10 @@ export class HtHotelsGeorgiaComponent implements AfterViewInit {
   constructor(private srv: HotelsService) {
     this.hotelTypes = this.srv.getHotelTypes();
     this.roomsNuber = this.srv.getRoomNumbers();
+    this.lang = localStorage.getItem('Language');
   }
+
+  lang: any;
 
   ngOnInit() {
     this.initMap();
@@ -69,12 +72,12 @@ export class HtHotelsGeorgiaComponent implements AfterViewInit {
     tiles.addTo(this.map);
   }
 
-  getHotelInfo(taxId: number, marker: any){
-    this.srv.getHotelInfo(taxId).subscribe(res => {
-      marker.bindPopup('საიდენტიფიკაციო კოდი: ' + taxId + "<br/>" +
-                        'ინფო: ' + '<a href="http://www.google.com">res.ownership_Type</a>"')
-    })
-  }
+  // getHotelInfo(taxId: number, marker: any){
+  //   this.srv.getHotelInfo(taxId).subscribe(res => {
+  //     marker.bindPopup('საიდენტიფიკაციო კოდი: ' + taxId + "<br/>" +
+  //                       'ინფო: ' + '<a href="http://www.google.com">res.ownership_Type</a>"')
+  //   })
+  // }
   
   
   addMarkers(lst: any) {
@@ -89,7 +92,12 @@ export class HtHotelsGeorgiaComponent implements AfterViewInit {
       this.markerList.push(marker);
       marker.addTo(this.map);
       // this.getHotelInfo(Number(element.taxId), marker);
-      marker.bindPopup('საიდენტიფიკაციო კოდი: ' + element.taxId + "<br/>" +'<a href="https://www.geostat.ge/ka">ინფო</a>');
+      if (this.lang == 'GEO') {
+        marker.bindPopup('საიდენტიფიკაციო კოდი: ' + element.taxId + "<br/>" +'<center><a target="_blank" href="https://www.geostat.ge/ka">ინფო</a></center>');
+      }
+      else{
+        marker.bindPopup('Identification Code: ' + element.taxId + "<br/>" +'<center><a target="_blank" href="https://www.geostat.ge/ka">Info</a></center>');
+      }
     });
   }
   
