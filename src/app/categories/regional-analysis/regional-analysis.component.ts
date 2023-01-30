@@ -464,7 +464,19 @@ export class RegionalAnalysisComponent implements OnInit {
     am4core.useTheme(am4themes_animated);
     let chart = am4core.create("chart1", am4maps.MapChart);
 
-    chart.colors.step = 3;
+    // chart.colors.step = 3;;
+    chart.colors.list = [
+      am4core.color('#2330A4'),
+      am4core.color('#FDA241'),
+      am4core.color('#FF7EAE'),
+      am4core.color('#CBBAED'),
+      am4core.color('#F5F3BB'),
+      am4core.color('#86BA90'),
+      am4core.color('#2A92A4'),
+      am4core.color('#6A1AA4'),
+      am4core.color('#33A450'),
+      am4core.color('#A42030'),
+    ];
 
     // chart.titles.create().text = title;
 
@@ -492,8 +504,10 @@ export class RegionalAnalysisComponent implements OnInit {
     polygonSeries.heatRules.push({
       property: "fill",
       target: polygonSeries.mapPolygons.template,
-      min: chart.colors.getIndex(1).brighten(1),
-      max: chart.colors.getIndex(1).brighten(-0.3),
+      // min: chart.colors.getIndex(1).brighten(1),
+      // max: chart.colors.getIndex(1).brighten(-0.3),
+      min: chart.colors.getIndex(0).brighten(1),
+      max: chart.colors.getIndex(0).brighten(-0.3),
       // minValue: 5,
       // maxValue: 500
 
@@ -543,7 +557,7 @@ export class RegionalAnalysisComponent implements OnInit {
     polygonTemplate.strokeWidth = 1;
 
     let hs = polygonTemplate.states.create("hover");
-    hs.properties.fill = chart.colors.getIndex(1).brighten(-0.5);
+    hs.properties.fill = chart.colors.getIndex(0).brighten(-0.5);
 
     chart.logo.disabled = true;
     
@@ -565,7 +579,20 @@ export class RegionalAnalysisComponent implements OnInit {
     categoryAxis.numberFormatter.numberFormat = '#';
 
 
-    chart.colors.step = 3;
+    // chart.colors.step = 3;
+
+    chart.colors.list = [
+      am4core.color('#2330A4'),
+      am4core.color('#FDA241'),
+      am4core.color('#FF7EAE'),
+      am4core.color('#CBBAED'),
+      am4core.color('#F5F3BB'),
+      am4core.color('#86BA90'),
+      am4core.color('#2A92A4'),
+      am4core.color('#6A1AA4'),
+      am4core.color('#33A450'),
+      am4core.color('#A42030'),
+    ];
 
     if (this.lang == 'GEO') {
       this.expenceTitle = "ხარჯები საცხოვრებელი რეგიონების მიხედვით";
@@ -720,6 +747,20 @@ migrationChart(res: any) {
     chart.dataFields.fromName = "from";
     chart.dataFields.toName = "to";
     chart.dataFields.value = "value";
+
+    
+    chart.colors.list = [
+      am4core.color('#2330A4'),
+      am4core.color('#FDA241'),
+      am4core.color('#FF7EAE'),
+      am4core.color('#CBBAED'),
+      am4core.color('#F5F3BB'),
+      am4core.color('#86BA90'),
+      am4core.color('#2A92A4'),
+      am4core.color('#6A1AA4'),
+      am4core.color('#33A450'),
+      am4core.color('#A42030'),
+    ];
 
     chart.paddingRight = 30;
 

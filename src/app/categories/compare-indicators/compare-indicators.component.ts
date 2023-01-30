@@ -359,11 +359,11 @@ export class CompareIndicatorsComponent implements OnInit {
     // this.bigChart.colors.step = 3;
     this.anyChart.colors.list = [
       am4core.color('#2330A4'),
-      am4core.color('#FA8D70'),
+      am4core.color('#FDA241'),
       am4core.color('#FF7EAE'),
-      am4core.color('#FF9671'),
-      am4core.color('#FFC75F'),
-      am4core.color('#F9F871'),
+      am4core.color('#CBBAED'),
+      am4core.color('#F5F3BB'),
+      am4core.color('#86BA90'),
     ];
     // Add data
     this.anyChart.data = res;
