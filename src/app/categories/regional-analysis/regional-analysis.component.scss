@@ -1,3 +1,6 @@
+@import "../../../assets/styles/media-queries";
+
+
 // .b1 {
 //   height: 70px;
 //   margin: 5px;
@@ -36,6 +39,11 @@
   grid-template-columns: 0.85fr 3fr;
   margin-top: 1.5rem;
   gap: 1.5rem;
+  @include tablet {
+    grid-template-columns: 12fr;
+
+  }
+
 
   .stats__cnt {
     background: #fff;
@@ -109,6 +117,9 @@
   display: flex;
   gap: 1.5rem;
   margin-top: 1.5rem;
+  @include tablet {
+    flex-direction: column;
+  }
 
   .sub__chart__cnt {
     background-color: #fff;
@@ -121,6 +132,11 @@
     justify-content: space-between;
     border-radius: 15px;
     box-shadow: 0px 4px 50px 5px rgba(0, 0, 0, 0.05);
+    @include tablet {
+      width: 100%;
+
+    }
+  
 
     .chart__title {
       color: #3d3d3e;
