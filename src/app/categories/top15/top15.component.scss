@@ -1,9 +1,12 @@
+@import "../../../assets/styles/_media-queries.scss";
+
 .bgImage {
   background: url("../../../assets/c-default-indicators/worldMap.png"),
     url("../../../assets/c-default-indicators/Plan.png") #f9fbff;
   background-repeat: no-repeat, no-repeat;
   background-position: 99% 64%, 3% 11%;
 }
+
 .top10Heading {
   font-size: 1.5rem;
   line-height: 38px;
@@ -49,6 +52,10 @@
   background: #ffffff;
   box-shadow: 0px 4px 50px 5px rgba(0, 0, 0, 0.05);
   border-radius: 15px;
+  @include tablet {
+    width: 100% !important;
+    margin-top: 40px;
+  }
 }
 .top10 {
   width: 261px;
@@ -61,5 +68,11 @@
     text-align: center;
     color: #3d3d3e;
     margin-top: 20px;
+  }
+}
+
+@media (max-width: 1600px) {
+  .chartDiv {
+    width: 70%;
   }
 }
