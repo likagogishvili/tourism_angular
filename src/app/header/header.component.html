@@ -14,10 +14,20 @@
 
 <header class="header default__padding">
   <a href="/" class="header__cnt1">
-    <img class="main__logo" *ngIf="lang == 'GEO'" src="assets/img/logo/logoKa.svg" alt="Saqstati Logo" />
-    <img class="main__logo" *ngIf="lang == 'ENG'" src="assets/img/logo/geostat_en.svg" alt="Saqstati Logo" />
+    <img
+      class="main__logo"
+      *ngIf="lang == 'GEO'"
+      src="assets/img/logo/logoKa.svg"
+      alt="Saqstati Logo"
+    />
+    <img
+      class="main__logo"
+      *ngIf="lang == 'ENG'"
+      src="assets/img/logo/geostat_en.svg"
+      alt="Saqstati Logo"
+    />
     <h1 class="title">
-      {{ 'header.title' | translate }}
+      {{ "header.title" | translate }}
     </h1>
   </a>
   <div class="header__cnt2">
