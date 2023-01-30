@@ -598,8 +598,9 @@ export class RegionalAnalysisComponent implements OnInit {
     // chart.legend = new am4charts.Legend();
 
     chart.exporting.menu = new am4core.ExportMenu();
-
-    chart.exporting.menu.align = "left";
+    chart.exporting.menu.items[0].icon =
+      '../../../assets/HomePage/download_icon.svg';
+    chart.exporting.menu.align = "right";
     chart.exporting.menu.verticalAlign = "top";
   }
 
@@ -736,8 +737,9 @@ migrationChart(res: any) {
     chart.logo.disabled = true;
 
     chart.exporting.menu = new am4core.ExportMenu();
-
-    chart.exporting.menu.align = "left";
+    chart.exporting.menu.items[0].icon =
+      '../../../assets/HomePage/download_icon.svg';
+    chart.exporting.menu.align = "right";
     chart.exporting.menu.verticalAlign = "top";
   }
 }
