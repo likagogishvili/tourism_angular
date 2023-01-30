@@ -8,8 +8,8 @@ import * as am4maps from '@amcharts/amcharts4/maps';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4geodata_worldLow from '@amcharts/amcharts4-geodata/worldLow';
-import { create } from 'lodash';
-import { Month } from 'src/app/common/Month';
+// import { create } from 'lodash';
+// import { Month } from 'src/app/common/Month';
 
 @Component({
   selector: 'app-interactive-map',
@@ -40,7 +40,7 @@ export class InteractiveMapComponent implements OnInit {
   similarDatas: any;
   chartName: string = '';
   countryImg: string = '';
-  countriesData: any = []
+  countriesData: any = [];
 
   perNights = false;
   notIn = false;
@@ -73,7 +73,6 @@ export class InteractiveMapComponent implements OnInit {
     }
   }
 
-
   selectvTypeChange() {
     this.selectedVType = this.vTypeSelect;
 
@@ -104,7 +103,22 @@ export class InteractiveMapComponent implements OnInit {
     this.worldSeries = this.mapchart.series.push(
       new am4maps.MapPolygonSeries()
     );
+    let polygonSeries = this.worldSeries;
 
+    // Export
+    this.mapchart.exporting.menu = new am4core.ExportMenu();
+    this.mapchart.exporting.adapter.add('data', function (data) {
+      data.data = [];
+      for (var i = 0; i < polygonSeries.data.length; i++) {
+        console.log(polygonSeries.data[i]);
+        var row = polygonSeries.data[i];
+        data.data.push({
+          id: row.id,
+          value: row.value,
+        });
+      }
+      return data;
+    });
     let arra: any = forkJoin({
       countriesList: this.getQueryCountriesList(),
       nights: this.getQueryNights(),
@@ -619,8 +633,7 @@ export class InteractiveMapComponent implements OnInit {
       )
       .subscribe((res) => {
         this.renderMapObject(res);
-        this.countriesData = res
-        
+        this.countriesData = res;
       });
   }
 
@@ -769,17 +782,21 @@ export class InteractiveMapComponent implements OnInit {
       'M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8';
   }
   getFlag() {
-      if (this.chartName) {
-        let dataForCountryId = this.countriesData.filter((i: any) => {
-          return i.countryName === this.chartName;
-        });
-          if (dataForCountryId.length) {
-            this.countryImg =
-              'assets/flags/' + dataForCountryId[0].id.toLowerCase() + '.svg';
-          } else {
-            this.countryImg = 'assets/header/word.png';
-          }
+    if (this.chartName) {
+      let dataForCountryId = this.countriesData.filter((i: any) => {
+        return i.countryName === this.chartName;
+      });
+      if (this.lang === 'GEO' && this.chartName === 'Total') {
+        this.chartName = 'სულ';
       }
+
+      if (dataForCountryId.length) {
+        this.countryImg =
+          'assets/flags/' + dataForCountryId[0].id.toLowerCase() + '.svg';
+      } else {
+        this.countryImg = 'assets/header/word.png';
+      }
+    }
   }
 
   renderChartObject(args: any[]) {
@@ -792,7 +809,9 @@ export class InteractiveMapComponent implements OnInit {
     let chart = am4core.create('chartdiv2', am4charts.XYChart);
     chart.paddingRight = 20;
     chart.colors.step = 3;
+
     this.chartName = args[0].countryNameGe;
+
     this.getFlag();
 
     chart.data = args;
@@ -851,8 +870,8 @@ export class InteractiveMapComponent implements OnInit {
     chart.exporting.menu = new am4core.ExportMenu();
     chart.exporting.menu.items[0].icon =
       '../../../assets/HomePage/download_icon.svg';
-    chart.exporting.menu.align = "right";
-    chart.exporting.menu.verticalAlign = "top";
+    chart.exporting.menu.align = 'right';
+    chart.exporting.menu.verticalAlign = 'top';
 
     chart.legend = new am4charts.Legend();
 

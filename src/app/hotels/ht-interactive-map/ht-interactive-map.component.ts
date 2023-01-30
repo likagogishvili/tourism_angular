@@ -255,6 +255,13 @@ export class HtInteractiveMapComponent implements OnInit {
 
   getBigChart(country: string = '', lang: string) {
     this.getFlag(country);
+    if (this.chosenCountryName === '') {
+      if (this.lang === 'GEO') {
+        this.chosenCountryName = 'სულ';
+      } else {
+        this.chosenCountryName = 'Total';
+      }
+    }
     var uRlForBigChart =
       this.APIUrl + '/bigChart?country=' + country + '&lang' + lang;
 
