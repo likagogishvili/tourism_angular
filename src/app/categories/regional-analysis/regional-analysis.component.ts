@@ -55,19 +55,6 @@ export class RegionalAnalysisComponent implements OnInit {
 
     this.year = 2022;
     this.getMapChart(this.tourismType, this.year, this.optArray, this.isValue, this.selectedProperty, this.flag);
-
-    //console.log(this.tourismType + ' ' + this.year + ' ' + this.optArray + ' ' + this.selectedProperty + ' ' + this.flag)
-
-    // this.createCharts();
-    // this.getExpenceChart();
-    // this.getMigrationChart(this.year);
-
-    //this.getExpenceChart();
-
-    // this.createChart2()
-
-    //this.createChart22();
-
   }
 
   years!: number[];
@@ -658,62 +645,6 @@ export class RegionalAnalysisComponent implements OnInit {
     return series;
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-//   createChart3(animateBullet:any,link:any){
-//     am4core.useTheme(am4themes_animated);
-//     // Themes end
-
-
-
-//     let chart = am4core.create("chart3", am4charts.ChordDiagram);
-//     chart.dataFields.fromName = "from";
-//     chart.dataFields.toName = "to";
-//     chart.dataFields.value = "value";
-
-//     // make nodes draggable
-//     let nodeTemplate = chart.nodes.template;
-//     nodeTemplate.readerTitle = "Click to show/hide or drag to rearrange";
-//     nodeTemplate.showSystemTooltip = true;
-
-//     let nodeLink = chart.links.template;
-//     let bullet = nodeLink.bullets.push(new am4charts.CircleBullet());
-//     bullet.fillOpacity = 1;
-//     bullet.circle.radius = 5;
-//     bullet.locationX = 0.5;
-
-//     // create animations
-//     chart.events.on("ready", function() {
-//       let bullet = link.bullets.getIndex(0);
-//         for (var i = 0; i < chart.links.length; i++) {
-//             let link = chart.links.getIndex(i);
-
-//             animateBullet(bullet);
-//           }
-//   })
-
-// chart.data = [
-//   { from: "A", to: "D", value: 10 },
-//   { from: "B", to: "D", value: 8 },
-//   { from: "B", to: "E", value: 4 },
-//   { from: "B", to: "C", value: 2 },
-//   { from: "C", to: "E", value: 14 },
-//   { from: "E", to: "D", value: 8 },
-//   { from: "C", to: "A", value: 4 },
-//   { from: "G", to: "A", value: 7 },
-//   { from: "D", to: "B", value: 1 }
-// ];
-// }
   animateBullet(bullet:any, animateBullet:any) {
     let duration = 3000 * Math.random() + 2000;
     let animation = bullet.animate([{ property: "locationX", from: 0, to: 1 }], duration)
@@ -732,7 +663,6 @@ migrationChart(res: any) {
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
     chart.data = res;
-    console.log(res)
 
     if (this.lang == 'GEO') {
       this.sanqiName = "ვიზიტების რაოდენობა რეგიონების მიხედვით";
@@ -741,13 +671,12 @@ migrationChart(res: any) {
       this.sanqiName = "Number of Visits By Region";
     }
 
+
     let hoverState = chart.links.template.states.create("hover");
     hoverState.properties.fillOpacity = 0.6;
-
     chart.dataFields.fromName = "from";
     chart.dataFields.toName = "to";
     chart.dataFields.value = "value";
-
     
     chart.colors.list = [
       am4core.color('#2330A4'),
@@ -762,7 +691,7 @@ migrationChart(res: any) {
       am4core.color('#A42030'),
     ];
 
-    chart.paddingRight = 30;
+    chart.paddingRight = 130;
 
     let nodeTemplate = chart.nodes.template;
     nodeTemplate.inert = true;
