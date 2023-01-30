@@ -1136,7 +1136,7 @@ export class DefaultIndicatorComponent implements OnInit {
         this.createSeries3(element, element, this.nghtChart);
       });
 
-      if (this.lang) {
+      if (this.lang == 'GEO') {
         this.titleForPerNightsChart =
           'ღამეების საშუალო რაოდენობა ვიზიტის ტიპის მიხედვით';
       } else {
