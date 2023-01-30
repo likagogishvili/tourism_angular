@@ -513,14 +513,15 @@ export class DefaultIndicatorComponent implements OnInit {
     categoryAxis.dataFields.category = 'year';
     categoryAxis.renderer.grid.template.location = 0;
 
-    // this.bigChart.colors.step = 3;
+    // this.bigChart.colors.step = 7;
     this.bigChart.colors.list = [
       am4core.color('#2330A4'),
-      am4core.color('#FA8D70'),
+      am4core.color('#FDA241'),
       am4core.color('#FF7EAE'),
-      am4core.color('#FF9671'),
-      am4core.color('#FFC75F'),
-      am4core.color('#F9F871'),
+      am4core.color('#CBBAED'),
+      am4core.color('#F5F3BB'),
+      am4core.color('#86BA90'),
+
     ];
 
     let valueAxis = this.bigChart.yAxes.push(new am4charts.ValueAxis());
@@ -832,13 +833,13 @@ export class DefaultIndicatorComponent implements OnInit {
     // this.cstChart.colors.step = 3;
     this.cstChart.colors.list = [
       am4core.color('#2330A4'),
-      am4core.color('#FA8D70'),
+      am4core.color('#FDA241'),
       am4core.color('#FF7EAE'),
-      am4core.color('#FF9671'),
-      am4core.color('#FFC75F'),
-      am4core.color('#F9F871'),
-    ];
+      am4core.color('#CBBAED'),
+      am4core.color('#F5F3BB'),
+      am4core.color('#86BA90'),
 
+    ];
 
     let valueAxis = this.cstChart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.numberFormatter = new am4core.NumberFormatter();
@@ -977,11 +978,12 @@ export class DefaultIndicatorComponent implements OnInit {
     // this.cstChart.colors.step = 3;
     this.cstChart.colors.list = [
       am4core.color('#2330A4'),
-      am4core.color('#FA8D70'),
+      am4core.color('#FDA241'),
       am4core.color('#FF7EAE'),
-      am4core.color('#FF9671'),
-      am4core.color('#FFC75F'),
-      am4core.color('#F9F871'),
+      am4core.color('#CBBAED'),
+      am4core.color('#F5F3BB'),
+      am4core.color('#86BA90'),
+
     ];
 
 
@@ -1026,11 +1028,12 @@ export class DefaultIndicatorComponent implements OnInit {
     // this.nghtChart.colors.step = 3;
     this.nghtChart.colors.list = [
       am4core.color('#2330A4'),
-      am4core.color('#FA8D70'),
+      am4core.color('#FDA241'),
       am4core.color('#FF7EAE'),
-      am4core.color('#FF9671'),
-      am4core.color('#FFC75F'),
-      am4core.color('#F9F871'),
+      am4core.color('#CBBAED'),
+      am4core.color('#F5F3BB'),
+      am4core.color('#86BA90'),
+
     ];
 
 
@@ -1187,11 +1190,11 @@ export class DefaultIndicatorComponent implements OnInit {
     // this.nghtChart.colors.step = 3;
     this.nghtChart.colors.list = [
       am4core.color('#2330A4'),
-      am4core.color('#FA8D70'),
+      am4core.color('#FDA241'),
       am4core.color('#FF7EAE'),
-      am4core.color('#FF9671'),
-      am4core.color('#FFC75F'),
-      am4core.color('#F9F871'),
+      am4core.color('#CBBAED'),
+      am4core.color('#F5F3BB'),
+      am4core.color('#86BA90'),
     ];
 
     
@@ -1322,6 +1325,7 @@ export class DefaultIndicatorComponent implements OnInit {
     chart.numberFormatter.numberFormat = '#';
 
     chart.logo.disabled = true;
+    
 
     // Make it stacked
     series.stacked = true;
@@ -1390,13 +1394,13 @@ export class DefaultIndicatorComponent implements OnInit {
     // categoryAxis.renderer.grid.template.location = 0;
 
     // this.avarigeChart.colors.step = 3;
-    this.nghtChart.colors.list = [
+    this.avarigeChart.colors.list = [
       am4core.color('#2330A4'),
-      am4core.color('#FA8D70'),
+      am4core.color('#FDA241'),
       am4core.color('#FF7EAE'),
-      am4core.color('#FF9671'),
-      am4core.color('#FFC75F'),
-      am4core.color('#F9F871'),
+      am4core.color('#CBBAED'),
+      am4core.color('#F5F3BB'),
+      am4core.color('#86BA90'),
     ];
 
 
@@ -1670,7 +1674,7 @@ export class DefaultIndicatorComponent implements OnInit {
     }
   }
 
-  costsOnley: any;
+costsOnley: any;
 
   costsOnleyChart(res: any) {
     am4core.useTheme(am4themes_animated);
@@ -1685,11 +1689,11 @@ export class DefaultIndicatorComponent implements OnInit {
     // this.costsOnley.colors.step = 3;
     this.costsOnley.colors.list = [
       am4core.color('#2330A4'),
-      am4core.color('#FA8D70'),
+      am4core.color('#FDA241'),
       am4core.color('#FF7EAE'),
-      am4core.color('#FF9671'),
-      am4core.color('#FFC75F'),
-      am4core.color('#F9F871'),
+      am4core.color('#CBBAED'),
+      am4core.color('#F5F3BB'),
+      am4core.color('#86BA90'),
     ];
 
 

@@ -312,6 +312,15 @@ export class Top15Component implements OnInit {
     }
     chart.data = res;
 
+    let ser: am4charts.LineSeries;
+
+    if (this.lang == 'GEO') {
+      ser = this.createSeries("void", "სულ", chart, "სულ");
+    }
+    else{
+      ser = this.createSeries("void", "All", chart, "All");
+    }
+
     Object.keys(res[0])
       .filter((x) => x != 'year')
       .forEach((element: string) => {
@@ -319,6 +328,19 @@ export class Top15Component implements OnInit {
       });
 
     chart.legend = new am4charts.Legend();
+
+    ser.events.on("hidden", function() {
+      chart.series.values.forEach(function(series: { name: any; show: () => void; hide: () => void; }) {
+        series.hide();
+      })
+    });
+    
+    ser.events.on("shown", function() {
+      chart.series.values.forEach(function(series: { name: any; show: () => void; hide: () => void; }) {
+        series.show();
+      })
+    });
+
 
     let legendContainer = am4core.create('legenddiv', am4core.Container);
     legendContainer.width = am4core.percent(100);
