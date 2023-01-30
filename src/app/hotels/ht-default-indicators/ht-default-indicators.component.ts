@@ -214,23 +214,24 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
     let hoverState = chart.links.template.states.create('hover');
     hoverState.properties.fillOpacity = 0.6;
-
     chart.dataFields.fromName = 'from';
     chart.dataFields.toName = 'to';
     chart.dataFields.value = 'value';
 
-    chart.paddingRight = 120;
+    chart.paddingRight = 130;
     let nodeTemplate = chart.nodes.template;
     nodeTemplate.inert = true;
     nodeTemplate.readerTitle = 'Drag me!';
     nodeTemplate.showSystemTooltip = true;
     nodeTemplate.width = 20;
-
+    nodeTemplate.fontSize = 11;
 
     let nodeTemplate2 = chart.nodes.template;
     nodeTemplate2.readerTitle = 'Click to show/hide or drag to rearrange';
     nodeTemplate2.showSystemTooltip = true;
     nodeTemplate2.cursorOverStyle = am4core.MouseCursorStyle.pointer;
+    nodeTemplate2.fontSize = 11;
+
     chart.logo.disabled = true;
   }
 

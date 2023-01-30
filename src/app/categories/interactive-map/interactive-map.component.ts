@@ -103,22 +103,7 @@ export class InteractiveMapComponent implements OnInit {
     this.worldSeries = this.mapchart.series.push(
       new am4maps.MapPolygonSeries()
     );
-    let polygonSeries = this.worldSeries;
 
-    // Export
-    this.mapchart.exporting.menu = new am4core.ExportMenu();
-    this.mapchart.exporting.adapter.add('data', function (data) {
-      data.data = [];
-      for (var i = 0; i < polygonSeries.data.length; i++) {
-        console.log(polygonSeries.data[i]);
-        var row = polygonSeries.data[i];
-        data.data.push({
-          id: row.id,
-          value: row.value,
-        });
-      }
-      return data;
-    });
     let arra: any = forkJoin({
       countriesList: this.getQueryCountriesList(),
       nights: this.getQueryNights(),
@@ -165,6 +150,25 @@ export class InteractiveMapComponent implements OnInit {
           a.value.localeCompare(b.value)
         ))
     );
+
+    let polygonSeries = this.worldSeries;
+    // Export
+    this.mapchart.exporting.menu = new am4core.ExportMenu();
+    this.mapchart.exporting.menu.items[0].icon =
+      '../../../assets/HomePage/download_icon.svg';
+    this.mapchart.exporting.menu.align = 'left';
+    this.mapchart.exporting.menu.verticalAlign = 'top';
+    this.mapchart.exporting.adapter.add('data', function (data) {
+      data.data = [];
+      for (var i = 0; i < polygonSeries.data.length; i++) {
+        var row = polygonSeries.data[i];
+        data.data.push({
+          qveyana: row.id,
+          value: row.value,
+        });
+      }
+      return data;
+    });
   }
 
   checkVisits = false;
