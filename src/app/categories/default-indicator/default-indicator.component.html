@@ -71,7 +71,7 @@
           </div>
         </section>
         <i (click)="ClearFilters()" class="clear__btn" 
-          style="background: url(assets/c-default-indicators/Clear.png)"><span class="clear__tooltip">ფილტრის გასუფთავება</span></i>
+          style="background: url(assets/c-default-indicators/Clear.png)"><span class="clear__tooltip">{{ 'defIndicator.clearTooltip' | translate }}</span></i>
       </div>
       <div class="col-lg-12 mt-4 downCharts">
         <div class="contForFirstChart">
@@ -82,7 +82,7 @@
             <img style="padding-left: 10%; padding-top: 65%" src="assets/c-default-indicators/Save.png" alt=""/>
           </div> -->
           <div id="chartdiv" style="height: 90%"></div>
-          <p class="note">კოვიდის გამო გარკვეული მონაცემები არ არის</p>
+          <p  class="note" *ngIf ="indicator != 0 && indicator != 2 && indicator != 3 && indicator != 4">{{ 'note.mainIndicators' | translate }}</p>
         </div>
       </div>
       <div class="row mb-4 downCharts">
@@ -95,7 +95,7 @@
             </div> -->
             </div>
             <div id="chartdiv2" style="height: 80%"></div>
-            <div class="d-flex justify-content-center avarigeCosts" style="margin-top: 2rem">
+            <div class="d-flex justify-content-center avarigeCosts" style="margin-bottom: 10px ">
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
                   [checked]="true" (click)="avarigeOrNot(false)" />
@@ -108,6 +108,8 @@
                 <label class="form-check-label" for="inlineRadio2">{{ 'defIndicator.avarExpence' | translate }}</label>
               </div>
             </div>
+            <p class="note">{{ 'note.mainIndicators' | translate }}</p>
+
           </div>
         </div>
         <div class="col-lg-6 mt-4">
@@ -121,6 +123,7 @@
             </div> -->
             </div>
             <div id="chartdiv3" style="height: 80%"></div>
+            <p class="note">{{ 'note.mainIndicators' | translate }}</p>
           </div>
         </div>
       </div>
