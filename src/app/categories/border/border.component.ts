@@ -346,9 +346,10 @@ export class BorderComponent implements OnInit {
     chart.exporting.menu = new am4core.ExportMenu();
 
     // new am4core.ExportMenu();
-
-    chart.exporting.menu.align = 'left';
-    chart.exporting.menu.verticalAlign = 'middle';
+    chart.exporting.menu.items[0].icon =
+      '../../../assets/HomePage/download_icon.svg';
+    chart.exporting.menu.align = 'right';
+    chart.exporting.menu.verticalAlign = 'top';
     chart.logo.disabled = true;
     let scrollbarX = new am4core.Scrollbar();
     chart.scrollbarX = scrollbarX;

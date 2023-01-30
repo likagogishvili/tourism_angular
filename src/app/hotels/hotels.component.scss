@@ -110,14 +110,15 @@
     background-repeat: no-repeat;
     background-size: 40px;
     background-image: url(../../assets/HomePage/burger.svg);
-    position: absolute;
-    top: 80px;
+    top: 40px;
     z-index: 100;
 
   }
 }
 .burger__icon__open {
   background-image: url(../../assets/HomePage/burger_close.svg);
+  position:relative;
+
 }
 
 .outlet {

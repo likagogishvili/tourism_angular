@@ -41,6 +41,10 @@
     background-color: #F9FBFF; min-height: 50px;
     padding-top: 2rem ;
     padding-bottom: 2rem ;
+    @include tablet {
+      padding-top: 0 ;
+
+    }
 }
 
 .cnt__navbar {
@@ -119,13 +123,15 @@
       background-repeat: no-repeat;
       background-size: 40px;
       background-image: url(../../assets/HomePage/burger.svg);
-      position: absolute;
-      top: 80px;
+      // position: absolute;
+      top: 10px;
       z-index: 100;
   
     }
   }
   .burger__icon__open {
     background-image: url(../../assets/HomePage/burger_close.svg);
+      position: relative;
+
   }
   
