@@ -235,7 +235,7 @@ a {
   }
 }
 
-.chartAndSelevt  {
+.chartAndSelevt {
   .amcharts-amexport-menu {
     position: absolute !important;
     top: -40px !important;
@@ -243,11 +243,19 @@ a {
   }
 }
 
+.mChart {
+  .amcharts-amexport-menu {
+    position: absolute !important;
+    top: 0 !important;
+    z-index: 1000;
+  }
+}
 
 // default radio and checkbox buttons
 
-input[type='radio'],input[type='checkbox'] {
-  accent-color : #51459f;
+input[type="radio"],
+input[type="checkbox"] {
+  accent-color: #51459f;
 }
 
 .note {
