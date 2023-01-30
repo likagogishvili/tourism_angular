@@ -214,23 +214,24 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
     let hoverState = chart.links.template.states.create('hover');
     hoverState.properties.fillOpacity = 0.6;
-
     chart.dataFields.fromName = 'from';
     chart.dataFields.toName = 'to';
     chart.dataFields.value = 'value';
 
-    chart.paddingRight = 120;
+    chart.paddingRight = 130;
     let nodeTemplate = chart.nodes.template;
     nodeTemplate.inert = true;
     nodeTemplate.readerTitle = 'Drag me!';
     nodeTemplate.showSystemTooltip = true;
     nodeTemplate.width = 20;
-
+    nodeTemplate.fontSize = 11;
 
     let nodeTemplate2 = chart.nodes.template;
     nodeTemplate2.readerTitle = 'Click to show/hide or drag to rearrange';
     nodeTemplate2.showSystemTooltip = true;
     nodeTemplate2.cursorOverStyle = am4core.MouseCursorStyle.pointer;
+    nodeTemplate2.fontSize = 11;
+
     chart.logo.disabled = true;
   }
 
@@ -251,6 +252,18 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     valueAxis.renderer.grid.template.location = 0;
     valueAxis.min = 0;
     chart.data = res;
+    chart.colors.list = [
+      am4core.color('#2330A4'),
+      am4core.color('#FDA241'),
+      am4core.color('#FF7EAE'),
+      am4core.color('#CBBAED'),
+      am4core.color('#F5F3BB'),
+      am4core.color('#86BA90'),
+      am4core.color('#2A92A4'),
+      am4core.color('#6A1AA4'),
+      am4core.color('#33A450'),
+      am4core.color('#A42030'),
+    ];
 
     switch (chartDiv) {
       case 'chartHotelCount':
@@ -346,7 +359,8 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     marker.cornerRadius(12, 12, 12, 12);
     marker.strokeWidth = 1;
     marker.strokeOpacity = 1;
-    marker.stroke = am4core.color('#ccc');
+    // marker.stroke = am4core.color('#ccc');
+
 
     chart.exporting.menu = new am4core.ExportMenu();
     chart.exporting.menu.items[0].icon =
