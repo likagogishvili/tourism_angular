@@ -200,7 +200,19 @@ export class HtInteractiveMapComponent implements OnInit {
     categoryAxis.dataFields.category = 'year';
     categoryAxis.renderer.grid.template.location = 0;
 
-    this.bigChart.colors.step = 3;
+    // this.bigChart.colors.step = 3;
+    this.bigChart.colors.list = [
+      am4core.color('#2330A4'),
+      am4core.color('#FDA241'),
+      am4core.color('#FF7EAE'),
+      am4core.color('#CBBAED'),
+      am4core.color('#F5F3BB'),
+      am4core.color('#86BA90'),
+      am4core.color('#2A92A4'),
+      am4core.color('#6A1AA4'),
+      am4core.color('#33A450'),
+      am4core.color('#A42030'),
+    ];
 
     let valueAxis = this.bigChart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.numberFormatter = new am4core.NumberFormatter();
@@ -249,12 +261,21 @@ export class HtInteractiveMapComponent implements OnInit {
     labelBullet.label.text = '{valueY.formatNumber("#.0a")}';
     labelBullet.locationY = 0.5;
     labelBullet.label.hideOversized = true;
+    labelBullet.label.fill = am4core.color("white");
+
 
     return series;
   }
 
   getBigChart(country: string = '', lang: string) {
     this.getFlag(country);
+    if (this.chosenCountryName === '') {
+      if (this.lang === 'GEO') {
+        this.chosenCountryName = 'სულ';
+      } else {
+        this.chosenCountryName = 'Total';
+      }
+    }
     var uRlForBigChart =
       this.APIUrl + '/bigChart?country=' + country + '&lang' + lang;
 
@@ -298,6 +319,19 @@ export class HtInteractiveMapComponent implements OnInit {
       { number: 1e6, suffix: 'M' },
       { number: 1e9, suffix: 'B' },
     ];
+   chart.colors.list = [
+      am4core.color('#2330A4'),
+      am4core.color('#FDA241'),
+      am4core.color('#FF7EAE'),
+      am4core.color('#CBBAED'),
+      am4core.color('#3419FF'),
+      am4core.color('#86BA90'),
+      am4core.color('#2A92A4'),
+      am4core.color('#6A1AA4'),
+      am4core.color('#33A450'),
+      am4core.color('#A42030'),
+    ];
+
 
     var label = chart.plotContainer.createChild(am4core.Label);
     label.x = am4core.percent(97);
@@ -306,6 +340,7 @@ export class HtInteractiveMapComponent implements OnInit {
     label.verticalCenter = 'middle';
     label.dx = -15;
     label.fontSize = 50;
+
 
     var playButton = chart.plotContainer.createChild(am4core.PlayButton);
     playButton.x = am4core.percent(97);
@@ -351,6 +386,8 @@ export class HtInteractiveMapComponent implements OnInit {
       "{values.valueX.workingValue.formatNumber('#.0as')}";
     labelBullet.label.textAlign = 'end';
     labelBullet.label.dx = -10;
+    labelBullet.label.fill = am4core.color("white");
+
 
     chart.zoomOutButton.disabled = true;
 

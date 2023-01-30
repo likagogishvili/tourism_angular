@@ -4,7 +4,7 @@
       <div class="contForSelects">
         <section class="select__first">
           <div class="indicator__select">
-            <div class="fontForSelectUpperTitle">{{ 'defIndicator.indic' | translate }}</div>
+            <p class="fontForSelectUpperTitle">{{ 'defIndicator.indic' | translate }}</p>
 
             <div class="fontForSelectTitle select__el">
               <i class="select__icon" style="
@@ -21,7 +21,7 @@
             </div>
           </div>
           <div class="period__select">
-            <div class="fontForSelectUpperTitle">{{ 'defIndicator.period' | translate }}</div>
+            <p class="fontForSelectUpperTitle">{{ 'defIndicator.period' | translate }}</p>
             <div class="fontForSelectTitle select__el">
               <i class="select__icon" style="
                   background: url(assets/c-default-indicators/Calendar.png);
@@ -39,7 +39,7 @@
         </section>
         <section class="select__sec">
           <div class="tourtype__select">
-            <div class="fontForSelectUpperTitle">{{ 'defIndicator.tourismType' | translate }}</div>
+            <p class="fontForSelectUpperTitle">{{ 'defIndicator.tourismType' | translate }}</p>
 
             <div class="fontForSelectTitle select__el">
               <i class="select__icon" style="background: url(assets/c-default-indicators/VisitType.png)"></i>
@@ -54,7 +54,7 @@
             </div>
           </div>
           <div class="visittype__select">
-            <div class="fontForSelectUpperTitle">{{ 'defIndicator.tourType' | translate }}</div>
+            <p class="fontForSelectUpperTitle">{{ 'defIndicator.tourType' | translate }}</p>
             <div class="fontForSelectTitle select__el">
               <i class="select__icon" style="
                 background: url(assets/c-default-indicators/TourismType.png);
@@ -94,7 +94,7 @@
               <img style="padding-left: 10%; padding-top: 65%" src="assets/c-default-indicators/Save.png" alt=""/>
             </div> -->
             </div>
-            <div id="chartdiv2" style="height: 80%"></div>
+            <div id="chartdiv2" style="height: 570px "></div>
             <div class="d-flex justify-content-center avarigeCosts" style="margin-bottom: 10px ">
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
@@ -122,7 +122,18 @@
               <img style="padding-left: 10%; padding-top: 65%" src="assets/c-default-indicators/Save.png" alt=""/>
             </div> -->
             </div>
-            <div id="chartdiv3" style="height: 80%"></div>
+            <div id="chartdiv3" style="height: 570px"></div>
+            <div class="d-flex justify-content-center avarigeCosts" style="margin-bottom: 10px ; visibility: hidden; ">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" />
+                <label class="form-check-label" for="inlineRadio1">{{ 'defIndicator.allExpence' | translate }}</label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" />
+                <label class="form-check-label" for="inlineRadio2">{{ 'defIndicator.avarExpence' | translate }}</label>
+              </div>
+            </div>
             <p class="note">{{ 'note.mainIndicators' | translate }}</p>
           </div>
         </div>
