@@ -5,7 +5,7 @@
 
   "home": {
       "title1": "Visitor Survey Results",
-      "title2": "Survey Of Hotels"
+      "title2": "Hotel Survey Results"
   },
 
   "footer": {
@@ -128,9 +128,9 @@
   },
   
   "interVisit": {
-    "top10": "Top 10 Countryes",
+    "top10": "Top 10 Countries",
     "visits": "Visists",
-    "borderType": "Border Type",
+    "borderType": "Border Types",
     "border": "Border"
   },
 
@@ -144,7 +144,7 @@
     "endPer": "By the Final Period",
     "compare": "Compare",
     "message": "Please Specify the Time Interval Correctly",
-    "top": "Top 10 Countryes"
+    "top": "Top 10 Countries"
   },
 
   "visitcount": {

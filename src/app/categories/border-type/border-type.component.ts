@@ -50,7 +50,7 @@ export class BorderTypeComponent implements OnInit {
             });
         });
     } else {
-      this.borderTypes = ['Aerial', 'Terrestrial', 'Railway', 'Marine'];
+      this.borderTypes = ['Air Transport', 'Land Transport', 'Railway Transport', 'Sea Transport'];
 
       this.monthies.push({
         name: 'Select a Month',
