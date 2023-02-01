@@ -662,7 +662,9 @@ migrationChart(res: any) {
   let chart = am4core.create("chart22", am4charts.SankeyDiagram);
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-    chart.data = res;
+
+    const result = res.filter((item:any) => item.from === 'იმერეთი'   );
+    chart.data = result;
 
     if (this.lang == 'GEO') {
       this.sanqiName = "ვიზიტების რაოდენობა რეგიონების მიხედვით";
@@ -691,13 +693,15 @@ migrationChart(res: any) {
       am4core.color('#A42030'),
     ];
 
-    chart.paddingRight = 130;
+    chart.paddingRight = 150;
+    chart.paddingTop = 40;
+    chart.paddingBottom = 40;
+
 
     let nodeTemplate = chart.nodes.template;
     nodeTemplate.inert = true;
     nodeTemplate.readerTitle = "Drag me!";
     nodeTemplate.showSystemTooltip = true;
-    nodeTemplate.width = 20;
 
     let nodeTemplate2 = chart.nodes.template;
     nodeTemplate2.readerTitle = "Click to show/hide or drag to rearrange";
