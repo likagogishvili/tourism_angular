@@ -783,8 +783,9 @@ export class DefaultIndicatorComponent implements OnInit {
       }
 
       if (this.lang == 'GEO') {
-        this.titleForMainChart = 'Number of visits by activity';
+        this.titleForMainChart = 'ვიზიტების რაოდენობა აქტივობის ტიპის მიხედვით';
       } else {
+        this.titleForMainChart = 'Number of visits by activity';
       }
     } else if (this.indicator == 11) {
       this.srvc.OrderNames().forEach((element) => {

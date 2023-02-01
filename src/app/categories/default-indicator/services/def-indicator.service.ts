@@ -18,7 +18,7 @@ export class DefIndicatorService {
   ];
 
   periodsEN: IDropDown[] = [
-    { name: 'Yearly', value: 1, isDisabled: false },
+    { name: 'Annual', value: 1, isDisabled: false },
     { name: 'Quarterly', value: 2, isDisabled: false },
     { name: 'Monthly', value: 3, isDisabled: false }
   ];
