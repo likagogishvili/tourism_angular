@@ -430,7 +430,7 @@ export class HtInteractiveMapComponent implements OnInit {
 
       var newData: any = res[year];
       var itemsWithNonZero = 0;
-      for (var i = 0; i < 10 ; i++) {
+      for (var i = 0; i < newData.length() ; i++) {
         chart.data[i].value = newData[i].value;
         if (chart.data[i].value > 0) {
           itemsWithNonZero++;
