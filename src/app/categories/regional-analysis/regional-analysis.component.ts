@@ -61,6 +61,8 @@ export class RegionalAnalysisComponent implements OnInit {
 
   year: number = 0;
 
+
+
   radioBtnID!: number;
 
   all!: any[];
@@ -92,9 +94,13 @@ export class RegionalAnalysisComponent implements OnInit {
 
   regList!: DataForMapChart[];
 
+  regions:any =[] 
+  selectedRegion: string =''
   changeYear() {
     this.createCharts();
   }
+
+
 
   setTourismType(num: number){
     this.tourismType = num;
@@ -448,6 +454,10 @@ export class RegionalAnalysisComponent implements OnInit {
 
   
   createMapChart(title:any, res: DataForMapChart[]){
+    res.map((i:any)=>{
+      this.regions.push(i.name)
+    })
+    // this.selectedRegion = this.regions[0]
     am4core.useTheme(am4themes_animated);
     let chart = am4core.create("chart1", am4maps.MapChart);
 
@@ -472,7 +482,6 @@ export class RegionalAnalysisComponent implements OnInit {
     chart.geodataSource.url = "https://www.amcharts.com/lib/4/geodata/json/georgiaSouthOssetiaHigh.json";
 
     chart.geodataSource.events.on("parseended", function() {
-
       polygonSeries.data = [res[0], res[1], res[2], res[3], res[4], res[5], res[6], res[7], res[8], res[9], res[10]];
       polygonSeries1.data = [res[11], res[12]];
       polygonSeries2.data = [res[8]];
@@ -654,7 +663,8 @@ export class RegionalAnalysisComponent implements OnInit {
 }
 
 getMigrationChart(year: number, opt: string, prop: string){
-  this.region.getDataForRegMigration(year, opt, prop).subscribe(res => { this.migrationChart(res); })
+  this.region.getDataForRegMigration(year, opt, prop).subscribe(res => { this.migrationChart(res); 
+  })
 }
 
 migrationChart(res: any) {
@@ -663,7 +673,10 @@ migrationChart(res: any) {
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
 
-    const result = res.filter((item:any) => item.from === 'იმერეთი'   );
+    // const result = res.filter((item:any) => item.from === 'იმერეთი');
+    // console.log(res)
+    const result = res.filter((item:any) => item.from === this.selectedRegion);
+
     chart.data = result;
 
     if (this.lang == 'GEO') {
@@ -716,4 +729,10 @@ migrationChart(res: any) {
     chart.exporting.menu.align = "right";
     chart.exporting.menu.verticalAlign = "top";
   }
+
+  changeRegion(){
+    this.createCharts();
+  }
+
+
 }
