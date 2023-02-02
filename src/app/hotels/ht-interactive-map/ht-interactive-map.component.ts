@@ -389,12 +389,12 @@ export class HtInteractiveMapComponent implements OnInit {
     series.interpolationEasing = am4core.ease.linear;
 
     var labelBullet = series.bullets.push(new am4charts.LabelBullet());
-    labelBullet.label.horizontalCenter = 'right';
+    labelBullet.label.horizontalCenter = 'left';
     labelBullet.label.text =
       "{values.valueX.workingValue.formatNumber('#.0as')}";
     labelBullet.label.textAlign = 'end';
-    labelBullet.label.dx = -10;
-    labelBullet.label.fill = am4core.color('white');
+    labelBullet.label.dx = 10;
+    labelBullet.label.fill = am4core.color('black');
 
     chart.zoomOutButton.disabled = true;
 
@@ -430,7 +430,7 @@ export class HtInteractiveMapComponent implements OnInit {
 
       var newData: any = res[year];
       var itemsWithNonZero = 0;
-      for (var i = 0; i < newData.length() ; i++) {
+      for (var i = 0; i < newData.length; i++) {
         chart.data[i].value = newData[i].value;
         if (chart.data[i].value > 0) {
           itemsWithNonZero++;

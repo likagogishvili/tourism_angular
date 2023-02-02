@@ -1,29 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import * as am4core from "@amcharts/amcharts4/core";
-import * as am4maps from "@amcharts/amcharts4/maps";
-import * as am4charts from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import * as am4core from '@amcharts/amcharts4/core';
+import * as am4maps from '@amcharts/amcharts4/maps';
+import * as am4charts from '@amcharts/amcharts4/charts';
+import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { RegionService } from './service/region.service';
 import { DataForMapChart } from './service/dataForMapChart';
 import { HttpClient } from '@angular/common/http';
-import { RegionID } from '../../common/RegionID'
-import am4geodata_lang_ES from "@amcharts/amcharts4-geodata/lang/ES"; 
-import { Title } from '@angular/platform-browser';
+import { RegionID } from '../../common/RegionID';
+// import am4geodata_lang_ES from '@amcharts/amcharts4-geodata/lang/ES';
+// import { Title } from '@angular/platform-browser';
 import { RegionIDEN } from 'src/app/common/RegionIDEN';
-
-
 
 @Component({
   selector: 'app-regional-analysis',
   templateUrl: './regional-analysis.component.html',
-  styleUrls: ['./regional-analysis.component.scss']
+  styleUrls: ['./regional-analysis.component.scss'],
 })
 export class RegionalAnalysisComponent implements OnInit {
-
   readonly APIUrl: string = 'http://tourismapi.geostat.ge/api/region';
 
   constructor(private region: RegionService, private http: HttpClient) {
-
     this.radioBtnID = 0;
     this.tourismType = 2;
     this.all = [];
@@ -34,16 +30,33 @@ export class RegionalAnalysisComponent implements OnInit {
     this.visits = this.region.visits();
     this.transports = this.region.transports();
     this.rates = this.region.rates();
-    this.optArray = "";
-    this.flag = "visits";
-    this.selectedProperty = "All";
+    this.optArray = '';
+    this.flag = 'visits';
+    this.selectedProperty = 'All';
     this.isValue = 1;
 
+    this.checkBoxesArray = [
+      this.all,
+      this.genders,
+      this.ages,
+      this.activityes,
+      this.goals,
+      this.rates,
+      this.visits,
+      this.transports,
+    ];
+    this.isDetaled = [
+      false,
+      this.isGenderDetailed,
+      this.isAgeDetailed,
+      this.isStatusDetailed,
+      this.isPurposeDetailed,
+      this.isRateDetaled,
+      this.isActivityDetailed,
+      this.isTransportDetailed,
+    ];
 
-    this.checkBoxesArray = [this.all, this.genders, this.ages, this.activityes, this.goals, this.rates, this.visits, this.transports];
-    this.isDetaled = [false, this.isGenderDetailed, this.isAgeDetailed, this.isStatusDetailed, this.isPurposeDetailed, this.isRateDetaled, this.isActivityDetailed, this.isTransportDetailed];
-
-    this.region.getYears(2).subscribe(years => {
+    this.region.getYears(2).subscribe((years) => {
       this.years = years;
     });
     this.lang = localStorage.getItem('Language');
@@ -52,16 +65,20 @@ export class RegionalAnalysisComponent implements OnInit {
   lang: any;
 
   ngOnInit(): void {
-
     this.year = 2022;
-    this.getMapChart(this.tourismType, this.year, this.optArray, this.isValue, this.selectedProperty, this.flag);
+    this.getMapChart(
+      this.tourismType,
+      this.year,
+      this.optArray,
+      this.isValue,
+      this.selectedProperty,
+      this.flag
+    );
   }
 
   years!: number[];
 
   year: number = 0;
-
-
 
   radioBtnID!: number;
 
@@ -73,7 +90,7 @@ export class RegionalAnalysisComponent implements OnInit {
   visits!: any[];
   transports!: any[];
   rates!: any[];
- 
+
   optArray!: string;
 
   checkBoxesArray!: any[];
@@ -81,12 +98,11 @@ export class RegionalAnalysisComponent implements OnInit {
 
   selectedProperty!: string;
 
-  mapChartTitle: string = "";
+  mapChartTitle: string = '';
 
-  expenceTitle: string = "";
+  expenceTitle: string = '';
 
-  sanqiName: string = "";
-
+  sanqiName: string = '';
 
   //optionList: number[] = [];
 
@@ -94,24 +110,21 @@ export class RegionalAnalysisComponent implements OnInit {
 
   regList!: DataForMapChart[];
 
-  regions:any =[] 
-  selectedRegion: string =''
+  regions: any = [];
+  selectedRegion: string = '';
   changeYear() {
     this.createCharts();
   }
 
-
-
-  setTourismType(num: number){
+  setTourismType(num: number) {
     this.tourismType = num;
 
-    if (num == 2){
-      this.region.getYears(2).subscribe(years => {
+    if (num == 2) {
+      this.region.getYears(2).subscribe((years) => {
         this.years = years;
       });
-    }
-    else if (num == 1){
-      this.region.getYears(1).subscribe(years => {
+    } else if (num == 1) {
+      this.region.getYears(1).subscribe((years) => {
         this.years = years;
       });
     }
@@ -121,7 +134,7 @@ export class RegionalAnalysisComponent implements OnInit {
 
   flag!: string;
 
-  changeFlag(flag: string){
+  changeFlag(flag: string) {
     this.flag = flag;
 
     this.createCharts();
@@ -130,74 +143,98 @@ export class RegionalAnalysisComponent implements OnInit {
   isValue!: number;
 
   activeOrNot(val: number) {
-
-    let radioBtn = document.getElementById("0") as HTMLInputElement;
+    let radioBtn = document.getElementById('0') as HTMLInputElement;
 
     radioBtn.checked = true;
 
-    this.checkBoxesArray[this.radioBtnID].forEach((element: { selected: boolean; }) => element.selected = false);
+    this.checkBoxesArray[this.radioBtnID].forEach(
+      (element: { selected: boolean }) => (element.selected = false)
+    );
 
-    this.isDetaled.forEach(element => element = false);
+    this.isDetaled.forEach((element) => (element = false));
 
-    
     this.isValue = val;
-    if(val == 1){
+    if (val == 1) {
       this.tourismType = 2;
 
-      this.region.getYears(2).subscribe(years => {
+      this.region.getYears(2).subscribe((years) => {
         this.years = years;
       });
 
-      this.getMapChart(this.tourismType, this.year, this.optArray, this.isValue, this.selectedProperty, this.flag);
-    }
-    else{
+      this.getMapChart(
+        this.tourismType,
+        this.year,
+        this.optArray,
+        this.isValue,
+        this.selectedProperty,
+        this.flag
+      );
+    } else {
       this.tourismType = 1;
-      
-      this.region.getYears(1).subscribe(years => {
+
+      this.region.getYears(1).subscribe((years) => {
         this.years = years;
       });
 
-      this.getMapChart(this.tourismType, this.year, this.optArray, this.isValue, this.selectedProperty, this.flag);
+      this.getMapChart(
+        this.tourismType,
+        this.year,
+        this.optArray,
+        this.isValue,
+        this.selectedProperty,
+        this.flag
+      );
       this.getExpenceChart(this.optArray, this.selectedProperty);
       this.getMigrationChart(this.year, this.optArray, this.selectedProperty);
     }
-
-    //console.log(this.tourismType);
   }
-
 
   createCharts() {
     am4core.disposeAllCharts();
 
-    if (this.tourismType == 1){
-      this.getMapChart(this.tourismType, this.year, this.optArray, this.isValue, this.selectedProperty, this.flag);
+    if (this.tourismType == 1) {
+      this.getMapChart(
+        this.tourismType,
+        this.year,
+        this.optArray,
+        this.isValue,
+        this.selectedProperty,
+        this.flag
+      );
 
-      if (this.selectedProperty == "TransportType" || this.selectedProperty == "VisitActivity") {
-        this.getExpenceChart("", "All");
-      }
-      else {
+      if (
+        this.selectedProperty == 'TransportType' ||
+        this.selectedProperty == 'VisitActivity'
+      ) {
+        this.getExpenceChart('', 'All');
+      } else {
         this.getExpenceChart(this.optArray, this.selectedProperty);
       }
       this.getMigrationChart(this.year, this.optArray, this.selectedProperty);
-    }
-    else if (this.tourismType == 2) {
-      this.getMapChart(this.tourismType, this.year, this.optArray, this.isValue, this.selectedProperty, this.flag);
+    } else if (this.tourismType == 2) {
+      this.getMapChart(
+        this.tourismType,
+        this.year,
+        this.optArray,
+        this.isValue,
+        this.selectedProperty,
+        this.flag
+      );
     }
   }
-
 
   isGenderDetailed: boolean = false;
   detailedGender() {
     this.isGenderDetailed = !this.isGenderDetailed;
-    this.selectedProperty = "Gender";
+    this.selectedProperty = 'Gender';
 
     //this.createCharts();
   }
 
   isAgeDetailed: boolean = false;
   detailedAge() {
-    this.isAgeDetailed = !this.isAgeDetailed
-    this.selectedProperty = "AgeGroup";
+    this.isAgeDetailed = !this.isAgeDetailed;
+    this.selectedProperty = 'AgeGroup';
 
     //this.createCharts();
   }
@@ -205,15 +242,15 @@ export class RegionalAnalysisComponent implements OnInit {
   isStatusDetailed: boolean = false;
   detailedStatus() {
     this.isStatusDetailed = !this.isStatusDetailed;
-    this.selectedProperty = "ActivityType";
+    this.selectedProperty = 'ActivityType';
 
     //this.createCharts();
   }
 
   isPurposeDetailed: boolean = false;
   detailedPurpose() {
-    this.isPurposeDetailed = !this.isPurposeDetailed
-    this.selectedProperty = "GoalType";
+    this.isPurposeDetailed = !this.isPurposeDetailed;
+    this.selectedProperty = 'GoalType';
 
     //this.createCharts();
   }
@@ -221,7 +258,7 @@ export class RegionalAnalysisComponent implements OnInit {
   isActivityDetailed: boolean = false;
   detailedActivity() {
     this.isActivityDetailed = !this.isActivityDetailed;
-    this.selectedProperty = "VisitActivity";
+    this.selectedProperty = 'VisitActivity';
 
     //this.createCharts();
   }
@@ -229,7 +266,7 @@ export class RegionalAnalysisComponent implements OnInit {
   isTransportDetailed: boolean = false;
   detailedTransport() {
     this.isTransportDetailed = !this.isTransportDetailed;
-    this.selectedProperty = "TransportType";
+    this.selectedProperty = 'TransportType';
 
     //this.createCharts();
   }
@@ -237,13 +274,11 @@ export class RegionalAnalysisComponent implements OnInit {
   isRateDetaled: boolean = false;
   detaledRate() {
     this.isRateDetaled = !this.isRateDetaled;
-    this.selectedProperty = "RateType";
+    this.selectedProperty = 'RateType';
 
     //this.createCharts();
   }
 
-
-  
   checkBoxClic(event: any) {
     //let elementId: string = (event.target as Element).id;
     let elementValue: string = (event.target as HTMLInputElement).value;
@@ -253,8 +288,10 @@ export class RegionalAnalysisComponent implements OnInit {
 
     let radioBtn = document.getElementById(elementValue) as HTMLInputElement;
 
-    if (val != this.radioBtnID){
-      this.checkBoxesArray[this.radioBtnID].forEach((element: { selected: boolean; }) => element.selected = false);
+    if (val != this.radioBtnID) {
+      this.checkBoxesArray[this.radioBtnID].forEach(
+        (element: { selected: boolean }) => (element.selected = false)
+      );
 
       radioBtn.checked = true;
 
@@ -264,72 +301,73 @@ export class RegionalAnalysisComponent implements OnInit {
 
       switch (this.radioBtnID) {
         case 0:
-          this.selectedProperty = "All";        
+          this.selectedProperty = 'All';
           break;
-  
+
         case 1:
-          this.selectedProperty = "Gender";        
+          this.selectedProperty = 'Gender';
           break;
-  
+
         case 2:
-          this.selectedProperty = "AgeGroup";        
+          this.selectedProperty = 'AgeGroup';
           break;
-  
+
         case 3:
-          this.selectedProperty = "ActivityType";        
+          this.selectedProperty = 'ActivityType';
           break;
-  
+
         case 4:
-          this.selectedProperty = "GoalType";        
+          this.selectedProperty = 'GoalType';
           break;
 
         case 5:
-          this.selectedProperty = "RateType";
+          this.selectedProperty = 'RateType';
           break;
 
         case 6:
-          this.selectedProperty = "VisitActivity";
+          this.selectedProperty = 'VisitActivity';
           break;
-  
+
         case 7:
-          this.selectedProperty = "TransportType";        
+          this.selectedProperty = 'TransportType';
           break;
-      
+
         default:
           break;
       }
-    }
-    else{
+    } else {
       if (radioBtn.checked != true) {
         radioBtn.checked = true;
-      }      
-    }
-
-    if (this.selectedProperty == "TransportType" || this.selectedProperty == "VisitActivity"){
-      (document.getElementById("RdbVisits") as HTMLInputElement).checked = true;
-      (document.getElementById("RdbNights") as HTMLInputElement).disabled = true;
-    }
-    else{
-      (document.getElementById("RdbNights") as HTMLInputElement).disabled = false;
-    }
-
-
-
-    
-    //let list: number[] = [];
-    this.optArray = "";
-
-    this.checkBoxesArray[val].forEach((element: { selected: boolean; id: number; }) => {
-      if(element.selected == true){
-        if (this.optArray.length == 0){
-          this.optArray = String(element.id);
-        }
-        else{
-          this.optArray += ',' + String(element.id);
-        }
-        //list.push(element.id)
       }
-    });
+    }
+
+    if (
+      this.selectedProperty == 'TransportType' ||
+      this.selectedProperty == 'VisitActivity'
+    ) {
+      (document.getElementById('RdbVisits') as HTMLInputElement).checked = true;
+      (document.getElementById('RdbNights') as HTMLInputElement).disabled =
+        true;
+    } else {
+      (document.getElementById('RdbNights') as HTMLInputElement).disabled =
+        false;
+    }
+
+    //let list: number[] = [];
+    this.optArray = '';
+
+    this.checkBoxesArray[val].forEach(
+      (element: { selected: boolean; id: number }) => {
+        if (element.selected == true) {
+          if (this.optArray.length == 0) {
+            this.optArray = String(element.id);
+          } else {
+            this.optArray += ',' + String(element.id);
+          }
+          //list.push(element.id)
+        }
+      }
+    );
     //this.optArray = list;
 
     this.createCharts();
@@ -337,129 +375,138 @@ export class RegionalAnalysisComponent implements OnInit {
     return this.optArray;
   }
 
-
-  selDeselCheckBoxesOnRDBClick(event: any){
-
-
-    (document.getElementById("RdbNights") as HTMLInputElement).disabled = false;
-    
+  selDeselCheckBoxesOnRDBClick(event: any) {
+    (document.getElementById('RdbNights') as HTMLInputElement).disabled = false;
 
     let elementId: string = (event.target as Element).id;
 
     let indx = Number(elementId);
 
-
-
-    this.checkBoxesArray[indx].forEach((element: { selected: boolean; }) => element.selected = true);
+    this.checkBoxesArray[indx].forEach(
+      (element: { selected: boolean }) => (element.selected = true)
+    );
 
     if (indx != this.radioBtnID) {
-      this.checkBoxesArray[this.radioBtnID].forEach((element: { selected: boolean; }) => element.selected = false);
+      this.checkBoxesArray[this.radioBtnID].forEach(
+        (element: { selected: boolean }) => (element.selected = false)
+      );
     }
 
     this.isDetaled[this.radioBtnID] = false;
 
     this.radioBtnID = indx;
-    
+
     switch (this.radioBtnID) {
       case 0:
-          this.selectedProperty = "All";        
-          break;
-  
-        case 1:
-          this.selectedProperty = "Gender";        
-          break;
-  
-        case 2:
-          this.selectedProperty = "AgeGroup";        
-          break;
-  
-        case 3:
-          this.selectedProperty = "ActivityType";        
-          break;
-  
-        case 4:
-          this.selectedProperty = "GoalType";        
-          break;
+        this.selectedProperty = 'All';
+        break;
 
-        case 5:
-          this.selectedProperty = "RateType";
-          break;
+      case 1:
+        this.selectedProperty = 'Gender';
+        break;
 
-        case 6:
-          this.selectedProperty = "VisitActivity";
-          break;
-  
-        case 7:
-          this.selectedProperty = "TransportType";        
-          break;
-      
-        default:
-          break;
+      case 2:
+        this.selectedProperty = 'AgeGroup';
+        break;
+
+      case 3:
+        this.selectedProperty = 'ActivityType';
+        break;
+
+      case 4:
+        this.selectedProperty = 'GoalType';
+        break;
+
+      case 5:
+        this.selectedProperty = 'RateType';
+        break;
+
+      case 6:
+        this.selectedProperty = 'VisitActivity';
+        break;
+
+      case 7:
+        this.selectedProperty = 'TransportType';
+        break;
+
+      default:
+        break;
     }
 
-    if (this.selectedProperty == "TransportType" || this.selectedProperty == "VisitActivity"){
-      (document.getElementById("RdbVisits") as HTMLInputElement).checked = true;
-      (document.getElementById("RdbNights") as HTMLInputElement).disabled = true;
+    if (
+      this.selectedProperty == 'TransportType' ||
+      this.selectedProperty == 'VisitActivity'
+    ) {
+      (document.getElementById('RdbVisits') as HTMLInputElement).checked = true;
+      (document.getElementById('RdbNights') as HTMLInputElement).disabled =
+        true;
     }
 
-    this.optArray = "";
-    
+    this.optArray = '';
+
     if (indx != 0) {
       //let list: number[] = [];
-  
-      //this.checkBoxesArray[indx].forEach((element: { id: number; }) => { list.push(element.id) });
-  
-      this.checkBoxesArray[indx].forEach((element: { selected: boolean; id: number; }) => {
-        if(element.selected == true){
-          if (this.optArray.length == 0){
-            this.optArray = String(element.id);
-          }
-          else{
-            this.optArray += ',' + String(element.id);
-          }
-          //list.push(element.id)
-        }
-      });
-    }
-    else{
-      this.optArray = "";
-    }
 
+      //this.checkBoxesArray[indx].forEach((element: { id: number; }) => { list.push(element.id) });
+
+      this.checkBoxesArray[indx].forEach(
+        (element: { selected: boolean; id: number }) => {
+          if (element.selected == true) {
+            if (this.optArray.length == 0) {
+              this.optArray = String(element.id);
+            } else {
+              this.optArray += ',' + String(element.id);
+            }
+            //list.push(element.id)
+          }
+        }
+      );
+    } else {
+      this.optArray = '';
+    }
 
     this.createCharts();
 
     return this.optArray;
   }
 
-  getMapChart(tType: number, yr: number, opt: string, inOut: number, byProp: string, fl: string){
-    let title: string = "";
-    let title1: string = "";
+  getMapChart(
+    tType: number,
+    yr: number,
+    opt: string,
+    inOut: number,
+    byProp: string,
+    fl: string
+  ) {
+    let title: string = '';
+    let title1: string = '';
 
     if (this.lang == 'GEO') {
-      title = "ვიზიტების რაოდენობა (ათასი)";
-      title1 = "ღამეების საშუალო რაოდენობა";
-    }
-    else{
-      title = "Number of Visits (Thousands)";
-      title1 = "Average Number of Nights";
+      title = 'ვიზიტების რაოდენობა (ათასი)';
+      title1 = 'ღამეების საშუალო რაოდენობა';
+    } else {
+      title = 'Number of Visits (Thousands)';
+      title1 = 'Average Number of Nights';
     }
 
-    if (this.flag == "visits"){
-      this.region.getDataForMapChart(tType, yr, opt, inOut, byProp, fl).subscribe(res => { this.createMapChart(title, res); })
-    }
-    else {
-      this.region.getDataForMapChart(tType, yr, opt, inOut, byProp, fl).subscribe(res => { this.createMapChart(title1, res); })
+    if (this.flag == 'visits') {
+      this.region
+        .getDataForMapChart(tType, yr, opt, inOut, byProp, fl)
+        .subscribe((res) => {
+          this.createMapChart(title, res);
+        });
+    } else {
+      this.region
+        .getDataForMapChart(tType, yr, opt, inOut, byProp, fl)
+        .subscribe((res) => {
+          this.createMapChart(title1, res);
+        });
     }
   }
 
-  
-  createMapChart(title:any, res: DataForMapChart[]){
-    res.map((i:any)=>{
-      this.regions.push(i.name)
-    })
-    // this.selectedRegion = this.regions[0]
+  createMapChart(title: any, res: DataForMapChart[]) {
     am4core.useTheme(am4themes_animated);
-    let chart = am4core.create("chart1", am4maps.MapChart);
+    let chart = am4core.create('chart1', am4maps.MapChart);
 
     // chart.colors.step = 3;;
     chart.colors.list = [
@@ -479,26 +526,50 @@ export class RegionalAnalysisComponent implements OnInit {
 
     this.mapChartTitle = title;
 
-    chart.geodataSource.url = "https://www.amcharts.com/lib/4/geodata/json/georgiaSouthOssetiaHigh.json";
+    chart.geodataSource.url =
+      'https://www.amcharts.com/lib/4/geodata/json/georgiaSouthOssetiaHigh.json';
 
-    chart.geodataSource.events.on("parseended", function() {
-      polygonSeries.data = [res[0], res[1], res[2], res[3], res[4], res[5], res[6], res[7], res[8], res[9], res[10]];
+    chart.geodataSource.events.on('parseended', function () {
+      polygonSeries.data = [
+        res[0],
+        res[1],
+        res[2],
+        res[3],
+        res[4],
+        res[5],
+        res[6],
+        res[7],
+        res[8],
+        res[9],
+        res[10],
+      ];
       polygonSeries1.data = [res[11], res[12]];
       polygonSeries2.data = [res[8]];
-    })
+    });
 
     chart.projection = new am4maps.projections.Mercator();
 
     let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
     polygonSeries.useGeodata = true;
-    polygonSeries.include = ["GE-SZ", "GE-TB", "GE-IM", "GE-SK", "GE-AJ", "GE-SJ", "GE-KK", "GE-MM", "GE-GU", "GE-KA"];
+    polygonSeries.include = [
+      'GE-SZ',
+      'GE-TB',
+      'GE-IM',
+      'GE-SK',
+      'GE-AJ',
+      'GE-SJ',
+      'GE-KK',
+      'GE-MM',
+      'GE-GU',
+      'GE-KA',
+    ];
 
     let polygonTemplate = polygonSeries.mapPolygons.template;
-    
-    polygonTemplate.tooltipText = "{name}: {value}";
+
+    polygonTemplate.tooltipText = '{name}: {value}';
 
     polygonSeries.heatRules.push({
-      property: "fill",
+      property: 'fill',
       target: polygonSeries.mapPolygons.template,
       // min: chart.colors.getIndex(1).brighten(1),
       // max: chart.colors.getIndex(1).brighten(-0.3),
@@ -506,17 +577,14 @@ export class RegionalAnalysisComponent implements OnInit {
       max: chart.colors.getIndex(0).brighten(-0.3),
       // minValue: 5,
       // maxValue: 500
-
     });
-
-
 
     let polygonSeries1 = chart.series.push(new am4maps.MapPolygonSeries());
     polygonSeries1.useGeodata = true;
-    polygonSeries1.include = ["GE-SO", "GE-AB"];
+    polygonSeries1.include = ['GE-SO', 'GE-AB'];
 
     let polygonTemplate1 = polygonSeries1.mapPolygons.template;
-    
+
     polygonTemplate1.tooltipText = '{name}';
 
     // if (this.lang == 'GEO') {
@@ -526,41 +594,37 @@ export class RegionalAnalysisComponent implements OnInit {
     //   polygonTemplate1.tooltipText = "Occupied Region";
     // }
 
-    polygonTemplate1.fill = am4core.color("#898a8a");
-
-
+    polygonTemplate1.fill = am4core.color('#898a8a');
 
     let polygonSeries2 = chart.series.push(new am4maps.MapPolygonSeries());
     polygonSeries2.useGeodata = true;
-    polygonSeries2.include = ["GE-RL"];
+    polygonSeries2.include = ['GE-RL'];
 
     let polygonTemplate2 = polygonSeries2.mapPolygons.template;
-    
+
     if (this.lang == 'GEO') {
-      polygonTemplate2.tooltipText = "{name} - რეგიონის მონაცემები გაერთიანებულია იმერეთის რეგიონის მონაცემებთან";
+      polygonTemplate2.tooltipText =
+        '{name} - რეგიონის მონაცემები გაერთიანებულია იმერეთის რეგიონის მონაცემებთან';
+    } else {
+      polygonTemplate2.tooltipText =
+        '{name} - The data of the region is combined with the data of the Imereti region';
     }
-    else{
-      polygonTemplate2.tooltipText = "{name} - The data of the region is combined with the data of the Imereti region";
-    }
 
-    
+    polygonTemplate2.fill = am4core.color('#A38D5D');
 
-    polygonTemplate2.fill = am4core.color("#A38D5D");
-
-    
-    
     polygonTemplate.nonScalingStroke = true;
     polygonTemplate.strokeWidth = 1;
 
-    let hs = polygonTemplate.states.create("hover");
+    let hs = polygonTemplate.states.create('hover');
     hs.properties.fill = chart.colors.getIndex(0).brighten(-0.5);
 
     chart.logo.disabled = true;
-    
   }
 
-  getExpenceChart(opt: string, byProp: string){
-    this.region.getDataForExpenceTable(opt, byProp).subscribe(res => { this.expenceChart(res); })
+  getExpenceChart(opt: string, byProp: string) {
+    this.region.getDataForExpenceTable(opt, byProp).subscribe((res) => {
+      this.expenceChart(res);
+    });
   }
 
   expenceChart(res: any) {
@@ -568,12 +632,11 @@ export class RegionalAnalysisComponent implements OnInit {
     // Themes end
 
     // Create chart instance
-    let chart = am4core.create("chart2", am4charts.XYChart);
+    let chart = am4core.create('chart2', am4charts.XYChart);
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = "year";
+    categoryAxis.dataFields.category = 'year';
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.numberFormatter.numberFormat = '#';
-
 
     // chart.colors.step = 3;
 
@@ -591,31 +654,32 @@ export class RegionalAnalysisComponent implements OnInit {
     ];
 
     if (this.lang == 'GEO') {
-      this.expenceTitle = "ხარჯები საცხოვრებელი რეგიონების მიხედვით";
+      this.expenceTitle = 'ხარჯები საცხოვრებელი რეგიონების მიხედვით';
+    } else {
+      this.expenceTitle = 'Expenditures By Residential Regions';
     }
-    else{
-      this.expenceTitle = "Expenditures By Residential Regions";
-    }
-
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     //valueAxis.renderer.inside = true;
     //valueAxis.renderer.labels.template.disabled = true;
     valueAxis.numberFormatter = new am4core.NumberFormatter();
-    valueAxis.numberFormatter.numberFormat = "#.0a"; 
+    valueAxis.numberFormatter.numberFormat = '#.0a';
     valueAxis.renderer.grid.template.location = 0;
     valueAxis.min = 0;
     chart.data = res;
 
     if (this.lang == 'GEO') {
-	      Object.keys(RegionID).filter((v) => isNaN(Number(v))).forEach(element => {
-	      this.createSeries2(element, element, chart)
-	    });
-    }
-    else{
-      Object.keys(RegionIDEN).filter((v) => isNaN(Number(v))).forEach(element => {
-	      this.createSeries2(element, element, chart)
-	    });
+      Object.keys(RegionID)
+        .filter((v) => isNaN(Number(v)))
+        .forEach((element) => {
+          this.createSeries2(element, element, chart);
+        });
+    } else {
+      Object.keys(RegionIDEN)
+        .filter((v) => isNaN(Number(v)))
+        .forEach((element) => {
+          this.createSeries2(element, element, chart);
+        });
     }
 
     // chart.legend = new am4charts.Legend();
@@ -623,17 +687,16 @@ export class RegionalAnalysisComponent implements OnInit {
     chart.exporting.menu = new am4core.ExportMenu();
     chart.exporting.menu.items[0].icon =
       '../../../assets/HomePage/download_icon.svg';
-    chart.exporting.menu.align = "right";
-    chart.exporting.menu.verticalAlign = "top";
+    chart.exporting.menu.align = 'right';
+    chart.exporting.menu.verticalAlign = 'top';
   }
 
-  createSeries2(field : string, name : string, chart : any) {
-
+  createSeries2(field: string, name: string, chart: any) {
     // Set up series
     let series = chart.series.push(new am4charts.ColumnSeries());
     series.name = name;
     series.dataFields.valueY = field;
-    series.dataFields.categoryX = "year";
+    series.dataFields.categoryX = 'year';
     series.sequencedInterpolation = true;
 
     // Make it stacked
@@ -641,7 +704,8 @@ export class RegionalAnalysisComponent implements OnInit {
 
     // Configure columns
     series.columns.template.width = am4core.percent(60);
-    series.columns.template.tooltipText = "[bold]{name}[/]\n[font-size:14px]{categoryX}: {valueY}";
+    series.columns.template.tooltipText =
+      '[bold]{name}[/]\n[font-size:14px]{categoryX}: {valueY}';
 
     // Add label
     // let labelBullet = series.bullets.push(new am4charts.LabelBullet());
@@ -654,45 +718,54 @@ export class RegionalAnalysisComponent implements OnInit {
     return series;
   }
 
-  animateBullet(bullet:any, animateBullet:any) {
+  animateBullet(bullet: any, animateBullet: any) {
     let duration = 3000 * Math.random() + 2000;
-    let animation = bullet.animate([{ property: "locationX", from: 0, to: 1 }], duration)
-    animation.events.on("animationended", function(event:any) {
-        animateBullet(event.target.object);
-    })
-}
+    let animation = bullet.animate(
+      [{ property: 'locationX', from: 0, to: 1 }],
+      duration
+    );
+    animation.events.on('animationended', function (event: any) {
+      animateBullet(event.target.object);
+    });
+  }
 
-getMigrationChart(year: number, opt: string, prop: string){
-  this.region.getDataForRegMigration(year, opt, prop).subscribe(res => { this.migrationChart(res); 
-  })
-}
+  getMigrationChart(year: number, opt: string, prop: string) {
+    this.region.getDataForRegMigration(year, opt, prop).subscribe((res) => {
+      this.migrationChart(res);
+    });
+  }
 
-migrationChart(res: any) {
-  am4core.useTheme(am4themes_animated);
-  let chart = am4core.create("chart22", am4charts.SankeyDiagram);
+  migrationChart(res: any) {
+    am4core.useTheme(am4themes_animated);
+    let chart = am4core.create('chart22', am4charts.SankeyDiagram);
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-
-
-    // const result = res.filter((item:any) => item.from === 'იმერეთი');
-    // console.log(res)
-    const result = res.filter((item:any) => item.from === this.selectedRegion);
+    const unique = [...new Set(res.map((item: any) => item.from))];
+    this.regions = unique;
+    if (this.selectedRegion.length === 0) {
+      if (this.lang === 'GEO') {
+        this.selectedRegion = 'თბილისი';
+      } else {
+        this.selectedRegion = 'Tbilisi';
+      }
+    }
+    const result = res.filter(
+      (item: any) => item.from === this.selectedRegion && item.value !== 0
+    );
 
     chart.data = result;
 
     if (this.lang == 'GEO') {
-      this.sanqiName = "ვიზიტების რაოდენობა რეგიონების მიხედვით";
-    }
-    else{
-      this.sanqiName = "Number of Visits By Region";
+      this.sanqiName = 'ვიზიტების რაოდენობა რეგიონების მიხედვით';
+    } else {
+      this.sanqiName = 'Number of Visits By Region';
     }
 
-
-    let hoverState = chart.links.template.states.create("hover");
+    let hoverState = chart.links.template.states.create('hover');
     hoverState.properties.fillOpacity = 0.6;
-    chart.dataFields.fromName = "from";
-    chart.dataFields.toName = "to";
-    chart.dataFields.value = "value";
-    
+    chart.dataFields.fromName = 'from';
+    chart.dataFields.toName = 'to';
+    chart.dataFields.value = 'value';
+
     chart.colors.list = [
       am4core.color('#2330A4'),
       am4core.color('#FDA241'),
@@ -710,29 +783,26 @@ migrationChart(res: any) {
     chart.paddingTop = 40;
     chart.paddingBottom = 40;
 
-
     let nodeTemplate = chart.nodes.template;
     nodeTemplate.inert = true;
-    nodeTemplate.readerTitle = "Drag me!";
+    nodeTemplate.readerTitle = 'Drag me!';
     nodeTemplate.showSystemTooltip = true;
 
     let nodeTemplate2 = chart.nodes.template;
-    nodeTemplate2.readerTitle = "Click to show/hide or drag to rearrange";
+    nodeTemplate2.readerTitle = 'Click to show/hide or drag to rearrange';
     nodeTemplate2.showSystemTooltip = true;
-    nodeTemplate2.cursorOverStyle = am4core.MouseCursorStyle.pointer
+    nodeTemplate2.cursorOverStyle = am4core.MouseCursorStyle.pointer;
 
     chart.logo.disabled = true;
 
     chart.exporting.menu = new am4core.ExportMenu();
     chart.exporting.menu.items[0].icon =
       '../../../assets/HomePage/download_icon.svg';
-    chart.exporting.menu.align = "right";
-    chart.exporting.menu.verticalAlign = "top";
+    chart.exporting.menu.align = 'right';
+    chart.exporting.menu.verticalAlign = 'top';
   }
 
-  changeRegion(){
+  changeRegion() {
     this.createCharts();
   }
-
-
 }
