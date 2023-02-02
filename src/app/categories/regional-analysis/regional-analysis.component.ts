@@ -60,6 +60,8 @@ export class RegionalAnalysisComponent implements OnInit {
   years!: number[];
 
   year: number = 0;
+  selectedRegion: string = 'თბილისი'
+
 
   radioBtnID!: number;
 
@@ -95,6 +97,8 @@ export class RegionalAnalysisComponent implements OnInit {
   changeYear() {
     this.createCharts();
   }
+
+
 
   setTourismType(num: number){
     this.tourismType = num;
@@ -472,7 +476,6 @@ export class RegionalAnalysisComponent implements OnInit {
     chart.geodataSource.url = "https://www.amcharts.com/lib/4/geodata/json/georgiaSouthOssetiaHigh.json";
 
     chart.geodataSource.events.on("parseended", function() {
-
       polygonSeries.data = [res[0], res[1], res[2], res[3], res[4], res[5], res[6], res[7], res[8], res[9], res[10]];
       polygonSeries1.data = [res[11], res[12]];
       polygonSeries2.data = [res[8]];
@@ -716,4 +719,13 @@ migrationChart(res: any) {
     chart.exporting.menu.align = "right";
     chart.exporting.menu.verticalAlign = "top";
   }
+
+  // changeRegion(){
+  //   let regions = []
+  //   console.log('here')
+
+    
+  // }
+
+
 }

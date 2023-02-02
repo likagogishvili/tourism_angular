@@ -40,12 +40,27 @@
             <option *ngFor="let data of years" value="{{ data }}">{{ data }}</option>
           </select>
         </div>
-        <hr>
+        <!-- <hr>
+        <div>
+          <div class="stats__content fontForSelectTitle">
+            <img src="assets/ht-default-indicators/ra.png" alt="" />
+            <select class="stats__title year__title"
+              style="background: url(assets/c-regional-analysis/Plus.png) no-repeat right transparent;"
+              (change)="changeRegion()" [(ngModel)]="year">
+              <option *ngFor="let data of years" value="{{ data }}">{{ data }}</option>
+            </select>
+          </div>
+          
+        </div>
+
+
+        <hr/> -->
         <div class="stats__content">
           <img src="assets/ht-default-indicators/Vector.png" alt="location" />
           <p class="stats__title">{{ 'regional.indicator' |
             translate }}</p>
         </div>
+
         <section class="stats__box">
           <div class="stats__content">
             <input type="radio" id="0" name="All" value="0" (change)="selDeselCheckBoxesOnRDBClick($event)"
