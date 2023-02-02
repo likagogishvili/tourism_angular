@@ -306,6 +306,14 @@ export class HtInteractiveMapComponent implements OnInit {
      * https://www.amcharts.com/docs/v4/
      * ---------------------------------------
      */
+    // for (const key in res) {
+    //   res[key].map((i: any, ind: number) => {
+    //     if (ind > 10) {
+    //       i.value = 0;
+    //     }
+    //     return i;
+    //   });
+    // }
 
     // Themes begin
     am4core.useTheme(am4themes_animated);
@@ -422,7 +430,7 @@ export class HtInteractiveMapComponent implements OnInit {
 
       var newData: any = res[year];
       var itemsWithNonZero = 0;
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < 10 ; i++) {
         chart.data[i].value = newData[i].value;
         if (chart.data[i].value > 0) {
           itemsWithNonZero++;
