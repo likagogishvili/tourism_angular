@@ -33,6 +33,7 @@ export class HtInteractiveMapComponent implements OnInit {
   searchText: string = '';
   countryId: string = '';
   chosenCountryName: string = '';
+
   result: any = [];
   filteredChartData: any = [];
 
@@ -158,7 +159,7 @@ export class HtInteractiveMapComponent implements OnInit {
       min: am4core.color('#8880d1'),
       max: am4core.color('#323C95'),
 
-      minValue: 100,
+      minValue: 1000,
       maxValue: 100000,
       //"dataField": "valueY"
     });
@@ -260,14 +261,15 @@ export class HtInteractiveMapComponent implements OnInit {
     labelBullet.label.text = '{valueY.formatNumber("#.0a")}';
     labelBullet.locationY = 0.5;
     labelBullet.label.hideOversized = true;
-    labelBullet.label.fill = am4core.color('white');
+    labelBullet.label.fill = am4core.color("white");
+
 
     return series;
   }
 
-  getBigChart(country: string = '', lang: string, countryId: string = '') {
-    if (countryId) {
-      this.zoomToCountry(countryId);
+  getBigChart(country: string = '', lang: string, countryId: string ='') {
+    if(countryId){
+      this.zoomToCountry(countryId)
     }
     this.getFlag(country);
     if (this.chosenCountryName === '') {
@@ -294,15 +296,7 @@ export class HtInteractiveMapComponent implements OnInit {
   }
 
   createRaceChart(res: any) {
-    for (const key in res) {
-      res[key].map((i: any, ind: number) => {
-        if (ind > 10) {
-          i.value = 0;
-        }
-
-        return i;
-      });
-    }
+   
     /**
      * ---------------------------------------
      * This demo was created using amCharts 4.
@@ -324,12 +318,12 @@ export class HtInteractiveMapComponent implements OnInit {
 
     chart.logo.disabled = true;
 
-    // chart.numberFormatter.bigNumberPrefixes = [
-    //   { number: 1e3, suffix: 'K' },
-    //   { number: 1e6, suffix: 'M' },
-    //   { number: 1e9, suffix: 'B' },
-    // ];
-    chart.colors.list = [
+    chart.numberFormatter.bigNumberPrefixes = [
+      { number: 1e3, suffix: 'K' },
+      { number: 1e6, suffix: 'M' },
+      { number: 1e9, suffix: 'B' },
+    ];
+   chart.colors.list = [
       am4core.color('#2330A4'),
       am4core.color('#FDA241'),
       am4core.color('#FF7EAE'),
@@ -342,6 +336,7 @@ export class HtInteractiveMapComponent implements OnInit {
       am4core.color('#A42030'),
     ];
 
+
     var label = chart.plotContainer.createChild(am4core.Label);
     label.x = am4core.percent(97);
     label.y = am4core.percent(95);
@@ -349,6 +344,7 @@ export class HtInteractiveMapComponent implements OnInit {
     label.verticalCenter = 'middle';
     label.dx = -15;
     label.fontSize = 50;
+
 
     var playButton = chart.plotContainer.createChild(am4core.PlayButton);
     playButton.x = am4core.percent(97);
@@ -394,7 +390,8 @@ export class HtInteractiveMapComponent implements OnInit {
       "{values.valueX.workingValue.formatNumber('#.0as')}";
     labelBullet.label.textAlign = 'end';
     labelBullet.label.dx = -10;
-    labelBullet.label.fill = am4core.color('white');
+    labelBullet.label.fill = am4core.color("white");
+
 
     chart.zoomOutButton.disabled = true;
 
@@ -430,7 +427,7 @@ export class HtInteractiveMapComponent implements OnInit {
 
       var newData: any = res[year];
       var itemsWithNonZero = 0;
-      for (var i = 0; i < chart.data.length; i++) {
+      for (var i = 0; i < 10; i++) {
         chart.data[i].value = newData[i].value;
         if (chart.data[i].value > 0) {
           itemsWithNonZero++;
@@ -464,5 +461,12 @@ export class HtInteractiveMapComponent implements OnInit {
         playButton.isActive = true; // this starts interval
       }, 2000);
     });
+ 
+ 
   }
+
+
+
+
+
 }
