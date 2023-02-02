@@ -261,15 +261,14 @@ export class HtInteractiveMapComponent implements OnInit {
     labelBullet.label.text = '{valueY.formatNumber("#.0a")}';
     labelBullet.locationY = 0.5;
     labelBullet.label.hideOversized = true;
-    labelBullet.label.fill = am4core.color("white");
-
+    labelBullet.label.fill = am4core.color('white');
 
     return series;
   }
 
-  getBigChart(country: string = '', lang: string, countryId: string ='') {
-    if(countryId){
-      this.zoomToCountry(countryId)
+  getBigChart(country: string = '', lang: string, countryId: string = '') {
+    if (countryId) {
+      this.zoomToCountry(countryId);
     }
     this.getFlag(country);
     if (this.chosenCountryName === '') {
@@ -296,7 +295,6 @@ export class HtInteractiveMapComponent implements OnInit {
   }
 
   createRaceChart(res: any) {
-   
     /**
      * ---------------------------------------
      * This demo was created using amCharts 4.
@@ -323,7 +321,7 @@ export class HtInteractiveMapComponent implements OnInit {
       { number: 1e6, suffix: 'M' },
       { number: 1e9, suffix: 'B' },
     ];
-   chart.colors.list = [
+    chart.colors.list = [
       am4core.color('#2330A4'),
       am4core.color('#FDA241'),
       am4core.color('#FF7EAE'),
@@ -336,7 +334,6 @@ export class HtInteractiveMapComponent implements OnInit {
       am4core.color('#A42030'),
     ];
 
-
     var label = chart.plotContainer.createChild(am4core.Label);
     label.x = am4core.percent(97);
     label.y = am4core.percent(95);
@@ -344,7 +341,6 @@ export class HtInteractiveMapComponent implements OnInit {
     label.verticalCenter = 'middle';
     label.dx = -15;
     label.fontSize = 50;
-
 
     var playButton = chart.plotContainer.createChild(am4core.PlayButton);
     playButton.x = am4core.percent(97);
@@ -390,8 +386,7 @@ export class HtInteractiveMapComponent implements OnInit {
       "{values.valueX.workingValue.formatNumber('#.0as')}";
     labelBullet.label.textAlign = 'end';
     labelBullet.label.dx = -10;
-    labelBullet.label.fill = am4core.color("white");
-
+    labelBullet.label.fill = am4core.color('white');
 
     chart.zoomOutButton.disabled = true;
 
@@ -461,12 +456,5 @@ export class HtInteractiveMapComponent implements OnInit {
         playButton.isActive = true; // this starts interval
       }, 2000);
     });
- 
- 
   }
-
-
-
-
-
 }
