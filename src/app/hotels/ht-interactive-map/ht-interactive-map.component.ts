@@ -33,6 +33,7 @@ export class HtInteractiveMapComponent implements OnInit {
   searchText: string = '';
   countryId: string = '';
   chosenCountryName: string = '';
+
   result: any = [];
   filteredChartData: any = [];
 
@@ -158,7 +159,7 @@ export class HtInteractiveMapComponent implements OnInit {
       min: am4core.color('#8880d1'),
       max: am4core.color('#323C95'),
 
-      minValue: 100,
+      minValue: 1000,
       maxValue: 100000,
       //"dataField": "valueY"
     });
@@ -294,15 +295,6 @@ export class HtInteractiveMapComponent implements OnInit {
   }
 
   createRaceChart(res: any) {
-    for (const key in res) {
-      res[key].map((i: any, ind: number) => {
-        if (ind > 10) {
-          i.value = 0;
-        }
-
-        return i;
-      });
-    }
     /**
      * ---------------------------------------
      * This demo was created using amCharts 4.
@@ -314,6 +306,14 @@ export class HtInteractiveMapComponent implements OnInit {
      * https://www.amcharts.com/docs/v4/
      * ---------------------------------------
      */
+    // for (const key in res) {
+    //   res[key].map((i: any, ind: number) => {
+    //     if (ind > 10) {
+    //       i.value = 0;
+    //     }
+    //     return i;
+    //   });
+    // }
 
     // Themes begin
     am4core.useTheme(am4themes_animated);
@@ -324,11 +324,11 @@ export class HtInteractiveMapComponent implements OnInit {
 
     chart.logo.disabled = true;
 
-    // chart.numberFormatter.bigNumberPrefixes = [
-    //   { number: 1e3, suffix: 'K' },
-    //   { number: 1e6, suffix: 'M' },
-    //   { number: 1e9, suffix: 'B' },
-    // ];
+    chart.numberFormatter.bigNumberPrefixes = [
+      { number: 1e3, suffix: 'K' },
+      { number: 1e6, suffix: 'M' },
+      { number: 1e9, suffix: 'B' },
+    ];
     chart.colors.list = [
       am4core.color('#2330A4'),
       am4core.color('#FDA241'),
@@ -430,7 +430,7 @@ export class HtInteractiveMapComponent implements OnInit {
 
       var newData: any = res[year];
       var itemsWithNonZero = 0;
-      for (var i = 0; i < chart.data.length; i++) {
+      for (var i = 0; i < 10 ; i++) {
         chart.data[i].value = newData[i].value;
         if (chart.data[i].value > 0) {
           itemsWithNonZero++;
