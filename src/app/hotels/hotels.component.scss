@@ -47,11 +47,13 @@
   }
   .text__navbar {
     margin: 0 !important;
-    font-size: clamp(.9rem,1.3vw,16px);
+    font-size: clamp(0.9rem, 1.3vw, 16px);
     font-family: "FiraGO";
     font-style: normal;
     font-weight: 500;
     color: #929497;
+    font-feature-settings: "case" on, "cpsp" on, "smcp";
+    text-transform: capitalize;
 
     &:hover {
       color: #000000;
@@ -112,13 +114,11 @@
     background-image: url(../../assets/HomePage/burger.svg);
     top: 40px;
     z-index: 100;
-
   }
 }
 .burger__icon__open {
   background-image: url(../../assets/HomePage/burger_close.svg);
-  position:relative;
-
+  position: relative;
 }
 
 .outlet {

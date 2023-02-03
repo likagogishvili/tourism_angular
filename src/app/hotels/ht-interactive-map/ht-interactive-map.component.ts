@@ -382,6 +382,7 @@ export class HtInteractiveMapComponent implements OnInit {
 
     var labelBullet = series.bullets.push(new am4charts.LabelBullet());
     labelBullet.label.horizontalCenter = 'left';
+    labelBullet.label.paddingRight = -30;
     labelBullet.label.text =
       "{values.valueX.workingValue.formatNumber('#.0as')}";
     labelBullet.label.textAlign = 'end';
