@@ -748,9 +748,16 @@ export class RegionalAnalysisComponent implements OnInit {
         this.selectedRegion = 'Tbilisi';
       }
     }
-    const result = res.filter(
-      (item: any) => item.from === this.selectedRegion && item.value !== 0
-    );
+    let result;
+    if (this.isValue === 1) {
+      result = res.filter(
+        (item: any) => item.to === this.selectedRegion && item.value !== 0
+      );
+    } else {
+      result = res.filter(
+        (item: any) => item.from === this.selectedRegion && item.value !== 0
+      );
+    }
 
     chart.data = result;
 
