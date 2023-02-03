@@ -295,29 +295,11 @@ export class HtInteractiveMapComponent implements OnInit {
   }
 
   createRaceChart(res: any) {
-    /**
-     * ---------------------------------------
-     * This demo was created using amCharts 4.
-     *
-     * For more information visit:
-     * https://www.amcharts.com/
-     *
-     * Documentation is available at:
-     * https://www.amcharts.com/docs/v4/
-     * ---------------------------------------
-     */
-    // for (const key in res) {
-    //   res[key].map((i: any, ind: number) => {
-    //     if (ind > 10) {
-    //       i.value = 0;
-    //     }
-    //     return i;
+    // for (var key in res) {
+    //   res[key].filter(function (el: any) {
+    //     return el.country !== 'სხვადასხვა';
     //   });
     // }
-
-    // Themes begin
-    am4core.useTheme(am4themes_animated);
-    // Themes end
 
     var chart = am4core.create('chartdiv', am4charts.XYChart);
     chart.padding(40, 40, 40, 40);
@@ -348,7 +330,7 @@ export class HtInteractiveMapComponent implements OnInit {
     label.horizontalCenter = 'right';
     label.verticalCenter = 'middle';
     label.dx = -15;
-    label.fontSize = 50;
+    label.fontSize = 40;
 
     var playButton = chart.plotContainer.createChild(am4core.PlayButton);
     playButton.x = am4core.percent(97);
@@ -389,12 +371,12 @@ export class HtInteractiveMapComponent implements OnInit {
     series.interpolationEasing = am4core.ease.linear;
 
     var labelBullet = series.bullets.push(new am4charts.LabelBullet());
-    labelBullet.label.horizontalCenter = 'right';
+    labelBullet.label.horizontalCenter = 'left';
     labelBullet.label.text =
       "{values.valueX.workingValue.formatNumber('#.0as')}";
     labelBullet.label.textAlign = 'end';
-    labelBullet.label.dx = -10;
-    labelBullet.label.fill = am4core.color('white');
+    labelBullet.label.dx = 10;
+    labelBullet.label.fill = am4core.color('black');
 
     chart.zoomOutButton.disabled = true;
 
@@ -430,7 +412,7 @@ export class HtInteractiveMapComponent implements OnInit {
 
       var newData: any = res[year];
       var itemsWithNonZero = 0;
-      for (var i = 0; i < newData.length() ; i++) {
+      for (var i = 0; i < newData.length; i++) {
         chart.data[i].value = newData[i].value;
         if (chart.data[i].value > 0) {
           itemsWithNonZero++;
