@@ -290,6 +290,16 @@ export class HtInteractiveMapComponent implements OnInit {
     var uRlForBigChart = this.APIUrl + '/race?lang=' + lang;
 
     this.http.get<any>(uRlForBigChart).subscribe((res) => {
+      // let data = res
+
+      for (const [key, value] of Object.entries(res)) {
+        // @ts-ignore
+        value.map((i: any) => {
+          if (i.country === 'სხვადასხვა' || i.country === 'Other') {
+            i.value = 0;
+          }
+        });
+      }
       this.createRaceChart(res);
     });
   }
