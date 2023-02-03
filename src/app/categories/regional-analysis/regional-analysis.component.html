@@ -89,7 +89,7 @@
               (change)="changeRegion()"
               [(ngModel)]="selectedRegion"
             >
-              <option *ngFor="let i of regions" value="{{ i }}">{{ i }}</option>
+              <option *ngFor="let i of regions" value="{{ i }}">{{ i.split('_').join(' ') }}</option>
             </select>
           </div>
           <hr />
