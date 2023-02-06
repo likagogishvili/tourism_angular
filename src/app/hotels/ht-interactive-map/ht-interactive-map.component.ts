@@ -290,6 +290,16 @@ export class HtInteractiveMapComponent implements OnInit {
     var uRlForBigChart = this.APIUrl + '/race?lang=' + lang;
 
     this.http.get<any>(uRlForBigChart).subscribe((res) => {
+      // let data = res
+
+      for (const [key, value] of Object.entries(res)) {
+        // @ts-ignore
+        value.map((i: any) => {
+          if (i.country === 'სხვადასხვა' || i.country === 'Other') {
+            i.value = 0;
+          }
+        });
+      }
       this.createRaceChart(res);
     });
   }
@@ -372,6 +382,7 @@ export class HtInteractiveMapComponent implements OnInit {
 
     var labelBullet = series.bullets.push(new am4charts.LabelBullet());
     labelBullet.label.horizontalCenter = 'left';
+    labelBullet.label.paddingRight = -30;
     labelBullet.label.text =
       "{values.valueX.workingValue.formatNumber('#.0as')}";
     labelBullet.label.textAlign = 'end';
