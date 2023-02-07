@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4maps from '@amcharts/amcharts4/maps';
 import * as am4charts from '@amcharts/amcharts4/charts';
-import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { RegionService } from './service/region.service';
 import { DataForMapChart } from './service/dataForMapChart';
 import { HttpClient } from '@angular/common/http';
@@ -505,7 +504,7 @@ export class RegionalAnalysisComponent implements OnInit {
   }
 
   createMapChart(title: any, res: DataForMapChart[]) {
-    am4core.useTheme(am4themes_animated);
+    // am4core.useTheme(am4themes_animated);
     let chart = am4core.create('chart1', am4maps.MapChart);
 
     // chart.colors.step = 3;;
@@ -646,17 +645,22 @@ export class RegionalAnalysisComponent implements OnInit {
   }
 
   expenceChart(res: any) {
-    am4core.useTheme(am4themes_animated);
-    // Themes end
+    let reg = this.selectedRegion;
+    let data = res.map((i: any) => {
+      Object.keys(i).forEach(function (key) {
+        if (key !== reg && key !== 'year') {
+          i[key] = 0;
+        }
+      });
+      return i;
+    })
 
-    // Create chart instance
     let chart = am4core.create('chart2', am4charts.XYChart);
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = 'year';
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.numberFormatter.numberFormat = '#';
 
-    // chart.colors.step = 3;
 
     chart.colors.list = [
       am4core.color('#2330A4'),
@@ -754,7 +758,7 @@ export class RegionalAnalysisComponent implements OnInit {
   }
 
   migrationChart(res: any) {
-    am4core.useTheme(am4themes_animated);
+    // am4core.useTheme(am4themes_animated);
     let chart = am4core.create('chart22', am4charts.SankeyDiagram);
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
     const unique = [...new Set(res.map((item: any) => item.from))];

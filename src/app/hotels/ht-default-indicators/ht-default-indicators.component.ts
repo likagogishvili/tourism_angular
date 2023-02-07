@@ -5,7 +5,7 @@ import { IDropDown } from 'src/app/common/IDropDown';
 import { DefindicatorService } from './service/defindicator.service';
 import { HttpClient } from '@angular/common/http';
 import { DataForMapChart } from './service/dataForMapChart';
-import lang from '@amcharts/amcharts4-geodata/lang/ES';
+// import lang from '@amcharts/amcharts4-geodata/lang/ES';
 
 // import am4geodata_georgia from "@amcharts/amcharts4-geodata/region/world/";
 // import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
@@ -33,7 +33,7 @@ export class HtDefaultIndicatorsComponent implements OnInit {
   }
 
   status: number = 0;
-  clickEvent(id:number) {
+  clickEvent(id: number) {
     this.status = id;
   }
 
@@ -68,9 +68,15 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     let list: string[] = [];
     this.regions.forEach((reg) => {
       if ((document.getElementById(reg.name) as HTMLInputElement).checked) {
-        list.push(String(reg.value));
+        if (reg.value) {
+          list.push(String(reg.value));
+        }
       }
     });
+    if (list.length === 0) {
+      list = ['38', '11', '26', '47', '15', '41', '44', '32', '23', '29'];
+    }
+    // console.log(list)
 
     this.optList = list.join();
 
@@ -296,6 +302,7 @@ export class HtDefaultIndicatorsComponent implements OnInit {
             chart,
             'სამი და მეტიანი'
           );
+          this.createLineSeries('სულ', 'ადგილების რაოდენობა', chart, 'ადგილი');
         } else {
           this.createSeries('Lux', 'Lux', chart, 'Lux');
           this.createSeries('Single', 'Single', chart, 'Single');
@@ -306,6 +313,7 @@ export class HtDefaultIndicatorsComponent implements OnInit {
             chart,
             'Three Or More'
           );
+          this.createLineSeries('Total', 'Number of Beds', chart, 'Beds');
         }
         break;
 
@@ -415,5 +423,33 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     labelBullet.label.hideOversized = true;
 
     return series;
+  }
+
+  createLineSeries(field: string, name: string, chart: any, ragac: string) {
+    let lineSeries = chart.series.push(new am4charts.LineSeries());
+    lineSeries.name = name;
+    lineSeries.dataFields.valueY = field;
+    lineSeries.dataFields.categoryX = 'year';
+
+    lineSeries.stroke = am4core.color('#fdd400');
+    lineSeries.strokeWidth = 3;
+    lineSeries.propertyFields.strokeDasharray = 'lineDash';
+    lineSeries.tooltip.label.textAlign = 'middle';
+
+    let bullet = lineSeries.bullets.push(new am4charts.Bullet());
+    bullet.fill = am4core.color('#fdd400'); // tooltips grab fill from parent by default
+    if (this.lang == 'GEO') {
+      bullet.tooltipText =
+        '{categoryX} წელს: [bold]{valueY.formatNumber("#,###.")} ' + ragac;
+    } else {
+      bullet.tooltipText =
+        '{categoryX} Year: [bold]{valueY.formatNumber("#,###.")} ' + ragac;
+    }
+
+    let circle = bullet.createChild(am4core.Circle);
+    circle.radius = 4;
+    circle.fill = am4core.color('#fff');
+    circle.strokeWidth = 3;
+    return lineSeries;
   }
 }
