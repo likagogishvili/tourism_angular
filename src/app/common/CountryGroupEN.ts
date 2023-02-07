@@ -12,6 +12,6 @@ export enum CountryGroupEN {
   South_America = 7773,
   Africa = 7774,
   Australia_Oceania = 7775,
-  Other = 9999,
   Unknown = 237,
+  Other = 9999,
 }
