@@ -258,6 +258,13 @@ a {
     z-index: 1000;
   }
 }
+.map__cnt {
+  .amcharts-amexport-menu {
+    position: absolute !important;
+    top: 0 !important;
+    z-index: 10000;
+  }
+}
 
 // default radio and checkbox buttons
 
