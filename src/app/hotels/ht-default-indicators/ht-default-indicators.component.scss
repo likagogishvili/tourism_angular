@@ -11,8 +11,6 @@
 //   z-index: 120;
 // }
 
-
-
 .FontForChartTitles {
   font-size: 18px;
   color: #3d3d3e;
@@ -156,8 +154,6 @@
     height: 500px;
   }
 
-  
-
   .chart__title {
     text-align: center;
     font-size: 1.5rem;
@@ -186,6 +182,7 @@
   }
 
   .cnt__other__charts {
+    position: relative;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
@@ -197,17 +194,46 @@
       width: 100%;
     }
   }
+  
+  .zoom__icon {
+    display: block;
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 999;
+    bottom: 20px;
+    right: 20px;
+  }
+  .zoom__in {
+    background-image: url(../../../assets/ht-default-indicators/zoom-in.png);
+    transform: rotate(90deg);
+  }
 }
 
-.amcharts-amexport-menu {
+// If chart__zoomed class is active, change icons 
+
+.chart__zoomed {
   position: absolute !important;
-  top: -35px !important;
-}
+  width: 69vw;
+  height: 75vh;
+  z-index: 1000;
 
+  .zoom__in {
+    display: none;
+  }
+  .zoom__out {
+    display: block !important;
+    background-image: url(../../../assets/ht-default-indicators/zoom-out.png);
+    z-index: 1001;
+  }
+}
 
 // .pad {
-//   padding-left: 12px;
-// }
+  //   padding-left: 12px;
+  // }
 
 // .pad2 {
 //   margin-top: -20px;
