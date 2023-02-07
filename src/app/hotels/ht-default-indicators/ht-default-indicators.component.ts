@@ -32,6 +32,11 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     this.countryGroups = this.srvc.getCountryGroups();
   }
 
+  status: number = 0;
+  clickEvent(id:number) {
+    this.status = id;
+  }
+
   lang: any;
 
   ngOnInit(): void {
@@ -285,12 +290,22 @@ export class HtDefaultIndicatorsComponent implements OnInit {
           this.createSeries('ლუქსი', 'ლუქსი', chart, 'ლუქსი');
           this.createSeries('ერთიანი', 'ერთადგილიანი', chart, 'ერთიანი');
           this.createSeries('ორიანი', 'ორადგილიანი', chart, 'ორიანი');
-          this.createSeries('სამიანი', 'სამადგილიანი', chart, 'სამიანი');
+          this.createSeries(
+            'სამიანი',
+            'სამი და მეტ ადგილიანი',
+            chart,
+            'სამი და მეტიანი'
+          );
         } else {
           this.createSeries('Lux', 'Lux', chart, 'Lux');
           this.createSeries('Single', 'Single', chart, 'Single');
           this.createSeries('Double', 'Double', chart, 'Double');
-          this.createSeries('ThreeOrMore', 'ThreeOrMore', chart, 'ThreeOrMore');
+          this.createSeries(
+            'ThreeOrMore',
+            'Three Or More',
+            chart,
+            'Three Or More'
+          );
         }
         break;
 
@@ -360,7 +375,6 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     marker.strokeWidth = 1;
     marker.strokeOpacity = 1;
     // marker.stroke = am4core.color('#ccc');
-
 
     chart.exporting.menu = new am4core.ExportMenu();
     chart.exporting.menu.items[0].icon =
