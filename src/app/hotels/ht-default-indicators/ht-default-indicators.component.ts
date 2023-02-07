@@ -5,7 +5,7 @@ import { IDropDown } from 'src/app/common/IDropDown';
 import { DefindicatorService } from './service/defindicator.service';
 import { HttpClient } from '@angular/common/http';
 import { DataForMapChart } from './service/dataForMapChart';
-import lang from '@amcharts/amcharts4-geodata/lang/ES';
+// import lang from '@amcharts/amcharts4-geodata/lang/ES';
 
 // import am4geodata_georgia from "@amcharts/amcharts4-geodata/region/world/";
 // import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
@@ -33,7 +33,7 @@ export class HtDefaultIndicatorsComponent implements OnInit {
   }
 
   status: number = 0;
-  clickEvent(id:number) {
+  clickEvent(id: number) {
     this.status = id;
   }
 
@@ -68,9 +68,15 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     let list: string[] = [];
     this.regions.forEach((reg) => {
       if ((document.getElementById(reg.name) as HTMLInputElement).checked) {
-        list.push(String(reg.value));
+        if (reg.value) {
+          list.push(String(reg.value));
+        }
       }
     });
+    if (list.length === 0) {
+      list = ['38', '11', '26', '47', '15', '41', '44', '32', '23', '29'];
+    }
+    // console.log(list)
 
     this.optList = list.join();
 
