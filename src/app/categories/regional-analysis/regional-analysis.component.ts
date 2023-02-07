@@ -547,6 +547,24 @@ export class RegionalAnalysisComponent implements OnInit {
       polygonSeries2.data = [res[8]];
     });
 
+    // Export
+    chart.exporting.menu = new am4core.ExportMenu();
+    chart.exporting.menu.items[0].icon =
+      '../../../assets/HomePage/download_icon.svg';
+    chart.exporting.menu.align = 'right';
+    chart.exporting.menu.verticalAlign = 'top';
+    chart.exporting.adapter.add('data', function (data) {
+      data.data = [];
+      for (var i = 0; i < polygonSeries.data.length; i++) {
+        var row = polygonSeries.data[i];
+        data.data.push({
+          qveyana: row.id,
+          value: row.value,
+        });
+      }
+      return data;
+    });
+
     chart.projection = new am4maps.projections.Mercator();
 
     let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
