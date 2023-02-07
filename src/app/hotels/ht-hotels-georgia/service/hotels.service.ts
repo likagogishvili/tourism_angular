@@ -19,18 +19,18 @@ export class HotelsService {
 
   hotelTypesGE: IDropDown[] = [
     {name: "სასტუმრო", value: 1, isDisabled: true},
-    {name: "კემპინგი", value: 2, isDisabled: false},
-    {name: "კოტეჯი", value: 3, isDisabled: false},
-    {name: "სასტუმრო სახლი", value: 4, isDisabled: false},
-    {name: "კოტეჯი ან სახლი მასპინძლის გარეშე", value: 5, isDisabled: false},
+    {name: "კემპინგი", value: 3, isDisabled: false},
+    // {name: "კოტეჯი", value: 3, isDisabled: false},
+    {name: "სასტუმრო სახლი", value: 5, isDisabled: false},
+    {name: "კოტეჯი ან სახლი მასპინძლის გარეშე", value: 6, isDisabled: false},
   ];
 
   hotelTypesEN: IDropDown[] = [
     {name: "Hotel", value: 1, isDisabled: true},
-    {name: "Camping", value: 2, isDisabled: false},
-    {name: "Cottage", value: 3, isDisabled: false},
-    {name: "Guest House", value: 4, isDisabled: false},
-    {name: "A Cottage or House Without a Host", value: 5, isDisabled: false},
+    {name: "Camping", value: 3, isDisabled: false},
+    // {name: "Cottage", value: 3, isDisabled: false},
+    {name: "Guest House", value: 5, isDisabled: false},
+    {name: "A Cottage or House Without a Host", value: 6, isDisabled: false},
   ];
 
 
