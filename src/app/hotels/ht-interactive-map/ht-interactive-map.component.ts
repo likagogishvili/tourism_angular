@@ -419,6 +419,7 @@ export class HtInteractiveMapComponent implements OnInit {
 
       if (year > 2021) {
         year = 2006;
+        stop();
       }
 
       var newData: any = res[year];

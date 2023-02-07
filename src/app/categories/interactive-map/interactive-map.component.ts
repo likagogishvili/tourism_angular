@@ -225,9 +225,9 @@ export class InteractiveMapComponent implements OnInit {
 
   sliderLowestVal: number = 0;
   sliderHighestVal: number = 0;
-  sliderValue: number = 2021;
+  sliderValue: number = 2022;
   countriesForChart: any = [];
-  selectedYear: number = 2021;
+  selectedYear: number = 2022;
   selectedQuarter: number = 0;
   selectedMonth: number = 0;
   selectedGender: number = 0;
