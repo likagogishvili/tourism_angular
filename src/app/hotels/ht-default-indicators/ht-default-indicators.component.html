@@ -4,13 +4,20 @@
       <div class="wrapper__indicators">
         <div class="cont__indicators">
           <div class="title__indicator">
-            <img src="assets/c-default-indicators/Calendar.png" alt="statistics" />
-            <select style="
+            <img
+              src="assets/c-default-indicators/Calendar.png"
+              alt="statistics"
+            />
+            <select
+              style="
                 background: url(assets/c-default-indicators/Down.png) no-repeat
                   right transparent;
                 width: 60px;
                 background-size: 15px;
-              " (change)="yearChange()" [(ngModel)]="year">
+              "
+              (change)="yearChange()"
+              [(ngModel)]="year"
+            >
               <option *ngFor="let data of years" value="{{ data }}">
                 {{ data }}
               </option>
@@ -19,52 +26,89 @@
         </div>
         <div class="cont__indicators">
           <div class="title__indicator fontForCheckboxesTitle">
-            <img class="firstImgPositionForInputs" src="assets/ht-default-indicators/Vector.png" alt="statistics" />
+            <img
+              class="firstImgPositionForInputs"
+              src="assets/ht-default-indicators/Vector.png"
+              alt="statistics"
+            />
             <p>{{ "keyindic.indic" | translate }}</p>
           </div>
 
           <div class="indicators">
             <div class="indicator">
-              <input type="radio" id="HotelsAmount" name="radioSelect" value="HotelsAmount" checked (click)="hotel()" />
+              <input
+                type="radio"
+                id="HotelsAmount"
+                name="radioSelect"
+                value="HotelsAmount"
+                checked
+                (click)="hotel()"
+              />
               <label class="fontForCheckboxes" for="HotelsAmount">{{
                 "keyindic.hotelCount" | translate
-                }}</label>
+              }}</label>
             </div>
             <div class="indicator">
-              <input type="radio" id="VisitorsAmount" name="radioSelect" value="VisitorsAmount" (click)="guest()" />
+              <input
+                type="radio"
+                id="VisitorsAmount"
+                name="radioSelect"
+                value="VisitorsAmount"
+                (click)="guest()"
+              />
               <label class="fontForCheckboxes" for="VisitorsAmount">{{
                 "keyindic.guestCount" | translate
-                }}</label>
+              }}</label>
             </div>
           </div>
         </div>
 
         <div class="cont__indicators">
           <div class="title__indicator">
-            <img class="firstImgPositionForInputs" src="assets/ht-default-indicators/ra.png" alt="location" />
+            <img
+              class="firstImgPositionForInputs"
+              src="assets/ht-default-indicators/ra.png"
+              alt="location"
+            />
             <div class="fontForCheckboxesTitle">
               {{ "keyindic.regs" | translate }}
             </div>
           </div>
           <div class="indicators">
             <div class="indicator">
-              <input type="checkbox" id="All" name="All" value="0" [checked]="true"
-                (change)="checkUncheckAll($event)" />
+              <input
+                type="checkbox"
+                id="All"
+                name="All"
+                value="0"
+                [checked]="true"
+                (change)="checkUncheckAll($event)"
+              />
               <label class="fontForCheckboxes" for="All">{{
                 "keyindic.def" | translate
-                }}</label><br />
+              }}</label
+              ><br />
             </div>
 
-            <div class="indicator" *ngFor="let reg of regions" [(ngModel)]="region" id="checkDiv">
-              <input type="checkbox" id="{{ reg.name }}" name="{{ reg.name }}" value="{{ reg.value }}"
-                (change)="addRemoveRegion()" />
+            <div
+              class="indicator"
+              *ngFor="let reg of regions"
+              [(ngModel)]="region"
+              id="checkDiv"
+            >
+              <input
+                type="checkbox"
+                id="{{ reg.name }}"
+                name="{{ reg.name }}"
+                value="{{ reg.value }}"
+                (change)="addRemoveRegion()"
+              />
               <label class="fontForCheckboxes" for="{{ reg.name }}">{{
                 reg.name.split("_").join(" ")
-                }}</label>
+              }}</label>
               <br />
             </div>
           </div>
-
         </div>
       </div>
 
@@ -74,267 +118,97 @@
       </div>
     </section>
     <section class="other__charts">
-      <div class="cnt__other__charts"  [ngClass]="status===1 ? 'chart__zoomed' : ''">
+      <div
+        class="cnt__other__charts"
+        [ngClass]="status === 1 ? 'chart__zoomed' : ''"
+      >
         <p class="FontForChartTitles">
           {{ "keyindic.hotelsChartTitle" | translate }}
         </p>
         <i class="zoom__icon zoom__in" (click)="clickEvent(1)"></i>
-        <i class="zoom__icon zoom__out" style="display: none;" (click)="clickEvent(0)"></i>
+        <i
+          class="zoom__icon zoom__out"
+          style="display: none"
+          (click)="clickEvent(0)"
+        ></i>
         <div class="other__chart" id="chartHotelCount"></div>
       </div>
-      <div class="cnt__other__charts" [ngClass]="status===2 ? 'chart__zoomed' : ''">
+      <div
+        class="cnt__other__charts"
+        [ngClass]="status === 2 ? 'chart__zoomed' : ''"
+      >
         <p class="FontForChartTitles">
           {{ "keyindic.roomsChartTitle" | translate }}
         </p>
         <i class="zoom__icon zoom__in" (click)="clickEvent(2)"></i>
-        <i class="zoom__icon zoom__out" style="display: none;" (click)="clickEvent(0)"></i>
+        <i
+          class="zoom__icon zoom__out"
+          style="display: none"
+          (click)="clickEvent(0)"
+        ></i>
         <div class="other__chart" id="chartBadRoom"></div>
       </div>
-      <div class="cnt__other__charts " [ngClass]="status===3 ? 'chart__zoomed' : ''">
+      <div
+        class="cnt__other__charts"
+        [ngClass]="status === 3 ? 'chart__zoomed' : ''"
+      >
         <p class="FontForChartTitles">
           {{ "keyindic.guestsChartTitle" | translate }}
         </p>
         <i class="zoom__icon zoom__in" (click)="clickEvent(3)"></i>
-        <i class="zoom__icon zoom__out" style="display: none;" (click)="clickEvent(0)"></i>
+        <i
+          class="zoom__icon zoom__out"
+          style="display: none"
+          (click)="clickEvent(0)"
+        ></i>
         <div class="other__chart" id="chartGestCount"></div>
       </div>
 
-      <div class="cnt__other__charts"  [ngClass]="status ===4 ? 'chart__zoomed' : ''">
+      <div
+        class="cnt__other__charts"
+        [ngClass]="status === 4 ? 'chart__zoomed' : ''"
+      >
         <p class="FontForChartTitles">
           {{ "keyindic.incomsChartTitle" | translate }}
         </p>
-        <i class="zoom__icon zoom__in"  (click)="clickEvent(4)"></i>
-        <i class="zoom__icon zoom__out" style="display: none;" (click)="clickEvent(0)"></i>
+        <i class="zoom__icon zoom__in" (click)="clickEvent(4)"></i>
+        <i
+          class="zoom__icon zoom__out"
+          style="display: none"
+          (click)="clickEvent(0)"
+        ></i>
         <div class="other__chart" id="chartRevenue"></div>
       </div>
-      <div class="cnt__other__charts" [ngClass]="status===5 ? 'chart__zoomed' : ''">
+      <div
+        class="cnt__other__charts"
+        [ngClass]="status === 5 ? 'chart__zoomed' : ''"
+      >
         <p class="FontForChartTitles">
           {{ "keyindic.emploeeChartTitle" | translate }}
         </p>
         <i class="zoom__icon zoom__in" (click)="clickEvent(5)"></i>
-        <i class="zoom__icon zoom__out" style="display: none;" (click)="clickEvent(0)"></i>
+        <i
+          class="zoom__icon zoom__out"
+          style="display: none"
+          (click)="clickEvent(0)"
+        ></i>
         <div class="other__chart" id="chartGender"></div>
       </div>
-      <div class="cnt__other__charts" [ngClass]="status==6 ? 'chart__zoomed' : ''">
+      <div
+        class="cnt__other__charts"
+        [ngClass]="status == 6 ? 'chart__zoomed' : ''"
+      >
         <p class="FontForChartTitles">
           {{ "keyindic.expenceChartTitle" | translate }}
         </p>
         <i class="zoom__icon zoom__in" (click)="clickEvent(6)"></i>
-        <i class="zoom__icon zoom__out" style="display: none;" (click)="clickEvent(0)"></i>
+        <i
+          class="zoom__icon zoom__out"
+          style="display: none"
+          (click)="clickEvent(0)"
+        ></i>
         <div class="other__chart" id="chartCoast"></div>
       </div>
     </section>
   </div>
 </div>
-
-<!-- <div class="row">
-  <div class="col-6">
-    <h1 *ngIf="selectedRegion != 0" class="text-center">{{name}}</h1>
-    <h1 *ngIf="selectedRegion == 0" class="text-center">{{hoverName}}</h1>
-    <div class="pirveliRagac mapdiv">
-      <svg
-        height="512"
-        version="1.2"
-        viewbox="0 0 1000 512"
-        width="1000"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <a >
-          <title>აფხაზეთის ა/რ</title>
-
-          <path 
-            (mouseenter)="hover('აფხაზეთის ა/რ')"
-            (mouseleave)="hover('აირჩიეთ რეგიონი')"
-            d="M323.6 74.5l-2.1 4.8-1.7 5.3 0.6 5.8 0.1 5.7-2.1 5.8-3 4.9-3.4 3.9-2.9 4.7-7.7 3.3-14.5 2.7-3.5 4.6 2.7 3.4 1.2 4.3 0.8 4.7 1.5 4.4 0.7 4.4-2.3 3.1-1.8 1.2-1.6 1.7-0.1 2.2 1.1 1.9 1.5 9.3-0.2 5.3 0.6 4.9 4.2 7.2 1 8.8-1.3 3.6-2.6 1.7-3.1 2.5-2.6 3.7-11.7 11.4-13.3 7.8-7.3 2.5-5.4 6.7-5.6 3.5-6 2.9-7.5-47.3-2.6-8-3.8-6.8-4.9-5.3-6.1-3.5-11.3-2.1-2.5-1.4-2.4-2.2-3.6-2-3.7-1.5-3-0.4-1.7 0.5-3 1.9-1.9 0.3-1.6-0.9-6.8-10.4-3.4-12.5-6.2-10.8-2.5-5.8-3.7 0.1-5.9 2.6-3.7-1.3-4.4-6.8-2.6-1.6-0.1-1-3.5-6.1-1-0.8-10.8-4.3-14.9-2.1-7 0.4-4.8 1.2-1.8 0.2-1.7-0.7-2.9-2.9-2.2-1.2-2.5-2.7-2.8-1.6-4.7-0.8-12-5.8-5.5-0.6-3.9 5-1.5-1.6-2.2-5.5-1.3-2.7-3.4-3.4-1.5-2.2 0.7-6.5-2.4-6-3.2-5.5-2.4-3-4.6-2.2-8.2-2.4-4.7-4.9-2.2-1-6.8-1.1-4.7-2-3.5-0.7 0.8-3.6 10.1-26.4 2-3.3 3.6-2.4 10-2.7 10.3 0 36.7 13.8 5.9 0.7 4.6-1.2 9.7-5.1 5.4-0.6 4.3 2.2 8.8 6.8 15.2 5.3 4.8 2.8 20.4 16.4 4.6 1.2 15.5-2.1 5 1.1 4.8 2.4 4.6 3.8 5.2 2.3 10.7-2.1 4.5 1.8 1.3 2 2.1 4.8 1.4 2.1 2.2 1.6 7.7 2.5 3.9 2.3 6.6 6.9 4.1 2.2 5.4 0.5 10.9-1.5 5.4 0.6 9.7 2.8 4.7 0.5 10.3-1.2 4.4 0.2 4.3 1.2 4.7 2.3 4.7 1.4 4.8 0.3 4.7-1 11.8-6.5z"
-            id="AbkhaziaOccupiedByRussia"
-            name="Abkhazia"
-          ></path>
-        </a>
-        <a xlink:title="აჭარა">
-          <path
-            [ngStyle]="{'fill': selectedRegion == 15 ? 'rgb(76, 0, 255)' : ''}"
-            (click)="getRegionCode($event, 'აჭარა')"
-            (mouseenter)="hover('აჭარა')"
-            (mouseleave)="hover('აირჩიეთ რეგიონი')"
-            d="M372.3 361.1l2.1 6.2-0.2 6.9-1.7 2.7-0.3 3.7 1 2.9 1.4 2.5 3.9 3.6 3.5 4.1 4.4 7 1.5 4.2-3.2 2.4-1.5 3.3-1.4 8.1-1.5 3.3-3.3 3.4-4.4 6.8-3.1 2-3.8 0.2-26.1-10.2-7.3 0.4-3.5-0.3-2.5-2.3-2.1-1.3-2.3-0.1-4.7 1.4-2.1-1-2.1-0.4-2.1 0.3-2.1 1.1-5.3 1.6-10.6-4.1-6 2.5-2.1 1.5-4.6 6.7-6 5.2-1.4 0.8-1.8-0.8-5.9-5.5-2-0.7-4.4-0.5-1.7-0.7-0.6-1.3 0.2-3.1-1.4-0.8-3.7 1.7-4.5 0.4-1.8-0.4-15.9-6.7 9.8-17.6 4.3-5.9 9-5.9 2.5-6 7-11.5 0.6-5.8 0.9-1.7 2.4-3.4 1.2-3.5 0-16.2 19.4 1 6.2 3.7 0.8 4.2 7.3 3.1 4.7 2.7 4.6 3.6 1.9-0.3 3.9-1.5 7.2-0.9 7.4 4.1 4.4 1.1 10.8-1.7 7.9-5 4.1-1.3 3.3 0.8 5.7 5.9 1.9 1 3.8 0.3z"
-            id="15"
-            name="Ajaria"
-          ></path>
-        </a>
-        <a xlink:title="გურია">
-          <path
-            [ngStyle]="{'fill': selectedRegion == 23 ? 'rgb(76, 0, 255)' : ''}"
-            (click)="getRegionCode($event, 'გურია')"
-            (mouseenter)="hover('გურია')"
-            (mouseleave)="hover('აირჩიეთ რეგიონი')"
-            d="M334.7 301.3l-3.4 5.3 3.6 5.3 7.3 1.3 2.8 0.8 2.4-0.8 4.6-2.9 5.3 1.3 2.9 4.7 1.9 5.9 4.3 2.6 5.3 1.6 3.8 2.8 4.1 2.1 2.9 1.7 2.9 1.5 4.8-0.4 4.5 1.3 2.2 8.7 0.3 10.1-3.8 0.1-3.3 2.2-1.3 3.6-2.5 2-3.4-0.6-3.3-1.2-7.3 0.8-3.8-0.3-1.9-1-5.7-5.9-3.3-0.8-4.1 1.3-7.9 5-10.8 1.7-4.4-1.1-7.4-4.1-7.2 0.9-3.9 1.5-1.9 0.3-4.6-3.6-4.7-2.7-7.3-3.1-0.8-4.2-6.2-3.7-19.4-1 0-0.8-1.8-12.6-0.3-4.6-0.6-2.7-6.1-10.7 3.3-5.2 0.6-3.9 2.1-5.6 9.3-1.7 9.6-0.4 18.4-3.1 8.3 2.1 7.5 5 9.5 1.3 7.9 3.9z"
-            id="23"
-            name="Guria"
-          ></path>
-        </a>
-        <a>
-          <title>სამეგრელო-ზემო სვანეთი</title>
-          <path
-            [ngStyle]="{'fill': selectedRegion == 38 ? 'rgb(76, 0, 255)' : ''}"
-            (click)="getRegionCode($event, 'სამეგრელო-ზემო სვანეთი')"
-            (mouseenter)="hover('სამეგრელო-ზემო სვანეთი')"
-            (mouseleave)="hover('აირჩიეთ რეგიონი')"
-            d="M475.4 132.2l-4.8 1.9-5.1 7.2-3.3 3.1-0.4 6.4-2.7 4.2-4.1-0.7-9.3-3.6-10.8 1.4-16.1-7.3-2 1-1.8 1.5-4 1.8-8.7-0.3-21.1-5.2-3.7-1.7-3.7-0.1-1.9 3.4-1.5 3.7-1.6 1.3-1.8 0.4-5.6 0.4-4.7 2.7-3.6 7 8.1 7.1 16.7 9.5 6.7 7-3.9 8.4 11.3 22.7-2.9 0.1-2.7 0.8-7.4 0.5-4.6 4.6-2.2 7-2.3 2-1.5 3.1-0.1 5.9-2 4.8-10.4 12.1-6.5 10.7-1.7 5.2-2.8 3.3-1.5 8.4 0.2 10.5-3 6.3-5.9 0.6-7.9-3.9-9.5-1.3-7.5-5-8.3-2.1-18.4 3.1-9.6 0.4-9.3 1.7-2.1 5.6-0.6 3.9-3.3 5.2-4.5-7.9-3.1-3-0.7-3.8-0.3-6.9-1.2-9.1-7.9-27.6-1.6-2.7-4-4-1.1-4.8 6-2.9 5.6-3.5 5.4-6.7 7.3-2.5 13.3-7.8 11.7-11.4 2.6-3.7 3.1-2.5 2.6-1.7 1.3-3.6-1-8.8-4.2-7.2-0.6-4.9 0.2-5.3-1.5-9.3-1.1-1.9 0.1-2.2 1.6-1.7 1.8-1.2 2.3-3.1-0.7-4.4-1.5-4.4-0.8-4.7-1.2-4.3-2.7-3.4 3.5-4.6 14.5-2.7 7.7-3.3 2.9-4.7 3.4-3.9 3-4.9 2.1-5.8-0.1-5.7-0.6-5.8 1.7-5.3 2.1-4.8 4.6-1.7 25.1-2.1 10.2 1.4 8.5 5.7 3.9 4 4.3 3.4 9 5.1 2.9 0.6 2.1-0.9 4-3.8 2.6-1.2 4.7-0.1 6.9-2.2 5.9 0.2 5.7 1.5 4.2 2.7 4.2 4 4.3 2.9 12.7 4.7 0 2.7-1.1 3.4-0.5 3.3 1.4 2.1 7.3 5.2 16 15.2 2.9 1.6z"
-            id="38"
-            name="Samegrelo-Zemo Svaneti"
-          ></path>
-        </a>
-        <a xlink:title="იმერეთი">
-          <path
-            [ngStyle]="{'fill': selectedRegion == 26 ? 'rgb(76, 0, 255)' : ''}"
-            (click)="getRegionCode($event, 'იმერეთი')"
-            (mouseenter)="hover('იმერეთი')"
-            (mouseleave)="hover('აირჩიეთ რეგიონი')"
-            d="M536.8 241.5l5.2 3.2 5.8 0.9 4.3-1 4.1-2.3 4.8-0.7 3.3 4.1-1.7 6.5-0.2 6.6-11.4 3.1-10 7.2-1.2 5.9 0.9 6.4-0.9 5.3-4 3.8-2 5.8-2.8 5.2-4.8 3.7-4.1 4.1-0.6 8.5-2.3 7.2-5.4 4.8-1 7.7-44.5 18.3-2.5-0.4-2.5-0.9-15.3 1.3-6.4 2.7-6.7-0.1-12.8-2.7-15.7 4-9.2-5.5-0.3-10.1-2.2-8.7-4.5-1.3-4.8 0.4-2.9-1.5-2.9-1.7-4.1-2.1-3.8-2.8-5.3-1.6-4.3-2.6-1.9-5.9-2.9-4.7-5.3-1.3-4.6 2.9-2.4 0.8-2.8-0.8-7.3-1.3-3.6-5.3 3.4-5.3 5.9-0.6 3-6.3-0.2-10.5 1.5-8.4 2.8-3.3 1.7-5.2 6.5-10.7 10.4-12.1 2-4.8 0.1-5.9 1.5-3.1 2.3-2 2.2-7 4.6-4.6 7.4-0.5 2.7-0.8 2.9-0.1 1.3 4.6 0 5.1 1.2 3.9 0.1 4.3 15.9-5.4 3.8 1.6 3.9 0.3 3.3-3.3 3.7-0.2 8.2 5.3 7.5 7.1 1.9 6.3 3.7 3 3.2 0.6 7.1 4 10.7-1 6.2-2.6 5.3-5.3 14.1-7.4 15.8 1.7 15.1-1.2 12.8 4.7z"
-            id="26"
-            name="Imereti"
-          ></path>
-        </a>
-        <a xlink:title="კახეთი">
-          <path
-            [ngStyle]="{'fill': selectedRegion == 29 ? 'rgb(76, 0, 255)' : ''}"
-            (click)="getRegionCode($event, 'კახეთი')"
-            (mouseenter)="hover('კახეთი')"
-            (mouseleave)="hover('აირჩიეთ რეგიონი')"
-            d="M796.4 431.7l-0.4-3.4-2.2-4.9-1.1-5-2.7-4-4.7-1.3-4.8-0.3-2.6-1.8-1.1-3.9-0.8-5.4 5.1-11.8-2.9-10.7-1.1-6.4-2.6-5.3-5.7-0.7-4.9-3.6-3.3-5.4-3.9-4.4-2-5.9-4.6-2.8 3.9-4.4 4.5-2.7 8.1 5.3 12-1.7-5.4-6.5-7.3-1.9-3.5-0.3-3.4-1.2-1.4-6.2 2.3-5.5-2.6-6.3-0.5-5.7-1.7-7.7 2-4.7 2.3-11.5 2.8-4.5 3.1-10.2 3.6-4.6 3.9-3.5 3.1-0.5 2.9-1.1 1.3-7.8-1.9-8 1.5-4.8 3.3-2.9 2.3-5.2-0.5-6.1 2.1-9.2 4.8-7.2 1.7 3.7 1.5 2.4 4.9 2 6.4-0.9 12-3.6 8.5 0.2 12.5 2.2 11.6 4.6 6.1 7.3-0.5 4.8-17.1 45 1.5 4.7 4.5 2.9 6 2.8 16.3 11.5 10.4 2.7 2 2 4.3 10.5 1.5 2.2 2 1.1 2.8 0.2 3.1-2 2.2 0.2 3.7 2.9 4.7-0.7 1.5 1 1 4.3 3.6 1.7 4.6 0.1 8.7-1.8 3.9-0.4 1.4 0.4 3.9 3.2 6.5 7.8 4.2 2 8.9 0.7 3.6 2.1 3.6 4.9-5.6 11.7-3.2 5.2-6.4 7.9-2.2 1.9-2.4 1.2-3.1 0.3-6.9-1.6-3.3 0.3-2.8 3.1-1.5 6.9 0.1 10.1 1.9 8.9 4 3.4 1.3-1.1 1.8-3.3 2-0.1 0.3 1.1 3.4 6.4 1.4 9.2 1.3 4.3 2.5 3.3 7.8 5.4 1.8 0.8 3 0.8 7 6.5 14.4 6.1 7.3 4.4 2.4 5.5 2.3-0.9 1.2 0.8 1 1.7 2.9 3.3 4.7 7.2 0.9 2.9-1.7 0-1.3 1.6-0.5 5-1.1 2.5-2.9 3.1-1.4 5.3-0.8 6.8-1.3 6.4-2.8 4-3 0.5-2.8-0.8-2.9-0.3-3.1 2-1.7 3.2-0.9 3.1-1.3 2.1-3.2 0.1-2.7-1.6-4.1-5.7-2.5-2.1-8.8-2.9-3.1-1.9-8.8-8-4.3-5.4-2.4-2.3-2.6-1-11.2 0.1-3.3 0.8-7.7 4.9-3 1.1-3.6 0.3-7.1-0.8-22.1-8.1-10.4-6.3-6.1-5.3-3.6-5.7 3.3-4.1 3.4-1.2 2.2-1.2-0.2-1.2-3.5-1.4-9.7-2-21.4-8.4-4.8-4.6-2.2-2.5-2.2-0.4-4.9 1.5-3 0.3-2.3-0.5-7.2-3.7z"
-            id="29"
-            name="Kakheti"
-          ></path>
-        </a>
-        <a xlink:title="მცხეთა-მთიანეთი">
-          <path
-            [ngStyle]="{'fill': selectedRegion == 32 ? 'rgb(76, 0, 255)' : ''}"
-            (click)="getRegionCode($event, 'მცხეთა-მთიანეთი')"
-            (mouseenter)="hover('მცხეთა-მთიანეთი')"
-            (mouseleave)="hover('აირჩიეთ რეგიონი')"
-            d="M791.7 208.1l-4.8 7.2-2.1 9.2 0.5 6.1-2.3 5.2-3.3 2.9-1.5 4.8 1.9 8-1.3 7.8-2.9 1.1-3.1 0.5-3.9 3.5-3.6 4.6-3.1 10.2-2.8 4.5-2.3 11.5-2 4.7 1.7 7.7 0.5 5.7 2.6 6.3-2.3 5.5 1.4 6.2 3.4 1.2 3.5 0.3 7.3 1.9 5.4 6.5-12 1.7-8.1-5.3-4.5 2.7-3.9 4.4 4.6 2.8 2 5.9-7.4 0.4-7.5-1.8-3.2 1.3-2.5 3.7-1.8 5.6-3.5 4.3-9.1-4.8-3.8-0.3-2.3 4.1-4.2 2.7-4.3-0.1-3 6.8-2.9 1.2-1.8 3.2-7.8 4-7-6.3-7-5-8.2-1.1 0-5.2 2.9-3.4-0.5-7.7 4.1-4 5.5-0.2 2-5.7-4-6.3-4.9-5.8-1.2-7.2-1.8-6.2-5.2-2.9-10.6-2.4-5.1-0.2-4.3 3.3-4.4 4-0.7-5.1-4.1-2.3-0.6-3.3 1.3-4 0.3-10.3 2.3-9.8 3.7-2.9 2.3-5.1 3.1-2.4 2.6-3.5-1.2-6.3-2.5-5.3 0.5-6.4-0.3-6-2.1-2.8-2-2-0.6-3.1-0.4-3.2-1-2.1-1.7-1 2.3-7.2 4.8-6-2.3-3.3-2.6-2.3-5-8.9-7-1.9-3.1-4.2-2.1-6 1.7-0.6 4.9-5 2.7-5.7 3.5-4.1 13.2-0.3 6-2 11.6-6.2 4.3-1.2 7.5-0.6 6.3 0.8 6.2 2 5.5 3.2 2.3 1.9 4.4 4.7 1.8 2.7 3.6 11.8 1.9 2 1.3-1.5 2.4-11.1 4.3-9.4 0.9-3.2 3.9-5.2 6.4 1.3 16.3 11.7 2.6 1.3 2.7 0.6 2.8-0.5 5.5-2.4 2.9-0.4 4.8 1.8 4.3 3.8 14.6 17.9 2.8 5.3z"
-            id="32"
-            name="Mtskheta-Mtianeti"
-          ></path>
-        </a>
-        <a xlink:title="რაჭა-ლეჩხუმი და ქვემო სვანეთი">
-          <path
-            [ngStyle]="{'fill': selectedRegion == 35 ? 'rgb(76, 0, 255)' : ''}"
-            (click)="getRegionCode($event, 'რაჭა-ლეჩხუმი და ქვემო სვანეთი')"
-            (mouseenter)="hover('რაჭა-ლეჩხუმი და ქვემო სვანეთი')"
-            (mouseleave)="hover('აირჩიეთ რეგიონი')"
-            d="M584.5 206.8l-0.9 10.3-7.9 5.7-3.3 5.9-2.8 1.3-20.7 1.7-12.1 9.8-12.8-4.7-15.1 1.2-15.8-1.7-14.1 7.4-5.3 5.3-6.2 2.6-10.7 1-7.1-4-3.2-0.6-3.7-3-1.9-6.3-7.5-7.1-8.2-5.3-3.7 0.2-3.3 3.3-3.9-0.3-3.8-1.6-15.9 5.4-0.1-4.3-1.2-3.9 0-5.1-1.3-4.6-11.3-22.7 3.9-8.4-6.7-7-16.7-9.5-8.1-7.1 3.6-7 4.7-2.7 5.6-0.4 1.8-0.4 1.6-1.3 1.5-3.7 1.9-3.4 3.7 0.1 3.7 1.7 21.1 5.2 8.7 0.3 4-1.8 1.8-1.5 2-1 16.1 7.3 10.8-1.4 9.3 3.6 4.1 0.7 2.7-4.2 0.4-6.4 3.3-3.1 5.1-7.2 4.8-1.9 2.9 1.5 42.4 12.1 5.6 1.4 10.3 5.1 2.5 2.2 6.1 7.3 2.8 1.8 13.8 3.4 6.7 3.4 1.6 5.9-3.4 4.9-5.2 3.7-4.2 4.1-0.4 6 4.2 5.3 6.7 1.8 7.3 0.5 6 1.6 3.4 2.6z"
-            id="35"
-            name="Racha-Lechkhumi-Kvemo Svaneti"
-          ></path>
-        </a>
-        <a xlink:title="ქ.თბილისი">
-          <path
-            [ngStyle]="{'fill': selectedRegion == 11 ? 'rgb(76, 0, 255)' : ''}"
-            (click)="getRegionCode($event, 'ქ.თბილისი')"
-            (mouseenter)="hover('ქ.თბილისი')"
-            (mouseleave)="hover('აირჩიეთ რეგიონი')"
-            d="M730.8 366.9l-4.3 4.2-0.4 3.4 2.9 2.7 1 3.5 0.7 3.4 2.3 2.1 2.6 1.3 3.5 0.9 3.4-0.9 1.9-2.8 2.4-1.9 1.5 4.9-4.3 6.2-5.6 1.9-5.7-0.4-4.3-2.1-3.6-0.9-3.7-0.3-12.1-6.3-4.4 0.2-2.1-2.7-0.4-2.8-2.7-0.8 1.8-3.2 2.9-1.2 3-6.8 4.3 0.1 4.2-2.7 2.3-4.1 3.8 0.3 9.1 4.8z"
-            id="11"
-            name="Tbilisi"
-          ></path>
-        </a>
-        <a xlink:title="ქვემო ქართლი">
-          <path
-            [ngStyle]="{'fill': selectedRegion == 44 ? 'rgb(76, 0, 255)' : ''}"
-            (click)="getRegionCode($event, 'ქვემო ქართლი')"
-            (mouseenter)="hover('ქვემო ქართლი')"
-            (mouseleave)="hover('აირჩიეთ რეგიონი')"
-            d="M756.7 353.4l3.9 4.4 3.3 5.4 4.9 3.6 5.7 0.7 2.6 5.3 1.1 6.4 2.9 10.7-5.1 11.8 0.8 5.4 1.1 3.9 2.6 1.8 4.8 0.3 4.7 1.3 2.7 4 1.1 5 2.2 4.9 0.4 3.4-2.7-1.4-4.9-0.3-4.8 1.7-36.8 30.6-1.8 1.1-3.4 3.1-1.8 1.3-5.6 0.1-14.4-2.2-2.9 2.9 1.3 2.8 5.5 2.7 1.6 2.2-1.5 2.1-3.9 0.5-21.8-0.4-6.2-2.5-3-0.4-3.2 1.5-1.9 2.5-1.8 3.2-2.2 1.9-3.1-0.9-2.1-5-1.6 0.1-4 4.1-3.6 1-3.3-0.2-3.3-1.2-7.9-4.8-1.9-0.2-1.7 0.5-3.7 3.3-3.5 0.6-2.7-1.1-7.2-5-4.1-1.7-1.6 0.1-1.7 1.2-0.5 3.2-0.8 1.9-2.3 2.3-2.9 1.6-3.2 0.6-6.3-1.8-2.9 0.3-6 2.7-3.4 0.9-1.6-10.3-1.6-3.2-1.9-2.8-1.1-8.8 2.2-8.7-0.6-4.3-1.6-3.8-3.1-2-1.1-4.5-0.1-4.4-0.4-4.3-0.6-2.7-1.4-1.2-2.7-5.7-3.9-4.2-7.1-0.4-7.1 1.8-6.6 0.3-5.2-1 1-3.2 2.1-1.7 1.6-4.9 0.9-19.9 3.4-6.2 6.6 1.1 8.9-0.4 7.3-7.8 34.4 3.4 4.6-1.5 4.7-0.8 7 1.7 7.2-1.3 9-4.3 2.7 1.3 2.4 2.9 3.4 1.4 10.4-0.3 2.4-5.2 8.2 1.1 7 5 7 6.3 7.8-4 2.7 0.8 0.4 2.8 2.1 2.7 4.4-0.2 12.1 6.3 3.7 0.3 3.6 0.9 4.3 2.1 5.7 0.4 5.6-1.9 4.3-6.2-1.5-4.9-2.4 1.9-1.9 2.8-3.4 0.9-3.5-0.9-2.6-1.3-2.3-2.1-0.7-3.4-1-3.5-2.9-2.7 0.4-3.4 4.3-4.2 3.5-4.3 1.8-5.6 2.5-3.7 3.2-1.3 7.5 1.8 7.4-0.4z"
-            id="44"
-            name="Kvemo Kartli"
-          ></path>
-        </a>
-        <a xlink:title="სამცხე-ჯავახეთი">
-          <path
-            [ngStyle]="{'fill': selectedRegion == 41 ? 'rgb(76, 0, 255)' : ''}"
-            (click)="getRegionCode($event, 'სამცხე-ჯავახეთი')"
-            (mouseenter)="hover('სამცხე-ჯავახეთი')"
-            (mouseleave)="hover('აირჩიეთ რეგიონი')"
-            d="M581.2 374l-7.3 7.8-8.9 0.4-6.6-1.1-3.4 6.2-0.9 19.9-1.6 4.9-2.1 1.7-1 3.2 5.2 1 6.6-0.3 7.1-1.8 7.1 0.4 3.9 4.2 2.7 5.7 1.4 1.2 0.6 2.7 0.4 4.3 0.1 4.4 1.1 4.5 3.1 2 1.6 3.8 0.6 4.3-2.2 8.7 1.1 8.8 1.9 2.8 1.6 3.2 1.6 10.3-3.3 0.8-13.8 0.3-6.4 2.7-6.9 6.1-2.9 1.2-3.7 0.3-24.2-3.4-6.4 0.2-8 3.3-1.5 0.4-2.9-0.4 1.7-5.2-2.1-4.7-4.1-3.7-4-2.4-4.7-1.3-4.3 0.3-13.7 3.9-2.2-1.6-3.5-8.8-3-3.4-3-0.4-3.3 0.4-4-1.3 8.1-4.1 2.1-1.9 2-2.9-0.2-1-4.3-0.6-4.6-2.2-7.2-6.3-10.9-7.5-2.2-2.4-4.4-8.4-2.5-1.9-2.2-2.5-4.4-1.5-1.2-0.7-1.2-2.2-0.8-2.5-1.1-1.3-2 1.3-3.6 4.2-2.8-0.9-2.9-3.1-3.8-2.3 1.3-2 2.9-2.5 1.2-1.4 1.4-5.8 1.2-1.8-2.8-1.4-20.9-1.8-7.5 0.6-3.5 1.2-1.5-4.2-4.4-7-3.5-4.1-3.9-3.6-1.4-2.5-1-2.9 0.3-3.7 1.7-2.7 0.2-6.9-2.1-6.2 7.3-0.8 3.3 1.2 3.4 0.6 2.5-2 1.3-3.6 3.3-2.2 3.8-0.1 9.2 5.5 15.7-4 12.8 2.7 6.7 0.1 6.4-2.7 15.3-1.3 2.5 0.9 2.5 0.4 44.5-18.3 4.1-0.2 9.7 2.3 5.2 2.5 1.4 2.8 0.8 3.2 2 1.7 1.5 2.3 5.1 4.4 4.6 0.8 2.2 5.3 4.8 1.8 5.1 3 5.6-0.9 10-0.1 6.3 7.6z"
-            id="41"
-            name="Samtskhe-Javakheti"
-          ></path>
-        </a>
-        <a>
-          <path
-            [ngStyle]="{'fill': selectedRegion == 47 ? 'rgb(76, 0, 255)' : ''}"
-            (click)="getRegionCode($event, 'შიდა ქართლი')"
-            (mouseenter)="hover('შიდა ქართლი')"
-            (mouseleave)="hover('აირჩიეთ რეგიონი')"
-            d="M669.4 371.3l-2.4 5.2-10.4 0.3-3.4-1.4-2.4-2.9-2.7-1.3-9 4.3-7.2 1.3-7-1.7-4.7 0.8-4.6 1.5-34.4-3.4-6.3-7.6-10 0.1-5.6 0.9-5.1-3-4.8-1.8-2.2-5.3-4.6-0.8-5.1-4.4-1.5-2.3-2-1.7-0.8-3.2-1.4-2.8-5.2-2.5-9.7-2.3-4.1 0.2 1-7.7 5.4-4.8 2.3-7.2 0.6-8.5 4.1-4.1 4.8-3.7 2.8-5.2 2-5.8 4-3.8 0.9-5.3-0.9-6.4 1.2-5.9 10-7.2 11.4-3.1 0.2-6.6 1.7-6.5-3.3-4.1-4.8 0.7-4.1 2.3-4.3 1-5.8-0.9-5.2-3.2 12.1-9.8 20.7-1.7 2.8-1.3 3.3-5.9 7.9-5.7 0.9-10.3 1.8 1.5 2.9 1.4 2.7-0.5 2.2-1.9 3.7-5.1 2-2.2 6.5-3.1 14.3-0.7 5.2-1.5 2.1 6 3.1 4.2 7 1.9 5 8.9 2.6 2.3 2.3 3.3-4.8 6-2.3 7.2 1.7 1 1 2.1 0.4 3.2 0.6 3.1 2 2 2.1 2.8 0.3 6-0.5 6.4 2.5 5.3 1.2 6.3-2.6 3.5-3.1 2.4-2.3 5.1-3.7 2.9-2.3 9.8-0.3 10.3-1.3 4 0.6 3.3 4.1 2.3 0.7 5.1 4.4-4 4.3-3.3 5.1 0.2 10.6 2.4 5.2 2.9 1.8 6.2 1.2 7.2 4.9 5.8 4 6.3-2 5.7-5.5 0.2-4.1 4 0.5 7.7-2.9 3.4 0 5.2z"
-            id="47"
-            name="Shida Kartli"
-          >
-            <title>შიდა ქართლი</title>
-          </path>
-        </a>
-
-        <circle cx="718.8" cy="284.5" id="0"></circle>
-        <circle cx="908.2" cy="350.9" id="1"></circle>
-        <circle cx="557" cy="368.7" id="2"></circle>
-      </svg>
-    </div>
-  </div>
-  <div class="col-6">
-    <h1 class="text-center">სასტუმროების რაოდენობა</h1>
-    <div class="meoreRagac" id="chart2"></div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-6">
-    <h1 class="text-center">3</h1>
-    <div class="pirveliRagac" id="chart3" style="height: 500px"></div>
-  </div>
-  <div class="col-6">
-    <h1 class="text-center">4</h1>
-    <div class="meoreRagac" id="chart4"></div>
-  </div>
-</div> -->
-
-<!-- <div class="inputPosition">
-          <input type="checkbox" id="Imereti" name="Imereti" value="Imereti" />
-          <label class="fontForCheckboxes" for="Imereti"> იმერეთი</label><br />
-        </div>
-        <div class="inputPosition">
-          <input type="checkbox" id="Shida-Kartli" name="Shida-Kartli" value="Shida-Kartli"/>
-          <label class="fontForCheckboxes" for="Shida-Kartli">შიდა ქართლი</label>
-          <br/>
-        </div>
-        <div class="inputPosition">
-          <input type="checkbox" id="Kvemo-Kartli" name="Kvemo-Kartli" value="Kvemo-Kartli"/>
-          <label class="fontForCheckboxes" for="Kvemo-Kartli">ქვემო ქართლი</label>
-          <br />
-        </div>
-        <div class="inputPosition">
-          <input type="checkbox" id="Ajaria" name="Ajaria" value="Ajaria" />
-          <label class="fontForCheckboxes" for="Ajaria"> აჭარა</label><br />
-        </div>
-        <div class="inputPosition">
-          <input type="checkbox" id="Guria" name="Guria" value="Guria" />
-          <label class="fontForCheckboxes pad" for="Guria"> გურია</label><br />
-        </div>
-        <div class="inputPosition">
-          <input type="checkbox" id="Samegrelo-Zemo-Svaneti" name="Samegrelo-Zemo-Svaneti" value="Samegrelo-Zemo-Svaneti"/>
-          <label class="fontForCheckboxes" for="Samegrelo-Zemo-Svaneti">სამეგრელო-ზემო სვანეთი</label>
-          <br />
-        </div>
-        <div class="inputPosition">
-          <input type="checkbox" id="Racha-Lechkhumi-Kvemo-Svaneti" name="Racha-Lechkhumi-Kvemo-Svaneti" value="Racha-Lechkhumi-Kvemo-Svaneti"/>
-          <label class="fontForCheckboxes" for="Racha-Lechkhumi-Kvemo-Svaneti">რაჭა-ლეჩხუმი და ქვემო სვანეთი</label>
-          <br />
-        </div>
-        <div class="inputPosition">
-          <input type="checkbox" id="Samtskhe-Javakheti" name="Samtskhe-Javakheti" value="Samtskhe-Javakheti"/>
-          <label class="fontForCheckboxes" for="Samtskhe-Javakheti">სამცხე ჯავახეთი</label>
-          <br />
-        </div>
-        <div class="inputPosition">
-          <input type="checkbox" id="Kakheti" name="Kakheti" value="Kakheti" />
-          <label class="fontForCheckboxes" for="Kakheti"> კახეთი</label><br />
-        </div> -->
