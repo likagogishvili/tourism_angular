@@ -89,6 +89,7 @@ export class RegionalAnalysisComponent implements OnInit {
   visits!: any[];
   transports!: any[];
   rates!: any[];
+  regionId: number = 11;
 
   optArray!: string;
 
@@ -111,6 +112,32 @@ export class RegionalAnalysisComponent implements OnInit {
 
   regions: any = [];
   selectedRegion: string = '';
+  regionCodesGE: any = {
+    თბილისი: 11,
+    იმერეთი: 26,
+    შიდა_ქართლი: 47,
+    აჭარა: 15,
+    სამცხე_ჯავახეთი: 41,
+    ქვემო_ქართლი: 44,
+    მცხეთა_მთიანეთი: 32,
+    გურია: 23,
+    კახეთი: 29,
+    რაჭა_ლეჩხუმი_ქვემოსვანეთი: 42,
+    სამეგრელო_ზემოსვანეთი: 38,
+  };
+  regionCodesEN: any = {
+    Tbilisi: 11,
+    Imereti: 26,
+    Shida_Kartli: 47,
+    Adjara: 15,
+    Samtskhe_Javakheti: 41,
+    Kvemo_Kartli: 44,
+    Mtskheta_Mtianeti: 32,
+    Guria: 23,
+    Kakheti: 29,
+    Racha_Lechkhumi_Kvemosvaneti: 42,
+    Samegrelo_Zemosvaneti: 38,
+  };
   changeYear() {
     this.createCharts();
   }
@@ -183,7 +210,7 @@ export class RegionalAnalysisComponent implements OnInit {
         this.selectedProperty,
         this.flag
       );
-      this.getExpenceChart(this.optArray, this.selectedProperty);
+      this.getExpenceChart(this.optArray, this.selectedProperty, this.regionId);
       this.getMigrationChart(this.year, this.optArray, this.selectedProperty);
     }
   }
@@ -205,9 +232,13 @@ export class RegionalAnalysisComponent implements OnInit {
         this.selectedProperty == 'TransportType' ||
         this.selectedProperty == 'VisitActivity'
       ) {
-        this.getExpenceChart('', 'All');
+        this.getExpenceChart('', 'All', this.regionId);
       } else {
-        this.getExpenceChart(this.optArray, this.selectedProperty);
+        this.getExpenceChart(
+          this.optArray,
+          this.selectedProperty,
+          this.regionId
+        );
       }
       this.getMigrationChart(this.year, this.optArray, this.selectedProperty);
     } else if (this.tourismType == 2) {
@@ -363,11 +394,9 @@ export class RegionalAnalysisComponent implements OnInit {
           } else {
             this.optArray += ',' + String(element.id);
           }
-          //list.push(element.id)
         }
       }
     );
-    //this.optArray = list;
 
     this.createCharts();
 
@@ -444,10 +473,6 @@ export class RegionalAnalysisComponent implements OnInit {
     this.optArray = '';
 
     if (indx != 0) {
-      //let list: number[] = [];
-
-      //this.checkBoxesArray[indx].forEach((element: { id: number; }) => { list.push(element.id) });
-
       this.checkBoxesArray[indx].forEach(
         (element: { selected: boolean; id: number }) => {
           if (element.selected == true) {
@@ -588,12 +613,8 @@ export class RegionalAnalysisComponent implements OnInit {
     polygonSeries.heatRules.push({
       property: 'fill',
       target: polygonSeries.mapPolygons.template,
-      // min: chart.colors.getIndex(1).brighten(1),
-      // max: chart.colors.getIndex(1).brighten(-0.3),
       min: chart.colors.getIndex(0).brighten(1),
       max: chart.colors.getIndex(0).brighten(-0.3),
-      // minValue: 5,
-      // maxValue: 500
     });
 
     let polygonSeries1 = chart.series.push(new am4maps.MapPolygonSeries());
@@ -603,14 +624,6 @@ export class RegionalAnalysisComponent implements OnInit {
     let polygonTemplate1 = polygonSeries1.mapPolygons.template;
 
     polygonTemplate1.tooltipText = '{name}';
-
-    // if (this.lang == 'GEO') {
-    //   polygonTemplate1.tooltipText = "ოკუპირებული რეგიონი";
-    // }
-    // else{
-    //   polygonTemplate1.tooltipText = "Occupied Region";
-    // }
-
     polygonTemplate1.fill = am4core.color('#898a8a');
 
     let polygonSeries2 = chart.series.push(new am4maps.MapPolygonSeries());
@@ -638,29 +651,50 @@ export class RegionalAnalysisComponent implements OnInit {
     chart.logo.disabled = true;
   }
 
-  getExpenceChart(opt: string, byProp: string) {
-    this.region.getDataForExpenceTable(opt, byProp).subscribe((res) => {
-      this.expenceChart(res);
-    });
+  getExpenceChart(opt: string, byProp: string, regioni: number) {
+    this.region
+      .getDataForExpenceTable(opt, byProp, regioni)
+      .subscribe((res) => {
+        this.expenceChart(res);
+      });
   }
 
-  expenceChart(res: any) {
-    let reg = this.selectedRegion;
-    let data = res.map((i: any) => {
-      Object.keys(i).forEach(function (key) {
-        if (key !== reg && key !== 'year') {
-          i[key] = 0;
-        }
-      });
-      return i;
-    })
-
+  expenceChart(res: any = []) {
     let chart = am4core.create('chart2', am4charts.XYChart);
-    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = 'year';
-    categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.numberFormatter.numberFormat = '#';
+    let uniqueKeys = Object.keys(Object.assign({}, ...res)).filter(
+      (item) => item !== 'year'
+    );
+    let newOBJ: any = [];
+    uniqueKeys.map((i, ind) => {
+      newOBJ.push({
+        name: i,
+        chartName: this.checkBoxesArray[this.radioBtnID][ind]?.name,
+      });
+    });
 
+    var dateAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    dateAxis.dataFields.category = 'year';
+    dateAxis.numberFormatter.numberFormat = '#';
+    dateAxis.renderer.grid.template.location = 0;
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.numberFormatter = new am4core.NumberFormatter();
+    valueAxis.numberFormatter.numberFormat = '#';
+    valueAxis.renderer.grid.template.location = 0;
+
+    chart.scrollbarX = new am4core.Scrollbar();
+    chart.data = res;
+    chart.legend = new am4charts.Legend();
+    chart.logo.disabled = true;
+
+    newOBJ.forEach((element: any) => {
+      this.createSeries(element.name, element.chartName, chart);
+    });
+
+    chart.exporting.menu = new am4core.ExportMenu();
+    chart.exporting.menu.items[0].icon =
+      '../../../assets/HomePage/download_icon.svg';
+    chart.exporting.menu.align = 'right';
+    chart.exporting.menu.verticalAlign = 'top';
 
     chart.colors.list = [
       am4core.color('#2330A4'),
@@ -669,74 +703,33 @@ export class RegionalAnalysisComponent implements OnInit {
       am4core.color('#CBBAED'),
       am4core.color('#F5F3BB'),
       am4core.color('#86BA90'),
-      am4core.color('#2A92A4'),
-      am4core.color('#6A1AA4'),
-      am4core.color('#33A450'),
-      am4core.color('#A42030'),
     ];
-
-    if (this.lang == 'GEO') {
-      this.expenceTitle = 'ხარჯები საცხოვრებელი რეგიონების მიხედვით';
-    } else {
-      this.expenceTitle = 'Expenditures By Residential Regions';
-    }
-
-    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    //valueAxis.renderer.inside = true;
-    //valueAxis.renderer.labels.template.disabled = true;
-    valueAxis.numberFormatter = new am4core.NumberFormatter();
-    valueAxis.numberFormatter.numberFormat = '#.0a';
-    valueAxis.renderer.grid.template.location = 0;
-    valueAxis.min = 0;
-    chart.data = res;
-
-    if (this.lang == 'GEO') {
-      Object.keys(RegionID)
-        .filter((v) => isNaN(Number(v)))
-        .forEach((element) => {
-          this.createSeries2(element, element, chart);
-        });
-    } else {
-      Object.keys(RegionIDEN)
-        .filter((v) => isNaN(Number(v)))
-        .forEach((element) => {
-          this.createSeries2(element, element, chart);
-        });
-    }
-
-    // chart.legend = new am4charts.Legend();
-
-    chart.exporting.menu = new am4core.ExportMenu();
-    chart.exporting.menu.items[0].icon =
-      '../../../assets/HomePage/download_icon.svg';
-    chart.exporting.menu.align = 'right';
-    chart.exporting.menu.verticalAlign = 'top';
   }
 
-  createSeries2(field: string, name: string, chart: any) {
-    // Set up series
-    let series = chart.series.push(new am4charts.ColumnSeries());
-    series.name = name;
+  createSeries(field: string, name: string, chart: any) {
+    var series = chart.series.push(new am4charts.LineSeries());
     series.dataFields.valueY = field;
     series.dataFields.categoryX = 'year';
+    series.name = name;
+    series.strokeWidth = 3;
     series.sequencedInterpolation = true;
 
-    // Make it stacked
-    series.stacked = true;
+    var bullet = series.bullets.push(new am4charts.CircleBullet());
+    bullet.circle.stroke = am4core.color('#fff');
+    bullet.circle.strokeWidth = 2;
 
-    // Configure columns
-    series.columns.template.width = am4core.percent(60);
-    series.columns.template.tooltipText =
-      '[bold]{name}[/]\n[font-size:14px]{categoryX}: {valueY}';
-
-    // Add label
-    // let labelBullet = series.bullets.push(new am4charts.LabelBullet());
-    // labelBullet.label.text = "{valueY}";
-    // labelBullet.locationY = 0.5;
-    // labelBullet.label.hideOversized = true;
-
+    if (this.lang == 'GEO') {
+      bullet.tooltipText =
+        '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#")} ათასი ₾';
+    } else {
+      bullet.tooltipText =
+        '[bold]{name}[/]\n[font-size:14px]{categoryX} Year: [bold]{valueY.formatNumber("#")} Thousand ₾';
+    }
+    let shadow = new am4core.DropShadowFilter();
+    shadow.dx = 1;
+    shadow.dy = 1;
+    bullet.filters.push(shadow);
     chart.logo.disabled = true;
-
     return series;
   }
 
@@ -760,8 +753,14 @@ export class RegionalAnalysisComponent implements OnInit {
   migrationChart(res: any) {
     // am4core.useTheme(am4themes_animated);
     let chart = am4core.create('chart22', am4charts.SankeyDiagram);
+    let filtered = res.filter(
+      (i: any) =>
+        i.from !== 'რაჭა_ლეჩხუმი_ქვემოსვანეთი' &&
+        i.from !== 'Racha_Lechkhumi_Kvemosvaneti'
+    );
+
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-    const unique = [...new Set(res.map((item: any) => item.from))];
+    const unique = [...new Set(filtered.map((item: any) => item.from))];
     this.regions = unique;
     if (this.selectedRegion.length === 0) {
       if (this.lang === 'GEO') {
@@ -831,7 +830,14 @@ export class RegionalAnalysisComponent implements OnInit {
     chart.exporting.menu.verticalAlign = 'top';
   }
 
-  changeRegion() {
+  changeRegion(ev: any) {
+    let value = ev.target.value;
+
+    if (this.lang === 'GEO') {
+      this.regionId = this.regionCodesGE[value];
+    } else {
+      this.regionId = this.regionCodesEN[value];
+    }
     this.createCharts();
   }
 }

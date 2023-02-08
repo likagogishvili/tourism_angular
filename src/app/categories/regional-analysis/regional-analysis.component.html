@@ -86,7 +86,7 @@
                   right transparent;
                 width: 55%;
               "
-              (change)="changeRegion()"
+              (change)="changeRegion($event)"
               [(ngModel)]="selectedRegion"
             >
               <option *ngFor="let i of regions" value="{{ i }}">{{ i.split('_').join(' ') }}</option>
