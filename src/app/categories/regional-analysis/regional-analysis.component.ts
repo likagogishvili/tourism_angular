@@ -89,6 +89,7 @@ export class RegionalAnalysisComponent implements OnInit {
   visits!: any[];
   transports!: any[];
   rates!: any[];
+  regionId : number = 11
 
   optArray!: string;
 
@@ -111,6 +112,32 @@ export class RegionalAnalysisComponent implements OnInit {
 
   regions: any = [];
   selectedRegion: string = '';
+  regionCodesGE: any = {
+    თბილისი: 11,
+    იმერეთი: 26,
+    შიდა_ქართლი: 47,
+    აჭარა: 15,
+    სამცხე_ჯავახეთი: 41,
+    ქვემო_ქართლი: 44,
+    მცხეთა_მთიანეთი: 32,
+    გურია: 23,
+    კახეთი: 29,
+    რაჭა_ლეჩხუმი_ქვემოსვანეთი: 42,
+    სამეგრელო_ზემოსვანეთი: 38,
+  };
+  regionCodesEN: any = {
+    Tbilisi: 11,
+    Imereti: 26,
+    Shida_Kartli: 47,
+    Adjara: 15,
+    Samtskhe_Javakheti: 41,
+    Kvemo_Kartli: 44,
+    Mtskheta_Mtianeti: 32,
+    Guria: 23,
+    Kakheti: 29,
+    Racha_Lechkhumi_Kvemosvaneti: 42,
+    Samegrelo_Zemosvaneti: 38,
+  };
   changeYear() {
     this.createCharts();
   }
@@ -184,7 +211,7 @@ export class RegionalAnalysisComponent implements OnInit {
         this.flag
       );
       this.getExpenceChart(this.optArray, this.selectedProperty);
-      this.getMigrationChart(this.year, this.optArray, this.selectedProperty);
+      this.getMigrationChart(this.year, this.optArray, this.selectedProperty,this.regionId);
     }
   }
 
@@ -209,7 +236,7 @@ export class RegionalAnalysisComponent implements OnInit {
       } else {
         this.getExpenceChart(this.optArray, this.selectedProperty);
       }
-      this.getMigrationChart(this.year, this.optArray, this.selectedProperty);
+      this.getMigrationChart(this.year, this.optArray, this.selectedProperty,this.regionId);
     } else if (this.tourismType == 2) {
       this.getMapChart(
         this.tourismType,
@@ -645,22 +672,21 @@ export class RegionalAnalysisComponent implements OnInit {
   }
 
   expenceChart(res: any) {
-    let reg = this.selectedRegion;
-    let data = res.map((i: any) => {
-      Object.keys(i).forEach(function (key) {
-        if (key !== reg && key !== 'year') {
-          i[key] = 0;
-        }
-      });
-      return i;
-    })
+    // let reg = this.selectedRegion;
+    // let data = res.map((i: any) => {
+    //   Object.keys(i).forEach(function (key) {
+    //     if (key !== reg && key !== 'year') {
+    //       i[key] = 0;
+    //     }
+    //   });
+    //   return i;
+    // });
 
     let chart = am4core.create('chart2', am4charts.XYChart);
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = 'year';
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.numberFormatter.numberFormat = '#';
-
 
     chart.colors.list = [
       am4core.color('#2330A4'),
@@ -751,7 +777,11 @@ export class RegionalAnalysisComponent implements OnInit {
     });
   }
 
-  getMigrationChart(year: number, opt: string, prop: string) {
+  getMigrationChart(year: number, opt: string, prop: string, regId : number) {
+    // console.log(regId)
+    // this.region.getDataForRegMigration(year, opt, prop,regId).subscribe((res) => {
+    //   this.migrationChart(res);
+    // });
     this.region.getDataForRegMigration(year, opt, prop).subscribe((res) => {
       this.migrationChart(res);
     });
@@ -760,8 +790,13 @@ export class RegionalAnalysisComponent implements OnInit {
   migrationChart(res: any) {
     // am4core.useTheme(am4themes_animated);
     let chart = am4core.create('chart22', am4charts.SankeyDiagram);
+    let filtered = res.filter(
+      (i: any) =>
+        i.from !== 'რაჭა_ლეჩხუმი_ქვემოსვანეთი' &&
+        i.from !== 'Racha_Lechkhumi_Kvemosvaneti'
+    );
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-    const unique = [...new Set(res.map((item: any) => item.from))];
+    const unique = [...new Set(filtered.map((item: any) => item.from))];
     this.regions = unique;
     if (this.selectedRegion.length === 0) {
       if (this.lang === 'GEO') {
@@ -831,7 +866,14 @@ export class RegionalAnalysisComponent implements OnInit {
     chart.exporting.menu.verticalAlign = 'top';
   }
 
-  changeRegion() {
+  changeRegion(ev: any) {
+    let value = ev.target.value;
+
+    if (this.lang === 'GEO') {
+      this.regionId = this.regionCodesGE[value];
+    } else {
+      this.regionId = this.regionCodesEN[value];
+    }
     this.createCharts();
   }
 }
