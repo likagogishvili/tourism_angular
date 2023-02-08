@@ -5,6 +5,7 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import am4geodata_worldLow from '@amcharts/amcharts4-geodata/worldLow';
 import { HttpClient } from '@angular/common/http';
+import * as am4plugins_forceDirected from '@amcharts/amcharts4/plugins/forceDirected';
 
 @Component({
   selector: 'app-ht-interactive-map',
@@ -23,6 +24,7 @@ export class HtInteractiveMapComponent implements OnInit {
     this.getRaceChart(this.lang);
     this.getBigChart('', this.lang);
     this.getMapData(this.year, this.lang);
+    this.getBubbleChartData(this.year, this.inOrOut, this.lang);
   }
 
   lang: any;
@@ -33,12 +35,14 @@ export class HtInteractiveMapComponent implements OnInit {
   searchText: string = '';
   countryId: string = '';
   chosenCountryName: string = '';
+  inOrOut: number = 1;
 
   result: any = [];
   filteredChartData: any = [];
 
   yearChange() {
     this.getMapData(this.year, this.lang);
+    this.getBubbleChartData(this.year, this.inOrOut, this.lang);
   }
 
   getYears() {
@@ -186,12 +190,19 @@ export class HtInteractiveMapComponent implements OnInit {
     hs.properties.fill = am4core.color('#6774A3');
 
     this.polygonSeries.exclude = ['AQ'];
+
+    this.map.exporting.menu = new am4core.ExportMenu();
+    this.map.exporting.menu.items[0].icon =
+      '../../../assets/HomePage/download_icon.svg';
+    this.map.exporting.menu.align = 'left';
+    this.map.exporting.menu.verticalAlign = 'top';
+
   }
 
   bigChart: any;
 
   didiChart(res: any, country: string) {
-    am4core.useTheme(am4themes_animated);
+    // am4core.useTheme(am4themes_animated);
     // Themes end
 
     // Create chart instance
@@ -229,6 +240,8 @@ export class HtInteractiveMapComponent implements OnInit {
       '../../../assets/HomePage/download_icon.svg';
     this.bigChart.exporting.menu.align = 'right';
     this.bigChart.exporting.menu.verticalAlign = 'top';
+    
+
   }
 
   createSeries5(field: string, name: string, chart: any) {
@@ -260,7 +273,7 @@ export class HtInteractiveMapComponent implements OnInit {
     let labelBullet = series.bullets.push(new am4charts.LabelBullet());
     labelBullet.label.text = '{valueY.formatNumber("#.0a")}';
     labelBullet.locationY = 0.5;
-    labelBullet.label.hideOversized = true;
+    labelBullet.label.hide()
     labelBullet.label.fill = am4core.color('white');
 
     return series;
@@ -340,7 +353,7 @@ export class HtInteractiveMapComponent implements OnInit {
     label.horizontalCenter = 'right';
     label.verticalCenter = 'middle';
     label.dx = -15;
-    label.fontSize = 40;
+    label.fontSize = 30;
 
     var playButton = chart.plotContainer.createChild(am4core.PlayButton);
     playButton.x = am4core.percent(97);
@@ -363,6 +376,7 @@ export class HtInteractiveMapComponent implements OnInit {
     categoryAxis.renderer.minGridDistance = 1;
     categoryAxis.renderer.inversed = true;
     categoryAxis.renderer.grid.template.disabled = true;
+    categoryAxis.fontSize = 13;
 
     var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
     valueAxis.min = 0;
@@ -458,5 +472,84 @@ export class HtInteractiveMapComponent implements OnInit {
         playButton.isActive = true; // this starts interval
       }, 2000);
     });
+  }
+
+  setBubblechartData(inOrOut: number) {
+    this.inOrOut = inOrOut;
+    this.getBubbleChartData(this.year, this.inOrOut, this.lang);
+  }
+
+  getBubbleChartData(year: number, inOrOut: number, language: string) {
+    var uRl =
+      this.APIUrl +
+      '/bubble?year=' +
+      year +
+      '&inout=' +
+      inOrOut +
+      '&lang=' +
+      language;
+
+    this.http.get<any>(uRl).subscribe((res) => {
+      this.chartData = res;
+      this.bubbleChart(this.chartData);
+    });
+    console.log(inOrOut);
+  }
+
+  bubbleChart(res: any[]) {
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    let chart = am4core.create(
+      'bubbleChart',
+      am4plugins_forceDirected.ForceDirectedTree
+    );
+
+    let networkSeries = chart.series.push(
+      new am4plugins_forceDirected.ForceDirectedSeries()
+    );
+    // networkSeries.dataFields.linkWith = 'linkWith';
+    networkSeries.dataFields.name = 'name';
+    networkSeries.dataFields.id = 'name';
+    networkSeries.dataFields.value = 'value';
+    networkSeries.dataFields.children = 'value';
+
+    networkSeries.nodes.template.label.text = '{name}';
+    networkSeries.fontSize = 15;
+    networkSeries.linkWithStrength = 0;
+    
+
+    let nodeTemplate = networkSeries.nodes.template;
+    nodeTemplate.tooltipText = '{name} - {value}';
+    nodeTemplate.fillOpacity = 1;
+    nodeTemplate.label.minWidth = 500;
+    nodeTemplate.label.minHeight = 500;
+    nodeTemplate.label.hideOversized = false;
+    nodeTemplate.label.truncate = true;
+    let linkTemplate = networkSeries.links.template;
+    linkTemplate.strokeWidth = 5;
+    let linkHoverState = linkTemplate.states.create('hover');
+    linkHoverState.properties.strokeOpacity = 1;
+    linkHoverState.properties.strokeWidth = 2;
+    
+
+    nodeTemplate.events.on('over', function (event) {
+      let dataItem = event.target.dataItem;
+      dataItem.childLinks.each(function (link) {
+        link.isHover = true;
+      });
+    });
+
+    nodeTemplate.events.on('out', function (event) {
+      let dataItem = event.target.dataItem;
+      dataItem.childLinks.each(function (link) {
+        link.isHover = false;
+      });
+    });
+    // console.log(res);
+
+    networkSeries.data = res;
+
+    chart.logo.disabled = true;
   }
 }
