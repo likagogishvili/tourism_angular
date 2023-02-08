@@ -313,7 +313,7 @@ export class HtDefaultIndicatorsComponent implements OnInit {
             chart,
             'Three Or More'
           );
-          this.createLineSeries('Total', 'Number of Beds', chart, 'Beds');
+          this.createLineSeries('Total', 'Number of Bed-places', chart, 'Bed-places');
         }
         break;
 
@@ -421,6 +421,7 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     labelBullet.label.text = '{valueY.formatNumber("#,###.")}';
     labelBullet.locationY = 0.5;
     labelBullet.label.hideOversized = true;
+    labelBullet.label.hide()
 
     return series;
   }

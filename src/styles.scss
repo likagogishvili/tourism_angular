@@ -77,7 +77,8 @@ svg,
 rect,
 tspan,
 .icon-display,
-th {
+th,
+.zoom__icon {
   cursor: url("assets/redpoint.cur"), auto !important;
 }
 
@@ -259,6 +260,14 @@ a {
   }
 }
 .map__cnt {
+  .amcharts-amexport-menu {
+    position: absolute !important;
+    top: 0 !important;
+    z-index: 10000;
+  }
+}
+
+.map__chart {
   .amcharts-amexport-menu {
     position: absolute !important;
     top: 0 !important;
