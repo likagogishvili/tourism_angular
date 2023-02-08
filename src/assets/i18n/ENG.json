@@ -19,7 +19,12 @@
       "navbar3": "Hotels In Georgia",
       "placeholder": "Search For a Country",
       "country": "Country",
-      "visits": "Visits"
+      
+      "guests": "Guests",
+      "title2": "Number of Guests",
+      "fromRegions": "By Regions",
+      "inRegions": "By Continents"
+
   },
 
   "Hhotelsingeorgia": {
@@ -42,7 +47,7 @@
     "regs": "Regions",
     "def": "All",
     "hotelsChartTitle": "Number of Hotels (Unit)",
-    "roomsChartTitle": "Number of Rooms (Unit)",
+    "roomsChartTitle": "Number of Rooms and Bed-places (Unit)",
     "guestsChartTitle": "Number of Guests (Unit)",
     "incomsChartTitle": "Income (GEL)",
     "emploeeChartTitle": "Employees (Person)",
