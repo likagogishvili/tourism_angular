@@ -355,7 +355,7 @@ export class CompareIndicatorsComponent implements OnInit {
     am4core.useTheme(am4themes_animated);
 
     this.anyChart = am4core.create(divClass, am4charts.XYChart);
-    
+
     // this.bigChart.colors.step = 3;
     this.anyChart.colors.list = [
       am4core.color('#2330A4'),
@@ -395,7 +395,7 @@ export class CompareIndicatorsComponent implements OnInit {
     valueAxis.min = 0;
     valueAxis.max = 1;
 
-    // this.anyChart.legend = new am4charts.Legend();
+    this.anyChart.legend = new am4charts.Legend();
 
     valueAxis.min = 0;
     if (this.mIndic == 'Expence') {
@@ -440,6 +440,8 @@ export class CompareIndicatorsComponent implements OnInit {
         '{name}: [bold]{valueX.formatNumber("#.%")}[/]';
 
       chrt.logo.disabled = true;
+      // chrt.legend = new am4charts.Legend();
+
     }
 
     switch (this.hIndic) {
@@ -514,11 +516,10 @@ export class CompareIndicatorsComponent implements OnInit {
       default:
         break;
     }
-
-    this.anyChart.exporting.menu = new am4core.ExportMenu();
-    this.anyChart.exporting.menu.items[0].icon =
-      '../../../assets/HomePage/download_icon.svg';
-    this.anyChart.exporting.menu.align = 'right';
+    // this.anyChart.exporting.menu = new am4core.ExportMenu();
+    // this.anyChart.exporting.menu.items[0].icon =
+    //   '../../../assets/HomePage/download_icon.svg';
+    // this.anyChart.exporting.menu.align = 'right';
   }
 
   ngOnDestroy() {
