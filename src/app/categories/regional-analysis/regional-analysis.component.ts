@@ -664,11 +664,56 @@ export class RegionalAnalysisComponent implements OnInit {
     let uniqueKeys = Object.keys(Object.assign({}, ...res)).filter(
       (item) => item !== 'year'
     );
+
+    let namesForChart = {
+      ka: {
+        სულ: 'სულ',
+        მდედრობითი: 'ქალი',
+        მამრობითი: 'კაცი',
+        თხუთმეტი_ოცდაათი: '15-30',
+        ოცდათერთმეტი_ორმოცდაათი: '31-50',
+        ორმოცდათერთმეტი_პლიუს: '51+',
+        დასვენება: 'დასვენება',
+        მეგობრები: 'მეგობრები',
+        მკურნალობა: 'მკურნალობა',
+        შოპინგი: 'შოპინგი',
+        საქმიანობა: 'საქმიანობა',
+        სხვა: 'სხვა',
+        ძალიანუკმაყოფილო: 'ძალიან უკმაყოფილო',
+        უკმაყოფილო: 'უკმაყოფილო',
+        არცერთი: 'არცერთი',
+        კმაყოფილი: 'კმაყოფილი',
+        ძალიანკმაყოფილი: 'ძალიან კმაყოფილი',
+        არვიცი: 'სხვა',
+      },
+      en: {
+        total: 'total',
+        Female: 'Female',
+        Male: 'Male',
+        Fifteen_Thirty: '15-30',
+        Thirtyone_Fifty: '31-50',
+        Fiftyone_Plus: '51+',
+        Rest: 'Holiday, Leisure, Recreation',
+        Friends: 'Visiting friends/relatives',
+        Treatment: 'Health and Medical Care',
+        Shopping: 'Shopping',
+        Activity: 'Business or Professional',
+        Other: 'Other purpose',
+        Very_Dissatisfied: 'Very Dissatisfied',
+        Unsatisfied: 'Dissatisfied',
+        NoOne: 'Neither satisfied, nor dissatisfied',
+        Satisfied: 'Satisfied',
+        Very_Satisfied: 'Very satisfied',
+        I_Dont_Know: "I don't know/hard to answer",
+      },
+    };
+
     let newOBJ: any = [];
-    uniqueKeys.map((i, ind) => {
+    uniqueKeys.map((i: string) => {
       newOBJ.push({
         name: i,
-        chartName: this.checkBoxesArray[this.radioBtnID][ind]?.name,
+        // @ts-ignore
+        chartName: `${namesForChart.ka[i]}`,
       });
     });
 
