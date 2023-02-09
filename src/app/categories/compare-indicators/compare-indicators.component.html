@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <div class="row" style="margin-top: 1.5rem;">
+    <div class="row" style="margin-top: 1.5rem">
       <div class="col-lg-3 mTopResponsive">
         <div class="col-12 contForSelectBox">
           <div class="col-12 fontForSelectUpperTitle" style="padding-top: 35px">
@@ -177,7 +177,14 @@
       </div>
     </div>
 
-    <div class="p-2" style="border-radius: 20px;background: rgba(242, 242, 253, 0.6); margin-top: 2rem;">
+    <div
+      class="p-2"
+      style="
+        border-radius: 20px;
+        background: rgba(242, 242, 253, 0.6);
+        margin-top: 2rem;
+      "
+    >
       <div class="row">
         <div class="col-lg-3 switchButtons">
           <div class="col-12 descriptionOfChartColumns">
@@ -198,7 +205,7 @@
               <div class="row" style="height: 34rem">
                 <div
                   class="row-eq-height"
-                  style="margin: auto; color: #3D3D3E;"
+                  style="margin: auto; color: #3d3d3e"
                   *ngFor="let data of retMainArray()"
                 >
                   {{ data }}
@@ -214,7 +221,7 @@
                 <i
                   style="
                     background: url(assets/c-compare-indicators/tourist.png);
-                    background-color: #FF2090;
+                    background-color: #ff2090;
                   "
                   class="compareIcon"
                 >
@@ -225,7 +232,7 @@
               </button>
               <div
                 [hidden]="isValue != 1"
-                style="height: 38rem"
+                style="min-height: 42rem"
                 id="chartdiv"
               ></div>
               <div [hidden]="isValue != 2" style="height: 38rem" id="ch2"></div>
@@ -239,7 +246,7 @@
                 <i
                   style="
                     background: url(assets/c-compare-indicators/plain.png);
-                    background-color: #0581FB;
+                    background-color: #0581fb;
                   "
                   class="compareIcon"
                 >
@@ -251,7 +258,7 @@
               </button>
               <div
                 [hidden]="isValue != 1"
-                style="height: 38rem;"
+                style="min-height: 42rem"
                 id="chartdiv2"
               ></div>
               <div [hidden]="isValue != 2" style="height: 38rem" id="ch1"></div>
@@ -265,7 +272,7 @@
                 <i
                   style="
                     background: url(assets/c-compare-indicators/location.png);
-                    background-color: #17BDC0;
+                    background-color: #17bdc0;
                   "
                   class="compareIcon"
                 >
@@ -277,7 +284,7 @@
               </button>
               <div
                 [hidden]="isValue != 1"
-                style="height: 38rem"
+                style="min-height: 42rem"
                 id="chartdiv3"
               ></div>
 
@@ -286,7 +293,7 @@
           </div>
         </div>
       </div>
-    </div>
+
 
     <div class="col-lg-12" style="height: 90px"></div>
   </div>
