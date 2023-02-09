@@ -196,7 +196,6 @@ export class HtInteractiveMapComponent implements OnInit {
       '../../../assets/HomePage/download_icon.svg';
     this.map.exporting.menu.align = 'left';
     this.map.exporting.menu.verticalAlign = 'top';
-
   }
 
   bigChart: any;
@@ -240,8 +239,6 @@ export class HtInteractiveMapComponent implements OnInit {
       '../../../assets/HomePage/download_icon.svg';
     this.bigChart.exporting.menu.align = 'right';
     this.bigChart.exporting.menu.verticalAlign = 'top';
-    
-
   }
 
   createSeries5(field: string, name: string, chart: any) {
@@ -264,7 +261,8 @@ export class HtInteractiveMapComponent implements OnInit {
     if (this.lang == 'GEO') {
       series.columns.template.tooltipText =
         '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#.0a")} ვიზიტი';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       series.columns.template.tooltipText =
         '[bold]{name}[/]\n[font-size:14px]{categoryX} Year: [bold]{valueY.formatNumber("#.0a")} Visits';
     }
@@ -273,7 +271,7 @@ export class HtInteractiveMapComponent implements OnInit {
     let labelBullet = series.bullets.push(new am4charts.LabelBullet());
     labelBullet.label.text = '{valueY.formatNumber("#.0a")}';
     labelBullet.locationY = 0.5;
-    labelBullet.label.hide()
+    labelBullet.label.hide();
     labelBullet.label.fill = am4core.color('white');
 
     return series;
@@ -287,7 +285,8 @@ export class HtInteractiveMapComponent implements OnInit {
     if (this.chosenCountryName === '') {
       if (this.lang === 'GEO') {
         this.chosenCountryName = 'სულ';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.chosenCountryName = 'Total';
       }
     }
@@ -517,7 +516,6 @@ export class HtInteractiveMapComponent implements OnInit {
     networkSeries.nodes.template.label.text = '{name}';
     networkSeries.fontSize = 15;
     networkSeries.linkWithStrength = 0;
-    
 
     let nodeTemplate = networkSeries.nodes.template;
     nodeTemplate.tooltipText = '{name} - {value}';
@@ -531,7 +529,6 @@ export class HtInteractiveMapComponent implements OnInit {
     let linkHoverState = linkTemplate.states.create('hover');
     linkHoverState.properties.strokeOpacity = 1;
     linkHoverState.properties.strokeWidth = 2;
-    
 
     nodeTemplate.events.on('over', function (event) {
       let dataItem = event.target.dataItem;

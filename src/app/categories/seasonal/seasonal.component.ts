@@ -196,13 +196,15 @@ export class SeasonalComponent implements OnInit {
     if (this.percenetOrNot == 1) {
       if (this.lang == 'GEO') {
         this.titleForChart = 'ვიზიტების რაოდენობა';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForChart = 'Number of Visits';
       }
     } else {
       if (this.lang == 'GEO') {
         this.titleForChart = 'ვიზიტების პროცენტული განაწილება წლების მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForChart = 'Percentage Distribution of Visits by Year';
       }
     }
@@ -256,7 +258,8 @@ export class SeasonalComponent implements OnInit {
       if (this.lang == 'GEO') {
         columnTemplate.tooltipText =
           "{visits.formatNumber('#.0a')} ვიზიტი, წლიური რაოდენობის {perc.formatNumber('#,###.0')}% ";
-      } else {
+      }
+      if (this.lang == 'ENG') {
         columnTemplate.tooltipText =
           "{visits.formatNumber('#.0a')} Visits, {perc.formatNumber('#,###.0')}% from annual amount ";
       }
@@ -265,7 +268,8 @@ export class SeasonalComponent implements OnInit {
       if (this.lang == 'GEO') {
         columnTemplate.tooltipText =
           "{value.workingValue.formatNumber('#.0a')} ვიზიტი ";
-      } else {
+      }
+      if (this.lang == 'ENG') {
         columnTemplate.tooltipText =
           "{value.workingValue.formatNumber('#.0a')} visits ";
       }
