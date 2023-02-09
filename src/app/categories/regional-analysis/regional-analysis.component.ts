@@ -508,7 +508,8 @@ export class RegionalAnalysisComponent implements OnInit {
     if (this.lang == 'GEO') {
       title = 'ვიზიტების რაოდენობა (ათასი)';
       title1 = 'ღამეების საშუალო რაოდენობა';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       title = 'Number of Visits (Thousands)';
       title1 = 'Average Number of Nights';
     }
@@ -635,7 +636,8 @@ export class RegionalAnalysisComponent implements OnInit {
     if (this.lang == 'GEO') {
       polygonTemplate2.tooltipText =
         '{name} - რეგიონის მონაცემები გაერთიანებულია იმერეთის რეგიონის მონაცემებთან';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       polygonTemplate2.tooltipText =
         '{name} - The data of the region is combined with the data of the Imereti region';
     }
@@ -766,7 +768,8 @@ export class RegionalAnalysisComponent implements OnInit {
     if (this.lang == 'GEO') {
       bullet.tooltipText =
         '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#")} ათასი ₾';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       bullet.tooltipText =
         '[bold]{name}[/]\n[font-size:14px]{categoryX} Year: [bold]{valueY.formatNumber("#")} Thousand ₾';
     }
@@ -810,7 +813,8 @@ export class RegionalAnalysisComponent implements OnInit {
     if (this.selectedRegion.length === 0) {
       if (this.lang === 'GEO') {
         this.selectedRegion = 'თბილისი';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.selectedRegion = 'Tbilisi';
       }
     }
@@ -829,7 +833,8 @@ export class RegionalAnalysisComponent implements OnInit {
 
     if (this.lang == 'GEO') {
       this.sanqiName = 'ვიზიტების რაოდენობა რეგიონების მიხედვით';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       this.sanqiName = 'Number of Visits By Region';
     }
 
@@ -880,7 +885,8 @@ export class RegionalAnalysisComponent implements OnInit {
 
     if (this.lang === 'GEO') {
       this.regionId = this.regionCodesGE[value];
-    } else {
+    }
+    if (this.lang == 'ENG') {
       this.regionId = this.regionCodesEN[value];
     }
     this.createCharts();

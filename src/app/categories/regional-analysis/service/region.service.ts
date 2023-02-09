@@ -91,10 +91,10 @@ export class RegionService {
   ];
 
   genders() {
-    if (this.lang == 'GEO') {
-      return this.gendersGE;
-    } else {
+    if (this.lang == 'ENG') {
       return this.gendersEN;
+    } else {
+      return this.gendersGE;
     }
   }
 
@@ -124,10 +124,10 @@ export class RegionService {
   ];
 
   activityes() {
-    if (this.lang == 'GEO') {
-      return this.activityesGE;
-    } else {
+    if (this.lang == 'ENG') {
       return this.activityesEN;
+    } else {
+      return this.activityesGE;
     }
   }
 
@@ -153,9 +153,9 @@ export class RegionService {
 
   goals() {
     if (this.lang == 'GEO') {
-      return this.goalsGE;
-    } else {
       return this.goalsEN;
+    } else {
+      return this.goalsGE;
     }
   }
 
@@ -180,10 +180,10 @@ export class RegionService {
   ];
 
   visits() {
-    if (this.lang == 'GEO') {
-      return this.visitsGE;
-    } else {
+    if (this.lang == 'ENG') {
       return this.visitsEN;
+    } else {
+      return this.visitsGE;
     }
   }
 
@@ -200,10 +200,10 @@ export class RegionService {
   ];
 
   transports() {
-    if (this.lang == 'GEO') {
-      return this.transportsGE;
-    } else {
+    if (this.lang == 'ENG') {
       return this.transportsEN;
+    } else {
+      return this.transportsGE;
     }
   }
 
@@ -226,10 +226,10 @@ export class RegionService {
   ];
 
   rates() {
-    if (this.lang == 'GEO') {
-      return this.ratesGE;
-    } else {
+    if (this.lang == 'ENG') {
       return this.ratesEN;
+    } else {
+      return this.ratesGE;
     }
   }
 
