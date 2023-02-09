@@ -49,8 +49,14 @@ export class BorderTypeComponent implements OnInit {
               isDisabled: false,
             });
         });
-    } else {
-      this.borderTypes = ['Air Transport', 'Land Transport', 'Railway Transport', 'Sea Transport'];
+    }
+    if (this.lang == 'ENG') {
+      this.borderTypes = [
+        'Air Transport',
+        'Land Transport',
+        'Railway Transport',
+        'Sea Transport',
+      ];
 
       this.monthies.push({
         name: 'Select a Month',
@@ -219,9 +225,10 @@ export class BorderTypeComponent implements OnInit {
     valueAxis.numberFormatter = new am4core.NumberFormatter();
     valueAxis.numberFormatter.numberFormat = '#.%';
     valueAxis.renderer.grid.template.location = 0;
-    if (this.lang) {
+    if (this.lang == 'GEO') {
       valueAxis.title.text = 'ვიზიტები';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       valueAxis.title.text = 'Visits';
     }
 
@@ -238,73 +245,85 @@ export class BorderTypeComponent implements OnInit {
         if (stQ == '1') {
           if (this.lang == 'GEO') {
             stQ = 'იან, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Jan, ';
           }
         } else if (stQ == '2') {
           if (this.lang == 'GEO') {
             stQ = 'თებ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Feb, ';
           }
         } else if (stQ == '3') {
           if (this.lang == 'GEO') {
             stQ = 'მარ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Mar, ';
           }
         } else if (stQ == '4') {
           if (this.lang == 'GEO') {
             stQ = 'აპრ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Apr, ';
           }
         } else if (stQ == '5') {
           if (this.lang == 'GEO') {
             stQ = 'მაი, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'May, ';
           }
         } else if (stQ == '6') {
           if (this.lang == 'GEO') {
             stQ = 'ივნ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Jun, ';
           }
         } else if (stQ == '7') {
           if (this.lang == 'GEO') {
             stQ = 'ივლ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Jul, ';
           }
         } else if (stQ == '8') {
           if (this.lang == 'GEO') {
             stQ = 'აგვ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Aug, ';
           }
         } else if (stQ == '9') {
           if (this.lang == 'GEO') {
             stQ = 'სექ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Sep, ';
           }
         } else if (stQ == '10') {
           if (this.lang == 'GEO') {
             stQ = 'ოქტ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Oct, ';
           }
         } else if (stQ == '11') {
           if (this.lang == 'GEO') {
             stQ = 'ნოე, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Nov, ';
           }
         } else if (stQ == '12') {
           if (this.lang == 'GEO') {
             stQ = 'დეკ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Dec, ';
           }
         }
@@ -385,7 +404,8 @@ export class BorderTypeComponent implements OnInit {
         bullet.tooltipText =
           '[bold]{name}[/]ით გამსვლელ ვიზიტორტა რაოდენობა, საწყის პერიოდთან შედარებით,\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
       }
-    } else {
+    }
+    if (this.lang == 'ENG') {
       if (this.tType == 1) {
         bullet.tooltipText =
           'From [bold]{name}[/] number of incoming visitors, compared to the initial period,\nin {year} year has changed by [bold]{valueY.formatNumber("#.%")}';

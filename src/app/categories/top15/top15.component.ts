@@ -47,7 +47,8 @@ export class Top15Component implements OnInit {
               isDisabled: false,
             });
         });
-    } else {
+    }
+    if (this.lang == 'ENG') {
       this.monthies.push({
         name: 'Select a Month',
         value: 0,
@@ -217,7 +218,8 @@ export class Top15Component implements OnInit {
     valueAxis.renderer.grid.template.location = 0;
     if (this.lang == 'GEO') {
       valueAxis.title.text = 'ვიზიტები';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       valueAxis.title.text = 'Visits';
     }
 
@@ -234,73 +236,85 @@ export class Top15Component implements OnInit {
         if (stQ == '1') {
           if (this.lang == 'GEO') {
             stQ = 'იან, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Jan, ';
           }
         } else if (stQ == '2') {
           if (this.lang == 'GEO') {
             stQ = 'თებ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Feb, ';
           }
         } else if (stQ == '3') {
           if (this.lang == 'GEO') {
             stQ = 'მარ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Mar, ';
           }
         } else if (stQ == '4') {
           if (this.lang == 'GEO') {
             stQ = 'აპრ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Apr, ';
           }
         } else if (stQ == '5') {
           if (this.lang == 'GEO') {
             stQ = 'მაი, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'May, ';
           }
         } else if (stQ == '6') {
           if (this.lang == 'GEO') {
             stQ = 'ივნ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Jun, ';
           }
         } else if (stQ == '7') {
           if (this.lang == 'GEO') {
             stQ = 'ივლ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Jul, ';
           }
         } else if (stQ == '8') {
           if (this.lang == 'GEO') {
             stQ = 'აგვ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Aug, ';
           }
         } else if (stQ == '9') {
           if (this.lang == 'GEO') {
             stQ = 'სექ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Sep, ';
           }
         } else if (stQ == '10') {
           if (this.lang == 'GEO') {
             stQ = 'ოქტ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Oct, ';
           }
         } else if (stQ == '11') {
           if (this.lang == 'GEO') {
             stQ = 'ნოე, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Nov, ';
           }
         } else if (stQ == '12') {
           if (this.lang == 'GEO') {
             stQ = 'დეკ, ';
-          } else {
+          }
+          if (this.lang == 'ENG') {
             stQ = 'Dec, ';
           }
         }
@@ -315,10 +329,9 @@ export class Top15Component implements OnInit {
     let ser: am4charts.LineSeries;
 
     if (this.lang == 'GEO') {
-      ser = this.createSeries("void", "სულ", chart, "სულ");
-    }
-    else{
-      ser = this.createSeries("void", "All", chart, "All");
+      ser = this.createSeries('void', 'სულ', chart, 'სულ');
+    } else {
+      ser = this.createSeries('void', 'All', chart, 'All');
     }
 
     Object.keys(res[0])
@@ -329,18 +342,25 @@ export class Top15Component implements OnInit {
 
     chart.legend = new am4charts.Legend();
 
-    ser.events.on("hidden", function() {
-      chart.series.values.forEach(function(series: { name: any; show: () => void; hide: () => void; }) {
+    ser.events.on('hidden', function () {
+      chart.series.values.forEach(function (series: {
+        name: any;
+        show: () => void;
+        hide: () => void;
+      }) {
         series.hide();
-      })
-    });
-    
-    ser.events.on("shown", function() {
-      chart.series.values.forEach(function(series: { name: any; show: () => void; hide: () => void; }) {
-        series.show();
-      })
+      });
     });
 
+    ser.events.on('shown', function () {
+      chart.series.values.forEach(function (series: {
+        name: any;
+        show: () => void;
+        hide: () => void;
+      }) {
+        series.show();
+      });
+    });
 
     let legendContainer = am4core.create('legenddiv', am4core.Container);
     legendContainer.width = am4core.percent(100);
@@ -399,7 +419,8 @@ export class Top15Component implements OnInit {
     if (this.lang == 'GEO') {
       bullet.tooltipText =
         '[bold]{name}[/]დან ვიზიტორტა რაოდენობა, საწყის პერიოდთან შედარებით,\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       bullet.tooltipText =
         'From [bold]{name}[/] Amount of Visitors, Compared to\n{year} Year, Has Changed By [bold]{valueY.formatNumber("#.%")}';
     }

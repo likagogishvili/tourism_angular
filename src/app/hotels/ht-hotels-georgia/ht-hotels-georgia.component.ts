@@ -107,7 +107,8 @@ export class HtHotelsGeorgiaComponent implements AfterViewInit {
             '<br/>' +
             `<center><a target="_blank" href=${hrGeo}>ინფო</a></center>`
         );
-      } else {
+      }
+      if (this.lang == 'ENG') {
         let hrEn = `http://br.geostat.ge/register_geo/index.php?action=enterprizes&srch1=${element.taxId}&lang=en`;
 
         marker.bindPopup(

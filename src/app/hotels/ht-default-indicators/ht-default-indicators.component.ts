@@ -46,7 +46,8 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
     if (this.lang == 'GEO') {
       this.sankyChart = 'სასტუმროების რაოდენობის განაწილება';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       this.sankyChart = 'Distribution of the Hotels';
     }
   }
@@ -98,7 +99,8 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
     if (this.lang == 'GEO') {
       this.sankyChart = 'სასტუმროების რაოდენობის განაწილება';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       this.sankyChart = 'Distribution of the Hotels';
     }
   }
@@ -108,7 +110,8 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
     if (this.lang == 'GEO') {
       this.sankyChart = 'სტუმრების რაოდენობის განაწილება';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       this.sankyChart = 'Distribution of the Visitors';
     }
   }
@@ -283,7 +286,8 @@ export class HtDefaultIndicatorsComponent implements OnInit {
           this.createSeries('გესტჰაუსი', 'გესტჰაუსი', chart, 'გესტჰაუსი');
           this.createSeries('კოტეჯი', 'კოტეჯი', chart, 'კოტეჯი');
           this.createSeries('კემპინგი', 'კემპინგი', chart, 'კემპინგი');
-        } else {
+        }
+        if (this.lang == 'ENG') {
           this.createSeries('Hotel', 'Hotel', chart, 'Hotel');
           this.createSeries('Guesthouse', 'Guesthouse', chart, 'Guesthouse');
           this.createSeries('Cottage', 'Cottage', chart, 'Cottage');
@@ -303,7 +307,8 @@ export class HtDefaultIndicatorsComponent implements OnInit {
             'სამი და მეტიანი'
           );
           this.createLineSeries('სულ', 'ადგილების რაოდენობა', chart, 'ადგილი');
-        } else {
+        }
+        if (this.lang == 'ENG') {
           this.createSeries('Lux', 'Lux', chart, 'Lux');
           this.createSeries('Single', 'Single', chart, 'Single');
           this.createSeries('Double', 'Double', chart, 'Double');
@@ -313,7 +318,12 @@ export class HtDefaultIndicatorsComponent implements OnInit {
             chart,
             'Three Or More'
           );
-          this.createLineSeries('Total', 'Number of Bed-places', chart, 'Bed-places');
+          this.createLineSeries(
+            'Total',
+            'Number of Bed-places',
+            chart,
+            'Bed-places'
+          );
         }
         break;
 
@@ -339,7 +349,8 @@ export class HtDefaultIndicatorsComponent implements OnInit {
           this.createSeries('სერვისი', 'სერვისი', chart, 'სერვისიდან');
           this.createSeries('რესტორანი', 'რესტორანი', chart, 'რესტორნიდან');
           this.createSeries('სხვა', 'სხვა', chart, 'სხვა');
-        } else {
+        }
+        if (this.lang == 'ENG') {
           this.createSeries('Rooms', 'Renting ', chart, 'From Renting');
           this.createSeries('Service', 'Service', chart, 'From Service');
           this.createSeries('Restrant', 'Restrant', chart, 'From Restrant');
@@ -351,7 +362,8 @@ export class HtDefaultIndicatorsComponent implements OnInit {
         if (this.lang == 'GEO') {
           this.createSeries('ქალი', 'ქალი', chart, 'ქალი');
           this.createSeries('კაცი', 'კაცი', chart, 'კაცი');
-        } else {
+        }
+        if (this.lang == 'ENG') {
           this.createSeries('Female', 'Female', chart, 'Female');
           this.createSeries('Male', 'Male', chart, 'Male');
         }
@@ -361,7 +373,8 @@ export class HtDefaultIndicatorsComponent implements OnInit {
         if (this.lang == 'GEO') {
           this.createSeries('ხელფასი', 'ხელფასი', chart, 'ხელფასები');
           this.createSeries('სხვა', 'სხვა', chart, 'სხვა ხარჯები');
-        } else {
+        }
+        if (this.lang == 'ENG') {
           this.createSeries('Salary', 'Salary', chart, 'Salary');
           this.createSeries('Other', 'Other', chart, 'Other');
         }
@@ -411,7 +424,8 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     if (this.lang == 'GEO') {
       series.columns.template.tooltipText =
         '{categoryX} წელს: [bold]{valueY.formatNumber("#,###.")} ' + ragac;
-    } else {
+    }
+    if (this.lang == 'ENG') {
       series.columns.template.tooltipText =
         '{categoryX} Year: [bold]{valueY.formatNumber("#,###.")} ' + ragac;
     }
@@ -421,7 +435,7 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     labelBullet.label.text = '{valueY.formatNumber("#,###.")}';
     labelBullet.locationY = 0.5;
     labelBullet.label.hideOversized = true;
-    labelBullet.label.hide()
+    labelBullet.label.hide();
 
     return series;
   }
@@ -442,7 +456,8 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     if (this.lang == 'GEO') {
       bullet.tooltipText =
         '{categoryX} წელს: [bold]{valueY.formatNumber("#,###.")} ' + ragac;
-    } else {
+    }
+    if (this.lang == 'ENG') {
       bullet.tooltipText =
         '{categoryX} Year: [bold]{valueY.formatNumber("#,###.")} ' + ragac;
     }
