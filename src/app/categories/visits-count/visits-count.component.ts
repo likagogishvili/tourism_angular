@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IDropDown } from 'src/app/common/IDropDown';
 
-import * as am4core from "@amcharts/amcharts4/core";
-import * as am4charts from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import * as am4core from '@amcharts/amcharts4/core';
+import * as am4charts from '@amcharts/amcharts4/charts';
+import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
 import { Month } from 'src/app/common/Month';
 import { HttpClient } from '@angular/common/http';
@@ -12,64 +12,94 @@ import { MonthEN } from 'src/app/common/MonthEN';
 @Component({
   selector: 'app-visits-count',
   templateUrl: './visits-count.component.html',
-  styleUrls: ['./visits-count.component.scss']
+  styleUrls: ['./visits-count.component.scss'],
 })
 export class VisitsCountComponent implements OnInit {
-
   readonly APIUrl: string = 'http://tourismapi.geostat.ge/api/VisitCount';
 
   constructor(private http: HttpClient) {
     this.lang = localStorage.getItem('Language');
 
     if (this.lang == 'GEO') {
-      this.country = "ყველა"
+      this.country = 'ყველა';
     }
-    else{
-      this.country = "Total"
+    if (this.lang == 'ENG') {
+      this.country = 'Total';
     }
   }
 
   lang: any;
 
   ngOnInit(): void {
-
     this.getCountryes();
-    
+
     this.getYears();
     this.getYearsReverced();
 
-
     if (this.lang == 'GEO') {
-      
-      this.monthies.push({name: "აირჩიეთ თვე", value: 0, isDisabled: false});
-      this.monthiesEnd.push({name: "აირჩიეთ თვე", value: 0, isDisabled: false});
-
-      Object.keys(Month).filter(v => isNaN(Number(v))).forEach((element: string) => {
-      this.monthies.push({name: element, value: Object.values(Month).indexOf(element) + 1, isDisabled: false}),
-      this.monthiesEnd.push({name: element, value: Object.values(Month).indexOf(element) + 1, isDisabled: false})
+      this.monthies.push({ name: 'აირჩიეთ თვე', value: 0, isDisabled: false });
+      this.monthiesEnd.push({
+        name: 'აირჩიეთ თვე',
+        value: 0,
+        isDisabled: false,
       });
-    }
-    else{
-      this.monthies.push({name: "Select a Month", value: 0, isDisabled: false});
-      this.monthiesEnd.push({name: "Select a Month", value: 0, isDisabled: false});
 
-      this.startM = {name: "Select a Month", value: 0, isDisabled: false};
-      this.endM = {name: "Select a Month", value: 0, isDisabled: false};
-
-      Object.keys(MonthEN).filter(v => isNaN(Number(v))).forEach((element: string) => {
-      this.monthies.push({name: element, value: Object.values(MonthEN).indexOf(element) + 1, isDisabled: false}),
-      this.monthiesEnd.push({name: element, value: Object.values(MonthEN).indexOf(element) + 1, isDisabled: false})
+      Object.keys(Month)
+        .filter((v) => isNaN(Number(v)))
+        .forEach((element: string) => {
+          this.monthies.push({
+            name: element,
+            value: Object.values(Month).indexOf(element) + 1,
+            isDisabled: false,
+          }),
+            this.monthiesEnd.push({
+              name: element,
+              value: Object.values(Month).indexOf(element) + 1,
+              isDisabled: false,
+            });
+        });
+    } else {
+      this.monthies.push({
+        name: 'Select a Month',
+        value: 0,
+        isDisabled: false,
       });
+      this.monthiesEnd.push({
+        name: 'Select a Month',
+        value: 0,
+        isDisabled: false,
+      });
+
+      this.startM = { name: 'Select a Month', value: 0, isDisabled: false };
+      this.endM = { name: 'Select a Month', value: 0, isDisabled: false };
+
+      Object.keys(MonthEN)
+        .filter((v) => isNaN(Number(v)))
+        .forEach((element: string) => {
+          this.monthies.push({
+            name: element,
+            value: Object.values(MonthEN).indexOf(element) + 1,
+            isDisabled: false,
+          }),
+            this.monthiesEnd.push({
+              name: element,
+              value: Object.values(MonthEN).indexOf(element) + 1,
+              isDisabled: false,
+            });
+        });
     }
 
-    this.getVisitsChart(this.year, this.yearEnd, this.startM.value, this.endM.value, this.country);
+    this.getVisitsChart(
+      this.year,
+      this.yearEnd,
+      this.startM.value,
+      this.endM.value,
+      this.country
+    );
   }
-
 
   countryes: string[] = [];
   country!: string;
-  
-
 
   years!: number[];
   year: number = 2015;
@@ -77,70 +107,110 @@ export class VisitsCountComponent implements OnInit {
   yearsReverced!: number[];
   yearEnd: number = 2022;
 
-
   monthies: IDropDown[] = [];
-  startM: IDropDown = {name: "აირჩიეთ თვე", value: 0, isDisabled: false};
+  startM: IDropDown = { name: 'აირჩიეთ თვე', value: 0, isDisabled: false };
 
   monthiesEnd: IDropDown[] = [];
-  endM: IDropDown = {name: "აირჩიეთ თვე", value: 0, isDisabled: false};
+  endM: IDropDown = { name: 'აირჩიეთ თვე', value: 0, isDisabled: false };
 
   denger: boolean = false;
 
-
-  getCountryes(){
+  getCountryes() {
     if (this.lang == 'GEO') {
-      this.countryes.push("ყველა");
+      this.countryes.push('ყველა');
     }
-    else{
-      this.countryes.push("Total");      
+    if (this.lang == 'ENG') {
+      this.countryes.push('Total');
     }
 
-    this.http.get<string[]>(this.APIUrl + '/countryes' + '?lang=' + this.lang).subscribe(data => {
-      
-      data.forEach(element => {
-        this.countryes.push(element);
+    this.http
+      .get<string[]>(this.APIUrl + '/countryes' + '?lang=' + this.lang)
+      .subscribe((data) => {
+        data.forEach((element) => {
+          this.countryes.push(element);
+        });
       });
-    })
   }
 
-  getYears(){
-    this.http.get<number[]>(this.APIUrl + '/years').subscribe(years => {
+  getYears() {
+    this.http.get<number[]>(this.APIUrl + '/years').subscribe((years) => {
       this.years = years;
-    })
+    });
   }
 
-  getYearsReverced(){
-    this.http.get<number[]>(this.APIUrl + '/yearsReverced').subscribe(years => {
-      this.yearsReverced = years;
-    })
+  getYearsReverced() {
+    this.http
+      .get<number[]>(this.APIUrl + '/yearsReverced')
+      .subscribe((years) => {
+        this.yearsReverced = years;
+      });
   }
 
-  changedenger(){
+  changedenger() {
     this.denger = false;
   }
 
-  getVisitChart(){
-    if(Number(this.year) >= Number(this.yearEnd) && Number(this.startM.value) > Number(this.endM.value)){
+  getVisitChart() {
+    if (
+      Number(this.year) >= Number(this.yearEnd) &&
+      Number(this.startM.value) > Number(this.endM.value)
+    ) {
       this.denger = true;
-    }
-    else{
-      if(this.startM.value == 0 && this.endM.value != 0){
-        this.getVisitsChart(this.year, this.yearEnd, 1, this.endM.value, this.country);
+    } else {
+      if (this.startM.value == 0 && this.endM.value != 0) {
+        this.getVisitsChart(
+          this.year,
+          this.yearEnd,
+          1,
+          this.endM.value,
+          this.country
+        );
+      } else if (this.endM.value == 0 && this.startM.value != 0) {
+        this.getVisitsChart(
+          this.year,
+          this.yearEnd,
+          this.startM.value,
+          12,
+          this.country
+        );
+      } else {
+        this.getVisitsChart(
+          this.year,
+          this.yearEnd,
+          this.startM.value,
+          this.endM.value,
+          this.country
+        );
       }
-      else if(this.endM.value == 0 && this.startM.value != 0){
-      this.getVisitsChart(this.year, this.yearEnd, this.startM.value, 12, this.country);
-      }
-      else{
-      this.getVisitsChart(this.year, this.yearEnd, this.startM.value, this.endM.value, this.country);
-      }      
     }
   }
 
-  getVisitsChart(st: number, en: number, stM: number, enM: number, cntr: string) {
-    this.http.get<any>(this.APIUrl + '/visitorsCount?start=' + st + '&end=' + en + '&startM=' + stM + '&endM=' + enM + '&country=' + cntr + '&lang=' + this.lang).subscribe(data => {
-      this.helpChart(data, "", "visitsChart");
-    })
-    
+  getVisitsChart(
+    st: number,
+    en: number,
+    stM: number,
+    enM: number,
+    cntr: string
+  ) {
+    this.http
+      .get<any>(
+        this.APIUrl +
+          '/visitorsCount?start=' +
+          st +
+          '&end=' +
+          en +
+          '&startM=' +
+          stM +
+          '&endM=' +
+          enM +
+          '&country=' +
+          cntr +
+          '&lang=' +
+          this.lang
+      )
+      .subscribe((data) => {
+        this.helpChart(data, '', 'visitsChart');
+      });
   }
 
   helpChart(res: any, chart: any, chartDiv: string) {
@@ -154,21 +224,20 @@ export class VisitsCountComponent implements OnInit {
     categoryAxis.renderer.grid.template.location = 0;
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    
+
     valueAxis.numberFormatter = new am4core.NumberFormatter();
-    valueAxis.numberFormatter.numberFormat = "#.%";
+    valueAxis.numberFormatter.numberFormat = '#.%';
     valueAxis.renderer.grid.template.location = 0;
     if (this.lang == 'GEO') {
-      valueAxis.title.text = "ვიზიტები";
+      valueAxis.title.text = 'ვიზიტები';
     }
-    else{
-      valueAxis.title.text = "Visits";
+    if (this.lang == 'ENG') {
+      valueAxis.title.text = 'Visits';
     }
 
-    if(Number(this.startM.value) != 0 || Number(this.endM.value != 0))
-    {
-      res.forEach((element: { year: string; }) => {
-        let st: string = "";
+    if (Number(this.startM.value) != 0 || Number(this.endM.value != 0)) {
+      res.forEach((element: { year: string }) => {
+        let st: string = '';
 
         st = String(element.year);
 
@@ -180,110 +249,100 @@ export class VisitsCountComponent implements OnInit {
           if (this.lang == 'GEO') {
             stQ = 'იან, ';
           }
-          else{
+          if (this.lang == 'ENG') {
             stQ = 'Jan, ';
           }
         } else if (stQ == '2') {
           if (this.lang == 'GEO') {
             stQ = 'თებ, ';
           }
-          else{
+          if (this.lang == 'ENG') {
             stQ = 'Feb, ';
-          }          
+          }
         } else if (stQ == '3') {
           if (this.lang == 'GEO') {
             stQ = 'მარ, ';
           }
-          else{
+          if (this.lang == 'ENG') {
             stQ = 'Mar, ';
-          }          
+          }
         } else if (stQ == '4') {
           if (this.lang == 'GEO') {
             stQ = 'აპრ, ';
           }
-          else{
+          if (this.lang == 'ENG') {
             stQ = 'Apr, ';
           }
-          
         } else if (stQ == '5') {
           if (this.lang == 'GEO') {
             stQ = 'მაი, ';
           }
-          else{
+          if (this.lang == 'ENG') {
             stQ = 'May, ';
           }
-          
         } else if (stQ == '6') {
           if (this.lang == 'GEO') {
             stQ = 'ივნ, ';
           }
-          else{
+          if (this.lang == 'ENG') {
             stQ = 'Jun, ';
           }
-          
         } else if (stQ == '7') {
           if (this.lang == 'GEO') {
             stQ = 'ივლ, ';
           }
-          else{
+          if (this.lang == 'ENG') {
             stQ = 'Jul, ';
           }
-          
         } else if (stQ == '8') {
           if (this.lang == 'GEO') {
             stQ = 'აგვ, ';
           }
-          else{
+          if (this.lang == 'ENG') {
             stQ = 'Aug, ';
           }
-          
         } else if (stQ == '9') {
           if (this.lang == 'GEO') {
             stQ = 'სექ, ';
           }
-          else{
+          if (this.lang == 'ENG') {
             stQ = 'Sep, ';
           }
-          
         } else if (stQ == '10') {
           if (this.lang == 'GEO') {
             stQ = 'ოქტ, ';
           }
-          else{
+          if (this.lang == 'ENG') {
             stQ = 'Oct, ';
           }
-          
         } else if (stQ == '11') {
           if (this.lang == 'GEO') {
             stQ = 'ნოე, ';
           }
-          else{
+          if (this.lang == 'ENG') {
             stQ = 'Nov, ';
           }
-          
         } else if (stQ == '12') {
           if (this.lang == 'GEO') {
             stQ = 'დეკ, ';
           }
-          else{
+          if (this.lang == 'ENG') {
             stQ = 'Dec, ';
           }
-          
         }
 
-        let fnSt: string = `${stQ} ${stY}`
-
+        let fnSt: string = `${stQ} ${stY}`;
 
         element.year = fnSt;
       });
     }
     chart.data = res;
 
-
-
-    Object.keys(res[0]).filter(x => x != "year").forEach((element: string) => {
-      this.createSeries(element, element, chart, element);
-    });
+    Object.keys(res[0])
+      .filter((x) => x != 'year')
+      .forEach((element: string) => {
+        this.createSeries(element, element, chart, element);
+      });
 
     chart.legend = new am4charts.Legend();
 
@@ -314,8 +373,7 @@ export class VisitsCountComponent implements OnInit {
     chart.exporting.menu.items[0].icon =
       '../../../assets/HomePage/download_icon.svg';
     chart.exporting.menu.align = 'right';
-    chart.exporting.menu.verticalAlign = 'top'
-    
+    chart.exporting.menu.verticalAlign = 'top';
   }
 
   createSeries(field: string, name: string, chart: any, ragac: string) {
@@ -326,15 +384,13 @@ export class VisitsCountComponent implements OnInit {
     series.strokeWidth = 3;
 
     series.tooltipText = '{yearNo} წელს, {value}';
-    
 
-    series.dataFields.categoryX = "year";
+    series.dataFields.categoryX = 'year';
     series.dataFields.valueY = field;
 
     series.name = name;
-    
 
-    chart.language.locale["_thousandSeparator"] = " ";
+    chart.language.locale['_thousandSeparator'] = ' ';
     chart.numberFormatter.numberFormat = '#.';
     chart.logo.disabled = true;
 
@@ -346,28 +402,28 @@ export class VisitsCountComponent implements OnInit {
     series.bullets.push(new am4charts.CircleBullet());
 
     var bullet = series.bullets.push(new am4charts.CircleBullet());
-    bullet.circle.stroke = am4core.color("#fff");
+    bullet.circle.stroke = am4core.color('#fff');
     bullet.circle.strokeWidth = 3;
 
     if (this.lang == 'GEO') {
-	    if (this.country == "ყველა") {
-	      bullet.tooltipText = 'საწყის პერიოდთან შედარებით, ვიზიტების საერთო რაოდენობა\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
-	    }
-	    else{
-	      bullet.tooltipText = '[bold]{name}[/]დან შემომსვლელ ვიზიტორტა რაოდენობა, საწყის პერიოდთან შედარებით,\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
-	    }
+      if (this.country == 'ყველა') {
+        bullet.tooltipText =
+          'საწყის პერიოდთან შედარებით, ვიზიტების საერთო რაოდენობა\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
+      } else {
+        bullet.tooltipText =
+          '[bold]{name}[/]დან შემომსვლელ ვიზიტორტა რაოდენობა, საწყის პერიოდთან შედარებით,\n{year} წელს შეიცვალა [bold]{valueY.formatNumber("#.%")}-ით';
+      }
     }
-    else{
-      if (this.country == "Total") {
-	      bullet.tooltipText = 'Compared to the initial period, in {year} year Total number of visits\n has Changed by [bold]{valueY.formatNumber("#.%")}';
-	    }
-	    else{
-	      bullet.tooltipText = 'From [bold]{name}[/] amount of visitors, compared to\n{year} Year, has Changed By [bold]{valueY.formatNumber("#.%")}';        
-	    }
+    if (this.lang == 'ENG') {
+      if (this.country == 'Total') {
+        bullet.tooltipText =
+          'Compared to the initial period, in {year} year Total number of visits\n has Changed by [bold]{valueY.formatNumber("#.%")}';
+      } else {
+        bullet.tooltipText =
+          'From [bold]{name}[/] amount of visitors, compared to\n{year} Year, has Changed By [bold]{valueY.formatNumber("#.%")}';
+      }
     }
-    
 
     return series;
   }
-
 }

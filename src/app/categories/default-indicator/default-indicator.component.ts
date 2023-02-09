@@ -521,7 +521,6 @@ export class DefaultIndicatorComponent implements OnInit {
       am4core.color('#CBBAED'),
       am4core.color('#F5F3BB'),
       am4core.color('#86BA90'),
-
     ];
 
     let valueAxis = this.bigChart.yAxes.push(new am4charts.ValueAxis());
@@ -647,7 +646,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForMainChart = 'ვიზიტების რაოდენობა, სულ';
         this.createSeries5('Default', 'სულ', this.bigChart);
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForMainChart = 'Total number of visits';
         this.createSeries5('Default', 'Total', this.bigChart);
       }
@@ -669,7 +669,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForMainChart =
           'ვიზიტების რაოდენობა ეკონომიკური სტატუსის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForMainChart = 'Number of visits by Economic status';
       }
     } else if (this.indicator == 2) {
@@ -689,7 +690,8 @@ export class DefaultIndicatorComponent implements OnInit {
 
       if (this.lang == 'GEO') {
         this.titleForMainChart = 'ვიზიტების რაოდენობა ასაკის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForMainChart = 'Number of visits by age';
       }
     } else if (this.indicator == 3) {
@@ -699,7 +701,8 @@ export class DefaultIndicatorComponent implements OnInit {
 
       if (this.lang == 'GEO') {
         this.titleForMainChart = 'ვიზიტების რაოდენობა სქესის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForMainChart = 'Number of visits by gender';
       }
     } else if (this.indicator == 4) {
@@ -719,7 +722,8 @@ export class DefaultIndicatorComponent implements OnInit {
 
       if (this.lang == 'GEO') {
         this.titleForMainChart = 'ვიზიტების რაოდენობა მიზნის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForMainChart = 'Number of visits by purpose';
       }
     } else if (this.indicator == 5) {
@@ -730,7 +734,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForMainChart =
           'ვიზიტების რაოდენობა კმაყოფილების დონის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForMainChart = 'Number of visits by satisfaction level';
       }
     } else if (this.indicator == 6) {
@@ -740,7 +745,8 @@ export class DefaultIndicatorComponent implements OnInit {
 
       if (this.lang == 'GEO') {
         this.titleForMainChart = 'ვიზიტების რაოდენობა ვიზიტის ტიპის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForMainChart = 'Number of visits by type of visit';
       }
     } else if (this.indicator == 9) {
@@ -764,7 +770,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForMainChart =
           'ვიზიტების რაოდენობა ტრანსპორტის ტიპის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForMainChart = 'Number of visits by type of transport';
       }
     } else if (this.indicator == 10) {
@@ -784,7 +791,8 @@ export class DefaultIndicatorComponent implements OnInit {
 
       if (this.lang == 'GEO') {
         this.titleForMainChart = 'ვიზიტების რაოდენობა აქტივობის ტიპის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForMainChart = 'Number of visits by activity';
       }
     } else if (this.indicator == 11) {
@@ -794,7 +802,8 @@ export class DefaultIndicatorComponent implements OnInit {
 
       if (this.lang == 'GEO') {
         this.titleForMainChart = 'ვიზიტების რაოდენობა რიგითობის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForMainChart = 'Number of visits by order';
       }
     } else if (this.indicator == 12) {
@@ -805,7 +814,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForMainChart =
           'ვიზიტების რაოდენობა მონახულებული ქვეყნების მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForMainChart = 'Number of visits by visited countries';
       }
     }
@@ -839,7 +849,6 @@ export class DefaultIndicatorComponent implements OnInit {
       am4core.color('#CBBAED'),
       am4core.color('#F5F3BB'),
       am4core.color('#86BA90'),
-
     ];
 
     let valueAxis = this.cstChart.yAxes.push(new am4charts.ValueAxis());
@@ -855,7 +864,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.createSeries2('Default', 'სულ', this.cstChart);
         this.titleForCostsChart = 'ხარჯები, სულ (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.createSeries2('Default', 'All', this.cstChart);
         this.titleForCostsChart = 'Total expenditure (thousand GEL)';
       }
@@ -877,7 +887,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForCostsChart =
           'ხარჯები ეკონომიკური სტატუსის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart =
           'Expenditure by the Economic status (thousand GEL)';
       }
@@ -888,7 +899,8 @@ export class DefaultIndicatorComponent implements OnInit {
 
       if (this.lang == 'GEO') {
         this.titleForCostsChart = 'ხარჯები ასაკის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart = 'Expenditure by age (thousand GEL)';
       }
     } else if (this.indicator == 3) {
@@ -898,7 +910,8 @@ export class DefaultIndicatorComponent implements OnInit {
 
       if (this.lang == 'GEO') {
         this.titleForCostsChart = 'ხარჯები სქესის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart = 'Expenditure by gender (thousand GEL)';
       }
     } else if (this.indicator == 4) {
@@ -918,7 +931,8 @@ export class DefaultIndicatorComponent implements OnInit {
 
       if (this.lang == 'GEO') {
         this.titleForCostsChart = 'ხარჯები მიზნის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart = 'Expenditure by purpose (thousand GEL)';
       }
     } else if (this.indicator == 5) {
@@ -928,7 +942,8 @@ export class DefaultIndicatorComponent implements OnInit {
 
       if (this.lang == 'GEO') {
         this.titleForCostsChart = 'ხარჯები კმაყოფილების დონის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart =
           'Expenditure by satisfaction level (thousand GEL)';
       }
@@ -939,7 +954,8 @@ export class DefaultIndicatorComponent implements OnInit {
 
       if (this.lang == 'GEO') {
         this.titleForCostsChart = 'ხარჯები ვიზიტის ტიპის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart =
           'Expenditure by the type of visit (thousand GEL)';
       }
@@ -950,7 +966,8 @@ export class DefaultIndicatorComponent implements OnInit {
 
       if (this.lang == 'GEO') {
         this.titleForCostsChart = 'ხარჯები რიგითობის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart =
           'Expenditure by the order of visit (thousand GEL)';
       }
@@ -961,9 +978,9 @@ export class DefaultIndicatorComponent implements OnInit {
     this.cstChart.exporting.menu = new am4core.ExportMenu();
 
     this.cstChart.exporting.menu.items[0].icon =
-    '../../../assets/HomePage/download_icon.svg';
-  this.cstChart.exporting.menu.align = 'right';
-  this.cstChart.exporting.menu.verticalAlign = 'top';
+      '../../../assets/HomePage/download_icon.svg';
+    this.cstChart.exporting.menu.align = 'right';
+    this.cstChart.exporting.menu.verticalAlign = 'top';
   }
 
   costsChartDef(res: any) {
@@ -984,9 +1001,7 @@ export class DefaultIndicatorComponent implements OnInit {
       am4core.color('#CBBAED'),
       am4core.color('#F5F3BB'),
       am4core.color('#86BA90'),
-
     ];
-
 
     let valueAxis = this.cstChart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.numberFormatter = new am4core.NumberFormatter();
@@ -1000,7 +1015,8 @@ export class DefaultIndicatorComponent implements OnInit {
     if (this.lang == 'GEO') {
       this.createSeries2('Default', 'სულ', this.cstChart);
       this.titleForCostsChart = 'ხარჯები სულ (ათასი ლარი)';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       this.createSeries2('Default', 'Total', this.cstChart);
       this.titleForCostsChart = 'Total expenditure (Thousand GEL)';
     }
@@ -1009,9 +1025,9 @@ export class DefaultIndicatorComponent implements OnInit {
 
     this.cstChart.exporting.menu = new am4core.ExportMenu();
     this.cstChart.exporting.menu.items[0].icon =
-    '../../../assets/HomePage/download_icon.svg';
-  this.cstChart.exporting.menu.align = 'right';
-  this.cstChart.exporting.menu.verticalAlign = 'top';
+      '../../../assets/HomePage/download_icon.svg';
+    this.cstChart.exporting.menu.align = 'right';
+    this.cstChart.exporting.menu.verticalAlign = 'top';
   }
 
   nghtChart: any;
@@ -1034,9 +1050,7 @@ export class DefaultIndicatorComponent implements OnInit {
       am4core.color('#CBBAED'),
       am4core.color('#F5F3BB'),
       am4core.color('#86BA90'),
-
     ];
-
 
     let valueAxis = this.nghtChart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.numberFormatter = new am4core.NumberFormatter();
@@ -1054,7 +1068,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.createSeries3('Default', 'სულ', this.nghtChart);
         this.titleForPerNightsChart = 'ღამეების საშუალო რაოდენობა';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.createSeries3('Default', 'All', this.nghtChart);
         this.titleForPerNightsChart = 'Average Number Of Nights';
       }
@@ -1076,7 +1091,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForPerNightsChart =
           'ღამეების საშუალო რაოდენობა ეკონომიკური სტატუსის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForPerNightsChart =
           'Average Number Of Nights By Economic Status';
       }
@@ -1088,7 +1104,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForPerNightsChart =
           'ღამეების საშუალო რაოდენობა ასაკის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForPerNightsChart = 'Average Number Of Nights By Age';
       }
     } else if (this.indicator == 3) {
@@ -1099,7 +1116,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForPerNightsChart =
           'ღამეების საშუალო რაოდენობა სქესის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForPerNightsChart = 'Average Number Of Nights By Gender';
       }
     } else if (this.indicator == 4) {
@@ -1120,7 +1138,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForPerNightsChart =
           'ღამეების საშუალო რაოდენობა მიზნის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForPerNightsChart = 'Average Number Of Nights By Purpose';
       }
     } else if (this.indicator == 5) {
@@ -1131,7 +1150,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForPerNightsChart =
           'ღამეების საშუალო რაოდენობა კმაყოფილების დონის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForPerNightsChart =
           'Average Number Of Nights By Satisfaction Level';
       }
@@ -1143,7 +1163,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForPerNightsChart =
           'ღამეების საშუალო რაოდენობა ვიზიტის ტიპის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForPerNightsChart =
           'Average Number Of Nights By Type Of Visit';
       }
@@ -1155,15 +1176,18 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForPerNightsChart =
           'ღამეების საშუალო რაოდენობა რიგითობის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForPerNightsChart =
           'Average Number Of Nights By Order Of Visits';
       }
-    } else {
+    }
+    if (this.lang == 'ENG') {
       if (this.lang == 'GEO') {
         this.createSeries3('Default', 'სულ', this.nghtChart);
         this.titleForPerNightsChart = 'ღამეების საშუალო რაოდენობა სულ';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.createSeries3('Default', 'All', this.nghtChart);
         this.titleForPerNightsChart = 'Average Number Of Nights Total';
       }
@@ -1173,9 +1197,9 @@ export class DefaultIndicatorComponent implements OnInit {
 
     this.nghtChart.exporting.menu = new am4core.ExportMenu();
     this.nghtChart.exporting.menu.items[0].icon =
-    '../../../assets/HomePage/download_icon.svg';
-  this.nghtChart.exporting.menu.align = 'right';
-  this.nghtChart.exporting.menu.verticalAlign = 'top';
+      '../../../assets/HomePage/download_icon.svg';
+    this.nghtChart.exporting.menu.align = 'right';
+    this.nghtChart.exporting.menu.verticalAlign = 'top';
   }
 
   perNightsChartDef(res: any) {
@@ -1198,8 +1222,6 @@ export class DefaultIndicatorComponent implements OnInit {
       am4core.color('#86BA90'),
     ];
 
-    
-
     let valueAxis = this.nghtChart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.numberFormatter = new am4core.NumberFormatter();
     valueAxis.numberFormatter.numberFormat = '#';
@@ -1214,7 +1236,8 @@ export class DefaultIndicatorComponent implements OnInit {
     if (this.lang == 'GEO') {
       this.createSeries3('Default', 'სულ', this.nghtChart);
       this.titleForPerNightsChart = 'ღამეების საშუალო რაოდენობა';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       this.createSeries3('Default', 'All', this.nghtChart);
       this.titleForPerNightsChart = 'Average Number Of Nights';
     }
@@ -1223,9 +1246,9 @@ export class DefaultIndicatorComponent implements OnInit {
 
     this.nghtChart.exporting.menu = new am4core.ExportMenu();
     this.nghtChart.exporting.menu.items[0].icon =
-    '../../../assets/HomePage/download_icon.svg';
-  this.nghtChart.exporting.menu.align = 'right';
-  this.nghtChart.exporting.menu.verticalAlign = 'top';
+      '../../../assets/HomePage/download_icon.svg';
+    this.nghtChart.exporting.menu.align = 'right';
+    this.nghtChart.exporting.menu.verticalAlign = 'top';
   }
 
   createSeries2(field: string, name: string, chart: any) {
@@ -1252,7 +1275,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         series.columns.template.tooltipText =
           '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#.0a")} ₾';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         series.columns.template.tooltipText =
           '[bold]{name}[/]\n[font-size:14px]{categoryX} Year: [bold]{valueY.formatNumber("#.0a")} ₾';
       }
@@ -1291,7 +1315,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         series.columns.template.tooltipText =
           '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#.0a")} ღამე';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         series.columns.template.tooltipText =
           '[bold]{name}[/]\n[font-size:14px]{categoryX} Year: [bold]{valueY.formatNumber("#.0a")} Night';
       }
@@ -1299,7 +1324,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         series.columns.template.tooltipText =
           '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} ღამე';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         series.columns.template.tooltipText =
           '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} Night';
       }
@@ -1326,7 +1352,6 @@ export class DefaultIndicatorComponent implements OnInit {
     chart.numberFormatter.numberFormat = '#';
 
     chart.logo.disabled = true;
-    
 
     // Make it stacked
     series.stacked = true;
@@ -1337,7 +1362,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         series.columns.template.tooltipText =
           '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#.0a")} ვიზიტი';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         series.columns.template.tooltipText =
           '[bold]{name}[/]\n[font-size:14px]{categoryX} Year: [bold]{valueY.formatNumber("#.0a")} Visits';
       }
@@ -1345,7 +1371,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         series.columns.template.tooltipText =
           '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} ვიზიტი';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         series.columns.template.tooltipText =
           '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} Visits';
       }
@@ -1353,7 +1380,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         series.columns.template.tooltipText =
           '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} ვიზიტი';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         series.columns.template.tooltipText =
           '[bold]{name}[/]\n[font-size:14px]{categoryX}: [bold]{valueY.formatNumber("#.0a")} Visits';
       }
@@ -1404,7 +1432,6 @@ export class DefaultIndicatorComponent implements OnInit {
       am4core.color('#86BA90'),
     ];
 
-
     // let valueAxis = this.nghtChart.yAxes.push(new am4charts.ValueAxis());
     // valueAxis.numberFormatter = new am4core.NumberFormatter();
     // valueAxis.numberFormatter.numberFormat = "#.0a";
@@ -1422,7 +1449,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.createSeries('Default', 'სულ', this.avarigeChart);
         this.titleForCostsChart = 'საშუალო ხარჯები (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.createSeries('Default', 'Total', this.avarigeChart);
         this.titleForCostsChart = 'Average expenditure (Thousand GEL)';
       }
@@ -1444,7 +1472,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForCostsChart =
           'საშუალო ხარჯები ეკონომიკური სტატუსის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart =
           'Average Expenditure By Economic Status (Thousand GEL)';
       }
@@ -1456,7 +1485,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForCostsChart =
           'საშუალო ხარჯები ასაკის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart = 'Average Expenditure By Age (Thousand GEL)';
       }
     } else if (this.numbersForAvarige.indicator == 3) {
@@ -1467,7 +1497,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForCostsChart =
           'საშუალო ხარჯები სქესის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart =
           'Average Expenditure By Gender (Thousand GEL)';
       }
@@ -1489,7 +1520,8 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForCostsChart =
           'საშუალო ხარჯები მიზნის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart =
           'Average Expenditure By Purpose (Thousand GEL)';
       }
@@ -1500,7 +1532,8 @@ export class DefaultIndicatorComponent implements OnInit {
 
       if (this.lang == 'GEO') {
         this.titleForCostsChart = 'საშუალო ხარჯები კმაყოფილების დონის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart =
           'Average Expenditure By Level Of Satisfaction';
       }
@@ -1509,10 +1542,11 @@ export class DefaultIndicatorComponent implements OnInit {
         this.createSeries(element, element, this.avarigeChart);
       });
 
-      if (this.lang) {
+      if (this.lang == 'GEO') {
         this.titleForCostsChart =
           'საშუალო ხარჯები ვიზიტის ტიპის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart =
           'Average Expenditure By Type Of Visit (thousand GEL)';
       }
@@ -1524,14 +1558,16 @@ export class DefaultIndicatorComponent implements OnInit {
       if (this.lang == 'GEO') {
         this.titleForCostsChart =
           'საშუალო ხარჯები რიგითობის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart = 'Average Expenditure By Order (Thousand GEL)';
       }
     } else {
       if (this.lang == 'GEO') {
         this.createSeries('Default', 'სულ', this.avarigeChart);
         this.titleForCostsChart = 'საშუალო ხარჯები (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.createSeries('Default', 'Total', this.avarigeChart);
         this.titleForCostsChart = 'Average Expenditure (Thousand GEL)';
       }
@@ -1539,9 +1575,9 @@ export class DefaultIndicatorComponent implements OnInit {
 
     this.avarigeChart.exporting.menu = new am4core.ExportMenu();
     this.avarigeChart.exporting.menu.items[0].icon =
-    '../../../assets/HomePage/download_icon.svg';
-  this.avarigeChart.exporting.menu.align = 'right';
-  this.avarigeChart.exporting.menu.verticalAlign = 'top';
+      '../../../assets/HomePage/download_icon.svg';
+    this.avarigeChart.exporting.menu.align = 'right';
+    this.avarigeChart.exporting.menu.verticalAlign = 'top';
   }
 
   createSeries(field: string, name: string, chart: any) {
@@ -1567,7 +1603,8 @@ export class DefaultIndicatorComponent implements OnInit {
     if (this.lang == 'GEO') {
       bullet.tooltipText =
         '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#")} ათასი ₾';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       bullet.tooltipText =
         '[bold]{name}[/]\n[font-size:14px]{categoryX} Year: [bold]{valueY.formatNumber("#")} Thousand ₾';
     }
@@ -1675,7 +1712,7 @@ export class DefaultIndicatorComponent implements OnInit {
     }
   }
 
-costsOnley: any;
+  costsOnley: any;
 
   costsOnleyChart(res: any) {
     am4core.useTheme(am4themes_animated);
@@ -1697,7 +1734,6 @@ costsOnley: any;
       am4core.color('#86BA90'),
     ];
 
-
     let valueAxis = this.costsOnley.yAxes.push(new am4charts.ValueAxis());
     valueAxis.numberFormatter = new am4core.NumberFormatter();
     valueAxis.numberFormatter.numberFormat = '#.0a';
@@ -1709,15 +1745,16 @@ costsOnley: any;
 
     this.costsOnley.exporting.menu = new am4core.ExportMenu();
     this.costsOnley.exporting.menu.items[0].icon =
-    '../../../assets/HomePage/download_icon.svg';
-  this.costsOnley.exporting.menu.align = 'right';
-  this.costsOnley.exporting.menu.verticalAlign = 'top';
+      '../../../assets/HomePage/download_icon.svg';
+    this.costsOnley.exporting.menu.align = 'right';
+    this.costsOnley.exporting.menu.verticalAlign = 'top';
 
     if (this.numbersForAvarige.indicator == 0) {
       if (this.lang == 'GEO') {
         this.createSeries2('Default', 'სულ', this.costsOnley);
         this.titleForCostsChart = 'ხარჯები, სულ (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.createSeries2('Default', 'Total', this.costsOnley);
         this.titleForCostsChart = 'Total Expenditure (Thousand GEL)';
       }
@@ -1739,7 +1776,8 @@ costsOnley: any;
       if (this.lang == 'GEO') {
         this.titleForCostsChart =
           'ხარჯები ეკონომიკური სტატუსის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart =
           'Expenditure By Economic Status (Thousand GEL)';
       }
@@ -1750,7 +1788,8 @@ costsOnley: any;
 
       if (this.lang == 'GEO') {
         this.titleForCostsChart = 'ხარჯები ასაკის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart = 'Expenditure By Age (Thousand GEL)';
       }
     } else if (this.numbersForAvarige.indicator == 3) {
@@ -1760,7 +1799,8 @@ costsOnley: any;
 
       if (this.lang == 'GEO') {
         this.titleForCostsChart = 'ხარჯები სქესის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart = 'Expenditure By Gender (Thousand GEL)';
       }
     } else if (this.numbersForAvarige.indicator == 4) {
@@ -1780,7 +1820,8 @@ costsOnley: any;
 
       if (this.lang == 'GEO') {
         this.titleForCostsChart = 'ხარჯები მიზნის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart = 'Expenditure By Purpose (Thousand GEL)';
       }
     } else if (this.numbersForAvarige.indicator == 5) {
@@ -1790,7 +1831,8 @@ costsOnley: any;
 
       if (this.lang == 'GEO') {
         this.titleForCostsChart = 'ხარჯები კმაყოფილების დონის მიხედვით';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart = 'Expenditure By Satisfaction Level';
       }
     } else if (this.numbersForAvarige.indicator == 6) {
@@ -1800,7 +1842,8 @@ costsOnley: any;
 
       if (this.lang == 'GEO') {
         this.titleForCostsChart = 'ხარჯები ვიზიტის ტიპის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart = 'Expenditure By Type Of Visit (Thousand GEL)';
       }
     } else if (this.numbersForAvarige.indicator == 11) {
@@ -1810,14 +1853,16 @@ costsOnley: any;
 
       if (this.lang == 'GEO') {
         this.titleForCostsChart = 'ხარჯები რიგითობის მიხედვით (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.titleForCostsChart = 'Expenditure By Order (Thousand GEL)';
       }
     } else {
       if (this.lang == 'GEO') {
         this.createSeries2('Default', 'სულ', this.costsOnley);
         this.titleForCostsChart = 'ხარჯები, სულ (ათასი ლარი)';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.createSeries2('Default', 'Total', this.costsOnley);
         this.titleForCostsChart = 'Total Expenditure (Thousand GEL)';
       }

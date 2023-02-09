@@ -508,7 +508,8 @@ export class RegionalAnalysisComponent implements OnInit {
     if (this.lang == 'GEO') {
       title = 'ვიზიტების რაოდენობა (ათასი)';
       title1 = 'ღამეების საშუალო რაოდენობა';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       title = 'Number of Visits (Thousands)';
       title1 = 'Average Number of Nights';
     }
@@ -635,7 +636,8 @@ export class RegionalAnalysisComponent implements OnInit {
     if (this.lang == 'GEO') {
       polygonTemplate2.tooltipText =
         '{name} - რეგიონის მონაცემები გაერთიანებულია იმერეთის რეგიონის მონაცემებთან';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       polygonTemplate2.tooltipText =
         '{name} - The data of the region is combined with the data of the Imereti region';
     }
@@ -664,11 +666,56 @@ export class RegionalAnalysisComponent implements OnInit {
     let uniqueKeys = Object.keys(Object.assign({}, ...res)).filter(
       (item) => item !== 'year'
     );
+
+    let namesForChart = {
+      ka: {
+        სულ: 'სულ',
+        მდედრობითი: 'ქალი',
+        მამრობითი: 'კაცი',
+        თხუთმეტი_ოცდაათი: '15-30',
+        ოცდათერთმეტი_ორმოცდაათი: '31-50',
+        ორმოცდათერთმეტი_პლიუს: '51+',
+        დასვენება: 'დასვენება',
+        მეგობრები: 'მეგობრები',
+        მკურნალობა: 'მკურნალობა',
+        შოპინგი: 'შოპინგი',
+        საქმიანობა: 'საქმიანობა',
+        სხვა: 'სხვა',
+        ძალიანუკმაყოფილო: 'ძალიან უკმაყოფილო',
+        უკმაყოფილო: 'უკმაყოფილო',
+        არცერთი: 'არცერთი',
+        კმაყოფილი: 'კმაყოფილი',
+        ძალიანკმაყოფილი: 'ძალიან კმაყოფილი',
+        არვიცი: 'სხვა',
+      },
+      en: {
+        total: 'total',
+        Female: 'Female',
+        Male: 'Male',
+        Fifteen_Thirty: '15-30',
+        Thirtyone_Fifty: '31-50',
+        Fiftyone_Plus: '51+',
+        Rest: 'Holiday, Leisure, Recreation',
+        Friends: 'Visiting friends/relatives',
+        Treatment: 'Health and Medical Care',
+        Shopping: 'Shopping',
+        Activity: 'Business or Professional',
+        Other: 'Other purpose',
+        Very_Dissatisfied: 'Very Dissatisfied',
+        Unsatisfied: 'Dissatisfied',
+        NoOne: 'Neither satisfied, nor dissatisfied',
+        Satisfied: 'Satisfied',
+        Very_Satisfied: 'Very satisfied',
+        I_Dont_Know: "I don't know/hard to answer",
+      },
+    };
+
     let newOBJ: any = [];
-    uniqueKeys.map((i, ind) => {
+    uniqueKeys.map((i: string) => {
       newOBJ.push({
         name: i,
-        chartName: this.checkBoxesArray[this.radioBtnID][ind]?.name,
+        // @ts-ignore
+        chartName: `${namesForChart.ka[i]}`,
       });
     });
 
@@ -721,7 +768,8 @@ export class RegionalAnalysisComponent implements OnInit {
     if (this.lang == 'GEO') {
       bullet.tooltipText =
         '[bold]{name}[/]\n[font-size:14px]{categoryX} წელს: [bold]{valueY.formatNumber("#")} ათასი ₾';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       bullet.tooltipText =
         '[bold]{name}[/]\n[font-size:14px]{categoryX} Year: [bold]{valueY.formatNumber("#")} Thousand ₾';
     }
@@ -765,7 +813,8 @@ export class RegionalAnalysisComponent implements OnInit {
     if (this.selectedRegion.length === 0) {
       if (this.lang === 'GEO') {
         this.selectedRegion = 'თბილისი';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         this.selectedRegion = 'Tbilisi';
       }
     }
@@ -784,7 +833,8 @@ export class RegionalAnalysisComponent implements OnInit {
 
     if (this.lang == 'GEO') {
       this.sanqiName = 'ვიზიტების რაოდენობა რეგიონების მიხედვით';
-    } else {
+    }
+    if (this.lang == 'ENG') {
       this.sanqiName = 'Number of Visits By Region';
     }
 
@@ -835,7 +885,8 @@ export class RegionalAnalysisComponent implements OnInit {
 
     if (this.lang === 'GEO') {
       this.regionId = this.regionCodesGE[value];
-    } else {
+    }
+    if (this.lang == 'ENG') {
       this.regionId = this.regionCodesEN[value];
     }
     this.createCharts();
