@@ -68,7 +68,8 @@ export class InteractiveMapComponent implements OnInit {
   vTypes() {
     if (this.lang == 'GEO') {
       return this.vTypesGE;
-    } else {
+    }
+    if (this.lang == 'ENG') {
       return this.vTypesEN;
     }
   }
@@ -251,7 +252,8 @@ export class InteractiveMapComponent implements OnInit {
   gendersOptions() {
     if (this.lang == 'GEO') {
       return this.gendersOptionsGE;
-    } else {
+    }
+    if (this.lang == 'ENG') {
       return this.gendersOptionsEN;
     }
   }
@@ -847,13 +849,15 @@ export class InteractiveMapComponent implements OnInit {
     if (this.selectedCountryDataId == -1) {
       if (this.lang == 'GEO') {
         series.tooltipText = '{yearNo} წელს, {value}';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         series.tooltipText = '{yearNo} Year, {value}';
       }
     } else {
       if (this.lang == 'GEO') {
         series.tooltipText = '{yearNo} წელს, {value} ვიზიტი {countryNameGe}დან';
-      } else {
+      }
+      if (this.lang == 'ENG') {
         series.tooltipText =
           '{yearNo} Year, {value} Visits from {countryNameGe}';
       }

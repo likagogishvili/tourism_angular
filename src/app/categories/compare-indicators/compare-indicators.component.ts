@@ -441,7 +441,6 @@ export class CompareIndicatorsComponent implements OnInit {
 
       chrt.logo.disabled = true;
       // chrt.legend = new am4charts.Legend();
-
     }
 
     switch (this.hIndic) {
@@ -454,7 +453,8 @@ export class CompareIndicatorsComponent implements OnInit {
             this.mIndic,
             this.isValue
           );
-        } else {
+        }
+        if (this.lang == 'ENG') {
           createSeries(
             this.mIndic,
             'All',
