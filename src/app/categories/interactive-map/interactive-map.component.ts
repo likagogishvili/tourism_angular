@@ -750,7 +750,7 @@ export class InteractiveMapComponent implements OnInit {
     this.mapchart.colors.step = 3;
 
     let polygonTemplate = this.worldSeries.mapPolygons.template;
-    polygonTemplate.tooltipText = '{countryName} - {value}';
+    polygonTemplate.tooltipText = '{countryName} - {value.formatNumber("#.0a")}';
     // polygonTemplate.tooltipText = toolltip
     polygonTemplate.fill = this.mapchart.colors.getIndex(0);
     polygonTemplate.nonScalingStroke = true;
