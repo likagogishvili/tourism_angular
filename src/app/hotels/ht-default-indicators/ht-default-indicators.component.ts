@@ -59,6 +59,32 @@ export class HtDefaultIndicatorsComponent implements OnInit {
 
   indicator!: number;
   indicators!: IDropDown[];
+  regionsForLable: any = {
+    GEO: {
+      სამეგრელო_ზემოსვანეთი: 'სამეგრელო-ზემო სვანეთი',
+      თბილისი: 'თბილისი',
+      იმერეთი_რაჭა_ლეჩხუმი: 'იმერეთი და რაჭა-ლეჩხუმი',
+      შიდა_ქართლი: 'შიდა ქართლი',
+      აჭარა: 'აჭარის ა/რ',
+      სამცხე_ჯავახეთი: 'სამცხე-ჯავახეთი',
+      ქვემო_ქართლი: 'ქვემო ქართლი',
+      მცხეთა_მთიანეთი: 'მცხეთა-მთიანეთი',
+      გურია: 'გურია',
+      კახეთი: 'კახეთი',
+    },
+    ENG: {
+      Samegrelo_Zemosvaneti: 'Samegrelo-Zemo Svaneti',
+      Tbilisi: 'Tbilisi',
+      Imereti_Racha_Lechkhumi: 'Imereti And Racha-Lechkhumi',
+      Shida_Kartli: 'Shida Kartli',
+      Adjara: 'Adjara A/R',
+      Samtskhe_Javakheti: 'Samtskhe-Javakheti',
+      Kvemo_Kartli: 'Kvemo Kartli',
+      Mtskheta_Mtianeti: 'Mtskheta-Mtianeti',
+      Guria: 'Guria',
+      Kakheti: 'Kakheti',
+    },
+  };
 
   years!: number[];
   year: number = 2021;
@@ -77,8 +103,6 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     if (list.length === 0) {
       list = ['38', '11', '26', '47', '15', '41', '44', '32', '23', '29'];
     }
-    // console.log(list)
-
     this.optList = list.join();
 
     am4core.disposeAllCharts();
@@ -468,4 +492,12 @@ export class HtDefaultIndicatorsComponent implements OnInit {
     circle.strokeWidth = 3;
     return lineSeries;
   }
+
+  // if(this.lang === 'GEO'){
+  //   // @ts-expect-error
+  //   return regions['ka'].reg
+  // }if(this.lang === 'EN'){
+  //   // @ts-expect-error
+  //   return regions['en'].reg
+  // }
 }
