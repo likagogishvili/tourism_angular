@@ -103,9 +103,13 @@
                 value="{{ reg.value }}"
                 (change)="addRemoveRegion()"
               />
-              <label class="fontForCheckboxes" for="{{ reg.name }}">{{
-                reg.name.split("_").join(" ")
-              }}</label>
+              <label class="fontForCheckboxes" for="{{ reg.name }}"
+                >{{
+                  lang === "GEO"
+                    ? regionsForLable.GEO[reg.name]
+                    : regionsForLable.ENG[reg.name]
+                }}
+              </label>
               <br />
             </div>
           </div>
