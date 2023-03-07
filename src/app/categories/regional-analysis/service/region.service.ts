@@ -153,9 +153,9 @@ export class RegionService {
 
   goals() {
     if (this.lang == 'GEO') {
-      return this.goalsEN;
-    } else {
       return this.goalsGE;
+    } else {
+      return this.goalsEN;
     }
   }
 
